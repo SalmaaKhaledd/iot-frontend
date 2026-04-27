@@ -19,5 +19,10 @@ export const routes: Routes = [
       import('./features/auth/login/login.component').then(
         (m) => m.LoginComponent
       )
-  }
+  },
+  {
+  path: 'home',
+  redirectTo: 'login',
+  pathMatch: 'full'
+}
 ];
