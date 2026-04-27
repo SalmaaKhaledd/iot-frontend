@@ -4,12 +4,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { RegisterRequest } from '../../../core/models/auth.models';
+import { RegisterRequest, User } from '../../../core/models/auth.models';
+import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, SensorixLogoComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -20,6 +21,7 @@ export class SignupComponent {
 
   errorMessage = '';
   isLoading = false;
+  submitted = false;
 
   readonly signupForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -48,6 +50,8 @@ export class SignupComponent {
   }
 
   onSubmit(): void {
+    this.submitted = true;
+
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
       return;
@@ -59,15 +63,33 @@ export class SignupComponent {
     const payload = this.signupForm.getRawValue() as RegisterRequest;
 
     this.authService.register(payload).subscribe({
-      next: () => {
+      next: (response) => {
+        const fallbackUser: User = {
+          id: String(Date.now()),
+          email: payload.email,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          profilePicture: payload.profilePicture,
+        };
+        this.authService.saveUser(response.user ?? fallbackUser);
+        if (response.token) {
+          this.authService.saveToken(response.token);
+        }
         this.isLoading = false;
         alert('Account created successfully');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       },
       error: () => {
         this.isLoading = false;
         this.errorMessage = 'Registration failed. Please try again.';
       },
     });
+  }
+
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.signupForm.get(controlName);
+    return Boolean(
+      control && (control.touched || this.submitted) && control.hasError(errorName),
+    );
   }
 }

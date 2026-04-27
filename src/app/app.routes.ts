@@ -4,25 +4,25 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'signup',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'signup',
     loadComponent: () =>
       import('./features/auth/signup/signup.component').then(
-        (m) => m.SignupComponent
-      )
+        (m) => m.SignupComponent,
+      ),
   },
   {
     path: 'login',
     loadComponent: () =>
       import('./features/auth/login/login.component').then(
-        (m) => m.LoginComponent
-      )
+        (m) => m.LoginComponent,
+      ),
   },
   {
-  path: 'home',
-  redirectTo: 'login',
-  pathMatch: 'full'
-}
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home.component').then((m) => m.HomeComponent),
+  },
 ];

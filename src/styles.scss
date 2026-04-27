@@ -5,7 +5,6 @@ html {
   @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
-      typography: Roboto,
       density: 0,
     ));
 }
@@ -21,6 +20,21 @@ html {
   --input-bg: #21262d;
   --destructive: #d4183d;
   --radius: 0.625rem;
+  --radius-sm: calc(0.625rem - 4px);
+  --radius-md: calc(0.625rem - 2px);
+  --radius-lg: 0.625rem;
+  --radius-xl: calc(0.625rem + 4px);
+  --font-system:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
 }
 
 * {
@@ -33,8 +47,18 @@ body {
   color-scheme: dark;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Roboto, sans-serif;
-  font-size: 16px;
+  font-family: var(--font-system);
+  font-size: var(--text-base);
+  line-height: 1.5;
   margin: 0;
   height: 100%;
+}
+
+button,
+input,
+label,
+textarea,
+select {
+  font: inherit;
+  line-height: 1.5;
 }

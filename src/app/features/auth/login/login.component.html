@@ -1,8 +1,12 @@
 <div class="login-page">
   <div class="login-card">
     <div class="logo-row">
-      <span class="logo-icon">◆</span>
-      <span class="logo-text">Sensorix</span>
+      <app-sensorix-logo
+        [iconSize]="'clamp(24px, 3vw, 32px)'"
+        [textSize]="'clamp(22px, 2.4vw, 28px)'"
+        [gap]="'12px'"
+        [textWeight]="'600'"
+      />
     </div>
 
     <h2>Welcome back</h2>
@@ -48,7 +52,7 @@
       }
 
       <button type="submit" [disabled]="isLoading">
-        {{ isLoading ? 'Logging in...' : 'Login' }}
+        {{ isLoading ? 'Signing in...' : 'Sign in' }}
       </button>
     </form>
 

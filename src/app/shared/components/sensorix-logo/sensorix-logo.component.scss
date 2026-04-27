@@ -1,0 +1,14 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.text {
+  color: var(--foreground);
+  line-height: 1.3;
+}
