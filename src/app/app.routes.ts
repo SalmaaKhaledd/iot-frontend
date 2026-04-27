@@ -13,12 +13,11 @@ export const routes: Routes = [
         (m) => m.SignupComponent
       )
   },
-  // TODO: uncomment when login component is built
-  // {
-  //   path: 'login',
-  //   loadComponent: () =>
-  //     import('./features/auth/login/login.component').then(
-  //       (m) => m.LoginComponent
-  //     )
-  // }
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then(
+        (m) => m.LoginComponent
+      )
+  }
 ];
