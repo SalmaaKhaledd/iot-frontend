@@ -1,6 +1,6 @@
 /** Represents an authenticated application user profile returned by the API. */
 export interface User {
-  id: number;
+  id: string;
   email: string;
   firstName: string;
   lastName: string;
