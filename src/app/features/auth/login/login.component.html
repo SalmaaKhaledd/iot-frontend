@@ -1,0 +1,58 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo-row">
+      <span class="logo-icon">◆</span>
+      <span class="logo-text">Sensorix</span>
+    </div>
+
+    <h2>Welcome back</h2>
+    <p class="subtitle">Sign in to your Sensorix account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="field-wrapper">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+        />
+        @if (loginForm.controls.email.touched &&
+        loginForm.controls.email.hasError('required')) {
+        <div class="field-error">Email is required.</div>
+        } @if (loginForm.controls.email.touched &&
+        loginForm.controls.email.hasError('email')) {
+        <div class="field-error">Please enter a valid email address.</div>
+        }
+      </div>
+
+      <div class="field-wrapper">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          [class.input-error]="errorMessage !== ''"
+        />
+        @if (loginForm.controls.password.touched &&
+        loginForm.controls.password.hasError('required')) {
+        <div class="field-error">Password is required.</div>
+        } @if (loginForm.controls.password.touched &&
+        loginForm.controls.password.hasError('minlength')) {
+        <div class="field-error">Password must be at least 8 characters.</div>
+        }
+      </div>
+
+      @if (errorMessage !== '') {
+      <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <button type="submit" [disabled]="isLoading">Sign in</button>
+    </form>
+
+    <p class="footer-text">
+      Don't have an account?
+      <a routerLink="/signup">Create one</a>
+    </p>
+  </div>
+</div>
