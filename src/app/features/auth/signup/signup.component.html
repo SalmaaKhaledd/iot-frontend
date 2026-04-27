@@ -73,7 +73,9 @@
       <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="isLoading">Create account</button>
+      <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Creating account...' : 'Create account' }}
+      </button>
     </form>
 
     <p class="footer-text">

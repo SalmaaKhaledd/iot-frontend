@@ -47,7 +47,9 @@
       <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="isLoading">Sign in</button>
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
     </form>
 
     <p class="footer-text">
