@@ -1,16 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, of, switchMap, throwError, timeout } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import {
-  AuthResponse,
-  LoginRequest,
-  RegisterRequest,
-  User,
-} from '../models/auth.models';
 import { environment } from '../../../environments/environment';
+import type { AuthResponse, User } from '../models/user.model';
+import type { RegisterRequest } from '../models/auth.models';
 
-type JsonServerUser = User & { password: string };
+export interface RegisterSuccessResponse {
+  readonly message: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,34 +17,22 @@ export class AuthService {
   private readonly tokenStorageKey = 'auth_token';
   private readonly userStorageKey = 'iot_user';
 
-  register(payload: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/users`, payload);
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, {
+      email,
+      password,
+    });
   }
 
-  login(payload: LoginRequest): Observable<AuthResponse> {
-    return this.http.get<JsonServerUser[]>(`${this.baseUrl}/users`).pipe(
-      map((users) => {
-        console.log('users from mock:', users);
-        console.log('payload:', payload);
-        const found = users.find(
-          (user) =>
-            user.email === payload.email && user.password === payload.password,
-        ) ?? null;
-        console.log('matched user:', found);
-        return found;
-      }),
-      switchMap((matchedUser) => {
-        if (!matchedUser) {
-          return throwError(() => new Error('Invalid credentials'));
-        }
-        const { password: _password, ...userWithoutPassword } = matchedUser;
-        return of({
-          token: 'mock-jwt-token',
-          user: userWithoutPassword as User,
-        });
-      }),
-      timeout(8000),
+  register(user: RegisterRequest): Observable<RegisterSuccessResponse> {
+    return this.http.post<RegisterSuccessResponse>(
+      `${this.baseUrl}/auth/register`,
+      user,
     );
+  }
+
+  getMe(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/me`);
   }
 
   saveToken(token: string): void {

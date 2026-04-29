@@ -40,10 +40,14 @@ export class LoginComponent {
 
     //finalize is used to set the isLoading flag to false after the login request is complete
     this.authService
-      .login(payload)
+      .login(payload.email, payload.password)
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (response) => {
+          if (!response?.token || !response?.user) {
+            this.errorMessage = 'Invalid email or password. Please try again.';
+            return;
+          }
           this.authService.saveToken(response.token);
           this.authService.saveUser(response.user);
           this.router.navigate(['/home']);

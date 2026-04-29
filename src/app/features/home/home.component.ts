@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 
 import { AuthService } from '../../core/services/auth.service';
-import { User } from '../../core/models/auth.models';
+import { User } from '../../core/models/user.model';
 import { SensorixLogoComponent } from '../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({

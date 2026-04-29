@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { RegisterRequest, User } from '../../../core/models/auth.models';
+import { RegisterRequest } from '../../../core/models/auth.models';
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
@@ -62,28 +63,18 @@ export class SignupComponent {
 
     const payload = this.signupForm.getRawValue() as RegisterRequest;
 
-    this.authService.register(payload).subscribe({
-      next: (response) => {
-        const fallbackUser: User = {
-          id: String(Date.now()),
-          email: payload.email,
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          profilePicture: payload.profilePicture,
-        };
-        this.authService.saveUser(response.user ?? fallbackUser);
-        if (response.token) {
-          this.authService.saveToken(response.token);
-        }
-        this.isLoading = false;
-        alert('Account created successfully');
-        this.router.navigate(['/home']);
-      },
-      error: () => {
-        this.isLoading = false;
-        this.errorMessage = 'Registration failed. Please try again.';
-      },
-    });
+    this.authService
+      .register(payload)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: () => {
+          alert('Account created successfully');
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.errorMessage = 'Registration failed. Please try again.';
+        },
+      });
   }
 
   hasError(controlName: string, errorName: string): boolean {
