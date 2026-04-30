@@ -60,10 +60,19 @@ function extractApiMessage(body: unknown): string | null {
   }
 
   const message = (body as Partial<ApiErrorResponse>).message;
-  if (typeof message !== 'string') {
+  if (typeof message === 'string') {
+    const trimmed = message.trim();
+    return trimmed.length > 0 ? trimmed : null;
+  }
+
+  if (!Array.isArray(message)) {
     return null;
   }
 
-  const trimmed = message.trim();
-  return trimmed.length > 0 ? trimmed : null;
+  const normalized = message
+    .filter((entry): entry is string => typeof entry === 'string')
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+
+  return normalized.length > 0 ? normalized.join('\n') : null;
 }
