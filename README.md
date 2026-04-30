@@ -2,6 +2,10 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
 
+## QA: local testing handoff
+
+For setup, mock credentials, session reset, see **[docs/qa-local.md](docs/qa-local.md)**.
+
 ## Development server
 
 To start a local development server, run:

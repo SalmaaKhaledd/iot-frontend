@@ -34,7 +34,8 @@ const mockUsers: MockUser[] = [
   },
 ];
 
-let currentUser: User = mockUsers[0];
+/** Dev tokens encode the user id so profile routes survive a full page reload. */
+const MOCK_JWT_PREFIX = 'mock-jwt-';
 
 function getPathname(url: string): string {
   try {
@@ -46,9 +47,27 @@ function getPathname(url: string): string {
   }
 }
 
-function isAuthorized(req: HttpRequest<unknown>): boolean {
-  const authHeader = req.headers.get('Authorization');
-  return typeof authHeader === 'string' && authHeader.startsWith('Bearer ');
+function bearerToken(req: HttpRequest<unknown>): string | null {
+  const header = req.headers.get('Authorization');
+  if (!header?.startsWith('Bearer ')) {
+    return null;
+  }
+  const raw = header.slice('Bearer '.length).trim();
+  return raw.length > 0 ? raw : null;
+}
+
+function sessionUserFromRequest(req: HttpRequest<unknown>): User | null {
+  const token = bearerToken(req);
+  if (!token?.startsWith(MOCK_JWT_PREFIX)) {
+    return null;
+  }
+  const userId = token.slice(MOCK_JWT_PREFIX.length);
+  const found = mockUsers.find((user) => user.id === userId);
+  if (!found) {
+    return null;
+  }
+  const { password: _, ...withoutPassword } = found;
+  return withoutPassword;
 }
 
 export const mockInterceptor: HttpInterceptorFn = (req, next) => {
@@ -223,14 +242,13 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     const { password: _, ...userWithoutPassword } = matchedUser;
-    currentUser = userWithoutPassword;
 
     const body = {
       userId: userWithoutPassword.id,
       email: userWithoutPassword.email,
       firstName: userWithoutPassword.firstName,
       lastName: userWithoutPassword.lastName,
-      token: 'mock-jwt-token',
+      token: `${MOCK_JWT_PREFIX}${userWithoutPassword.id}`,
       message: 'Login successful.',
     };
     return of(
@@ -243,7 +261,8 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
 
   // TODO: remove when backend is ready
   if (req.method === 'GET' && path.endsWith('/api/users/profile')) {
-    if (!isAuthorized(req)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
       return throwError(
         () =>
           new HttpErrorResponse({
@@ -262,11 +281,11 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       new HttpResponse({
         status: 200,
         body: {
-          userId: currentUser.id,
-          firstName: currentUser.firstName,
-          lastName: currentUser.lastName,
-          email: currentUser.email,
-          profilePicture: currentUser.profilePicture,
+          userId: sessionUser.id,
+          firstName: sessionUser.firstName,
+          lastName: sessionUser.lastName,
+          email: sessionUser.email,
+          profilePicture: sessionUser.profilePicture,
         },
       }),
     ).pipe(delay(300));
@@ -274,7 +293,8 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
 
   // TODO: remove when backend is ready
   if (req.method === 'PATCH' && path.endsWith('/api/users/profile/password')) {
-    if (!isAuthorized(req)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
       return throwError(
         () =>
           new HttpErrorResponse({
@@ -310,7 +330,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    const userIndex = mockUsers.findIndex((user) => user.id === currentUser.id);
+    const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
     if (userIndex < 0 || mockUsers[userIndex].password !== currentPassword) {
       return throwError(
         () =>
@@ -337,7 +357,8 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
 
   // TODO: remove when backend is ready
   if (req.method === 'PATCH' && path.endsWith('/api/users/profile/picture')) {
-    if (!isAuthorized(req)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
       return throwError(
         () =>
           new HttpErrorResponse({
@@ -370,8 +391,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    currentUser = { ...currentUser, profilePicture };
-    const userIndex = mockUsers.findIndex((user) => user.id === currentUser.id);
+    const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
     if (userIndex >= 0) {
       mockUsers[userIndex].profilePicture = profilePicture;
     }
