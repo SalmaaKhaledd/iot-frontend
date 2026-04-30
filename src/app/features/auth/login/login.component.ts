@@ -1,15 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { LoginRequest } from '../../../core/models/auth.models';
 import { AuthService } from '../../../core/services/auth.service';
+import { mapAuthError } from '../../../core/utils/auth-error';
+import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, SensorixLogoComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -18,6 +22,7 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly destroyRef = inject(DestroyRef);
 
   errorMessage = '';
   isLoading = false;
@@ -41,19 +46,23 @@ export class LoginComponent {
     //finalize is used to set the isLoading flag to false after the login request is complete
     this.authService
       .login(payload.email, payload.password)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => (this.isLoading = false)),
+      )
       .subscribe({
         next: (response) => {
-          if (!response?.token || !response?.user) {
+          if (!response?.token || !response?.userId) {
             this.errorMessage = 'Invalid email or password. Please try again.';
             return;
           }
+
           this.authService.saveToken(response.token);
-          this.authService.saveUser(response.user);
+          this.authService.saveUser(toUserFromAuthResponse(response));
           this.router.navigate(['/home']);
         },
-        error: () => {
-          this.errorMessage = 'Invalid email or password. Please try again.';
+        error: (error: unknown) => {
+          this.errorMessage = mapAuthError(error);
         },
       });
   }
