@@ -3,36 +3,55 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import type { AuthResponse, User } from '../models/user.model';
-import type { RegisterRequest } from '../models/auth.models';
+import type { User, UserProfileResponse } from '../models/user.model';
+import type {
+  AuthApiSuccessResponse,
+  MessageResponse,
+  RegisterRequest,
+  UpdatePasswordRequest,
+  UpdateProfilePictureRequest,
+} from '../models/auth.models';
 
-export interface RegisterSuccessResponse {
-  readonly message: string;
-}
-
+//one shared singleton instance of the AuthService
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
-  private readonly tokenStorageKey = 'auth_token';
+  private readonly tokenStorageKey = 'iot_auth_token';
   private readonly userStorageKey = 'iot_user';
 
-  login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, {
+  login(email: string, password: string): Observable<AuthApiSuccessResponse> {
+    return this.http.post<AuthApiSuccessResponse>(`${this.baseUrl}/auth/login`, {
       email,
       password,
     });
   }
 
-  register(user: RegisterRequest): Observable<RegisterSuccessResponse> {
-    return this.http.post<RegisterSuccessResponse>(
+  register(user: RegisterRequest): Observable<AuthApiSuccessResponse> {
+    return this.http.post<AuthApiSuccessResponse>(
       `${this.baseUrl}/auth/register`,
       user,
     );
   }
 
-  getMe(): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/me`);
+  getMe(): Observable<UserProfileResponse> {
+    return this.http.get<UserProfileResponse>(`${this.baseUrl}/users/profile`);
+  }
+
+  updatePassword(payload: UpdatePasswordRequest): Observable<MessageResponse> {
+    return this.http.patch<MessageResponse>(
+      `${this.baseUrl}/users/profile/password`,
+      payload,
+    );
+  }
+
+  updateProfilePicture(
+    payload: UpdateProfilePictureRequest,
+  ): Observable<MessageResponse> {
+    return this.http.patch<MessageResponse>(
+      `${this.baseUrl}/users/profile/picture`,
+      payload,
+    );
   }
 
   saveToken(token: string): void {
