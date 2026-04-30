@@ -1,0 +1,173 @@
+.profile-page {
+  min-height: 100vh;
+  background: var(--background);
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 42rem;
+  background: var(--card, #161b22);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 1rem;
+}
+
+.avatar {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: var(--sensorix-teal);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.avatar-edit {
+  position: absolute;
+  right: -0.25rem;
+  bottom: 0.25rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.avatar-edit.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: var(--text-3xl, 2rem);
+}
+
+.email {
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.divider {
+  margin: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  text-align: left;
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.value {
+  font-size: 1.125rem;
+}
+
+.change-password-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+button {
+  background: var(--sensorix-teal);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: var(--destructive);
+  margin-top: 1rem;
+}
+
+.success-message {
+  color: var(--sensorix-teal);
+  margin-top: 1rem;
+}
+
+.status-message {
+  color: var(--muted-foreground);
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 28rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+label {
+  text-align: left;
+}
+
+input {
+  height: 2.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--input-bg, #21262d);
+  color: var(--foreground);
+  padding: 0 0.75rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}

@@ -1,0 +1,76 @@
+<div class="profile-page">
+  <section class="profile-card">
+    @if (isLoading) {
+      <p class="status-message">Loading profile...</p>
+    } @else {
+      <div class="avatar-wrapper">
+        <div class="avatar">{{ initials }}</div>
+        <label class="avatar-edit" [class.disabled]="isUploadingPicture" for="profilePictureInput">
+          ✎
+        </label>
+        <input
+          id="profilePictureInput"
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onProfilePictureSelected($event)"
+        />
+      </div>
+
+      <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
+      <p class="email">{{ user?.email }}</p>
+
+      <div class="divider"></div>
+
+      <div class="field-row">
+        <span class="label">First name</span>
+        <span class="value">{{ user?.firstName }}</span>
+      </div>
+      <div class="field-row">
+        <span class="label">Last name</span>
+        <span class="value">{{ user?.lastName }}</span>
+      </div>
+      <div class="field-row">
+        <span class="label">Email</span>
+        <span class="value">{{ user?.email }}</span>
+      </div>
+      <div class="field-row">
+        <span class="label">Password</span>
+        <span class="value">••••••••</span>
+      </div>
+
+      <button type="button" class="change-password-btn" (click)="openPasswordModal()">
+        Change password
+      </button>
+    }
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+    @if (successMessage) {
+      <p class="success-message">{{ successMessage }}</p>
+    }
+  </section>
+
+  @if (showPasswordModal) {
+    <div class="modal-backdrop" (click)="closePasswordModal()">
+      <div class="modal-card" (click)="$event.stopPropagation()">
+        <h2>Change password</h2>
+        <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+          <label for="currentPassword">Current password</label>
+          <input id="currentPassword" type="password" formControlName="currentPassword" />
+
+          <label for="newPassword">New password</label>
+          <input id="newPassword" type="password" formControlName="newPassword" />
+
+          <div class="modal-actions">
+            <button type="button" class="secondary-btn" (click)="closePasswordModal()">Cancel</button>
+            <button type="submit" [disabled]="isChangingPassword">
+              {{ isChangingPassword ? 'Updating...' : 'Save password' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>
