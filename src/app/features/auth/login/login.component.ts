@@ -6,6 +6,7 @@ import { finalize } from 'rxjs';
 
 import { LoginRequest } from '../../../core/models/auth.models';
 import { AuthService } from '../../../core/services/auth.service';
+import { AUTH_VALIDATION } from '../../../core/validation/auth-validation.constants';
 import { mapAuthError } from '../../../core/utils/auth-error';
 import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
@@ -28,11 +29,27 @@ export class LoginComponent {
   isLoading = false;
 
   readonly loginForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(AUTH_VALIDATION.emailMaxLength),
+      ],
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(AUTH_VALIDATION.passwordMaxLength),
+      ],
+    ],
   });
 
   onSubmit(): void {
+    const normalizedEmail = (this.loginForm.controls.email.value ?? '').trim().toLowerCase();
+    this.loginForm.controls.email.setValue(normalizedEmail);
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -41,7 +58,11 @@ export class LoginComponent {
     this.errorMessage = '';
     this.isLoading = true;
 
-    const payload = this.loginForm.getRawValue() as LoginRequest;
+    const formValue = this.loginForm.getRawValue();
+    const payload: LoginRequest = {
+      email: (formValue.email ?? '').trim().toLowerCase(),
+      password: formValue.password ?? '',
+    };
 
     //finalize is used to set the isLoading flag to false after the login request is complete
     this.authService
