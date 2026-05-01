@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
@@ -15,7 +16,7 @@ import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/
   selector: 'app-login',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, RouterLink, SensorixLogoComponent],
+  imports: [ReactiveFormsModule, RouterLink, SensorixLogoComponent, MatIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -27,6 +28,7 @@ export class LoginComponent {
 
   errorMessage = '';
   isLoading = false;
+  showPassword = false;
 
   readonly loginForm = this.formBuilder.group({
     email: [
@@ -86,5 +88,9 @@ export class LoginComponent {
           this.errorMessage = mapAuthError(error);
         },
       });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

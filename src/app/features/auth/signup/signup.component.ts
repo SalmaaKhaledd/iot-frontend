@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
+  ElementRef,
   OnDestroy,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { finalize, switchMap } from 'rxjs';
 
@@ -27,7 +31,13 @@ import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/
   selector: 'app-signup',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, SensorixLogoComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+    SensorixLogoComponent,
+    MatIconModule,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -36,11 +46,18 @@ export class SignupComponent implements OnDestroy {
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+  @ViewChild('profilePictureInput')
+  private profilePictureInput?: ElementRef<HTMLInputElement>;
 
   errorMessage = '';
   profilePictureError = '';
   selectedProfilePictureName = '';
   profilePicturePreviewUrl = '';
+  isReadingProfilePicture = false;
+  showPassword = false;
+  showConfirmPassword = false;
   private objectPreviewUrl: string | null = null;
   isLoading = false;
   submitted = false;
@@ -96,11 +113,24 @@ export class SignupComponent implements OnDestroy {
     this.processProfileImageFile(file);
   }
 
+  removeProfilePicture(): void {
+    this.profilePictureError = '';
+    this.selectedProfilePictureName = '';
+    this.clearPreviewUrl();
+    this.signupForm.patchValue({ profilePicture: '' });
+    this.resetProfilePictureInput();
+    this.changeDetectorRef.markForCheck();
+  }
+
   private processProfileImageFile(file: File | undefined): void {
     this.profilePictureError = '';
+    this.isReadingProfilePicture = false;
     if (!file) {
       this.selectedProfilePictureName = '';
       this.clearPreviewUrl();
+      this.resetProfilePictureInput();
+      this.signupForm.patchValue({ profilePicture: '' });
+      this.changeDetectorRef.markForCheck();
       return;
     }
 
@@ -110,6 +140,8 @@ export class SignupComponent implements OnDestroy {
       this.selectedProfilePictureName = '';
       this.clearPreviewUrl();
       this.signupForm.patchValue({ profilePicture: '' });
+      this.resetProfilePictureInput();
+      this.changeDetectorRef.markForCheck();
       return;
     }
 
@@ -117,6 +149,8 @@ export class SignupComponent implements OnDestroy {
     this.clearPreviewUrl();
     this.objectPreviewUrl = URL.createObjectURL(file);
     this.profilePicturePreviewUrl = this.objectPreviewUrl;
+    this.isReadingProfilePicture = true;
+    this.changeDetectorRef.markForCheck();
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -124,6 +158,17 @@ export class SignupComponent implements OnDestroy {
       if (typeof result === 'string') {
         this.signupForm.patchValue({ profilePicture: result });
       }
+      this.isReadingProfilePicture = false;
+      this.changeDetectorRef.markForCheck();
+    };
+    reader.onerror = () => {
+      this.profilePictureError = 'Could not read this image. Please try a different file.';
+      this.selectedProfilePictureName = '';
+      this.clearPreviewUrl();
+      this.signupForm.patchValue({ profilePicture: '' });
+      this.resetProfilePictureInput();
+      this.isReadingProfilePicture = false;
+      this.changeDetectorRef.markForCheck();
     };
     reader.readAsDataURL(file);
   }
@@ -138,6 +183,12 @@ export class SignupComponent implements OnDestroy {
       this.objectPreviewUrl = null;
     }
     this.profilePicturePreviewUrl = '';
+  }
+
+  private resetProfilePictureInput(): void {
+    if (this.profilePictureInput?.nativeElement) {
+      this.profilePictureInput.nativeElement.value = '';
+    }
   }
 
   onSubmit(): void {
@@ -208,5 +259,13 @@ export class SignupComponent implements OnDestroy {
       this.signupForm.hasError('passwordMismatch') &&
         (this.signupForm.get('confirmPassword')?.touched || this.submitted),
     );
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }

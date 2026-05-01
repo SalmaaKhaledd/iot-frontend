@@ -36,7 +36,13 @@
       <div class="name-row">
         <div class="field-wrapper name-field">
           <label for="firstName">First name</label>
-          <input id="firstName" type="text" formControlName="firstName" autocomplete="given-name" />
+          <input
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+            placeholder="e.g., Jane"
+            autocomplete="given-name"
+          />
           @if (hasError('firstName', 'required')) {
           <span class="field-error">First name is required.</span>
           }
@@ -50,7 +56,13 @@
 
         <div class="field-wrapper name-field">
           <label for="lastName">Last name</label>
-          <input id="lastName" type="text" formControlName="lastName" autocomplete="family-name" />
+          <input
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            placeholder="e.g., Doe"
+            autocomplete="family-name"
+          />
           @if (hasError('lastName', 'required')) {
           <span class="field-error">Last name is required.</span>
           }
@@ -65,7 +77,25 @@
 
       <div class="field-wrapper">
         <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" autocomplete="new-password" />
+        <div class="password-input-group">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Create a strong password (min 8 chars)"
+            autocomplete="new-password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <mat-icon aria-hidden="true">
+              {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
         @if (hasError('password', 'required')) {
         <span class="field-error">Password is required.</span>
         }
@@ -82,12 +112,25 @@
 
       <div class="field-wrapper">
         <label for="confirmPassword">Confirm password</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          formControlName="confirmPassword"
-          autocomplete="new-password"
-        />
+        <div class="password-input-group">
+          <input
+            id="confirmPassword"
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            formControlName="confirmPassword"
+            placeholder="Repeat the same password"
+            autocomplete="new-password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="toggleConfirmPasswordVisibility()"
+            [attr.aria-label]="showConfirmPassword ? 'Hide password' : 'Show password'"
+          >
+            <mat-icon aria-hidden="true">
+              {{ showConfirmPassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
         @if (hasError('confirmPassword', 'required')) {
         <span class="field-error">Please confirm your password.</span>
         }
@@ -97,10 +140,14 @@
       </div>
 
       <div class="field-wrapper">
-        <label for="profilePicture">Profile picture</label>
+        <label for="profilePicture">Profile picture (optional)</label>
+        <span id="profilePicture-hint" class="upload-hint">
+          JPG, PNG, or WEBP. Max 1 MB.
+        </span>
         <label
           class="upload-area"
           for="profilePicture"
+          tabindex="0"
         >
           @if (profilePicturePreviewUrl && !profilePictureError) {
           <img
@@ -110,19 +157,42 @@
           />
           <span class="upload-file-name">{{ selectedProfilePictureName }}</span>
           } @else {
-          <span class="upload-icon">↑</span>
+          <mat-icon class="upload-icon" aria-hidden="true">upload</mat-icon>
           <span>Click to upload</span>
           }
         </label>
         <input
+          #profilePictureInput
           id="profilePicture"
           type="file"
-          accept="image/*"
+          accept="image/png,image/jpeg,image/webp"
           (change)="onFileChange($event)"
+          [attr.aria-describedby]="
+            profilePictureError
+              ? 'profilePicture-hint profilePicture-error'
+              : 'profilePicture-hint'
+          "
           hidden
         />
+        @if (profilePicturePreviewUrl && !profilePictureError) {
+        <button
+          type="button"
+          class="upload-remove"
+          (click)="removeProfilePicture()"
+          aria-label="Remove profile picture"
+        >
+          Remove
+        </button>
+        }
+        @if (isReadingProfilePicture) {
+        <span class="upload-status" role="status" aria-live="polite">
+          Reading file…
+        </span>
+        }
         @if (profilePictureError) {
-        <span class="field-error">{{ profilePictureError }}</span>
+        <span id="profilePicture-error" class="field-error">
+          {{ profilePictureError }}
+        </span>
         }
       </div>
 

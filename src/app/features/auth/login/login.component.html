@@ -36,13 +36,26 @@
 
       <div class="field-wrapper">
         <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          [class.input-error]="errorMessage !== ''"
-          autocomplete="current-password"
-        />
+        <div class="password-input-group">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Create a strong password (min 8 chars)"
+            [class.input-error]="errorMessage !== ''"
+            autocomplete="current-password"
+          />
+          <button
+            type="button"
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <mat-icon aria-hidden="true">
+              {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
         @if (loginForm.controls.password.touched &&
         loginForm.controls.password.hasError('required')) {
         <div class="field-error">Password is required.</div>
