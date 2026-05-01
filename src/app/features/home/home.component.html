@@ -11,7 +11,7 @@
 
     <div class="topbar-actions">
       <button class="icon-button" type="button" aria-label="Toggle theme">
-        ☼
+        <mat-icon aria-hidden="true">light_mode</mat-icon>
       </button>
       <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
         @if (profilePictureUrl) {
@@ -26,5 +26,10 @@
   <main class="hero">
     <h1>Hello, {{ displayName }}</h1>
     <p>Your dashboard is being set up</p>
+    @if (refreshNotice) {
+    <p class="refresh-notice" role="status" aria-live="polite">
+      {{ refreshNotice }}
+    </p>
+    }
   </main>
 </div>

@@ -27,12 +27,14 @@
 }
 
 .icon-button {
+  display: grid;
+  place-items: center;
   border: none;
   background: transparent;
   color: var(--muted-foreground);
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   cursor: pointer;
   padding: 0.35rem;
+  line-height: 0;
 }
 
 .avatar {
@@ -85,4 +87,10 @@ p {
   color: var(--muted-foreground);
   line-height: 1.45;
   max-width: 32ch;
+}
+
+.refresh-notice {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
 }
