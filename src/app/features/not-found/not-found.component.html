@@ -1,0 +1,23 @@
+<div class="not-found-page">
+  <header class="topbar">
+    <app-sensorix-logo
+      [iconSize]="'clamp(22px, 2.8vw, 30px)'"
+      [textSize]="'clamp(18px, 2.2vw, 24px)'"
+      [gap]="'12px'"
+      [textWeight]="'600'"
+    />
+  </header>
+
+  <main class="content">
+    <mat-icon class="hero-icon" aria-hidden="true">search_off</mat-icon>
+    <p class="status-code">404</p>
+    <h1>Page not found</h1>
+    <p class="message">
+      The page you’re looking for doesn’t exist or may have been moved.
+    </p>
+
+    <button type="button" class="primary-btn" (click)="goSomewhereSafe()">
+      {{ primaryActionLabel }}
+    </button>
+  </main>
+</div>
