@@ -33,7 +33,7 @@ describe('authInterceptor', () => {
 
   it('adds bearer header for API requests when token exists', () => {
     authServiceStub.getToken = () => 'abc-token';
-    const request = new HttpRequest('GET', 'http://localhost:8080/api/users/profile');
+    const request = new HttpRequest('GET', 'http://localhost:8080/api/user/profile');
     let outgoing: HttpRequest<unknown> | undefined;
 
     TestBed.runInInjectionContext(() =>
@@ -48,7 +48,7 @@ describe('authInterceptor', () => {
 
   it('does not add bearer header when token is missing', () => {
     authServiceStub.getToken = () => null;
-    const request = new HttpRequest('GET', 'http://localhost:8080/api/users/profile');
+    const request = new HttpRequest('GET', 'http://localhost:8080/api/user/profile');
     let outgoing: HttpRequest<unknown> | undefined;
 
     TestBed.runInInjectionContext(() =>
@@ -76,9 +76,9 @@ describe('authInterceptor', () => {
     expect(outgoing?.headers.has('Authorization')).toBe(false);
   });
 
-  it('logs out and redirects on 401 responses', () => {
+  it('logs out and redirects on 401 token auth-failure responses', () => {
     authServiceStub.getToken = () => 'abc-token';
-    const request = new HttpRequest('GET', 'http://localhost:8080/api/users/profile');
+    const request = new HttpRequest('GET', 'http://localhost:8080/api/user/profile');
 
     TestBed.runInInjectionContext(() =>
       authInterceptor(request, () =>
@@ -87,6 +87,11 @@ describe('authInterceptor', () => {
             new HttpErrorResponse({
               status: 401,
               statusText: 'Unauthorized',
+              error: {
+                status: 401,
+                error: 'Unauthorized',
+                message: 'Access denied. Invalid or missing token.',
+              },
             }),
         ),
       ).subscribe({
@@ -96,5 +101,36 @@ describe('authInterceptor', () => {
 
     expect(authServiceStub.logout).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
+  });
+
+  it('does not log out on 401 domain errors (e.g. wrong current password)', () => {
+    authServiceStub.getToken = () => 'abc-token';
+    const request = new HttpRequest(
+      'PATCH',
+      'http://localhost:8080/api/user/profile/password',
+      {},
+    );
+
+    TestBed.runInInjectionContext(() =>
+      authInterceptor(request, () =>
+        throwError(
+          () =>
+            new HttpErrorResponse({
+              status: 401,
+              statusText: 'Unauthorized',
+              error: {
+                status: 401,
+                error: 'Unauthorized',
+                message: 'Current password is incorrect.',
+              },
+            }),
+        ),
+      ).subscribe({
+        error: () => undefined,
+      }),
+    );
+
+    expect(authServiceStub.logout).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
   });
 });

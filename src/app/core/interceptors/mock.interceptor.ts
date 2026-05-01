@@ -260,7 +260,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // TODO: remove when backend is ready
-  if (req.method === 'GET' && path.endsWith('/api/users/profile')) {
+  if (req.method === 'GET' && path.endsWith('/api/user/profile')) {
     const sessionUser = sessionUserFromRequest(req);
     if (!sessionUser) {
       return throwError(
@@ -292,7 +292,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // TODO: remove when backend is ready
-  if (req.method === 'PATCH' && path.endsWith('/api/users/profile/password')) {
+  if (req.method === 'PATCH' && path.endsWith('/api/user/profile/password')) {
     const sessionUser = sessionUserFromRequest(req);
     if (!sessionUser) {
       return throwError(
@@ -315,7 +315,26 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const currentPassword = String(requestBody?.currentPassword ?? '');
     const newPassword = String(requestBody?.newPassword ?? '');
 
-    if (!currentPassword || !newPassword) {
+    const validationMessages: string[] = [];
+    if (!currentPassword) {
+      validationMessages.push('current password is required');
+    }
+    if (!newPassword) {
+      validationMessages.push('new password is required');
+    } else {
+      if (newPassword.length < 8) {
+        validationMessages.push('password must at least 8 characters long');
+      } else if (newPassword.length > 64) {
+        validationMessages.push('password too long. 64 characters is the maximum');
+      }
+      if (!STRONG_PASSWORD_PATTERN.test(newPassword)) {
+        validationMessages.push(
+          'password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+        );
+      }
+    }
+
+    if (validationMessages.length > 0) {
       return throwError(
         () =>
           new HttpErrorResponse({
@@ -324,7 +343,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
             error: {
               status: 400,
               error: 'Bad Request',
-              message: 'All fields are required.',
+              message: validationMessages,
             },
           }),
       ).pipe(delay(300));
@@ -356,7 +375,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // TODO: remove when backend is ready
-  if (req.method === 'PATCH' && path.endsWith('/api/users/profile/picture')) {
+  if (req.method === 'PATCH' && path.endsWith('/api/user/profile/picture')) {
     const sessionUser = sessionUserFromRequest(req);
     if (!sessionUser) {
       return throwError(

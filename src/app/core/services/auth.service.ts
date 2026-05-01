@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   getMe(): Observable<UserProfileResponse> {
-    return this.http.get<UserProfileResponse>(`${this.baseUrl}/users/profile`);
+    return this.http.get<UserProfileResponse>(`${this.baseUrl}/user/profile`);
   }
 
   updatePassword(payload: UpdatePasswordRequest): Observable<MessageResponse> {
     return this.http.patch<MessageResponse>(
-      `${this.baseUrl}/users/profile/password`,
+      `${this.baseUrl}/user/profile/password`,
       payload,
     );
   }
@@ -49,7 +49,7 @@ export class AuthService {
     payload: UpdateProfilePictureRequest,
   ): Observable<MessageResponse> {
     return this.http.patch<MessageResponse>(
-      `${this.baseUrl}/users/profile/picture`,
+      `${this.baseUrl}/user/profile/picture`,
       payload,
     );
   }

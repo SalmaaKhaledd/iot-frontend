@@ -10,6 +10,7 @@ const FALLBACK_MESSAGES = {
   badRequest: 'Please review the form and try again.',
   unauthorized: 'Invalid email or password.',
   conflict: 'This email is already registered.',
+  rateLimited: 'Too many requests. Please wait a moment and try again.',
   serverError: 'An internal error occurred. Please try again.',
   network: 'Could not connect to the server. Check your connection.',
   unknown: 'An unexpected error occurred. Please try again.',
@@ -19,7 +20,7 @@ const FALLBACK_MESSAGES = {
  * Maps any error thrown from an auth-related HTTP call to a single,
  * user-facing message. Prefers the backend-provided `message` (per the
  * agreed `ApiErrorResponse` contract) and falls back to shared
- * defaults for 400 / 401 / 409 / 500, network failures, and unknown errors.
+ * defaults for 400 / 401 / 409 / 429 / 500, network failures, and unknown errors.
  */
 export function mapAuthError(error: unknown): string {
   if (error instanceof HttpErrorResponse) {
@@ -36,6 +37,8 @@ export function mapAuthError(error: unknown): string {
         return apiMessage ?? FALLBACK_MESSAGES.unauthorized;
       case 409:
         return apiMessage ?? FALLBACK_MESSAGES.conflict;
+      case 429:
+        return apiMessage ?? FALLBACK_MESSAGES.rateLimited;
       case 500:
       case 502:
       case 503:

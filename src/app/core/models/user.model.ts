@@ -11,11 +11,11 @@ export interface AuthResponse {
   user: User;
 }
 
-/** Contract response shape for GET /api/users/profile. */
+/** Contract response shape for GET /api/user/profile. */
 export interface UserProfileResponse {
   userId: string;
   firstName: string;
   lastName: string;
   email: string;
-  profilePicture: string;
+  profilePicture: string | null;
 }
