@@ -116,6 +116,18 @@
   background: var(--card);
 }
 
+.upload-status {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.upload-error {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--destructive);
+}
+
 h1 {
   margin: 0;
   font-size: var(--text-3xl, 2rem);

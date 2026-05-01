@@ -14,8 +14,12 @@
         <p class="refresh-notice" role="status" aria-live="polite">{{ refreshNotice }}</p>
       }
       <div class="avatar-wrapper">
-        @if (user?.profilePicture) {
-          <img class="avatar-image" [src]="user?.profilePicture" alt="Profile picture" />
+        @if (pendingPreviewUrl || user?.profilePicture) {
+          <img
+            class="avatar-image"
+            [src]="pendingPreviewUrl || user?.profilePicture"
+            alt="Profile picture"
+          />
         } @else {
           <div class="avatar">{{ initials }}</div>
         }
@@ -38,6 +42,15 @@
           (change)="onProfilePictureSelected($event)"
         />
       </div>
+
+      @if (isUploadingPicture) {
+        <p class="upload-status" role="status" aria-live="polite">
+          Uploading new picture…
+        </p>
+      }
+      @if (profilePictureError) {
+        <p class="upload-error" role="alert">{{ profilePictureError }}</p>
+      }
 
       <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
       <p class="email">{{ user?.email }}</p>

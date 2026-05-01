@@ -20,7 +20,7 @@ import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
-import { authRules } from '../../core/validation/auth-validators';
+import { authRules, profileImageError } from '../../core/validation/auth-validators';
 
 @Component({
   selector: 'app-profile',
@@ -47,6 +47,13 @@ export class ProfileComponent {
   isChangingPassword = false;
   errorMessage = '';
   successMessage = '';
+  /** Inline error rendered next to the avatar (validator + picture API failures). */
+  profilePictureError = '';
+  /**
+   * Object URL shown as an optimistic preview while the picture upload is in flight.
+   * Reverts to the saved `user.profilePicture` if the upload fails.
+   */
+  pendingPreviewUrl: string | null = null;
   showPasswordModal = false;
   showCurrentPassword = false;
   showNewPassword = false;
@@ -74,6 +81,9 @@ export class ProfileComponent {
 
   constructor() {
     this.refreshProfile();
+    // Make sure any in-flight optimistic preview URL is released when the
+    // component is destroyed (avoids leaking blob URLs across navigations).
+    this.destroyRef.onDestroy(() => this.clearPendingPreview());
   }
 
   goBack(): void {
@@ -153,18 +163,49 @@ export class ProfileComponent {
   onProfilePictureSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
+    // Always reset the input so picking the same file again still fires `change`.
     input.value = '';
+
+    this.profilePictureError = '';
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (!file) {
+      this.cdr.markForCheck();
       return;
     }
+
+    const validationError = profileImageError(file);
+    if (validationError) {
+      this.profilePictureError = validationError;
+      this.cdr.markForCheck();
+      return;
+    }
+
+    // Show the picked image immediately via an object URL so the user sees the
+    // change before the API call resolves. The URL is revoked on success/error
+    // and on component destroy.
+    this.clearPendingPreview();
+    this.pendingPreviewUrl = URL.createObjectURL(file);
+    this.cdr.markForCheck();
 
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result;
       if (typeof result !== 'string') {
+        this.profilePictureError =
+          'Could not read this image. Please try a different file.';
+        this.clearPendingPreview();
+        this.cdr.markForCheck();
         return;
       }
       this.uploadProfilePicture(result);
+    };
+    reader.onerror = () => {
+      this.profilePictureError =
+        'Could not read this image. Please try a different file.';
+      this.clearPendingPreview();
+      this.cdr.markForCheck();
     };
     reader.readAsDataURL(file);
   }
@@ -177,9 +218,8 @@ export class ProfileComponent {
   }
 
   private uploadProfilePicture(profilePicture: string): void {
-    this.errorMessage = '';
-    this.successMessage = '';
     this.isUploadingPicture = true;
+    this.cdr.markForCheck();
 
     this.authService
       .updateProfilePicture({ profilePicture })
@@ -187,6 +227,7 @@ export class ProfileComponent {
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
           this.isUploadingPicture = false;
+          this.clearPendingPreview();
           this.cdr.markForCheck();
         }),
       )
@@ -200,10 +241,23 @@ export class ProfileComponent {
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
-          this.errorMessage = mapAuthError(error);
+          // Picture-specific failures (validation 400 from server) belong inline
+          // next to the avatar; other failures fall back to the generic message.
+          if (error instanceof HttpErrorResponse && error.status === 400) {
+            this.profilePictureError = mapAuthError(error);
+          } else {
+            this.errorMessage = mapAuthError(error);
+          }
           this.cdr.markForCheck();
         },
       });
+  }
+
+  private clearPendingPreview(): void {
+    if (this.pendingPreviewUrl) {
+      URL.revokeObjectURL(this.pendingPreviewUrl);
+      this.pendingPreviewUrl = null;
+    }
   }
 
   private refreshProfile(): void {
