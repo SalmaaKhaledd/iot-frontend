@@ -9,6 +9,7 @@ import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
+  let fixture: ReturnType<typeof TestBed.createComponent<LoginComponent>>;
   let router: Router;
   let authServiceSpy: {
     login: ReturnType<typeof vi.fn>;
@@ -30,7 +31,7 @@ describe('LoginComponent', () => {
       ],
     }).compileComponents();
 
-    const fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     vi.spyOn(router, 'navigate').mockResolvedValue(true);
@@ -103,5 +104,38 @@ describe('LoginComponent', () => {
     component.onSubmit();
 
     expect(component.errorMessage).toBe('Invalid email or password.');
+  });
+
+  it('toggles password visibility state', () => {
+    expect(component.showPassword).toBe(false);
+
+    component.togglePasswordVisibility();
+    expect(component.showPassword).toBe(true);
+
+    component.togglePasswordVisibility();
+    expect(component.showPassword).toBe(false);
+  });
+
+  it('updates password input type in the rendered template', () => {
+    fixture.detectChanges();
+
+    const input = fixture.nativeElement.querySelector(
+      '#password',
+    ) as HTMLInputElement | null;
+    const toggle = fixture.nativeElement.querySelector(
+      '.password-toggle',
+    ) as HTMLButtonElement | null;
+
+    expect(input).not.toBeNull();
+    expect(toggle).not.toBeNull();
+    expect(input?.type).toBe('password');
+
+    toggle?.click();
+    fixture.detectChanges();
+    expect(input?.type).toBe('text');
+
+    toggle?.click();
+    fixture.detectChanges();
+    expect(input?.type).toBe('password');
   });
 });
