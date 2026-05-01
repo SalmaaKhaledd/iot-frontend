@@ -1,17 +1,39 @@
 <div class="profile-page">
+  <div class="page-toolbar">
+    <button type="button" class="back-button" (click)="goBack()">
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      <span>Back</span>
+    </button>
+  </div>
+
   <section class="profile-card">
-    @if (isLoading) {
+    @if (isLoading && !user) {
       <p class="status-message">Loading profile...</p>
     } @else {
+      @if (refreshNotice) {
+        <p class="refresh-notice" role="status" aria-live="polite">{{ refreshNotice }}</p>
+      }
       <div class="avatar-wrapper">
-        <div class="avatar">{{ initials }}</div>
-        <label class="avatar-edit" [class.disabled]="isUploadingPicture" for="profilePictureInput">
-          ✎
-        </label>
+        @if (user?.profilePicture) {
+          <img class="avatar-image" [src]="user?.profilePicture" alt="Profile picture" />
+        } @else {
+          <div class="avatar">{{ initials }}</div>
+        }
+        <button
+          type="button"
+          class="avatar-edit"
+          [class.disabled]="isUploadingPicture"
+          [disabled]="isUploadingPicture"
+          (click)="openProfilePicturePicker()"
+          aria-label="Update profile picture"
+        >
+          <mat-icon aria-hidden="true">edit</mat-icon>
+        </button>
         <input
+          #profilePictureInput
           id="profilePictureInput"
           type="file"
-          accept="image/*"
+          accept="image/png,image/jpeg,image/webp"
           hidden
           (change)="onProfilePictureSelected($event)"
         />
@@ -55,19 +77,73 @@
   @if (showPasswordModal) {
     <div class="modal-backdrop" (click)="closePasswordModal()">
       <div class="modal-card" (click)="$event.stopPropagation()">
-        <h2>Change password</h2>
         <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
           <label for="currentPassword">Current password</label>
-          <input id="currentPassword" type="password" formControlName="currentPassword" />
+          <div class="password-input-group">
+            <input
+              id="currentPassword"
+              [type]="showCurrentPassword ? 'text' : 'password'"
+              formControlName="currentPassword"
+              placeholder="Enter your current password"
+              autocomplete="current-password"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleCurrentPasswordVisibility()"
+              [attr.aria-label]="showCurrentPassword ? 'Hide password' : 'Show password'"
+            >
+              <mat-icon aria-hidden="true">
+                {{ showCurrentPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </div>
+          @if (hasPasswordError('currentPassword', 'required')) {
+            <span class="field-error">Current password is required.</span>
+          }
+          @if (hasPasswordError('currentPassword', 'minlength')) {
+            <span class="field-error">Current password must be at least 8 characters.</span>
+          }
+          @if (hasPasswordError('currentPassword', 'maxlength')) {
+            <span class="field-error">Current password must be 64 characters or fewer.</span>
+          }
 
           <label for="newPassword">New password</label>
-          <input id="newPassword" type="password" formControlName="newPassword" />
+          <div class="password-input-group">
+            <input
+              id="newPassword"
+              [type]="showNewPassword ? 'text' : 'password'"
+              formControlName="newPassword"
+              placeholder="Create a strong password (min 8 chars)"
+              autocomplete="new-password"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleNewPasswordVisibility()"
+              [attr.aria-label]="showNewPassword ? 'Hide password' : 'Show password'"
+            >
+              <mat-icon aria-hidden="true">
+                {{ showNewPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </div>
+          @if (hasPasswordError('newPassword', 'required')) {
+            <span class="field-error">New password is required.</span>
+          }
+          @if (hasPasswordError('newPassword', 'minlength')) {
+            <span class="field-error">New password must be at least 8 characters.</span>
+          }
+          @if (hasPasswordError('newPassword', 'maxlength')) {
+            <span class="field-error">New password must be 64 characters or fewer.</span>
+          }
+          @if (hasPasswordError('newPassword', 'pattern')) {
+            <span class="field-error">Use uppercase, lowercase, number, and symbol.</span>
+          }
 
           <div class="modal-actions">
             <button type="button" class="secondary-btn" (click)="closePasswordModal()">Cancel</button>
-            <button type="submit" [disabled]="isChangingPassword">
-              {{ isChangingPassword ? 'Updating...' : 'Save password' }}
-            </button>
+            <button type="submit" [disabled]="isChangingPassword">Save password</button>
           </div>
         </form>
       </div>

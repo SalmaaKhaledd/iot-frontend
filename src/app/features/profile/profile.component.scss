@@ -3,8 +3,43 @@
   background: var(--background);
   padding: 2rem 1rem;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-toolbar {
+  width: 100%;
+  max-width: 42rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.back-button:hover {
+  background: transparent;
+  color: var(--sensorix-teal);
+  border-color: var(--sensorix-teal);
+}
+
+.back-button mat-icon {
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .profile-card {
@@ -35,6 +70,15 @@
   font-weight: 600;
 }
 
+.avatar-image {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  display: block;
+}
+
 .avatar-edit {
   position: absolute;
   right: -0.25rem;
@@ -47,11 +91,29 @@
   display: grid;
   place-items: center;
   cursor: pointer;
+  color: var(--foreground);
+  padding: 0;
+  font-size: inherit;
 }
 
 .avatar-edit.disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.avatar-edit:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.avatar-edit mat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.avatar-edit:hover {
+  background: var(--card);
 }
 
 h1 {
@@ -100,10 +162,15 @@ button {
   padding: 0.8rem 1rem;
   font-size: 1.1rem;
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #178a64;
 }
 
 button:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -118,6 +185,12 @@ button:disabled {
 }
 
 .status-message {
+  color: var(--muted-foreground);
+}
+
+.refresh-notice {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
   color: var(--muted-foreground);
 }
 
@@ -159,6 +232,50 @@ input {
   padding: 0 0.75rem;
 }
 
+.password-input-group {
+  position: relative;
+}
+
+.password-input-group input {
+  width: 100%;
+  padding-right: 3.2rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.2rem;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--sensorix-teal);
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.password-toggle:hover {
+  background: transparent;
+  color: #178a64;
+}
+
+.password-toggle mat-icon {
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.field-error {
+  color: var(--destructive);
+  font-size: 0.75rem;
+  text-align: left;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -170,4 +287,11 @@ input {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--foreground);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.secondary-btn:hover {
+  background: transparent;
+  border-color: var(--sensorix-teal);
+  color: var(--sensorix-teal);
 }
