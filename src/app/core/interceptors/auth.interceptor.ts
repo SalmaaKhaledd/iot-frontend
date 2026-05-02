@@ -21,6 +21,29 @@ function isApiRequest(request: HttpRequest<unknown>): boolean {
   return request.url.startsWith(environment.apiUrl);
 }
 
+function getPathname(url: string): string {
+  try {
+    return url.startsWith('http')
+      ? new URL(url).pathname
+      : new URL(url, 'http://localhost').pathname;
+  } catch {
+    return url;
+  }
+}
+
+/**
+ * Login and register must not send a Bearer token. A leftover token in
+ * localStorage (e.g. from a prior session) would otherwise be attached and many
+ * backends reject signup/login with 400/401.
+ */
+function isPublicAuthEndpoint(request: HttpRequest<unknown>): boolean {
+  if (request.method !== 'POST') {
+    return false;
+  }
+  const path = getPathname(request.url);
+  return path.endsWith('/auth/register') || path.endsWith('/auth/login');
+}
+
 function isTokenAuthFailure(error: HttpErrorResponse): boolean {
   if (error.status !== 401) {
     return false;
@@ -35,7 +58,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = authService.getToken();
 
   const request =
-    token && isApiRequest(req)
+    token && isApiRequest(req) && !isPublicAuthEndpoint(req)
       ? req.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,

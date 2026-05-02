@@ -76,6 +76,41 @@ describe('authInterceptor', () => {
     expect(outgoing?.headers.has('Authorization')).toBe(false);
   });
 
+  it('does not add bearer header for POST /auth/register (public endpoint)', () => {
+    authServiceStub.getToken = () => 'leftover-token';
+    const request = new HttpRequest('POST', 'http://localhost:8080/api/auth/register', {
+      email: 'a@b.com',
+    });
+    let outgoing: HttpRequest<unknown> | undefined;
+
+    TestBed.runInInjectionContext(() =>
+      authInterceptor(request, (req): Observable<HttpEvent<unknown>> => {
+        outgoing = req;
+        return of(new HttpResponse({ status: 200, body: {} }));
+      }).subscribe(),
+    );
+
+    expect(outgoing?.headers.has('Authorization')).toBe(false);
+  });
+
+  it('does not add bearer header for POST /auth/login (public endpoint)', () => {
+    authServiceStub.getToken = () => 'leftover-token';
+    const request = new HttpRequest('POST', 'http://localhost:8080/api/auth/login', {
+      email: 'a@b.com',
+      password: 'x',
+    });
+    let outgoing: HttpRequest<unknown> | undefined;
+
+    TestBed.runInInjectionContext(() =>
+      authInterceptor(request, (req): Observable<HttpEvent<unknown>> => {
+        outgoing = req;
+        return of(new HttpResponse({ status: 200, body: {} }));
+      }).subscribe(),
+    );
+
+    expect(outgoing?.headers.has('Authorization')).toBe(false);
+  });
+
   it('logs out and redirects on 401 token auth-failure responses', () => {
     authServiceStub.getToken = () => 'abc-token';
     const request = new HttpRequest('GET', 'http://localhost:8080/api/user/profile');
