@@ -25,6 +25,7 @@ import {
 } from '../../../core/validation/auth-validators';
 import { mapAuthError } from '../../../core/utils/auth-error';
 import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
+import { stripDataUrlPrefix } from '../../../core/utils/profile-picture';
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
@@ -219,8 +220,9 @@ export class SignupComponent implements OnDestroy {
       firstName: (formValue.firstName ?? '').trim(),
       lastName: (formValue.lastName ?? '').trim(),
       password: formValue.password ?? '',
+      // Server expects raw base64 per the API contract, not a data URL.
       profilePicture: formValue.profilePicture
-        ? formValue.profilePicture.trim()
+        ? stripDataUrlPrefix(formValue.profilePicture.trim())
         : undefined,
     };
 

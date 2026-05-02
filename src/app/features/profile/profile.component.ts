@@ -17,6 +17,10 @@ import { finalize } from 'rxjs';
 
 import { mapAuthError } from '../../core/utils/auth-error';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
+import {
+  stripDataUrlPrefix,
+  toRenderablePicture,
+} from '../../core/utils/profile-picture';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
@@ -95,6 +99,11 @@ export class ProfileComponent {
       return 'U';
     }
     return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
+  }
+
+  /** Renderable `<img>` src for the saved picture (raw base64 + prefix). */
+  get profilePictureSrc(): string {
+    return toRenderablePicture(this.user?.profilePicture);
   }
 
   openPasswordModal(): void {
@@ -218,11 +227,16 @@ export class ProfileComponent {
   }
 
   private uploadProfilePicture(profilePicture: string): void {
+    // Contract: send raw base64. `FileReader.readAsDataURL` produces a data
+    // URL, so we strip the prefix here and persist the same raw value the
+    // server stores (so subsequent reads round-trip cleanly).
+    const serverPicture = stripDataUrlPrefix(profilePicture);
+
     this.isUploadingPicture = true;
     this.cdr.markForCheck();
 
     this.authService
-      .updateProfilePicture({ profilePicture })
+      .updateProfilePicture({ profilePicture: serverPicture })
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
@@ -234,7 +248,7 @@ export class ProfileComponent {
       .subscribe({
         next: (response) => {
           if (this.user) {
-            this.user = { ...this.user, profilePicture };
+            this.user = { ...this.user, profilePicture: serverPicture };
             this.authService.saveUser(this.user);
           }
           this.successMessage = response.message;

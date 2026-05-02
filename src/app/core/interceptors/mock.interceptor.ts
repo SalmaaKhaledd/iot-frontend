@@ -14,15 +14,6 @@ type MockUser = User & { password: string };
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const STRONG_PASSWORD_PATTERN =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,64}$/;
-const PROFILE_PICTURE_DATA_URL_PATTERN =
-  /^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/]+={0,2})$/;
-const MAX_PROFILE_PICTURE_BYTES = 1_048_576;
-
-/** Decode the byte length of a base64 string without actually decoding it. */
-function base64ByteLength(base64: string): number {
-  const padding = (base64.match(/=+$/)?.[0]?.length ?? 0);
-  return Math.floor((base64.length * 3) / 4) - padding;
-}
 
 const mockUsers: MockUser[] = [
   {
@@ -419,37 +410,10 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    const dataUrlMatch = PROFILE_PICTURE_DATA_URL_PATTERN.exec(profilePicture);
-    if (!dataUrlMatch) {
-      return throwError(
-        () =>
-          new HttpErrorResponse({
-            status: 400,
-            statusText: 'Bad Request',
-            error: {
-              status: 400,
-              error: 'Bad Request',
-              message: 'Only JPG, PNG, or WEBP images are allowed.',
-            },
-          }),
-      ).pipe(delay(300));
-    }
-
-    if (base64ByteLength(dataUrlMatch[2]) > MAX_PROFILE_PICTURE_BYTES) {
-      return throwError(
-        () =>
-          new HttpErrorResponse({
-            status: 400,
-            statusText: 'Bad Request',
-            error: {
-              status: 400,
-              error: 'Bad Request',
-              message: 'Profile picture must be 1MB or smaller.',
-            },
-          }),
-      ).pipe(delay(300));
-    }
-
+    // Per the API contract, the server stores the raw base64 string and does
+    // not validate type or size — that is enforced client-side before the
+    // file is read. The mock mirrors the contract so the UI behaves the same
+    // against either backend.
     const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
     if (userIndex >= 0) {
       mockUsers[userIndex].profilePicture = profilePicture;

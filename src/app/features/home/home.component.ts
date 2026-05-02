@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
+import { toRenderablePicture } from '../../core/utils/profile-picture';
 import { SensorixLogoComponent } from '../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
@@ -30,7 +31,7 @@ export class HomeComponent {
 
   displayName = this.currentUser?.firstName ?? 'User';
   userInitials = this.getInitials(this.currentUser);
-  profilePictureUrl = this.currentUser?.profilePicture ?? '';
+  profilePictureUrl = toRenderablePicture(this.currentUser?.profilePicture);
   refreshNotice = '';
 
   constructor() {
@@ -74,6 +75,6 @@ export class HomeComponent {
     this.authService.saveUser(user);
     this.displayName = user.firstName;
     this.userInitials = this.getInitials(user);
-    this.profilePictureUrl = user.profilePicture ?? '';
+    this.profilePictureUrl = toRenderablePicture(user.profilePicture);
   }
 }

@@ -113,7 +113,8 @@ describe('SignupComponent', () => {
       firstName: 'Jane',
       lastName: 'Doe',
       password: 'StrongPassword1!',
-      profilePicture: 'data:image/png;base64,abc',
+      // Contract: server stores raw base64; the data-URL prefix is stripped.
+      profilePicture: 'abc',
     });
     expect(authServiceSpy.login).toHaveBeenCalledWith(
       'user@example.com',

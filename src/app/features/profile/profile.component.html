@@ -14,10 +14,10 @@
         <p class="refresh-notice" role="status" aria-live="polite">{{ refreshNotice }}</p>
       }
       <div class="avatar-wrapper">
-        @if (pendingPreviewUrl || user?.profilePicture) {
+        @if (pendingPreviewUrl || profilePictureSrc) {
           <img
             class="avatar-image"
-            [src]="pendingPreviewUrl || user?.profilePicture"
+            [src]="pendingPreviewUrl || profilePictureSrc"
             alt="Profile picture"
           />
         } @else {
