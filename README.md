@@ -1,63 +1,78 @@
-# IotFrontend
+# Smart IoT Monitoring System — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Angular SPA for authentication, profile management, and the authenticated home shell. Built with **Angular 21** (standalone components), **Angular Material**, and **Vitest** for unit tests.
 
-## QA: local testing handoff
+## Prerequisites
 
-For setup, mock credentials, session reset, see **[docs/qa-local.md](docs/qa-local.md)**.
+- **Node.js** (LTS recommended)
+- **npm** (this repo pins `npm@10.9.2` in `package.json`)
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Quick start
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open [http://localhost:4200](http://localhost:4200). The dev server reloads when source files change.
+
+Equivalent: `ng serve`
+
+## API configuration
+
+The app talks to the backend using `environment.apiUrl` (e.g. `http://localhost:8080/api`).
+
+| File                                          | When it applies                                                                                  |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `src/environments/environment.development.ts` | `ng serve` and `ng build --configuration development` (via `fileReplacements` in `angular.json`) |
+| `src/environments/environment.ts`             | Production / default builds                                                                      |
+
+- `useMock` — When `true` in the active environment, an HTTP interceptor serves in-app mock responses for auth and profile routes so you can develop without a running backend. Set to `false` to use the real API (adjust `apiUrl` to match your backend).
+
+To run the app without a backend, set `useMock: true` in `src/environments/environment.development.ts`. The mock interceptor handles all auth and profile endpoints.
+
+Bearer tokens are stored in `localStorage` and attached by the auth interceptor, except on public `POST /auth/login` and `POST /auth/register` requests.
+
+## Routes (overview)
+
+| Path                | Notes                   |
+| ------------------- | ----------------------- |
+| `/signup`, `/login` | Public                  |
+| `/home`, `/profile` | Protected (`authGuard`) |
+| `/**`               | 404 not-found           |
+
+Default route `/` redirects to `/signup`.
+
+## Scripts
+
+| Command         | Description                     |
+| --------------- | ------------------------------- |
+| `npm start`     | Dev server (`ng serve`)         |
+| `npm run build` | Production build (`ng build`)   |
+| `npm run watch` | Development build in watch mode |
+| `npm test`      | Unit tests (`ng test`, Vitest)  |
+
+## Unit tests
 
 ```bash
-ng generate --help
+npm test
 ```
 
-## Building
+Uses the Angular application builder’s Vitest integration (`@angular/build:unit-test`).
 
-To build the project run:
+## Production build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output is under `dist/`. Use your hosting/CDN pipeline to deploy the browser bundle.
 
-## Running unit tests
+## QA handoff
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+For local testing, mock users, and expected behaviors (including profile flows), see **[docs/qa-local.md](docs/qa-local.md)**.
 
-```bash
-ng test
-```
+## Further reading
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Angular CLI](https://angular.dev/tools/cli)
+- [Angular documentation](https://angular.dev)
