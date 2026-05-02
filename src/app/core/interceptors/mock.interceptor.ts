@@ -9,11 +9,10 @@ import { delay } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import type { User } from '../models/user.model';
+import { STRONG_PASSWORD_PATTERN } from '../validation/auth-validation.constants';
 
 type MockUser = User & { password: string };
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const STRONG_PASSWORD_PATTERN =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,64}$/;
 
 const mockUsers: MockUser[] = [
   {
@@ -121,7 +120,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       }
       if (!STRONG_PASSWORD_PATTERN.test(password)) {
         validationMessages.push(
-          'password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+          'password must contain at least one uppercase letter, one lowercase letter, one number, and one of @ $ ! % * ? &',
         );
       }
     }
@@ -329,7 +328,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       }
       if (!STRONG_PASSWORD_PATTERN.test(newPassword)) {
         validationMessages.push(
-          'password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+          'password must contain at least one uppercase letter, one lowercase letter, one number, and one of @ $ ! % * ? &',
         );
       }
     }

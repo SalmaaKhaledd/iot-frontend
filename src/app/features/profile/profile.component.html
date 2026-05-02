@@ -151,7 +151,7 @@
             <span class="field-error">New password must be 64 characters or fewer.</span>
           }
           @if (hasPasswordError('newPassword', 'pattern')) {
-            <span class="field-error">Use uppercase, lowercase, number, and symbol.</span>
+            <span class="field-error">Use uppercase, lowercase, number, and one of &#64; $ ! % * ? &amp;.</span>
           }
 
           @if (passwordModalError) {

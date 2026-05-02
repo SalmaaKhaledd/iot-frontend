@@ -9,8 +9,12 @@ export const AUTH_VALIDATION = {
 
 export const NAME_PATTERN = /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/;
 
+// Mirrors the backend's @Pattern on SignupRequest exactly:
+// allowed body chars are letters, digits, and @ $ ! % * ? &
+// (any other character is rejected client-side with a `pattern` error
+// so the user sees the issue without a 400 round-trip).
 export const STRONG_PASSWORD_PATTERN =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,64}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,64}$/;
 
 export const ALLOWED_PROFILE_IMAGE_TYPES = [
   'image/jpeg',
