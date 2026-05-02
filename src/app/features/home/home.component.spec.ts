@@ -62,10 +62,10 @@ describe('HomeComponent', () => {
 
     const component = createComponent();
 
-    expect(component.displayName).toBe('Farida');
-    expect(component.userInitials).toBe('FK');
-    expect(component.profilePictureUrl).toBe('data:image/png;base64,abc');
-    expect(component.refreshNotice).toBe('');
+    expect(component.displayName()).toBe('Farida');
+    expect(component.userInitials()).toBe('FK');
+    expect(component.profilePictureUrl()).toBe('data:image/png;base64,abc');
+    expect(component.refreshNotice()).toBe('');
     expect(authServiceSpy.saveUser).toHaveBeenCalledWith({
       id: '2',
       firstName: 'Farida',
@@ -83,9 +83,9 @@ describe('HomeComponent', () => {
 
     const component = createComponent();
 
-    expect(component.displayName).toBe('Cached');
-    expect(component.userInitials).toBe('CU');
-    expect(component.refreshNotice).toBe(
+    expect(component.displayName()).toBe('Cached');
+    expect(component.userInitials()).toBe('CU');
+    expect(component.refreshNotice()).toBe(
       'Could not refresh profile. Showing saved data.',
     );
     expect(authServiceSpy.saveUser).not.toHaveBeenCalled();
@@ -99,9 +99,9 @@ describe('HomeComponent', () => {
 
     const component = createComponent();
 
-    expect(component.displayName).toBe('User');
-    expect(component.userInitials).toBe('U');
-    expect(component.refreshNotice).toBe(
+    expect(component.displayName()).toBe('User');
+    expect(component.userInitials()).toBe('U');
+    expect(component.refreshNotice()).toBe(
       'Could not load profile right now. Please try again.',
     );
   });
@@ -114,7 +114,7 @@ describe('HomeComponent', () => {
 
     const component = createComponent();
 
-    expect(component.refreshNotice).toBe('');
+    expect(component.refreshNotice()).toBe('');
   });
 
   it('navigates to profile on goToProfile()', () => {

@@ -240,7 +240,12 @@ export class SignupComponent implements OnDestroy {
             return;
           }
           this.authService.saveToken(response.token);
-          this.authService.saveUser(toUserFromAuthResponse(response));
+          // Carry the just-uploaded picture into the saved user so /home
+          // can render the avatar on first paint, before getMe() returns.
+          this.authService.saveUser({
+            ...toUserFromAuthResponse(response),
+            profilePicture: payload.profilePicture ?? null,
+          });
           this.router.navigate(['/home']);
         },
         error: (error: unknown) => {
