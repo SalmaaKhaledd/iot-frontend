@@ -50,6 +50,8 @@ export class ProfileComponent {
   isUploadingPicture = false;
   isChangingPassword = false;
   errorMessage = '';
+  /** API error from change-password (shown inside the modal only). */
+  passwordModalError = '';
   successMessage = '';
   /** Inline error rendered next to the avatar (validator + picture API failures). */
   profilePictureError = '';
@@ -109,6 +111,7 @@ export class ProfileComponent {
   openPasswordModal(): void {
     this.showPasswordModal = true;
     this.errorMessage = '';
+    this.passwordModalError = '';
     this.successMessage = '';
     this.passwordSubmitted = false;
   }
@@ -119,6 +122,7 @@ export class ProfileComponent {
     this.passwordSubmitted = false;
     this.showCurrentPassword = false;
     this.showNewPassword = false;
+    this.passwordModalError = '';
   }
 
   onChangePassword(): void {
@@ -129,6 +133,7 @@ export class ProfileComponent {
     }
 
     this.errorMessage = '';
+    this.passwordModalError = '';
     this.successMessage = '';
     this.isChangingPassword = true;
 
@@ -148,7 +153,7 @@ export class ProfileComponent {
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
-          this.errorMessage = mapAuthError(error);
+          this.passwordModalError = mapAuthError(error);
           this.cdr.markForCheck();
         },
       });

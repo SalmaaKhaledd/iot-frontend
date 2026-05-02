@@ -288,6 +288,14 @@ input {
   text-align: left;
 }
 
+.modal-error {
+  color: var(--destructive);
+  font-size: 0.875rem;
+  margin: 0.25rem 0 0;
+  text-align: left;
+  line-height: 1.35;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;

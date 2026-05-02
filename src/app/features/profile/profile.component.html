@@ -154,6 +154,10 @@
             <span class="field-error">Use uppercase, lowercase, number, and symbol.</span>
           }
 
+          @if (passwordModalError) {
+            <p class="modal-error" role="alert">{{ passwordModalError }}</p>
+          }
+
           <div class="modal-actions">
             <button type="button" class="secondary-btn" (click)="closePasswordModal()">Cancel</button>
             <button type="submit" [disabled]="isChangingPassword">Save password</button>
