@@ -1,0 +1,35 @@
+<div class="home-page">
+  <header class="topbar">
+    <div class="brand">
+      <app-sensorix-logo
+        [iconSize]="'clamp(22px, 2.8vw, 30px)'"
+        [textSize]="'clamp(18px, 2.2vw, 24px)'"
+        [gap]="'12px'"
+        [textWeight]="'600'"
+      />
+    </div>
+
+    <div class="topbar-actions">
+      <button class="icon-button" type="button" aria-label="Toggle theme">
+        <mat-icon aria-hidden="true">light_mode</mat-icon>
+      </button>
+      <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
+        @if (profilePictureUrl()) {
+        <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" />
+        } @else {
+        {{ userInitials() }}
+        }
+      </button>
+    </div>
+  </header>
+
+  <main class="hero">
+    <h1>Hello, {{ displayName() }}</h1>
+    <p>Your dashboard is being set up</p>
+    @if (refreshNotice()) {
+    <p class="refresh-notice" role="status" aria-live="polite">
+      {{ refreshNotice() }}
+    </p>
+    }
+  </main>
+</div>
