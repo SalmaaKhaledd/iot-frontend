@@ -1,0 +1,8 @@
+com\iot\selenium\tests\DashboardTest.class
+com\iot\selenium\tests\BaseTest.class
+com\iot\selenium\pages\BasePage.class
+com\iot\selenium\tests\UserProfileTest.class
+com\iot\selenium\pages\DashboardPage.class
+com\iot\selenium\pages\UserProfilePage.class
+com\iot\selenium\utils\ExcelReader.class
+com\iot\selenium\config\ConfigReader.class
