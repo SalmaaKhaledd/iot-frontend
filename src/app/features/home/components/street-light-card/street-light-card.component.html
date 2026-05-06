@@ -1,0 +1,78 @@
+<section class="street-card">
+  <div class="street-header">
+    <div class="title-wrap">
+      <div class="sensor-icon"><mat-icon>lightbulb</mat-icon></div>
+      <div>
+        <h2>Street Light Controls</h2>
+        <p>Manage lighting and energy usage</p>
+      </div>
+    </div>
+
+    <div class="actions-wrap">
+      <button class="alerts-btn" type="button">
+        <mat-icon>description</mat-icon>
+        <span>View Alerts</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <article class="stat-box">
+      <p>Total Lights</p>
+      <strong>{{ totalLights() }}</strong>
+    </article>
+    <article class="stat-box">
+      <p>Lights On</p>
+      <strong class="ok">{{ lightsOn() }}</strong>
+    </article>
+    <article class="stat-box">
+      <p>Faulty Lights</p>
+      <strong class="danger">{{ faultyLights() }} <mat-icon>error_outline</mat-icon></strong>
+    </article>
+    <article class="stat-box">
+      <p>Power Usage</p>
+      <strong><mat-icon>bolt</mat-icon>{{ powerUsage() }} <span>W</span></strong>
+    </article>
+  </div>
+
+  <div class="maintenance">
+    <h3><mat-icon>error_outline</mat-icon>Maintenance Required</h3>
+    <p>1 street light needs immediate attention.</p>
+  </div>
+
+  <div class="light-list">
+    @for (light of lights(); track light.id) {
+    <article class="light-item">
+      <div class="light-head">
+        <div class="left">
+          <div class="bulb" [class.on]="light.isOn" [class.off]="!light.isOn"><mat-icon>lightbulb</mat-icon></div>
+          <div>
+            <h4>{{ light.id }}</h4>
+            <p>{{ light.location }}</p>
+          </div>
+        </div>
+        <div class="right">
+          <div><span>Brightness</span><strong>{{ light.brightness }}%</strong></div>
+          <div><span>Power</span><strong>{{ computePower(light.brightness) }}W</strong></div>
+        </div>
+      </div>
+      @if (light.isOn) {
+      <div class="slider-row">
+        <span>Adjust:</span>
+        <div class="slider">
+          <div class="fill" [style.width.%]="light.brightness"></div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            [value]="light.brightness"
+            (input)="onBrightnessChange(light.id, $any($event.target).value)"
+            aria-label="Adjust brightness"
+          />
+        </div>
+      </div>
+      }
+    </article>
+    }
+  </div>
+</section>

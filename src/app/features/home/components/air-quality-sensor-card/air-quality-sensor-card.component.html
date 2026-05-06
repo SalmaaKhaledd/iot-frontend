@@ -1,0 +1,72 @@
+<section class="air-card">
+  <div class="air-header">
+    <div class="title-wrap">
+      <div class="sensor-icon">
+        <mat-icon>air</mat-icon>
+      </div>
+      <div>
+        <h2>Air Quality Sensors</h2>
+        <p>Monitor pollution levels and air health</p>
+      </div>
+    </div>
+
+    <div class="actions-wrap">
+      <button class="alerts-btn" type="button" aria-label="View air quality alerts">
+        <mat-icon>description</mat-icon>
+        <span>View Alerts</span>
+      </button>
+      <mat-icon class="ok-icon">task_alt</mat-icon>
+    </div>
+  </div>
+
+  <div class="air-main">
+    <div class="ring-wrap">
+      <div class="ring">
+        <svg viewBox="0 0 220 220" class="ring-svg" aria-hidden="true">
+          <circle cx="110" cy="110" r="88" class="ring-track" />
+          <circle cx="110" cy="110" r="88" class="ring-value" />
+        </svg>
+
+        <div class="ring-center">
+          <div class="aqi-score">78</div>
+          <div class="aqi-label">AQI Score</div>
+          <span class="aqi-pill">Moderate</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pollutants">
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>PM2.5</span>
+          <strong>36 μg/m³</strong>
+        </div>
+        <div class="bar-track"><div class="bar amber"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>PM10</span>
+          <strong>58 μg/m³</strong>
+        </div>
+        <div class="bar-track"><div class="bar green"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>CO₂ Level</span>
+          <strong>446 ppm</strong>
+        </div>
+        <div class="bar-track"><div class="bar red"></div></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="recommendation">
+    <div class="rec-title">
+      <mat-icon>air</mat-icon>
+      <h3>Air Quality Recommendation</h3>
+    </div>
+    <p>Air quality is acceptable. Sensitive individuals should consider limiting prolonged outdoor activities.</p>
+  </div>
+</section>

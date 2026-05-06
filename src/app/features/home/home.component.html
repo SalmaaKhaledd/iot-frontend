@@ -10,6 +10,15 @@
     </div>
 
     <div class="topbar-actions">
+      <button class="icon-button notify-button" type="button" aria-label="Notifications">
+        <mat-icon aria-hidden="true">notifications</mat-icon>
+        @if (unreadMessagesCount()) {
+        <span class="notify-badge">{{ unreadMessagesCount() }}</span>
+        }
+      </button>
+      <button class="icon-button" type="button" aria-label="Settings">
+        <mat-icon aria-hidden="true">settings</mat-icon>
+      </button>
       <button class="icon-button" type="button" aria-label="Toggle theme">
         <mat-icon aria-hidden="true">light_mode</mat-icon>
       </button>
@@ -24,12 +33,48 @@
   </header>
 
   <main class="hero">
-    <h1>Hello, {{ displayName() }}</h1>
-    <p>Your dashboard is being set up</p>
-    @if (refreshNotice()) {
-    <p class="refresh-notice" role="status" aria-live="polite">
-      {{ refreshNotice() }}
-    </p>
-    }
+    <div class="max-w">
+      <div class="hero-intro mb-6">
+        <h1 class="greeting">Good morning, {{ displayName() }}</h1>
+        <p class="muted">Here's what's happening in your area today</p>
+      </div>
+      <div class="dashboard-cards">
+        <div class="card">
+          <div class="card-header">
+            <div class="icon-wrap blue">
+              <mat-icon>traffic</mat-icon>
+            </div>
+            <h3>Traffic</h3>
+          </div>
+          <p class="muted small">Monitor road congestion and traffic flow</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="icon-wrap green">
+              <mat-icon>air</mat-icon>
+            </div>
+            <h3>Air Quality</h3>
+          </div>
+          <p class="muted small">Track pollution levels and air health</p>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="icon-wrap yellow">
+              <mat-icon>lightbulb</mat-icon>
+            </div>
+            <h3>Street Lights</h3>
+          </div>
+          <p class="muted small">Manage lighting and energy usage</p>
+        </div>
+      </div>
+
+      <div class="sensor-cards">
+        <app-traffic-sensor-card></app-traffic-sensor-card>
+        <app-air-quality-sensor-card></app-air-quality-sensor-card>
+        <app-street-light-card></app-street-light-card>
+      </div>
+    </div>
   </main>
 </div>

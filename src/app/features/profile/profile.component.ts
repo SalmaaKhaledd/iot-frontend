@@ -96,6 +96,11 @@ export class ProfileComponent {
     void this.router.navigate(['/home']);
   }
 
+  logout(): void {
+    this.authService.logout();
+    void this.router.navigate(['/login']);
+  }
+
   get initials(): string {
     if (!this.user) {
       return 'U';

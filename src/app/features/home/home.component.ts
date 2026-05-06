@@ -16,12 +16,15 @@ import { User } from '../../core/models/user.model';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 import { toRenderablePicture } from '../../core/utils/profile-picture';
 import { SensorixLogoComponent } from '../../shared/components/sensorix-logo/sensorix-logo.component';
+import { TrafficSensorCardComponent } from './components/traffic-sensor-card/traffic-sensor-card.component';
+import { AirQualitySensorCardComponent } from './components/air-quality-sensor-card/air-quality-sensor-card.component';
+import { StreetLightCardComponent } from './components/street-light-card/street-light-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SensorixLogoComponent, MatIconModule],
+  imports: [SensorixLogoComponent, MatIconModule, TrafficSensorCardComponent, AirQualitySensorCardComponent, StreetLightCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -37,6 +40,7 @@ export class HomeComponent {
   readonly profilePictureUrl = computed(() =>
     toRenderablePicture(this.currentUser()?.profilePicture),
   );
+  readonly unreadMessagesCount = signal(0);
   readonly refreshNotice = signal('');
 
   constructor() {

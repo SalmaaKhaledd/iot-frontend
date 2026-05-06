@@ -1,0 +1,234 @@
+:host {
+	display: block;
+}
+
+.traffic-card {
+	width: 100%;
+	background: #1e2c43;
+	border: 1px solid #2f4568;
+	border-radius: 14px;
+	padding: 22px;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.traffic-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px;
+	margin-bottom: 18px;
+}
+
+.title-wrap {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.sensor-icon {
+	width: 48px;
+	height: 48px;
+	border-radius: 12px;
+	display: grid;
+	place-items: center;
+	background: #214cab;
+	color: #79a4ff;
+}
+
+.sensor-icon mat-icon { font-size: 26px; width: 26px; height: 26px; }
+
+h2 {
+	margin: 0;
+	font-size: 30px;
+	line-height: 1.15;
+	font-weight: 600;
+	color: #f6f9ff;
+}
+
+p {
+	margin: 2px 0 0;
+	color: #8ea3c2;
+	font-size: 13px;
+}
+
+.actions-wrap {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.alerts-btn {
+	border: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 36px;
+	padding: 0 14px;
+	border-radius: 11px;
+	background: #214cab;
+	color: #91b2ff;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.alerts-btn mat-icon { font-size: 20px; width: 20px; height: 20px; }
+
+.trend-indicator {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: #9fb2cb;
+	font-size: 14px;
+}
+
+.trend-indicator mat-icon {
+	color: #ff4d6d;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.stats-row {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 14px;
+	margin-bottom: 16px;
+}
+
+.stat-box {
+	min-height: 84px;
+	border-radius: 10px;
+	background: #3a4a62;
+	padding: 14px 16px;
+}
+
+.label {
+	margin: 0 0 10px;
+	color: #9fb2cb;
+	font-size: 13px;
+	line-height: 1;
+}
+
+.pill {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 25px;
+	padding: 0 12px;
+	border-radius: 999px;
+	background: #8d5d07;
+	color: #ffc233;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+}
+
+.value {
+	margin: 0;
+	color: #f4f8ff;
+	font-size: 32px;
+	line-height: 1;
+	font-weight: 700;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.value span {
+	font-size: 16px;
+	line-height: 1;
+	color: #afbdd0;
+	font-weight: 500;
+}
+
+.value.warning {
+	color: #ffca2f;
+}
+
+.value.warning mat-icon {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+}
+
+.trend-panel {
+	border-radius: 10px;
+	background: #3a4a62;
+	padding: 14px 16px 10px;
+}
+
+h3 {
+	margin: 0 0 12px;
+	color: #dce7f8;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.chart-wrap {
+	position: relative;
+	width: 100%;
+	height: 210px;
+}
+
+.trend-chart {
+	width: 100%;
+	height: 100%;
+}
+
+.axis {
+	stroke: #5f7088;
+	stroke-width: 1.2;
+}
+
+.trend-line {
+	fill: none;
+	stroke: #2f7cff;
+	stroke-width: 2.5;
+}
+
+.point {
+	fill: #2f7cff;
+	transition: r 120ms ease, fill 120ms ease;
+}
+
+.point-active {
+	fill: #5ca0ff;
+}
+
+.tick {
+	fill: #7f92ad;
+	font-size: 12px;
+}
+
+.chart-tooltip {
+	position: absolute;
+	transform: translate(-50%, -130%);
+	padding: 8px 10px;
+	border-radius: 8px;
+	background: #16253a;
+	border: 1px solid #2f4568;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	pointer-events: none;
+	white-space: nowrap;
+}
+
+.chart-tooltip strong {
+	font-size: 13px;
+	color: #f6f9ff;
+	line-height: 1;
+}
+
+.chart-tooltip span {
+	font-size: 12px;
+	color: #8ea3c2;
+	line-height: 1;
+}
+
+@media (max-width: 1120px) {
+	.traffic-card {
+		min-width: 1080px;
+	}
+}

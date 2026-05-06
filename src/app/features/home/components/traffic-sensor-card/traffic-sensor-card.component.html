@@ -1,0 +1,93 @@
+<section class="traffic-card">
+  <div class="traffic-header">
+    <div class="title-wrap">
+      <div class="sensor-icon">
+        <mat-icon>directions_car</mat-icon>
+      </div>
+      <div>
+        <h2>Traffic Sensors</h2>
+        <p>Real-time road congestion monitoring</p>
+      </div>
+    </div>
+
+    <div class="actions-wrap">
+      <button class="alerts-btn" type="button" aria-label="View traffic alerts">
+        <mat-icon>error_outline</mat-icon>
+        <span>View Alerts</span>
+      </button>
+      <div class="trend-indicator" aria-label="Trend increasing">
+        <mat-icon>trending_up</mat-icon>
+        <span>increasing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <article class="stat-box">
+      <p class="label">Traffic Density</p>
+      <span class="pill">MEDIUM</span>
+    </article>
+
+    <article class="stat-box">
+      <p class="label">Vehicle Count</p>
+      <p class="value">139 <span>cars/min</span></p>
+    </article>
+
+    <article class="stat-box">
+      <p class="label">Average Speed</p>
+      <p class="value">41 <span>km/h</span></p>
+    </article>
+
+    <article class="stat-box">
+      <p class="label">Congestion Level</p>
+      <p class="value warning">
+        <mat-icon>speed</mat-icon>
+        53%
+      </p>
+    </article>
+  </div>
+
+  <div class="trend-panel">
+    <h3>Vehicle Count Trend</h3>
+
+    <div
+      class="chart-wrap"
+      role="img"
+      aria-label="Vehicle count trend from 6:00 to 11:00"
+      (mousemove)="onChartMove($event, chartSvg)"
+      (mouseleave)="onChartLeave()"
+    >
+      <svg #chartSvg viewBox="0 0 1040 260" class="trend-chart" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="70" y1="20" x2="70" y2="220" class="axis" />
+        <line x1="70" y1="220" x2="1000" y2="220" class="axis" />
+
+        <path [attr.d]="linePath()" class="trend-line" />
+
+        @for (point of pointCoords(); track point.time; let i = $index) {
+        <circle
+          [attr.cx]="point.x"
+          [attr.cy]="point.y"
+          [attr.r]="hoveredIndex() === i ? 7 : 5"
+          class="point"
+          [class.point-active]="hoveredIndex() === i"
+        />
+        }
+
+        @for (tick of yTicks; track tick) {
+        <text x="40" [attr.y]="yFor(tick) + 4" class="tick">{{ tick }}</text>
+        }
+
+        @for (point of pointCoords(); track point.time) {
+        <text [attr.x]="point.x - 14" y="240" class="tick">{{ point.time }}</text>
+        }
+      </svg>
+
+      @if (hoveredPoint(); as point) {
+      <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
+        <strong>{{ point.vehicles }}</strong>
+        <span>{{ point.time }}</span>
+      </div>
+      }
+    </div>
+  </div>
+</section>

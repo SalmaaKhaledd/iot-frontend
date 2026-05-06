@@ -77,6 +77,11 @@
       <button type="button" class="change-password-btn" (click)="openPasswordModal()">
         Change password
       </button>
+
+      <button type="button" class="logout-btn" (click)="logout()" aria-label="Logout">
+        <mat-icon aria-hidden="true">logout</mat-icon>
+        <span>Logout</span>
+      </button>
     }
 
     @if (errorMessage) {
