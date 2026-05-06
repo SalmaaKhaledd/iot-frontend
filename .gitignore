@@ -44,3 +44,5 @@ __screenshots__/
 Thumbs.db
 .cursor/
 HANDOFF_DRAFT.md
+HANDOFF.md
+angular.json
