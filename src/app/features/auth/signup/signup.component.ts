@@ -148,7 +148,7 @@ export class SignupComponent implements OnDestroy {
 
     this.selectedProfilePictureName = file.name;
     this.clearPreviewUrl();
-    this.objectPreviewUrl = URL.createObjectURL(file);
+    this.objectPreviewUrl = URL.createObjectURL(file); 
     this.profilePicturePreviewUrl = this.objectPreviewUrl;
     this.isReadingProfilePicture = true;
     this.changeDetectorRef.markForCheck();
