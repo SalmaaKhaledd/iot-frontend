@@ -19,8 +19,8 @@
       <button class="icon-button" type="button" aria-label="Settings">
         <mat-icon aria-hidden="true">settings</mat-icon>
       </button>
-      <button class="icon-button" type="button" aria-label="Toggle theme">
-        <mat-icon aria-hidden="true">light_mode</mat-icon>
+      <button class="icon-button" type="button" aria-label="Toggle theme" (click)="themeService.toggle()">
+        <mat-icon aria-hidden="true">{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
       <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
         @if (profilePictureUrl()) {
@@ -39,7 +39,7 @@
         <p class="muted">Here's what's happening in your area today</p>
       </div>
       <div class="dashboard-cards">
-        <div class="card">
+        <div class="card" (click)="scrollToSensor('traffic-sensor')">
           <div class="card-header">
             <div class="icon-wrap blue">
               <mat-icon>traffic</mat-icon>
@@ -49,7 +49,7 @@
           <p class="muted small">Monitor road congestion and traffic flow</p>
         </div>
 
-        <div class="card">
+        <div class="card" (click)="scrollToSensor('air-quality-sensor')">
           <div class="card-header">
             <div class="icon-wrap green">
               <mat-icon>air</mat-icon>
@@ -59,7 +59,7 @@
           <p class="muted small">Track pollution levels and air health</p>
         </div>
 
-        <div class="card">
+        <div class="card" (click)="scrollToSensor('street-light-sensor')">
           <div class="card-header">
             <div class="icon-wrap yellow">
               <mat-icon>lightbulb</mat-icon>
@@ -71,9 +71,15 @@
       </div>
 
       <div class="sensor-cards">
-        <app-traffic-sensor-card></app-traffic-sensor-card>
-        <app-air-quality-sensor-card></app-air-quality-sensor-card>
-        <app-street-light-card></app-street-light-card>
+        <div id="traffic-sensor">
+          <app-traffic-sensor-card></app-traffic-sensor-card>
+        </div>
+        <div id="air-quality-sensor">
+          <app-air-quality-sensor-card></app-air-quality-sensor-card>
+        </div>
+        <div id="street-light-sensor">
+          <app-street-light-card></app-street-light-card>
+        </div>
       </div>
     </div>
   </main>

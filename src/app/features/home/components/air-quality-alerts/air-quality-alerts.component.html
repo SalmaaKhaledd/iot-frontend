@@ -1,0 +1,105 @@
+<section class="alerts-container">
+  <div class="alerts-header-wrap">
+    <div class="alerts-header">
+      <div class="header-content">
+        <div class="icon-wrap">
+          <mat-icon>air</mat-icon>
+        </div>
+        <div>
+          <h2>Air Quality Alerts</h2>
+          <p>Historical air quality events and updates</p>
+        </div>
+      </div>
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen">
+        <mat-icon>filter_list</mat-icon>
+        Filters
+        <mat-icon class="chevron">{{ isFiltersOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-panel" *ngIf="isFiltersOpen">
+      <div class="filter-panel-title">
+        <mat-icon>filter_alt</mat-icon>
+        <span>Filters</span>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Severity</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="selectedSeverityFilter === 'all'" (click)="setSeverity('all')">All</div>
+          <div class="chip chip-critical" [class.active]="selectedSeverityFilter === 'critical'" (click)="setSeverity('critical')">Critical</div>
+          <div class="chip chip-warning" [class.active]="selectedSeverityFilter === 'warning'" (click)="setSeverity('warning')">Warning</div>
+          <div class="chip chip-info" [class.active]="selectedSeverityFilter === 'info'" (click)="setSeverity('info')">Info</div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">AQI Level</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="aqiFilter === 'all'" (click)="setAqi('all')">All</div>
+          <div class="chip chip-success" [class.active]="aqiFilter === 'good'" (click)="setAqi('good')">Good (≤50)</div>
+          <div class="chip chip-warning" [class.active]="aqiFilter === 'moderate'" (click)="setAqi('moderate')">Moderate (51–100)</div>
+          <div class="chip chip-error" [class.active]="aqiFilter === 'unhealthy'" (click)="setAqi('unhealthy')">Unhealthy (101–150)</div>
+          <div class="chip chip-critical" [class.active]="aqiFilter === 'very-unhealthy'" (click)="setAqi('very-unhealthy')">Very Unhealthy (&gt;150)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alerts-list">
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [class]="'severity-' + getSeverityColor(alert.severity)">
+      <div class="severity-indicator"></div>
+      
+      <div class="alert-content">
+        <div class="alert-header-row">
+          <div class="alert-info">
+            <div class="event-badge">
+              <mat-icon>cloud</mat-icon>
+              <span class="event-text">Air Quality Event</span>
+              <span class="uuid">{{ alert.sensorId }}</span>
+            </div>
+            <h3>{{ alert.title }}</h3>
+            <p class="alert-message">{{ alert.message }}</p>
+          </div>
+          <div class="alert-time">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ alert.time }}</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">AQI</div>
+            <div class="metric-value" [class]="'text-' + getAQIColor(alert.aqi)">
+              {{ alert.aqi }}
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">PM2.5</div>
+            <div class="metric-value">
+              {{ alert.pm25 }}
+              <span class="unit">μg/m³</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">PM10</div>
+            <div class="metric-value">
+              {{ alert.pm10 }}
+              <span class="unit">μg/m³</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">CO₂</div>
+            <div class="metric-value">
+              {{ alert.co2 }}
+              <span class="unit">ppm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-hint" [style.visibility]="alert.severity !== 'info' ? 'visible' : 'hidden'">
+          <mat-icon>info</mat-icon>
+          <span>{{ alert.report }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

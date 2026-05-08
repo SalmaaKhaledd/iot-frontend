@@ -15,6 +15,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 import { toRenderablePicture } from '../../core/utils/profile-picture';
+import { ThemeService } from '../../core/services/theme.service';
 import { SensorixLogoComponent } from '../../shared/components/sensorix-logo/sensorix-logo.component';
 import { TrafficSensorCardComponent } from './components/traffic-sensor-card/traffic-sensor-card.component';
 import { AirQualitySensorCardComponent } from './components/air-quality-sensor-card/air-quality-sensor-card.component';
@@ -32,6 +33,7 @@ export class HomeComponent {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
+  readonly themeService = inject(ThemeService);
 
   private readonly currentUser = signal<User | null>(this.authService.getUser());
 
@@ -69,6 +71,13 @@ export class HomeComponent {
 
   goToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+
+  scrollToSensor(sensorId: string): void {
+    const element = document.getElementById(sensorId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   private applyUser(user: User): void {

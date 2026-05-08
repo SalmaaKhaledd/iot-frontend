@@ -9,7 +9,7 @@
     </div>
 
     <div class="actions-wrap">
-      <button class="alerts-btn" type="button">
+      <button class="alerts-btn" type="button" (click)="showAlerts.set(true)">
         <mat-icon>description</mat-icon>
         <span>View Alerts</span>
       </button>
@@ -75,4 +75,16 @@
     </article>
     }
   </div>
+
+  @if (showAlerts()) {
+    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
+    <div class="modal-content">
+      <div class="modal-topbar">
+        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-street-light-alerts></app-street-light-alerts>
+    </div>
+  }
 </section>

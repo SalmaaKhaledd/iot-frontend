@@ -1,5 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
 
 type TrendPoint = {
   readonly time: string;
@@ -9,11 +11,12 @@ type TrendPoint = {
 @Component({
   selector: 'app-traffic-sensor-card',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [CommonModule, MatIconModule, TrafficAlertsComponent],
   templateUrl: './traffic-sensor-card.component.html',
   styleUrl: './traffic-sensor-card.component.scss',
 })
 export class TrafficSensorCardComponent {
+  readonly showAlerts = signal(false);
   readonly yTicks = [0, 45, 90, 135, 180] as const;
   readonly trendData: readonly TrendPoint[] = [
     { time: '6:00', vehicles: 84 },
@@ -28,6 +31,36 @@ export class TrafficSensorCardComponent {
   readonly tooltipX = signal(0);
   readonly tooltipY = signal(0);
 
+  
+  // Multiple mock sensors and selection
+  readonly sensors = [
+    {
+      id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+      name: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+      vehicleCount: 245,
+      avgSpeed: 8,
+      congestionLevel: 95,
+    },
+    {
+      id: '9c858901-8a57-4791-81fe-4c455b099bc9',
+      name: '9c858901-8a57-4791-81fe-4c455b099bc9',
+      vehicleCount: 185,
+      avgSpeed: 35,
+      congestionLevel: 72,
+    },
+    {
+      id: '6fa459ea-ee8a-3ca4-894e-db77e160355e',
+      name: '6fa459ea-ee8a-3ca4-894e-db77e160355e',
+      vehicleCount: 142,
+      avgSpeed: 28,
+      congestionLevel: 58,
+    },
+  ] as const;
+  
+  readonly selectedSensor = signal(this.sensors[0].id);
+  readonly selectedSensorData = computed(() =>
+    this.sensors.find((s) => s.id === this.selectedSensor()) ?? this.sensors[0],
+  );
   private readonly minValue = 0;
   private readonly maxValue = 180;
   private readonly xStart = 70;
@@ -89,5 +122,9 @@ export class TrafficSensorCardComponent {
 
   onChartLeave(): void {
     this.hoveredIndex.set(null);
+  }
+  
+  onSelectSensor(value: string): void {
+    this.selectedSensor.set(value as any);
   }
 }

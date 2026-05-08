@@ -5,13 +5,20 @@
         <mat-icon>air</mat-icon>
       </div>
       <div>
-        <h2>Air Quality Sensors</h2>
+        <div class="title-row">
+          <h2>Air Quality Sensors</h2>
+          <div class="sensor-select">
+            <select (change)="onSelectSensor($any($event.target).value)" [value]="selectedSensor()" aria-label="Select air sensor">
+              <option *ngFor="let s of sensors" [value]="s.id">{{ s.id }}</option>
+            </select>
+          </div>
+        </div>
         <p>Monitor pollution levels and air health</p>
       </div>
     </div>
 
     <div class="actions-wrap">
-      <button class="alerts-btn" type="button" aria-label="View air quality alerts">
+      <button class="alerts-btn" type="button" aria-label="View air quality alerts" (click)="showAlerts.set(true)">
         <mat-icon>description</mat-icon>
         <span>View Alerts</span>
       </button>
@@ -28,9 +35,9 @@
         </svg>
 
         <div class="ring-center">
-          <div class="aqi-score">78</div>
+          <div class="aqi-score">{{ selectedSensorData().aqi }}</div>
           <div class="aqi-label">AQI Score</div>
-          <span class="aqi-pill">Moderate</span>
+          <span class="aqi-pill">{{ selectedSensorData().aqi > 150 ? 'Unhealthy' : selectedSensorData().aqi > 100 ? 'Moderate' : 'Good' }}</span>
         </div>
       </div>
     </div>
@@ -39,25 +46,25 @@
       <article class="pollutant">
         <div class="pollutant-head">
           <span>PM2.5</span>
-          <strong>36 μg/m³</strong>
+          <strong>{{ selectedSensorData().pm25 }} μg/m³</strong>
         </div>
-        <div class="bar-track"><div class="bar amber"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="clampWidth(selectedSensorData().pm25)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>PM10</span>
-          <strong>58 μg/m³</strong>
+          <strong>{{ selectedSensorData().pm10 }} μg/m³</strong>
         </div>
-        <div class="bar-track"><div class="bar green"></div></div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="clampWidth(selectedSensorData().pm10)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>CO₂ Level</span>
-          <strong>446 ppm</strong>
+          <strong>{{ selectedSensorData().co2 }} ppm</strong>
         </div>
-        <div class="bar-track"><div class="bar red"></div></div>
+        <div class="bar-track"><div class="bar red" [style.width.%]="co2Width(selectedSensorData().co2)"></div></div>
       </article>
     </div>
   </div>
@@ -69,4 +76,16 @@
     </div>
     <p>Air quality is acceptable. Sensitive individuals should consider limiting prolonged outdoor activities.</p>
   </div>
+
+  @if (showAlerts()) {
+    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
+    <div class="modal-content">
+      <div class="modal-topbar">
+        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-air-quality-alerts></app-air-quality-alerts>
+    </div>
+  }
 </section>

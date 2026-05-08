@@ -1,0 +1,101 @@
+<section class="alerts-container">
+  <div class="alerts-header-wrap">
+    <div class="alerts-header">
+      <div class="header-content">
+        <div class="icon-wrap">
+          <mat-icon>light_mode</mat-icon>
+        </div>
+        <div>
+          <h2>Street Light Alerts</h2>
+          <p>Maintenance history and system events</p>
+        </div>
+      </div>
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen">
+        <mat-icon>filter_list</mat-icon>
+        Filters
+        <mat-icon class="chevron">{{ isFiltersOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-panel" *ngIf="isFiltersOpen">
+      <div class="filter-panel-title">
+        <mat-icon>filter_alt</mat-icon>
+        <span>Filters</span>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Severity</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="selectedSeverityFilter === 'all'" (click)="setSeverity('all')">All</div>
+          <div class="chip chip-critical" [class.active]="selectedSeverityFilter === 'critical'" (click)="setSeverity('critical')">Critical</div>
+          <div class="chip chip-warning" [class.active]="selectedSeverityFilter === 'warning'" (click)="setSeverity('warning')">Warning</div>
+          <div class="chip chip-info" [class.active]="selectedSeverityFilter === 'info'" (click)="setSeverity('info')">Info</div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Status</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="statusFilter === 'all'" (click)="setStatus('all')">All</div>
+          <div class="chip chip-success" [class.active]="statusFilter === 'on'" (click)="setStatus('on')">On</div>
+          <div class="chip chip-inactive" [class.active]="statusFilter === 'off'" (click)="setStatus('off')">Off</div>
+          <div class="chip chip-critical" [class.active]="statusFilter === 'faulty'" (click)="setStatus('faulty')">Faulty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alerts-list">
+    <div
+      *ngFor="let alert of filteredAlerts()"
+      class="alert-card"
+      [class]="'severity-' + getSeverityColor(alert.severity)"
+    >
+      <div class="severity-indicator"></div>
+      
+      <div class="alert-content">
+        <div class="alert-header-row">
+          <div class="alert-info">
+            <div class="location-info">
+              <div class="location-badge">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ alert.lightId }} - {{ alert.location }}</span>
+              </div>
+              <span class="status-badge" [class]="'status-' + getStatusColor(alert.status)">
+                {{ alert.status | uppercase }}
+              </span>
+            </div>
+            <h3>{{ alert.title }}</h3>
+            <p class="alert-message">{{ alert.message }}</p>
+          </div>
+          <div class="alert-time">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ alert.time }}</span>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">Brightness Level</div>
+            <div class="brightness-display">
+              <div class="brightness-bar">
+                <div class="brightness-fill" [style.width.%]="alert.brightness"></div>
+              </div>
+              <span class="brightness-value">{{ alert.brightness }}%</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Power Usage</div>
+            <div class="metric-value">
+              {{ alert.powerConsumption }}
+              <span class="unit">W</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-hint" [style.visibility]="alert.severity !== 'info' ? 'visible' : 'hidden'">
+          <mat-icon>info</mat-icon>
+          <span>{{ alert.report }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

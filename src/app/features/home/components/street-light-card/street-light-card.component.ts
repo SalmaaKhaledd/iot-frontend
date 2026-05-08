@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-alerts.component';
 
 type StreetLightItem = {
   readonly id: string;
@@ -12,11 +13,12 @@ type StreetLightItem = {
 @Component({
   selector: 'app-street-light-card',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIconModule, StreetLightAlertsComponent],
   templateUrl: './street-light-card.component.html',
   styleUrl: './street-light-card.component.scss',
 })
 export class StreetLightCardComponent {
+  readonly showAlerts = signal(false);
   readonly lights = signal<StreetLightItem[]>([
     { id: 'SL-001', location: 'Main Street', isOn: true, isFaulty: false, brightness: 85 },
     { id: 'SL-002', location: 'Park Avenue', isOn: true, isFaulty: false, brightness: 70 },
