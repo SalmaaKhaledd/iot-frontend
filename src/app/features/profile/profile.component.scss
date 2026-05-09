@@ -10,7 +10,7 @@
 .page-toolbar {
   width: 100%;
   max-width: 42rem;
-  margin-bottom: 1rem;
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
 }
@@ -18,28 +18,32 @@
 .back-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.75rem;
+  gap: 8px;
   background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  color: var(--muted-foreground);
-  font-size: 0.95rem;
-  line-height: 1;
+  border: none;
+  color: var(--t-text-secondary, var(--muted-foreground));
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  padding: 8px 12px;
+  margin-left: -12px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-  background: transparent;
-  color: var(--sensorix-teal);
-  border-color: var(--sensorix-teal);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--t-text-primary, var(--foreground));
 }
 
 .back-button mat-icon {
-  font-size: 1.2rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+body[data-theme="light"] :host .back-button:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .profile-card {

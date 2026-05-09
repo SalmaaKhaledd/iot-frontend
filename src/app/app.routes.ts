@@ -34,6 +34,13 @@ export const routes: Routes = [
       import('./features/profile/profile.component').then((m) => m.ProfileComponent),
   },
   {
+    path: 'settings',
+    canActivate: [authGuard],
+    canDeactivate: [(c: any) => c.canDeactivate ? c.canDeactivate() : true],
+    loadComponent: () =>
+      import('./features/settings/settings').then((m) => m.Settings),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./features/not-found/not-found.component').then(

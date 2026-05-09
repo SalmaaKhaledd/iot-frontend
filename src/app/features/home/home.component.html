@@ -1,36 +1,6 @@
 <div class="home-page">
-  <header class="topbar">
-    <div class="brand">
-      <app-sensorix-logo
-        [iconSize]="'clamp(22px, 2.8vw, 30px)'"
-        [textSize]="'clamp(18px, 2.2vw, 24px)'"
-        [gap]="'12px'"
-        [textWeight]="'600'"
-      />
-    </div>
+  <app-topbar></app-topbar>
 
-    <div class="topbar-actions">
-      <button class="icon-button notify-button" type="button" aria-label="Notifications">
-        <mat-icon aria-hidden="true">notifications</mat-icon>
-        @if (unreadMessagesCount()) {
-        <span class="notify-badge">{{ unreadMessagesCount() }}</span>
-        }
-      </button>
-      <button class="icon-button" type="button" aria-label="Settings">
-        <mat-icon aria-hidden="true">settings</mat-icon>
-      </button>
-      <button class="icon-button" type="button" aria-label="Toggle theme" (click)="themeService.toggle()">
-        <mat-icon aria-hidden="true">{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-      </button>
-      <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
-        @if (profilePictureUrl()) {
-        <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" />
-        } @else {
-        {{ userInitials() }}
-        }
-      </button>
-    </div>
-  </header>
 
   <main class="hero">
     <div class="max-w">
