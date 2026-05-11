@@ -3,13 +3,11 @@ import {
   Component,
   computed,
   inject,
-  signal,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { User } from '../../../core/models/user.model';
 import { toRenderablePicture } from '../../../core/utils/profile-picture';
 import { ThemeService } from '../../../core/services/theme.service';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
@@ -28,8 +26,8 @@ export class TopbarComponent {
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
 
-  /** Reactive snapshot of the current user from local storage. */
-  readonly currentUser = signal<User | null>(this.authService.getUser());
+  /** Reactive current user shared by the auth service. */
+  readonly currentUser = this.authService.currentUser;
 
   readonly userInitials = computed(() => {
     const user = this.currentUser();
@@ -53,10 +51,5 @@ export class TopbarComponent {
 
   goToProfile(): void {
     this.router.navigate(['/profile']);
-  }
-
-  /** Allow parent components to refresh the user data shown in the topbar. */
-  refreshUser(user: User): void {
-    this.currentUser.set(user);
   }
 }

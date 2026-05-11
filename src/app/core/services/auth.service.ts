@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -19,6 +19,7 @@ export class AuthService {
   private readonly baseUrl = environment.apiUrl;
   private readonly tokenStorageKey = 'iot_auth_token';
   private readonly userStorageKey = 'iot_user';
+  readonly currentUser = signal<User | null>(this.getUser());
 
   login(email: string, password: string): Observable<AuthApiSuccessResponse> {
     return this.http.post<AuthApiSuccessResponse>(`${this.baseUrl}/auth/login`, {
@@ -54,6 +55,10 @@ export class AuthService {
     );
   }
 
+  logout(): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/logout`, {});
+  }
+
   saveToken(token: string): void {
     localStorage.setItem(this.tokenStorageKey, token);
   }
@@ -64,6 +69,7 @@ export class AuthService {
 
   saveUser(user: User): void {
     localStorage.setItem(this.userStorageKey, JSON.stringify(user));
+    this.currentUser.set(user);
   }
 
   getUser(): User | null {
@@ -79,8 +85,9 @@ export class AuthService {
     }
   }
 
-  logout(): void {
+  clearSession(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
+    this.currentUser.set(null);
   }
 }

@@ -10,14 +10,14 @@ import { AuthService } from '../services/auth.service';
 describe('authInterceptor', () => {
   let authServiceStub: {
     getToken: () => string | null;
-    logout: () => void;
+    clearSession: () => void;
   };
   let router: Router;
 
   beforeEach(() => {
     authServiceStub = {
       getToken: () => null,
-      logout: vi.fn(),
+      clearSession: vi.fn(),
     };
 
     TestBed.configureTestingModule({
@@ -134,7 +134,7 @@ describe('authInterceptor', () => {
       }),
     );
 
-    expect(authServiceStub.logout).toHaveBeenCalled();
+    expect(authServiceStub.clearSession).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 
@@ -165,7 +165,7 @@ describe('authInterceptor', () => {
       }),
     );
 
-    expect(authServiceStub.logout).not.toHaveBeenCalled();
+    expect(authServiceStub.clearSession).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
   });
 });

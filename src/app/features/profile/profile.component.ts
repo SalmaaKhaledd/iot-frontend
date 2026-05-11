@@ -97,8 +97,19 @@ export class ProfileComponent {
   }
 
   logout(): void {
-    this.authService.logout();
-    void this.router.navigate(['/login']);
+    this.authService
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+      });
   }
 
   get initials(): string {
