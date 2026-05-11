@@ -8,6 +8,7 @@
 	border-radius: 14px;
 	padding: 22px;
 	transition: background 0.25s ease, border-color 0.25s ease;
+	margin-bottom: 40px;
 }
 
 .street-header {
@@ -350,10 +351,10 @@ h4 {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	max-width: 90vw;
-	max-height: 90vh;
+	max-height: 84vh;
 	z-index: 1001;
 	border-radius: 14px;
-	overflow: auto;
+	overflow: hidden;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 	animation: scaleIn 0.3s ease-out;
 	display: flex;
@@ -362,10 +363,15 @@ h4 {
 }
 
 .modal-topbar {
+	position: absolute;
+	top: 0;
+	right: 0;
 	display: flex;
 	justify-content: flex-end;
-	padding: 10px 12px 0;
+	padding: 0;
+	margin: 0;
 	background: transparent;
+	z-index: 1002;
 }
 
 .modal-close {
@@ -373,12 +379,14 @@ h4 {
 	height: 36px;
 	display: grid;
 	place-items: center;
+	padding: 8px;
 	border: 0;
 	background: transparent;
 	color: var(--t-modal-close);
 	border-radius: 8px;
 	cursor: pointer;
 	transition: color 0.2s ease;
+	flex-shrink: 0;
 
 	&:hover {
 		color: var(--t-text-primary);
