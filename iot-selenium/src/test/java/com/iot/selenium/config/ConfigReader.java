@@ -26,13 +26,4 @@ public class ConfigReader {
     public String getBaseUrl() {
         return properties.getProperty("baseUrl", "http://localhost:4200").trim();
     }
-
-    public long getImplicitWaitSeconds() {
-        String implicitWait = properties.getProperty("implicitWait", "10").trim();
-        try {
-            return Long.parseLong(implicitWait);
-        } catch (NumberFormatException exception) {
-            throw new IllegalStateException("implicitWait must be a whole number of seconds.", exception);
-        }
-    }
 }

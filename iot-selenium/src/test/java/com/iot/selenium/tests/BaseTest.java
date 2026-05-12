@@ -1,6 +1,5 @@
 package com.iot.selenium.tests;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,7 +33,6 @@ public abstract class BaseTest {
         baseUrl = configReader.getBaseUrl();
         driver = createDriver(configReader.getBrowser());
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(configReader.getImplicitWaitSeconds()));
     }
 
     @AfterMethod(alwaysRun = true)
@@ -44,11 +42,11 @@ public abstract class BaseTest {
         }
     }
 
+    /** Logs in with the given credentials and waits until the URL contains {@code /home}. */
     protected void login(String email, String password) {
-        new SigninPage(driver)
-                .open(baseUrl)
-                .login(email, password)
-                .waitForAngular();
+        SigninPage signIn = new SigninPage(driver);
+        signIn.open(baseUrl).login(email, password);
+        signIn.waitForUrl("/home", 20);
     }
 
     protected Map<String, String> structuredData(Map<String, String> row) {

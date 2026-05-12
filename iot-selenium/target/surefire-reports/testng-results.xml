@@ -1,151 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-04T03:51:05 EEST" name="IoT Selenium Suite" finished-at="2026-05-04T03:51:23 EEST" duration-ms="18023">
+  <suite started-at="2026-05-12T23:43:39 EEST" name="Surefire suite" finished-at="2026-05-12T23:43:59 EEST" duration-ms="20108">
     <groups>
     </groups>
-    <test started-at="2026-05-04T03:51:05 EEST" name="Signup Tests" finished-at="2026-05-04T03:51:09 EEST" duration-ms="4448">
-      <class name="com.iot.selenium.tests.SignupTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@49e5f737]" started-at="2026-05-04T03:51:06 EEST" name="setUp" finished-at="2026-05-04T03:51:07 EEST" duration-ms="1662" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldRegisterSuccessfully(java.util.Map)[pri:0, instance:com.iot.selenium.tests.SignupTest@49e5f737]" started-at="2026-05-04T03:51:07 EEST" name="shouldRegisterSuccessfully" data-provider="signupSuccessData" finished-at="2026-05-04T03:51:09 EEST" duration-ms="1815" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Test Case Name=Selenium Registration Success, Status=Ready, "REG-" & TEXT(ROW()-2, "00")=SEL-SIGNUP-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /signup.
-2. Enter a unique email and valid name/password data.
-3. Submit the form., Test Data Used=emailPrefix=signup.selenium; emailDomain=example.com; firstName=Alice; lastName=Brown; password=Signup123!; expectedGreetingName=Alice, Expected Results=Should create the account, sign in automatically, and show the dashboard greeting for Alice., Actual Results=-, Endpoint=http://localhost:4200/signup -> /home, Assignee=Automation, Approver=QA, Notes=Used by SignupTest., API Contract Link=-}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- shouldRegisterSuccessfully -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@49e5f737]" started-at="2026-05-04T03:51:09 EEST" name="tearDown" finished-at="2026-05-04T03:51:09 EEST" duration-ms="264" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.iot.selenium.tests.SignupTest -->
-    </test> <!-- Signup Tests -->
-    <test started-at="2026-05-04T03:51:09 EEST" name="Signin Tests" finished-at="2026-05-04T03:51:14 EEST" duration-ms="4363">
-      <class name="com.iot.selenium.tests.SigninTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:10 EEST" name="setUp" finished-at="2026-05-04T03:51:11 EEST" duration-ms="994" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldLoginSuccessfully(java.util.Map)[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:11 EEST" name="shouldLoginSuccessfully" data-provider="positiveLoginData" finished-at="2026-05-04T03:51:12 EEST" duration-ms="1024" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Test Case Name=Selenium Login Success, Status=Ready, Test Case ID=SEL-LOGIN-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /login.
-2. Enter valid credentials.
-3. Submit the form., Test Data Used=email=faridakhaled05@gmail.com; password=Farida123!; expectedGreetingName=Farida, Expected Results=Should navigate to the dashboard and show the greeting for Farida., Actual Results=-, Endpoint=http://localhost:4200/login -> /home, Assignee=Automation, Approver=QA, Notes=Used by LoginTest and DashboardTest., API Contract Link=-}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- shouldLoginSuccessfully -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:12 EEST" name="tearDown" finished-at="2026-05-04T03:51:12 EEST" duration-ms="276" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:12 EEST" name="setUp" finished-at="2026-05-04T03:51:13 EEST" duration-ms="944" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldShowLoginErrorForInvalidCredentials(java.util.Map)[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:13 EEST" name="shouldShowLoginErrorForInvalidCredentials" data-provider="negativeLoginData" finished-at="2026-05-04T03:51:14 EEST" duration-ms="749" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Test Case Name=Selenium Login Failure, Status=Ready, Test Case ID=SEL-LOGIN-02, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Negative, Steps to Reproduce=1. Open /login.
-2. Enter an invalid password.
-3. Submit the form., Test Data Used=email=john@example.com; password=WrongPassword123!; expectedError=Invalid email or password., Expected Results=Should remain on the login page and show the invalid-credentials message., Actual Results=-, Endpoint=http://localhost:4200/login, Assignee=Automation, Approver=QA, Notes=Used by LoginTest negative coverage., API Contract Link=-}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- shouldShowLoginErrorForInvalidCredentials -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@2cdd0d4b]" started-at="2026-05-04T03:51:14 EEST" name="tearDown" finished-at="2026-05-04T03:51:14 EEST" duration-ms="267" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.iot.selenium.tests.SigninTest -->
-    </test> <!-- Signin Tests -->
-    <test started-at="2026-05-04T03:51:14 EEST" name="Dashboard Tests" finished-at="2026-05-04T03:51:17 EEST" duration-ms="3288">
-      <class name="com.iot.selenium.tests.DashboardTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.DashboardTest@e1de817]" started-at="2026-05-04T03:51:14 EEST" name="setUp" finished-at="2026-05-04T03:51:15 EEST" duration-ms="1430" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method signature="shouldDisplayDashboardGreetingAndProfileShortcut(java.util.Map)[pri:0, instance:com.iot.selenium.tests.DashboardTest@e1de817]" started-at="2026-05-04T03:51:15 EEST" name="shouldDisplayDashboardGreetingAndProfileShortcut" data-provider="dashboardData" finished-at="2026-05-04T03:51:17 EEST" duration-ms="1258" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Test Case Name=Selenium Login Success, Status=Ready, Test Case ID=SEL-LOGIN-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /login.
-2. Enter valid credentials.
-3. Submit the form., Test Data Used=email=faridakhaled05@gmail.com; password=Farida123!; expectedGreetingName=Farida, Expected Results=Should navigate to the dashboard and show the greeting for Farida., Actual Results=-, Endpoint=http://localhost:4200/login -> /home, Assignee=Automation, Approver=QA, Notes=Used by LoginTest and DashboardTest., API Contract Link=-}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- shouldDisplayDashboardGreetingAndProfileShortcut -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.DashboardTest@e1de817]" started-at="2026-05-04T03:51:17 EEST" name="tearDown" finished-at="2026-05-04T03:51:17 EEST" duration-ms="550" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.iot.selenium.tests.DashboardTest -->
-    </test> <!-- Dashboard Tests -->
-    <test started-at="2026-05-04T03:51:17 EEST" name="User Profile Tests" finished-at="2026-05-04T03:51:23 EEST" duration-ms="5901">
+    <test started-at="2026-05-12T23:43:39 EEST" name="Surefire test" finished-at="2026-05-12T23:43:59 EEST" duration-ms="20108">
       <class name="com.iot.selenium.tests.UserProfileTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:17 EEST" name="setUp" finished-at="2026-05-04T03:51:18 EEST" duration-ms="978" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:40 EEST" name="setUp" finished-at="2026-05-12T23:43:46 EEST" duration-ms="6547" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldDisplayProfileDetails(java.util.Map)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:18 EEST" name="shouldDisplayProfileDetails" data-provider="profileData" finished-at="2026-05-04T03:51:19 EEST" duration-ms="1200" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:46 EEST" name="initWait" finished-at="2026-05-12T23:43:46 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="4" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initWait -->
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:46 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-05-12T23:43:48 EEST" duration-ms="1961" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Test Case Name=Selenium Profile Smoke, Status=Ready, Test Case ID=SEL-PROFILE-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Log in with valid credentials.
-2. Open the profile page.
-3. Verify the displayed user details., Test Data Used=email=john@example.com; password=Password123!; expectedFirstName=John; expectedLastName=Doe; expectedEmail=john@example.com; expectedGreetingName=John, Expected Results=Should display the cached profile information and allow navigation back to the dashboard., Actual Results=-, Endpoint=http://localhost:4200/profile, Assignee=Automation, Approver=QA, Notes=Used by UserProfileTest., API Contract Link=-}]]>
+                <![CDATA[[Ljava.lang.Object;@2d23faef]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- shouldDisplayProfileDetails -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:19 EEST" name="tearDown" finished-at="2026-05-04T03:51:20 EEST" duration-ms="309" status="PASS">
+        </test-method> <!-- testUserProfile -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:48 EEST" name="tearDown" finished-at="2026-05-12T23:43:48 EEST" duration-ms="132" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:20 EEST" name="setUp" finished-at="2026-05-04T03:51:21 EEST" duration-ms="999" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:48 EEST" name="setUp" finished-at="2026-05-12T23:43:50 EEST" duration-ms="1392" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="shouldReturnToDashboardFromProfile(java.util.Map)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:21 EEST" name="shouldReturnToDashboardFromProfile" data-provider="profileData" finished-at="2026-05-04T03:51:23 EEST" duration-ms="2047" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:50 EEST" name="initWait" finished-at="2026-05-12T23:43:50 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initWait -->
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:50 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-05-12T23:43:51 EEST" duration-ms="1523" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Test Case Name=Selenium Profile Smoke, Status=Ready, Test Case ID=SEL-PROFILE-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Log in with valid credentials.
-2. Open the profile page.
-3. Verify the displayed user details., Test Data Used=email=john@example.com; password=Password123!; expectedFirstName=John; expectedLastName=Doe; expectedEmail=john@example.com; expectedGreetingName=John, Expected Results=Should display the cached profile information and allow navigation back to the dashboard., Actual Results=-, Endpoint=http://localhost:4200/profile, Assignee=Automation, Approver=QA, Notes=Used by UserProfileTest., API Contract Link=-}]]>
+                <![CDATA[[Ljava.lang.Object;@126f1ba8]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- shouldReturnToDashboardFromProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@355ce81c]" started-at="2026-05-04T03:51:23 EEST" name="tearDown" finished-at="2026-05-04T03:51:23 EEST" duration-ms="279" status="PASS">
+        </test-method> <!-- testUserProfile -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:51 EEST" name="tearDown" finished-at="2026-05-12T23:43:51 EEST" duration-ms="102" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:51 EEST" name="setUp" finished-at="2026-05-12T23:43:52 EEST" duration-ms="1090" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:52 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-05-12T23:43:54 EEST" duration-ms="1585" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[Ljava.lang.Object;@6b350309]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserProfile -->
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:52 EEST" name="initWait" finished-at="2026-05-12T23:43:52 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initWait -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:54 EEST" name="tearDown" finished-at="2026-05-12T23:43:54 EEST" duration-ms="104" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:54 EEST" name="setUp" finished-at="2026-05-12T23:43:55 EEST" duration-ms="1074" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:55 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-05-12T23:43:57 EEST" duration-ms="1988" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[Ljava.lang.Object;@6e43ddd6]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserProfile -->
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:55 EEST" name="initWait" finished-at="2026-05-12T23:43:55 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initWait -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:57 EEST" name="tearDown" finished-at="2026-05-12T23:43:57 EEST" duration-ms="108" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:57 EEST" name="setUp" finished-at="2026-05-12T23:43:58 EEST" duration-ms="966" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:58 EEST" name="initWait" finished-at="2026-05-12T23:43:58 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="4" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- initWait -->
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:58 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-05-12T23:43:59 EEST" duration-ms="729" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[Ljava.lang.Object;@794366a5]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserProfile -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@4d9e68d0]" started-at="2026-05-12T23:43:59 EEST" name="tearDown" finished-at="2026-05-12T23:43:59 EEST" duration-ms="102" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.iot.selenium.tests.UserProfileTest -->
-    </test> <!-- User Profile Tests -->
-  </suite> <!-- IoT Selenium Suite -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
 </testng-results>
