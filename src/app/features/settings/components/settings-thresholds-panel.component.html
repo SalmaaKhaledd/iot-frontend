@@ -1,0 +1,83 @@
+<section class="thresholds-panel">
+  <div class="info-alert">
+    <span class="info-icon" aria-hidden="true">
+      <mat-icon>info</mat-icon>
+    </span>
+    <p>Alert triggers when readings fall <strong>above</strong> or <strong>below</strong> these set thresholds.</p>
+  </div>
+
+  <div class="categories">
+    @for (category of categories(); track category.id) {
+      <article class="category-card" [ngClass]="category.colorClass">
+        <div class="card-header">
+          <div class="icon-wrap" [ngClass]="category.colorClass">
+            <mat-icon aria-hidden="true">{{ category.icon }}</mat-icon>
+          </div>
+          <div class="title-wrap">
+            <h2>{{ category.title }}</h2>
+            <p>{{ category.description }}</p>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          @for (metric of category.metrics; track metric.id) {
+            <div class="metric-card">
+              <label class="metric-label">{{ metric.label }}</label>
+
+              <div class="thresholds-list">
+                @for (threshold of metric.thresholds; track threshold.id) {
+                  <div class="threshold-row">
+                    <button
+                      type="button"
+                      class="condition-btn"
+                      [class.above]="threshold.condition === 'above'"
+                      [class.below]="threshold.condition === 'below'"
+                      [class.interactive]="metric.thresholds.length === 1"
+                      (click)="toggleCondition(metric, threshold)">
+                      {{ threshold.condition === 'above' ? 'Above' : 'Below' }}
+                    </button>
+
+                    <div class="input-wrap" [class.has-error]="hasValueError(metric, threshold)">
+                      <input
+                        type="number"
+                        [min]="metric.min"
+                        [max]="metric.max"
+                        [(ngModel)]="threshold.value"
+                        (ngModelChange)="onThresholdValueChange(metric, threshold)"
+                        [placeholder]="placeholderFor(metric)" />
+
+                      @if (hasValueError(metric, threshold)) {
+                        <div class="error-tooltip">
+                          Value must be between {{ metric.min }} and {{ metric.max }}
+                        </div>
+                      }
+                    </div>
+
+                    @if (metric.thresholds.length > 1) {
+                      <button
+                        type="button"
+                        class="remove-btn"
+                        (click)="removeThreshold(metric, threshold.id)"
+                        aria-label="Remove threshold">
+                        <mat-icon aria-hidden="true">close</mat-icon>
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+
+              @if (metric.thresholds.length < 2) {
+                <button type="button" class="add-threshold-btn" (click)="addThreshold(metric)">
+                  <mat-icon aria-hidden="true">add</mat-icon>
+                  Add another threshold
+                </button>
+              }
+
+              <div class="metric-unit">{{ metric.unit }}</div>
+            </div>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</section>

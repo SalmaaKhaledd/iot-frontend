@@ -1,0 +1,46 @@
+<section class="configuration-panel">
+  <div class="info-alert">
+    <span class="info-icon" aria-hidden="true">
+      <mat-icon>info</mat-icon>
+    </span>
+    <p>Configure how frequently each sensor type collects and reports readings.</p>
+  </div>
+
+  <div class="config-grid">
+    @for (field of fields; track field.key) {
+      <article class="config-card" [ngClass]="field.colorClass">
+        <div class="card-header">
+          <div class="icon-wrap" [ngClass]="field.colorClass">
+            <mat-icon aria-hidden="true">{{ field.icon }}</mat-icon>
+          </div>
+          <div class="title-wrap">
+            <h2>{{ field.label }}</h2>
+            <p>{{ field.description }}</p>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label [for]="field.key">Reading Interval (minutes)</label>
+          <div class="input-shell" [class.has-error]="hasValueError(field)">
+            <input
+              [id]="field.key"
+              type="number"
+              [min]="field.min"
+              [max]="field.max"
+              [step]="field.step || '1'"
+              [(ngModel)]="sensorConfig()[field.key]"
+              (ngModelChange)="updateInterval(field.key, $event)"
+              [placeholder]="field.placeholder" />
+
+            @if (hasValueError(field)) {
+              <div class="error-tooltip" role="alert">
+                Value must be between {{ field.min }} and {{ field.max }} minutes.
+              </div>
+            }
+          </div>
+          <p class="hint">{{ field.description }} ({{ field.min }}-{{ field.max }} minutes)</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>

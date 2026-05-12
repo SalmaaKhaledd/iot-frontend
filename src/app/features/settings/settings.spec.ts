@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { vi } from 'vitest';
 
-import { Settings, type SensorMetric } from './settings';
+import { Settings } from './settings';
+import { type SensorMetric } from './settings.types';
 
 describe('Settings', () => {
   let component: Settings;
@@ -24,6 +25,14 @@ describe('Settings', () => {
   it('creates the page with the default categories', () => {
     expect(component.categories()).toHaveLength(3);
     expect(component.categories()[0].id).toBe('traffic');
+  });
+
+  it('starts on the thresholds tab and can switch tabs', () => {
+    expect(component.activeTab()).toBe('thresholds');
+
+    component.setActiveTab('configuration');
+
+    expect(component.activeTab()).toBe('configuration');
   });
 
   it('navigates home from the toolbar action', () => {
