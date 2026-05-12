@@ -14,6 +14,10 @@
           </div>
         </div>
         <p>Monitor pollution levels and air health</p>
+        <div class="meta-row">
+          <span class="meta-chip">{{ selectedSensorData().location }}</span>
+          <span class="meta-chip">{{ formatTimestamp(selectedSensorData().timestamp) }}</span>
+        </div>
       </div>
     </div>
 
@@ -22,7 +26,9 @@
         <mat-icon>error_outline</mat-icon>
         <span>View Alerts</span>
       </button>
-      <mat-icon class="ok-icon">task_alt</mat-icon>
+      <span class="status-chip" [ngClass]="selectedSensorData().pollutionLevel.toLowerCase().replace(' ', '-')">
+        {{ selectedSensorData().pollutionLevel }}
+      </span>
     </div>
   </div>
 
@@ -31,13 +37,13 @@
       <div class="ring">
         <svg viewBox="0 0 220 220" class="ring-svg" aria-hidden="true">
           <circle cx="110" cy="110" r="88" class="ring-track" />
-          <circle cx="110" cy="110" r="88" class="ring-value" />
+          <circle cx="110" cy="110" r="88" class="ring-value" [attr.stroke-dashoffset]="ringDashOffset()" />
         </svg>
 
         <div class="ring-center">
-          <div class="aqi-score">{{ selectedSensorData().aqi }}</div>
-          <div class="aqi-label">AQI Score</div>
-          <span class="aqi-pill">{{ selectedSensorData().aqi > 150 ? 'Unhealthy' : selectedSensorData().aqi > 100 ? 'Moderate' : 'Good' }}</span>
+          <div class="aqi-score">{{ selectedSensorData().pollutionLevel }}</div>
+          <div class="aqi-label">Air Quality</div>
+          <span class="aqi-pill">Pollution Index</span>
         </div>
       </div>
     </div>
@@ -45,26 +51,50 @@
     <div class="pollutants">
       <article class="pollutant">
         <div class="pollutant-head">
-          <span>PM2.5</span>
-          <strong>{{ selectedSensorData().pm25 }} μg/m³</strong>
+          <span>PM2.5 (µg/m³)</span>
+          <strong>{{ selectedSensorData().pm2_5 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar amber" [style.width.%]="clampWidth(selectedSensorData().pm25)"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="particulateWidth(selectedSensorData().pm2_5)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
-          <span>PM10</span>
-          <strong>{{ selectedSensorData().pm10 }} μg/m³</strong>
+          <span>PM10 (µg/m³)</span>
+          <strong>{{ selectedSensorData().pm10 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar green" [style.width.%]="clampWidth(selectedSensorData().pm10)"></div></div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="particulateWidth(selectedSensorData().pm10)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
-          <span>CO₂ Level</span>
-          <strong>{{ selectedSensorData().co2 }} ppm</strong>
+          <span>CO (ppm)</span>
+          <strong>{{ selectedSensorData().co }}</strong>
         </div>
-        <div class="bar-track"><div class="bar red" [style.width.%]="co2Width(selectedSensorData().co2)"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="coWidth(selectedSensorData().co)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>Ozone (ppb)</span>
+          <strong>{{ selectedSensorData().ozone }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar red" [style.width.%]="ozoneWidth(selectedSensorData().ozone)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>NO2 (ppb)</span>
+          <strong>{{ selectedSensorData().no2 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="gasWidth(selectedSensorData().no2)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>SO2 (ppb)</span>
+          <strong>{{ selectedSensorData().so2 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="gasWidth(selectedSensorData().so2)"></div></div>
       </article>
     </div>
   </div>
@@ -74,7 +104,7 @@
       <mat-icon>air</mat-icon>
       <h3>Air Quality Recommendation</h3>
     </div>
-    <p>Air quality is acceptable. Sensitive individuals should consider limiting prolonged outdoor activities.</p>
+    <p>{{ recommendationText() }}</p>
   </div>
 
   @if (showAlerts()) {

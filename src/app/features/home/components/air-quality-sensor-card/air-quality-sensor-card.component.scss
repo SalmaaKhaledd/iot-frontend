@@ -27,15 +27,20 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	flex-wrap: wrap;
 }
 
 .sensor-select select {
-	background: transparent;
-	color: #dce7f8;
-	border: 1px solid rgba(255, 255, 255, 0.04);
+	background: var(--t-metric-bg);
+	color: var(--t-text-primary);
+	border: 1px solid var(--t-metric-border);
 	padding: 6px 8px;
 	border-radius: 8px;
 	font-size: 13px;
+	max-width: 240px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 .sensor-select select option {
@@ -77,6 +82,8 @@ p {
 	display: flex;
 	align-items: center;
 	gap: 14px;
+	flex-wrap: wrap;
+	justify-content: flex-end;
 }
 
 .alerts-btn {
@@ -106,6 +113,40 @@ p {
 	color: #00d882;
 }
 
+.status-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 36px;
+	padding: 0 12px;
+	border-radius: 999px;
+	border: 1px solid var(--t-metric-border);
+	background: var(--t-metric-bg);
+	color: var(--t-text-primary);
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.status-chip.good {
+	background: #052e16;
+	color: #86efac;
+}
+
+.status-chip.moderate {
+	background: #713f12;
+	color: #fde68a;
+}
+
+.status-chip.unhealthy {
+	background: #7c2d12;
+	color: #fdba74;
+}
+
+.status-chip.very-unhealthy {
+	background: #7f1d1d;
+	color: #fecaca;
+}
+
 .air-main {
 	display: grid;
 	grid-template-columns: 1fr 1.2fr;
@@ -121,8 +162,8 @@ p {
 
 .ring {
 	position: relative;
-	width: 220px;
-	height: 220px;
+	width: 210px;
+	height: 210px;
 }
 
 .ring-svg {
@@ -134,51 +175,51 @@ p {
 .ring-track {
 	fill: none;
 	stroke: var(--t-metric-border);
-	stroke-width: 14;
+	stroke-width: 12;
 }
 
 .ring-value {
 	fill: none;
 	stroke: #f3c813;
 	stroke-linecap: round;
-	stroke-width: 14;
+	stroke-width: 12;
 	stroke-dasharray: 553;
-	stroke-dashoffset: 387;
 }
 
 .ring-center {
 	position: absolute;
-	inset: 0;
+	inset: 26px;
 	display: grid;
 	place-content: center;
 	text-align: center;
+	gap: 4px;
 }
 
 .aqi-score {
-	font-size: 40px;
+	font-size: 28px;
 	font-weight: 700;
 	color: var(--t-text-primary);
 	line-height: 1;
+	text-transform: capitalize;
 }
 
 .aqi-label {
-	font-size: 15px;
+	font-size: 13px;
 	color: var(--t-text-secondary);
-	margin-top: 2px;
 }
 
 .aqi-pill {
 	justify-self: center;
-	margin-top: 10px;
-	height: 26px;
+	height: 24px;
 	padding: 0 14px;
 	border-radius: 999px;
 	display: inline-flex;
 	align-items: center;
 	background: #8d5d07;
 	color: #ffc233;
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 700;
+	white-space: nowrap;
 }
 
 .pollutants {
@@ -208,8 +249,27 @@ p {
 
 .pollutant-head strong {
 	color: var(--t-text-primary);
-	font-size: 28px;
+	font-size: 22px;
 	line-height: 1;
+}
+
+.meta-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.meta-chip {
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	padding: 0 10px;
+	border-radius: 999px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+	color: var(--t-text-secondary);
+	font-size: 12px;
 }
 
 .bar-track {
@@ -385,4 +445,102 @@ body[data-theme="light"] :host .recommendation h3 {
 
 body[data-theme="light"] :host .recommendation p {
 	color: oklch(48.8% 0.243 264.376);
+}
+
+@media (max-width: 620px) {
+	.modal-content {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		max-width: 94vw;
+		max-height: 90vh;
+		width: 100%;
+		border-radius: 16px;
+	}
+}
+
+@media (max-width: 900px) {
+	.air-card {
+		min-width: 0;
+	}
+
+	.air-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.actions-wrap {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	.air-main {
+		grid-template-columns: 1fr;
+	}
+
+	.ring {
+		width: 190px;
+		height: 190px;
+	}
+}
+
+@media (max-width: 620px) {
+	.air-card {
+		padding: 16px;
+		border-radius: 12px;
+	}
+
+	.title-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.sensor-select select {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.actions-wrap {
+		flex-direction: column;
+		width: 100%;
+		gap: 10px;
+	}
+
+	.alerts-btn {
+		width: 100%;
+		justify-content: center;
+		flex: 1;
+	}
+
+	.status-chip {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.ring {
+		width: 168px;
+		height: 168px;
+	}
+
+	.aqi-score {
+		font-size: 24px;
+	}
+
+	.pollutant-head strong {
+		font-size: 20px;
+	}
+
+	.modal-content {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		max-width: 94vw;
+		max-height: 90vh;
+		width: 100%;
+		border-radius: 16px;
+	}
 }

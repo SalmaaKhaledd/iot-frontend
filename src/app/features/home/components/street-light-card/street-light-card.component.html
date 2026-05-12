@@ -8,26 +8,32 @@
       </div>
     </div>
 
-    <div class="actions-wrap">
-      <button class="alerts-btn" type="button" (click)="showAlerts.set(true)">
-        <mat-icon>error_outline</mat-icon>
-        <span>View Alerts</span>
-      </button>
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ lightsOn() }} ON</span>
+        <span class="meta-chip">{{ lightsOff() }} OFF</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="stats-row">
     <article class="stat-box">
-      <p>Total Lights</p>
+      <p>Total Sensors</p>
       <strong>{{ totalLights() }}</strong>
     </article>
     <article class="stat-box">
-      <p>Lights On</p>
+      <p>Active Sensors</p>
       <strong class="ok">{{ lightsOn() }}</strong>
     </article>
     <article class="stat-box">
-      <p>Faulty Lights</p>
-      <strong class="danger">{{ faultyLights() }} <mat-icon>error_outline</mat-icon></strong>
+      <p>Average Brightness</p>
+      <strong>{{ averageBrightness() }}%</strong>
     </article>
     <article class="stat-box">
       <p>Power Usage</p>
@@ -36,8 +42,8 @@
   </div>
 
   <div class="maintenance">
-    <h3><mat-icon>error_outline</mat-icon>Maintenance Required</h3>
-    <p>1 street light needs immediate attention.</p>
+    <h3><mat-icon>schedule</mat-icon>Status Summary</h3>
+    <p>All sensors are reporting valid brightness and power readings.</p>
   </div>
 
   <div class="light-list">
@@ -45,33 +51,27 @@
     <article class="light-item">
       <div class="light-head">
         <div class="left">
-          <div class="bulb" [class.on]="light.isOn" [class.off]="!light.isOn"><mat-icon>lightbulb</mat-icon></div>
+          <div class="bulb" [class.on]="light.status === 'ON'" [class.off]="light.status === 'OFF'"><mat-icon>lightbulb</mat-icon></div>
           <div>
             <h4>{{ light.id }}</h4>
             <p>{{ light.location }}</p>
           </div>
         </div>
         <div class="right">
-          <div><span>Brightness</span><strong>{{ light.brightness }}%</strong></div>
-          <div><span>Power</span><strong>{{ computePower(light.brightness) }}W</strong></div>
+          <div><span>Status</span><strong [class.on]="light.status === 'ON'">{{ light.status }}</strong></div>
+          <div><span>Timestamp</span><strong class="timestamp">{{ formatTimestamp(light.timestamp) }}</strong></div>
         </div>
       </div>
-      @if (light.isOn) {
-      <div class="slider-row">
-        <span>Adjust:</span>
-        <div class="slider">
-          <div class="fill" [style.width.%]="light.brightness"></div>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            [value]="light.brightness"
-            (input)="onBrightnessChange(light.id, $any($event.target).value)"
-            aria-label="Adjust brightness"
-          />
+      <div class="metrics-grid">
+        <div class="metric-chip">
+          <span>Brightness Level</span>
+          <strong>{{ light.brightnessLevel }}%</strong>
+        </div>
+        <div class="metric-chip">
+          <span>Power Consumption</span>
+          <strong>{{ light.powerConsumption }}W</strong>
         </div>
       </div>
-      }
     </article>
     }
   </div>

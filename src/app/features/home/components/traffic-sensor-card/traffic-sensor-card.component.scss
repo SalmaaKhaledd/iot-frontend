@@ -117,6 +117,7 @@ h3 {
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	flex-wrap: wrap;
 }
 
 .sensor-select select {
@@ -126,6 +127,9 @@ h3 {
 	padding: 6px 8px;
 	border-radius: 8px;
 	font-size: 13px;
+	max-width: 240px;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .sensor-select select option {
@@ -163,6 +167,27 @@ p {
 	display: flex;
 	align-items: center;
 	gap: 14px;
+}
+
+.meta-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 14px;
+	flex-wrap: wrap;
+}
+
+.meta-chip {
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	padding: 0 10px;
+	border-radius: 999px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+	color: var(--t-text-secondary);
+	font-size: 12px;
 }
 
 .alerts-btn {
@@ -252,6 +277,59 @@ p {
 	line-height: 1;
 	color: var(--t-text-muted);
 	font-weight: 500;
+
+.text-value {
+	font-size: 17px;
+	line-height: 1.15;
+	word-break: break-word;
+}
+
+.pill.congestion {
+	font-size: 14px;
+	height: 28px;
+	padding-inline: 10px;
+	background: #334155;
+	color: #e2e8f0;
+}
+
+.pill.congestion.low {
+	background: #14532d;
+	color: #86efac;
+}
+
+.pill.congestion.moderate {
+	background: #854d0e;
+	color: #fde68a;
+}
+
+.pill.congestion.high {
+	background: #7c2d12;
+	color: #fdba74;
+}
+
+.pill.congestion.severe {
+	background: #7f1d1d;
+	color: #fecaca;
+}
+
+.meta-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.meta-chip {
+	display: inline-flex;
+	align-items: center;
+	min-height: 28px;
+	padding: 0 10px;
+	border-radius: 999px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+	color: var(--t-text-secondary);
+	font-size: 12px;
+}
 }
 
 .value.warning {
@@ -279,64 +357,87 @@ h3 {
 	font-weight: 600;
 }
 
-.chart-wrap {
+.bar-chart {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+	width: 100%;
+	height: 200px;
+	gap: 12px;
+	padding: 20px 10px 35px 10px;
+	background: var(--t-metric-bg);
+	border-radius: 10px;
+	border: 1px solid var(--t-metric-border);
 	position: relative;
-	width: 100%;
-	height: 210px;
 }
 
-.trend-chart {
-	width: 100%;
+.bar-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0;
+	flex: 1;
+	position: relative;
+	cursor: pointer;
 	height: 100%;
+	min-width: 0;
+	padding-bottom: 32px;
 }
 
-.axis {
-	stroke: var(--t-card-border);
-	stroke-width: 1.2;
+.bar {
+	width: 100%;
+	max-width: 28px;
+	height: var(--bar-height, 10%);
+	background: #2f7cff;
+	border-radius: 6px 6px 0 0;
+	transition: background 200ms ease, height 200ms ease;
+	min-height: 6px;
+	margin-bottom: 0;
 }
 
-.trend-line {
-	fill: none;
-	stroke: #2f7cff;
-	stroke-width: 2.5;
+.bar-active {
+	background: #5ca0ff;
 }
 
-.point {
-	fill: #2f7cff;
-	transition: r 120ms ease, fill 120ms ease;
-}
-
-.point-active {
-	fill: #5ca0ff;
-}
-
-.tick {
-	fill: var(--t-text-muted);
+.bar-label {
 	font-size: 12px;
+	color: var(--t-text-secondary);
+	text-align: center;
+	white-space: nowrap;
+	position: absolute;
+	bottom: 2px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
 }
 
-.chart-tooltip {
+.bar-tooltip {
 	position: absolute;
-	transform: translate(-50%, -130%);
+	bottom: calc(100% + 12px);
+	left: 50%;
+	transform: translateX(-50%);
 	padding: 8px 10px;
 	border-radius: 8px;
 	background: var(--t-card-inner);
 	border: 1px solid var(--t-card-border);
-	display: inline-flex;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
-	gap: 8px;
+	gap: 4px;
 	pointer-events: none;
 	white-space: nowrap;
+	z-index: 10;
 }
 
-.chart-tooltip strong {
+.bar-tooltip strong {
 	font-size: 13px;
 	color: var(--t-text-primary);
 	line-height: 1;
 }
 
-.chart-tooltip span {
-	font-size: 12px;
+.bar-tooltip span {
+	font-size: 11px;
 	color: var(--t-text-secondary);
 	line-height: 1;
 }
@@ -344,6 +445,71 @@ h3 {
 @media (max-width: 1120px) {
 	.traffic-card {
 		min-width: 1080px;
+	}
+}
+
+@media (max-width: 900px) {
+	.traffic-card {
+		min-width: 0;
+	}
+
+	.traffic-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.actions-wrap {
+		flex-wrap: wrap;
+	}
+
+	.stats-row {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.bar-chart {
+		height: 180px;
+	}
+}
+
+@media (max-width: 620px) {
+	.traffic-card {
+		padding: 16px;
+		border-radius: 12px;
+	}
+
+	.title-wrap {
+		align-items: flex-start;
+	}
+
+	.title-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.sensor-select select {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.stats-row {
+		grid-template-columns: 1fr;
+	}
+
+	.value {
+		font-size: 24px;
+	}
+
+	.text-value {
+		font-size: 14px;
+	}
+
+	.trend-panel {
+		padding: 12px;
+	}
+
+	.bar-chart {
+		height: 140px;
 	}
 }
 
@@ -445,4 +611,17 @@ body[data-theme="light"] .alerts-btn {
 	background: #eff6ff;
 	border-color: #bfdbfe;
 	color: #2563eb;
+}
+
+@media (max-width: 620px) {
+	.modal-content {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		max-width: 94vw;
+		max-height: 90vh;
+		width: 100%;
+		border-radius: 16px;
+	}
 }

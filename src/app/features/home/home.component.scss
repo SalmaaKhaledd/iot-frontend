@@ -136,3 +136,88 @@ body[data-theme="light"] .icon-wrap.yellow { background: #fef9c3; color: #a16207
   border-radius: 0.5rem;
   padding: 1rem;
 }
+
+/* Tablet & Mobile Responsive Styles */
+@media (max-width: 900px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card {
+    padding: 1.25rem 1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding-top: 1.25rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .max-w {
+    padding: 0 0.75rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card {
+    padding: 1rem 0.9rem;
+    border-radius: 8px;
+  }
+
+  .card-header {
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .icon-wrap {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .icon-wrap mat-icon {
+    font-size: 1.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    margin: 0 0 0.15rem 0;
+  }
+
+  p {
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  }
+
+  .small {
+    font-size: 0.95rem;
+  }
+
+  .hero-intro {
+    margin-bottom: 1rem;
+  }
+
+  .mb-6 {
+    margin-bottom: 1rem;
+  }
+
+  .sensor-cards {
+    gap: 1rem;
+  }
+}

@@ -17,82 +17,63 @@
       </div>
     </div>
 
-    <div class="actions-wrap">
-      <button class="alerts-btn" type="button" aria-label="View traffic alerts" (click)="showAlerts.set(true)">
-        <mat-icon>error_outline</mat-icon>
-        <span>View Alerts</span>
-      </button>
-      <div class="trend-indicator" aria-label="Trend increasing">
-        <mat-icon>trending_up</mat-icon>
-        <span>increasing</span>
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ selectedSensorData().location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(selectedSensorData().timestamp) }}</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" aria-label="View traffic alerts" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
       </div>
     </div>
   </div>
 
   <div class="stats-row">
     <article class="stat-box">
-      <p class="label">Traffic Density</p>
-      <span class="pill">MEDIUM</span>
+      <p class="label">Sensor ID</p>
+      <p class="value text-value">{{ selectedSensorData().id }}</p>
     </article>
 
     <article class="stat-box">
-      <p class="label">Vehicle Count</p>
-        <p class="value">{{ selectedSensorData().vehicleCount }} <span>cars/min</span></p>
+      <p class="label">Traffic Density</p>
+      <p class="value">{{ selectedSensorData().trafficDensity }} <span>vehicles/min</span></p>
     </article>
 
     <article class="stat-box">
       <p class="label">Average Speed</p>
-        <p class="value">{{ selectedSensorData().avgSpeed }} <span>km/h</span></p>
+      <p class="value">{{ selectedSensorData().avgSpeed }} <span>km/h</span></p>
     </article>
 
     <article class="stat-box">
       <p class="label">Congestion Level</p>
-      <p class="value" [class.warning]="selectedSensorData().congestionLevel >= 70">
-        <mat-icon>speed</mat-icon>
-        {{ selectedSensorData().congestionLevel }}%
-      </p>
+      <span class="pill congestion" [ngClass]="selectedSensorData().congestionLevel.toLowerCase()">
+        {{ selectedSensorData().congestionLevel }}
+      </span>
     </article>
   </div>
 
   <div class="trend-panel">
-    <h3>Vehicle Count Trend</h3>
+    <h3>Traffic Density Trend</h3>
 
-    <div
-      class="chart-wrap"
-      role="img"
-      aria-label="Vehicle count trend from 6:00 to 11:00"
-      (mousemove)="onChartMove($event, chartSvg)"
-      (mouseleave)="onChartLeave()"
-    >
-      <svg #chartSvg viewBox="0 0 1040 260" class="trend-chart" preserveAspectRatio="none" aria-hidden="true">
-        <line x1="70" y1="20" x2="70" y2="220" class="axis" />
-        <line x1="70" y1="220" x2="1000" y2="220" class="axis" />
-
-        <path [attr.d]="linePath()" class="trend-line" />
-
-        @for (point of pointCoords(); track point.time; let i = $index) {
-        <circle
-          [attr.cx]="point.x"
-          [attr.cy]="point.y"
-          [attr.r]="hoveredIndex() === i ? 7 : 5"
-          class="point"
-          [class.point-active]="hoveredIndex() === i"
-        />
+    <div class="bar-chart">
+      @for (point of trendData; track point.time; let i = $index) {
+      <div
+        class="bar-item"
+        [style.--bar-height]="getBarHeight(point.density)"
+        (mouseenter)="hoveredIndex.set(i)"
+        (mouseleave)="hoveredIndex.set(null)"
+      >
+        <div class="bar" [class.bar-active]="hoveredIndex() === i"></div>
+        <span class="bar-label">{{ point.time }}</span>
+        @if (hoveredIndex() === i) {
+        <div class="bar-tooltip">
+          <strong>{{ point.density }}</strong>
+          <span>vehicles/min</span>
+        </div>
         }
-
-        @for (tick of yTicks; track tick) {
-        <text x="40" [attr.y]="yFor(tick) + 4" class="tick">{{ tick }}</text>
-        }
-
-        @for (point of pointCoords(); track point.time) {
-        <text [attr.x]="point.x - 14" y="240" class="tick">{{ point.time }}</text>
-        }
-      </svg>
-
-      @if (hoveredPoint(); as point) {
-      <div class="chart-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
-        <strong>{{ point.vehicles }}</strong>
-        <span>{{ point.time }}</span>
       </div>
       }
     </div>

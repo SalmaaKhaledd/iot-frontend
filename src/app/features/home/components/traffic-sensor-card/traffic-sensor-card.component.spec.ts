@@ -23,42 +23,17 @@ describe('TrafficSensorCardComponent', () => {
     expect(component.selectedSensorData().id).toBe(component.sensors[1].id);
   });
 
-  it('computes the chart path from the derived point coordinates', () => {
-    const coords = component.pointCoords();
-
-    expect(coords).toHaveLength(component.trendData.length);
-    expect(component.linePath()).toBe(
-      coords.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x} ${point.y}`).join(' '),
-    );
+  it('exposes trend data for the bar chart', () => {
+    expect(component.trendData).toHaveLength(6);
+    expect(component.trendData[0]).toEqual({ time: '6:00', density: 84 });
+    expect(component.trendData[5]).toEqual({ time: '11:00', density: 98 });
   });
 
-  it('maps chart values to the SVG coordinate system', () => {
-    expect(component.yFor(0)).toBe(220);
-    expect(component.yFor(90)).toBe(121);
-    expect(component.yFor(180)).toBe(22);
-  });
-
-  it('tracks the nearest chart point while hovering', () => {
-    const targetPoint = component.pointCoords()[2];
-    const svg = {
-      getBoundingClientRect: () => ({ left: 0, width: 1040, height: 260 }),
-    } as unknown as Element;
-    const event = new MouseEvent('mousemove', { clientX: targetPoint.x, clientY: 0 });
-
-    component.onChartMove(event, svg);
-
-    expect(component.hoveredIndex()).toBe(2);
-    expect(component.hoveredPoint()).toEqual(targetPoint);
-    expect(component.tooltipX()).toBeCloseTo(targetPoint.x, 5);
-    expect(component.tooltipY()).toBeCloseTo(targetPoint.y, 5);
-  });
-
-  it('clears the hovered point when the pointer leaves', () => {
-    component.hoveredIndex.set(1);
-
-    component.onChartLeave();
-
+  it('tracks hovered bar index', () => {
     expect(component.hoveredIndex()).toBeNull();
-    expect(component.hoveredPoint()).toBeNull();
+    component.hoveredIndex.set(2);
+    expect(component.hoveredIndex()).toBe(2);
+    component.hoveredIndex.set(null);
+    expect(component.hoveredIndex()).toBeNull();
   });
 });

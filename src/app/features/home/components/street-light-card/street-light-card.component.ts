@@ -5,9 +5,10 @@ import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-
 type StreetLightItem = {
   readonly id: string;
   readonly location: string;
-  readonly isOn: boolean;
-  readonly isFaulty: boolean;
-  readonly brightness: number;
+  readonly timestamp: string;
+  readonly brightnessLevel: number;
+  readonly powerConsumption: number;
+  readonly status: 'ON' | 'OFF';
 };
 
 @Component({
@@ -20,37 +21,55 @@ type StreetLightItem = {
 export class StreetLightCardComponent {
   readonly showAlerts = signal(false);
   readonly lights = signal<StreetLightItem[]>([
-    { id: 'SL-001', location: 'Main Street', isOn: true, isFaulty: false, brightness: 85 },
-    { id: 'SL-002', location: 'Park Avenue', isOn: true, isFaulty: false, brightness: 70 },
-    { id: 'SL-003', location: 'Oak Boulevard', isOn: false, isFaulty: false, brightness: 0 },
+    {
+      id: 'SL-001',
+      location: 'Main Street',
+      timestamp: '2026-05-12T08:15:00',
+      brightnessLevel: 85,
+      powerConsumption: 42.5,
+      status: 'ON',
+    },
+    {
+      id: 'SL-002',
+      location: 'Park Avenue',
+      timestamp: '2026-05-12T08:20:00',
+      brightnessLevel: 70,
+      powerConsumption: 34,
+      status: 'ON',
+    },
+    {
+      id: 'SL-003',
+      location: 'Oak Boulevard',
+      timestamp: '2026-05-12T08:22:00',
+      brightnessLevel: 0,
+      powerConsumption: 0,
+      status: 'OFF',
+    },
   ]);
 
   readonly totalLights = computed(() => this.lights().length);
-  readonly lightsOn = computed(() => this.lights().filter((light) => light.isOn).length);
-  readonly faultyLights = computed(() => this.lights().filter((light) => light.isFaulty).length);
+  readonly lightsOn = computed(() => this.lights().filter((light) => light.status === 'ON').length);
+  readonly lightsOff = computed(() => this.lights().filter((light) => light.status === 'OFF').length);
+  readonly averageBrightness = computed(() => {
+    const items = this.lights();
+    return Math.round(items.reduce((total, light) => total + light.brightnessLevel, 0) / items.length);
+  });
   readonly powerUsage = computed(() =>
-    this.lights().reduce((total, light) => total + this.computePower(light.brightness), 0),
+    Math.round(this.lights().reduce((total, light) => total + light.powerConsumption, 0) * 10) / 10,
   );
 
-  computePower(brightness: number): number {
-    return Math.round(brightness * 0.5);
-  }
-
-  onBrightnessChange(id: string, rawValue: string): void {
-    const numericValue = Number(rawValue);
-    if (Number.isNaN(numericValue)) {
-      return;
+  formatTimestamp(timestamp: string): string {
+    const parsed = new Date(timestamp);
+    if (Number.isNaN(parsed.getTime())) {
+      return timestamp;
     }
 
-    this.lights.update((lights) =>
-      lights.map((light) =>
-        light.id === id
-          ? {
-              ...light,
-              brightness: Math.max(0, Math.min(100, numericValue)),
-            }
-          : light,
-      ),
-    );
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    }).format(parsed);
   }
 }
