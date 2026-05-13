@@ -8,6 +8,7 @@ import {
   OnDestroy,
   ViewChild,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -60,7 +61,7 @@ export class SignupComponent implements OnDestroy {
   showPassword = false;
   showConfirmPassword = false;
   private objectPreviewUrl: string | null = null;
-  isLoading = false;
+  isLoading = signal(false);
   submitted = false;
 
   readonly signupForm = this.formBuilder.group(
@@ -212,7 +213,7 @@ export class SignupComponent implements OnDestroy {
     }
 
     this.errorMessage = '';
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     const formValue = this.signupForm.getRawValue();
     const payload: RegisterRequest = {
@@ -231,7 +232,7 @@ export class SignupComponent implements OnDestroy {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.authService.login(payload.email, payload.password)),
-        finalize(() => (this.isLoading = false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {

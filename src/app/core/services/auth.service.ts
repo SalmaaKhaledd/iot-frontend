@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import type { User, UserProfileResponse } from '../models/user.model';
@@ -25,13 +26,17 @@ export class AuthService {
     return this.http.post<AuthApiSuccessResponse>(`${this.baseUrl}/auth/login`, {
       email,
       password,
-    });
+    }).pipe(
+      timeout(10000), // 10 second timeout
+    );
   }
 
   register(user: RegisterRequest): Observable<AuthApiSuccessResponse> {
     return this.http.post<AuthApiSuccessResponse>(
       `${this.baseUrl}/auth/register`,
       user,
+    ).pipe(
+      timeout(10000), // 10 second timeout
     );
   }
 

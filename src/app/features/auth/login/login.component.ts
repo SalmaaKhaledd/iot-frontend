@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +27,7 @@ export class LoginComponent {
   private readonly destroyRef = inject(DestroyRef);
 
   errorMessage = '';
-  isLoading = false;
+  isLoading = signal(false);
   showPassword = false;
 
   readonly loginForm = this.formBuilder.group({
@@ -58,7 +58,7 @@ export class LoginComponent {
     }
 
     this.errorMessage = '';
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     const formValue = this.loginForm.getRawValue();
     const payload: LoginRequest = {
@@ -71,7 +71,7 @@ export class LoginComponent {
       .login(payload.email, payload.password)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => (this.isLoading = false)),
+        finalize(() => this.isLoading.set(false)),
       )
       .subscribe({
         next: (response) => {
