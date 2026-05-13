@@ -14,13 +14,20 @@
     <div class="title-wrap">
       <div class="sensor-icon"><mat-icon>lightbulb</mat-icon></div>
       <div>
-        <h2>Street Light Controls</h2>
-        <div class="sensor-select">
-          <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select street light reading">
-            @for (item of dropdownReadings(); track item.index) {
-              <option [value]="item.index">{{ item.label }}</option>
-            }
-          </select>
+        <div class="title-row">
+          <h2>Street Light Controls</h2>
+          <div class="sensor-select-wrap">
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select street light reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
         </div>
         <p>Manage lighting and energy usage</p>
       </div>
@@ -55,10 +62,6 @@
     </article>
   </div>
 
-  <div class="maintenance">
-    <h3><mat-icon>schedule</mat-icon>Light Status</h3>
-    <p>{{ light.id }} is currently {{ light.status === 'ON' ? 'ON' : 'OFF' }} with {{ light.brightnessLevel }}% brightness.</p>
-  </div>
   } @else {
     <div class="loading-state">
       <mat-icon>info</mat-icon>

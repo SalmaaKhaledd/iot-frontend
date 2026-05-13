@@ -120,16 +120,47 @@ h3 {
 	flex-wrap: wrap;
 }
 
+.sensor-select-wrap {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px;
+	border-radius: 10px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+}
+
+.history-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	background: rgba(37, 99, 235, 0.15);
+	color: #93c5fd;
+	flex-shrink: 0;
+}
+
+.history-chip mat-icon {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
 .sensor-select select {
+	appearance: none;
 	background: transparent;
 	color: var(--t-text-primary);
-	border: 1px solid var(--t-card-border);
+	border: 0;
 	padding: 6px 8px;
+	padding-right: 22px;
 	border-radius: 8px;
 	font-size: 13px;
 	max-width: 240px;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .sensor-select select option {
@@ -485,6 +516,10 @@ h3 {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 8px;
+	}
+
+	.sensor-select-wrap {
+		width: 100%;
 	}
 
 	.sensor-select select {

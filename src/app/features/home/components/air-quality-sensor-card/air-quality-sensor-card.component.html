@@ -18,12 +18,17 @@
       <div>
         <div class="title-row">
           <h2>Air Quality Sensors</h2>
-          <div class="sensor-select">
-            <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select air reading">
-              @for (item of dropdownReadings(); track item.index) {
-                <option [value]="item.index">{{ item.label }}</option>
-              }
-            </select>
+          <div class="sensor-select-wrap">
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select air reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
           </div>
         </div>
         <p>Monitor pollution levels and air health</p>
@@ -112,6 +117,7 @@
     </div>
   </div>
 
+  @if (showRecommendation()) {
   <div class="recommendation">
     <div class="rec-title">
       <mat-icon>air</mat-icon>
@@ -119,6 +125,7 @@
     </div>
     <p>{{ recommendationText() }}</p>
   </div>
+  }
   } @else {
     <div class="loading-state">
       <mat-icon>info</mat-icon>

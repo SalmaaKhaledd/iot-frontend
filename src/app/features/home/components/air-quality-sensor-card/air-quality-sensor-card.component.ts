@@ -98,6 +98,15 @@ export class AirQualitySensorCardComponent {
     }
   });
 
+  readonly showRecommendation = computed(() => {
+    const sensor = this.selectedSensorData();
+    if (!sensor) {
+      return false;
+    }
+
+    return sensor.pollutionLevel !== 'Good';
+  });
+
   constructor() {
     this.sensorReadingsService
       .getAirPollutionReadings()

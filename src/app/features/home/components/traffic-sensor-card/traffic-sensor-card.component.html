@@ -18,12 +18,17 @@
       <div>
         <div class="title-row">
           <h2>Traffic Sensors</h2>
-          <div class="sensor-select">
-            <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select traffic reading">
-              @for (item of dropdownReadings(); track item.index) {
-                <option [value]="item.index">{{ item.label }}</option>
-              }
-            </select>
+          <div class="sensor-select-wrap">
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select traffic reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
           </div>
         </div>
         <p>Real-time road congestion monitoring</p>

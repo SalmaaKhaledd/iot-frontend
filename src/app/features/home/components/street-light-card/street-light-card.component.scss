@@ -25,6 +25,61 @@
 	flex-wrap: wrap;
 }
 
+.title-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.sensor-select-wrap {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px;
+	border-radius: 10px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+}
+
+.history-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	background: rgba(245, 158, 11, 0.2);
+	color: #fcd34d;
+	flex-shrink: 0;
+}
+
+.history-chip mat-icon {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.sensor-select select {
+	appearance: none;
+	background: transparent;
+	color: var(--t-text-primary);
+	border: 0;
+	padding: 6px 8px;
+	padding-right: 22px;
+	border-radius: 8px;
+	font-size: 13px;
+	max-width: 240px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.sensor-select select option {
+	color: #0b1220;
+	background: #ffffff;
+}
+
 .sensor-icon {
 	width: 48px;
 	height: 48px;
@@ -205,33 +260,6 @@ h2 {
 	font-size: 12px;
 	line-height: 1.15;
 	word-break: break-word;
-}
-
-.maintenance {
-	border: 1px solid #cf253c;
-	background: #3a2a3a;
-	border-radius: 12px;
-	padding: 5px 12px;
-	margin-bottom: 16px;
-}
-
-.maintenance h3 {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	margin: 0 0 6px;
-	color: #ff8b96;
-	font-size: 20px;
-}
-
-.maintenance h3 mat-icon {
-	color: #ff5f6b;
-}
-
-.maintenance p {
-	margin: 0 0 0 30px;
-	color: #ff5967;
-	font-size: 14px;
 }
 
 .metrics-grid {
@@ -460,6 +488,21 @@ p {
 		gap: 10px;
 	}
 
+	.title-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.sensor-select-wrap {
+		width: 100%;
+	}
+
+	.sensor-select select {
+		max-width: 100%;
+		width: 100%;
+	}
+
 	.alerts-btn {
 		width: 100%;
 		justify-content: center;
@@ -491,9 +534,6 @@ p {
 		font-size: 11px;
 	}
 
-	.maintenance p {
-		margin-left: 0;
-	}
 }
 
 @keyframes fadeIn {
@@ -592,6 +632,11 @@ body[data-theme="light"] .sensor-icon {
 	color: #a16207;
 }
 
+body[data-theme="light"] .history-chip {
+	background: #fef3c7;
+	color: #a16207;
+}
+
 body[data-theme="light"] .alerts-btn {
 	background: #fffbeb;
 	border-color: #fde68a;
@@ -602,18 +647,6 @@ body[data-theme="light"] .mode-btn {
 	background: #eff6ff;
 	border-color: #bfdbfe;
 	color: #1d4ed8;
-}
-
-body[data-theme="light"] :host .maintenance {
-	background: #fef2f2;
-}
-
-body[data-theme="light"] :host .maintenance h3 {
-	color: #82184a;
-}
-
-body[data-theme="light"] :host .maintenance p {
-	color: #ff0000;
 }
 
 @media (max-width: 620px) {

@@ -30,11 +30,41 @@
 	flex-wrap: wrap;
 }
 
+.sensor-select-wrap {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px;
+	border-radius: 10px;
+	background: var(--t-metric-bg);
+	border: 1px solid var(--t-metric-border);
+}
+
+.history-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	background: rgba(19, 128, 85, 0.2);
+	color: #6ee7b7;
+	flex-shrink: 0;
+}
+
+.history-chip mat-icon {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
 .sensor-select select {
+	appearance: none;
 	background: var(--t-metric-bg);
 	color: var(--t-text-primary);
-	border: 1px solid var(--t-metric-border);
+	border: 0;
 	padding: 6px 8px;
+	padding-right: 22px;
 	border-radius: 8px;
 	font-size: 13px;
 	max-width: 240px;
@@ -496,6 +526,10 @@ body[data-theme="light"] :host .recommendation p {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 8px;
+	}
+
+	.sensor-select-wrap {
+		width: 100%;
 	}
 
 	.sensor-select select {
