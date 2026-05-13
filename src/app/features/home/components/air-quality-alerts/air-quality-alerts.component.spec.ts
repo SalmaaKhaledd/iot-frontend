@@ -26,9 +26,8 @@ describe('AirQualityAlertsComponent', () => {
     expect(component.isFiltersOpen).toBe(true);
   });
 
-  it('filters alerts by severity and AQI level', () => {
-    component.setSeverity('warning');
-    component.setAqi('moderate');
+  it('filters alerts by pollution level', () => {
+    component.setPollution('moderate');
 
     expect(component.filteredAlerts().map((alert) => alert.id)).toEqual([
       'bbbbbbbb-cccc-dddd-eeee-ffffffffffff',
@@ -36,14 +35,11 @@ describe('AirQualityAlertsComponent', () => {
     ]);
   });
 
-  it('maps severity and AQI thresholds to colors', () => {
-    expect(component.getSeverityColor('critical')).toBe('critical');
-    expect(component.getSeverityColor('warning')).toBe('warning');
-    expect(component.getSeverityColor('info')).toBe('info');
-
-    expect(component.getAQIColor(40)).toBe('success');
-    expect(component.getAQIColor(88)).toBe('warning');
-    expect(component.getAQIColor(140)).toBe('error');
-    expect(component.getAQIColor(180)).toBe('critical');
+  it('maps pollution levels to colors', () => {
+    expect(component.getPollutionColor('Good')).toBe('success');
+    expect(component.getPollutionColor('Moderate')).toBe('warning');
+    expect(component.getPollutionColor('Unhealthy')).toBe('error');
+    expect(component.getPollutionColor('Very Unhealthy')).toBe('critical');
+    expect(component.getPollutionColor('Hazardous')).toBe('critical');
   });
 });

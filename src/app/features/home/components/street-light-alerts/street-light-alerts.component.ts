@@ -4,14 +4,13 @@ import { MatIconModule } from '@angular/material/icon';
 
 interface StreetLightAlert {
   id: string;
-  severity: 'info' | 'warning' | 'critical';
   lightId: string;
   location: string;
   title: string;
   message: string;
   report: string;
   time: string;
-  status: 'on' | 'off' | 'faulty';
+  status: 'on' | 'off';
   brightness: number;
   powerConsumption: number;
 }
@@ -26,21 +25,7 @@ interface StreetLightAlert {
 export class StreetLightAlertsComponent {
   readonly streetLightAlerts: readonly StreetLightAlert[] = [
     {
-      id: 'light-1',
-      severity: 'critical',
-      lightId: 'SL-005',
-      location: 'Elm Street',
-      title: 'Complete Light Failure',
-      message: 'Street light completely non-functional',
-      report: 'Street light SL-005 has experienced complete power failure. Status: FAULTY. Last operational: 3 hours ago. Brightness: 0%. Power consumption: 0W. Diagnostic error code: ERR_POWER_LOSS. Maintenance team dispatched. Estimated repair time: 4-6 hours. Temporary lighting solution being arranged.',
-      time: '45 min ago',
-      status: 'faulty',
-      brightness: 0,
-      powerConsumption: 0
-    },
-    {
       id: 'light-2',
-      severity: 'critical',
       lightId: 'SL-012',
       location: 'Park Avenue & 3rd Street',
       title: 'Multiple Light Outage',
@@ -53,7 +38,6 @@ export class StreetLightAlertsComponent {
     },
     {
       id: 'light-3',
-      severity: 'warning',
       lightId: 'SL-008',
       location: 'Cedar Lane',
       title: 'Flickering Light Detected',
@@ -66,7 +50,6 @@ export class StreetLightAlertsComponent {
     },
     {
       id: 'light-4',
-      severity: 'warning',
       lightId: 'SL-021',
       location: 'Oak Boulevard',
       title: 'Reduced Brightness',
@@ -79,7 +62,6 @@ export class StreetLightAlertsComponent {
     },
     {
       id: 'light-5',
-      severity: 'info',
       lightId: 'SL-005',
       location: 'Elm Street',
       title: 'Light Repair Completed',
@@ -92,7 +74,6 @@ export class StreetLightAlertsComponent {
     },
     {
       id: 'light-6',
-      severity: 'info',
       lightId: 'SL-030',
       location: 'Maple Drive',
       title: 'Auto-Dimming Activated',
@@ -107,31 +88,17 @@ export class StreetLightAlertsComponent {
 
   // Filter state
   isFiltersOpen = false;
-  selectedSeverityFilter = 'all';
   statusFilter = 'all';
 
   filteredAlerts(): readonly StreetLightAlert[] {
     return this.streetLightAlerts.filter((a) => {
-      const matchesSeverity = this.selectedSeverityFilter === 'all' || a.severity === this.selectedSeverityFilter;
       const matchesStatus = this.statusFilter === 'all' || a.status === this.statusFilter;
-      return matchesSeverity && matchesStatus;
+      return matchesStatus;
     });
   }
 
   toggleFilters(): void { this.isFiltersOpen = !this.isFiltersOpen; }
-  setSeverity(sev: string): void { this.selectedSeverityFilter = sev; }
   setStatus(status: string): void { this.statusFilter = status; }
-
-  getSeverityColor(severity: string): string {
-    switch (severity) {
-      case 'critical':
-        return 'critical';
-      case 'warning':
-        return 'warning';
-      default:
-        return 'info';
-    }
-  }
 
   getStatusColor(status: string): string {
     switch (status) {
@@ -139,8 +106,6 @@ export class StreetLightAlertsComponent {
         return 'success';
       case 'off':
         return 'inactive';
-      case 'faulty':
-        return 'critical';
       default:
         return 'inactive';
     }

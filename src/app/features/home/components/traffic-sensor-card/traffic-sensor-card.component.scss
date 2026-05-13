@@ -253,7 +253,7 @@ p {
 	justify-content: center;
 	height: 25px;
 	padding: 0 12px;
-	border-radius: 999px;
+	border-radius: 11px;
 	background: #8d5d07;
 	color: #ffc233;
 	font-size: 16px;
@@ -277,6 +277,7 @@ p {
 	line-height: 1;
 	color: var(--t-text-muted);
 	font-weight: 500;
+}
 
 .text-value {
 	font-size: 17px;
@@ -303,12 +304,12 @@ p {
 }
 
 .pill.congestion.high {
-	background: #7c2d12;
-	color: #fdba74;
+	background: #ef4444;
+	color: #ffffff;
 }
 
 .pill.congestion.severe {
-	background: #7f1d1d;
+	background: #991b1b;
 	color: #fecaca;
 }
 
@@ -329,7 +330,6 @@ p {
 	border: 1px solid var(--t-metric-border);
 	color: var(--t-text-secondary);
 	font-size: 12px;
-}
 }
 
 .value.warning {

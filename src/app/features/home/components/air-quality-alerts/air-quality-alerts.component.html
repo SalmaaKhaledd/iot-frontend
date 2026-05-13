@@ -23,30 +23,21 @@
         <span>Filters</span>
       </div>
       <div class="filter-group">
-        <span class="filter-label">Severity</span>
+        <span class="filter-label">Pollution Level</span>
         <div class="chip-row">
-          <div class="chip" [class.active]="selectedSeverityFilter === 'all'" (click)="setSeverity('all')">All</div>
-          <div class="chip chip-critical" [class.active]="selectedSeverityFilter === 'critical'" (click)="setSeverity('critical')">Critical</div>
-          <div class="chip chip-warning" [class.active]="selectedSeverityFilter === 'warning'" (click)="setSeverity('warning')">Warning</div>
-          <div class="chip chip-info" [class.active]="selectedSeverityFilter === 'info'" (click)="setSeverity('info')">Info</div>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">AQI Level</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="aqiFilter === 'all'" (click)="setAqi('all')">All</div>
-          <div class="chip chip-success" [class.active]="aqiFilter === 'good'" (click)="setAqi('good')">Good (≤50)</div>
-          <div class="chip chip-warning" [class.active]="aqiFilter === 'moderate'" (click)="setAqi('moderate')">Moderate (51–100)</div>
-          <div class="chip chip-error" [class.active]="aqiFilter === 'unhealthy'" (click)="setAqi('unhealthy')">Unhealthy (101–150)</div>
-          <div class="chip chip-critical" [class.active]="aqiFilter === 'very-unhealthy'" (click)="setAqi('very-unhealthy')">Very Unhealthy (&gt;150)</div>
+          <div class="chip" [class.active]="pollutionFilter === 'all'" (click)="setPollution('all')">All</div>
+          <div class="chip chip-success" [class.active]="pollutionFilter === 'good'" (click)="setPollution('good')">Good</div>
+          <div class="chip chip-warning" [class.active]="pollutionFilter === 'moderate'" (click)="setPollution('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="pollutionFilter === 'unhealthy'" (click)="setPollution('unhealthy')">Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter === 'very-unhealthy'" (click)="setPollution('very-unhealthy')">Very Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter === 'hazardous'" (click)="setPollution('hazardous')">Hazardous</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="alerts-list">
-    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [class]="'severity-' + getSeverityColor(alert.severity)">
-      <div class="severity-indicator"></div>
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card">
       
       <div class="alert-content">
         <div class="alert-header-row">
@@ -67,15 +58,15 @@
 
         <div class="metrics-grid">
           <div class="metric-box">
-            <div class="metric-label">AQI</div>
-            <div class="metric-value" [class]="'text-' + getAQIColor(alert.aqi)">
-              {{ alert.aqi }}
+            <div class="metric-label">Pollution Level</div>
+            <div class="metric-value" [class]="'text-' + getPollutionColor(alert.pollutionLevel)">
+              {{ alert.pollutionLevel }}
             </div>
           </div>
           <div class="metric-box">
             <div class="metric-label">PM2.5</div>
             <div class="metric-value">
-              {{ alert.pm25 }}
+              {{ alert.pm2_5 }}
               <span class="unit">μg/m³</span>
             </div>
           </div>
@@ -87,15 +78,36 @@
             </div>
           </div>
           <div class="metric-box">
-            <div class="metric-label">CO₂</div>
+            <div class="metric-label">CO</div>
             <div class="metric-value">
-              {{ alert.co2 }}
+              {{ alert.co }}
               <span class="unit">ppm</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">O3</div>
+            <div class="metric-value">
+              {{ alert.ozone }}
+              <span class="unit">ppb</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">NO₂</div>
+            <div class="metric-value">
+              {{ alert.no2 }}
+              <span class="unit">ppb</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">SO₂</div>
+            <div class="metric-value">
+              {{ alert.so2 }}
+              <span class="unit">ppb</span>
             </div>
           </div>
         </div>
 
-        <div class="report-hint" [style.visibility]="alert.severity !== 'info' ? 'visible' : 'hidden'">
+        <div class="report-hint">
           <mat-icon>info</mat-icon>
           <span>{{ alert.report }}</span>
         </div>

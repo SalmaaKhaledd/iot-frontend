@@ -257,6 +257,7 @@ h3 {
   &.text-critical { color: #ff4d4d; }
   &.text-warning  { color: #f59e0b; }
   &.text-success  { color: #22c55e; }
+  &.text-error    { color: #ef4444; }
 
   mat-icon { font-size: 16px; width: 16px; height: 16px; }
 }
@@ -275,4 +276,103 @@ h3 {
   color: var(--t-hint-color);
 
   mat-icon { font-size: 14px; width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+}
+
+@media (max-width: 900px) {
+  .alerts-list {
+    max-height: 500px;
+  }
+
+  .alert-card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alert-header-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alert-time {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 620px) {
+  .alerts-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .alerts-list {
+    max-height: 400px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .alert-card {
+    padding: 12px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .severity-indicator {
+    height: 2px;
+    width: 100%;
+  }
+
+  .alert-content {
+    gap: 10px;
+  }
+
+  .location-badge {
+    flex-wrap: wrap;
+    font-size: 11px;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin: 0 0 2px;
+  }
+
+  .alert-message {
+    font-size: 12px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .metric-box {
+    padding: 10px 12px;
+    min-height: auto;
+  }
+
+  .metric-label {
+    font-size: 10px;
+  }
+
+  .metric-value {
+    font-size: 13px;
+  }
+
+  .report-hint {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
 }

@@ -26,8 +26,7 @@ describe('TrafficAlertsComponent', () => {
     expect(component.isFiltersOpen).toBe(true);
   });
 
-  it('filters alerts by severity and congestion level', () => {
-    component.setSeverity('info');
+  it('filters alerts by congestion level', () => {
     component.setCongestion('low');
 
     expect(component.filteredAlerts().map((alert) => alert.id)).toEqual([
@@ -36,13 +35,10 @@ describe('TrafficAlertsComponent', () => {
     ]);
   });
 
-  it('maps severity and congestion thresholds to colors', () => {
-    expect(component.getSeverityColor('critical')).toBe('critical');
-    expect(component.getSeverityColor('warning')).toBe('warning');
-    expect(component.getSeverityColor('info')).toBe('info');
-
-    expect(component.getCongestionColor(10)).toBe('success');
-    expect(component.getCongestionColor(55)).toBe('warning');
-    expect(component.getCongestionColor(80)).toBe('critical');
+  it('maps congestion levels to colors', () => {
+    expect(component.getCongestionColor('Low')).toBe('success');
+    expect(component.getCongestionColor('Moderate')).toBe('warning');
+    expect(component.getCongestionColor('High')).toBe('error');
+    expect(component.getCongestionColor('Severe')).toBe('critical');
   });
 });

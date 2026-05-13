@@ -23,28 +23,19 @@
         <span>Filters</span>
       </div>
       <div class="filter-group">
-        <span class="filter-label">Severity</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="selectedSeverityFilter === 'all'" (click)="setSeverity('all')">All</div>
-          <div class="chip chip-critical" [class.active]="selectedSeverityFilter === 'critical'" (click)="setSeverity('critical')">Critical</div>
-          <div class="chip chip-warning" [class.active]="selectedSeverityFilter === 'warning'" (click)="setSeverity('warning')">Warning</div>
-          <div class="chip chip-info" [class.active]="selectedSeverityFilter === 'info'" (click)="setSeverity('info')">Info</div>
-        </div>
-      </div>
-      <div class="filter-group">
         <span class="filter-label">Congestion Level</span>
         <div class="chip-row">
           <div class="chip" [class.active]="congestionFilter === 'all'" (click)="setCongestion('all')">All</div>
-          <div class="chip chip-success" [class.active]="congestionFilter === 'low'" (click)="setCongestion('low')">Low (&lt;40%)</div>
-          <div class="chip chip-warning" [class.active]="congestionFilter === 'medium'" (click)="setCongestion('medium')">Medium (40–70%)</div>
-          <div class="chip chip-critical" [class.active]="congestionFilter === 'high'" (click)="setCongestion('high')">High (≥70%)</div>
+          <div class="chip chip-success" [class.active]="congestionFilter === 'low'" (click)="setCongestion('low')">Low</div>
+          <div class="chip chip-warning" [class.active]="congestionFilter === 'moderate'" (click)="setCongestion('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="congestionFilter === 'high'" (click)="setCongestion('high')">High</div>
+          <div class="chip chip-critical" [class.active]="congestionFilter === 'severe'" (click)="setCongestion('severe')">Severe</div>
         </div>
       </div>
     </div>
   </div>
   <div class="alerts-list">
-    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [class]="'severity-' + getSeverityColor(alert.severity)">
-      <div class="severity-indicator"></div>
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card">
       
       <div class="alert-content">
         <div class="alert-header-row">
@@ -65,10 +56,10 @@
 
         <div class="metrics-grid">
           <div class="metric-box">
-            <div class="metric-label">Vehicles</div>
+            <div class="metric-label">Traffic Density</div>
             <div class="metric-value">
-              {{ alert.vehicleCount }}
-              <span class="unit">cars/min</span>
+              {{ alert.trafficDensity }}
+              <span class="unit">vehicles/min</span>
             </div>
           </div>
           <div class="metric-box">
@@ -81,13 +72,12 @@
           <div class="metric-box">
             <div class="metric-label">Congestion</div>
             <div class="metric-value" [class]="'text-' + getCongestionColor(alert.congestionLevel)">
-              <mat-icon>speed</mat-icon>
-              {{ alert.congestionLevel }}%
+              {{ alert.congestionLevel }}
             </div>
           </div>
         </div>
 
-        <div class="report-hint" [style.visibility]="alert.severity !== 'info' ? 'visible' : 'hidden'">
+        <div class="report-hint">
           <mat-icon>info</mat-icon>
           <span>{{ alert.report }}</span>
         </div>

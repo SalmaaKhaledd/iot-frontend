@@ -23,21 +23,11 @@
         <span>Filters</span>
       </div>
       <div class="filter-group">
-        <span class="filter-label">Severity</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="selectedSeverityFilter === 'all'" (click)="setSeverity('all')">All</div>
-          <div class="chip chip-critical" [class.active]="selectedSeverityFilter === 'critical'" (click)="setSeverity('critical')">Critical</div>
-          <div class="chip chip-warning" [class.active]="selectedSeverityFilter === 'warning'" (click)="setSeverity('warning')">Warning</div>
-          <div class="chip chip-info" [class.active]="selectedSeverityFilter === 'info'" (click)="setSeverity('info')">Info</div>
-        </div>
-      </div>
-      <div class="filter-group">
         <span class="filter-label">Status</span>
         <div class="chip-row">
           <div class="chip" [class.active]="statusFilter === 'all'" (click)="setStatus('all')">All</div>
           <div class="chip chip-success" [class.active]="statusFilter === 'on'" (click)="setStatus('on')">On</div>
           <div class="chip chip-inactive" [class.active]="statusFilter === 'off'" (click)="setStatus('off')">Off</div>
-          <div class="chip chip-critical" [class.active]="statusFilter === 'faulty'" (click)="setStatus('faulty')">Faulty</div>
         </div>
       </div>
     </div>
@@ -47,10 +37,7 @@
     <div
       *ngFor="let alert of filteredAlerts()"
       class="alert-card"
-      [class]="'severity-' + getSeverityColor(alert.severity)"
     >
-      <div class="severity-indicator"></div>
-      
       <div class="alert-content">
         <div class="alert-header-row">
           <div class="alert-info">
@@ -91,7 +78,7 @@
           </div>
         </div>
 
-        <div class="report-hint" [style.visibility]="alert.severity !== 'info' ? 'visible' : 'hidden'">
+        <div class="report-hint">
           <mat-icon>info</mat-icon>
           <span>{{ alert.report }}</span>
         </div>

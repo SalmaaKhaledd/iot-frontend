@@ -192,3 +192,97 @@ h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; color: var(--t-text-pri
   font-size: 12px; color: var(--t-hint-color);
   mat-icon { font-size: 14px; width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
 }
+
+@media (max-width: 900px) {
+  .alerts-list {
+    max-height: 500px;
+  }
+
+  .alert-card {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-header-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .alert-time {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 620px) {
+  .alerts-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .alerts-list {
+    max-height: 400px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .alert-card {
+    padding: 12px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .location-badge {
+    flex-wrap: wrap;
+    font-size: 11px;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin: 0 0 2px;
+  }
+
+  .alert-message {
+    font-size: 12px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .metric-box {
+    padding: 10px 12px;
+    min-height: auto;
+  }
+
+  .metric-label {
+    font-size: 10px;
+  }
+
+  .metric-value {
+    font-size: 13px;
+  }
+
+  .brightness-bar {
+    height: 4px;
+  }
+
+  .report-hint {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
