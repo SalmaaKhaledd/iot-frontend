@@ -1,6 +1,10 @@
-import { Component, HostListener, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+
+import type { AirPollutionSensorReading } from '../../models/sensor-reading.models';
+import { SensorReadingsService } from '../../services/sensor-readings.service';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
 
 type PollutionLevel = 'Good' | 'Moderate' | 'Unhealthy' | 'Very Unhealthy';
@@ -26,53 +30,42 @@ type AirSensorItem = {
   styleUrl: './air-quality-sensor-card.component.scss',
 })
 export class AirQualitySensorCardComponent {
-  readonly showAlerts = signal(false);
-  readonly sensors: readonly AirSensorItem[] = [
-    {
-      id: '3c8d6f1b-2f4a-4c9b-9f1d-1f3a8b6d2a2b',
-      location: 'Main Street',
-      timestamp: '2026-05-12T08:44:00',
-      pm2_5: 286.4,
-      pm10: 412.9,
-      co: 18.4,
-      ozone: 126,
-      no2: 248,
-      so2: 92,
-      pollutionLevel: 'Very Unhealthy',
-    },
-    {
-      id: '7b9e3c4d-1a2b-4c5d-9e6f-8a1b2c3d4e5f',
-      location: 'Downtown Plaza',
-      timestamp: '2026-05-12T09:12:00',
-      pm2_5: 98.2,
-      pm10: 176.5,
-      co: 9.6,
-      ozone: 78,
-      no2: 114,
-      so2: 39,
-      pollutionLevel: 'Moderate',
-    },
-    {
-      id: '5d41402a-b3d5-4c6a-9a7f-0b1c2d3e4f5a',
-      location: 'Riverside Park',
-      timestamp: '2026-05-12T09:38:00',
-      pm2_5: 22.7,
-      pm10: 44.1,
-      co: 3.8,
-      ozone: 44,
-      no2: 21,
-      so2: 9,
-      pollutionLevel: 'Good',
-    },
-  ] as const;
+  private readonly sensorReadingsService = inject(SensorReadingsService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  readonly selectedSensor = signal(this.sensors[0].id);
-  readonly selectedSensorData = computed<AirSensorItem>(() =>
-    this.sensors.find((s) => s.id === this.selectedSensor()) ?? this.sensors[0],
-  );
+  readonly showAlerts = signal(false);
+  readonly readingHistory = signal<AirSensorItem[]>([]);
+  readonly selectedReadingIndex = signal(0);
+  readonly isLoading = signal(true);
+  readonly errorMessage = signal<string | null>(null);
+
+  readonly latestReading = computed(() => {
+    const history = this.readingHistory();
+    return history.length > 0 ? history[0] : null;
+  });
+
+  readonly dropdownReadings = computed(() => {
+    const history = this.readingHistory().slice(0, 5);
+    const now = Date.now();
+    return history.map((reading, index) => ({
+      index,
+      label: index === 0 ? 'Now' : this.formatRelativeTime(new Date(reading.timestamp), new Date(now)),
+      reading,
+    }));
+  });
+
+  readonly selectedSensorData = computed<AirSensorItem | null>(() => {
+    const history = this.readingHistory();
+    const index = this.selectedReadingIndex();
+    return history[index] ?? history[0] ?? null;
+  });
 
   readonly ringDashOffset = computed(() => {
     const sensor = this.selectedSensorData();
+    if (!sensor) {
+      return 553;
+    }
+
     const normalized = Math.min(
       100,
       Math.round(
@@ -88,7 +81,12 @@ export class AirQualitySensorCardComponent {
   });
 
   readonly recommendationText = computed(() => {
-    switch (this.selectedSensorData().pollutionLevel) {
+    const sensor = this.selectedSensorData();
+    if (!sensor) {
+      return 'No air quality readings are available right now.';
+    }
+
+    switch (sensor.pollutionLevel) {
       case 'Good':
         return 'Air quality is good. Outdoor activity is safe for most people.';
       case 'Moderate':
@@ -100,8 +98,44 @@ export class AirQualitySensorCardComponent {
     }
   });
 
-  onSelectSensor(value: string): void {
-    this.selectedSensor.set(value as any);
+  constructor() {
+    this.sensorReadingsService
+      .getAirPollutionReadings()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (readings) => {
+          const items = readings.map((reading) => this.toAirSensorItem(reading));
+          this.readingHistory.set(items);
+          this.selectedReadingIndex.set(0);
+          this.isLoading.set(false);
+          this.errorMessage.set(null);
+        },
+        error: () => {
+          this.isLoading.set(false);
+          this.errorMessage.set('Unable to load air quality readings right now.');
+        },
+      });
+  }
+
+  onSelectReading(index: number): void {
+    this.selectedReadingIndex.set(index);
+  }
+
+  private formatRelativeTime(date: Date, now: Date): string {
+    const diffMs = now.getTime() - date.getTime();
+    const diffSecs = Math.floor(diffMs / 1000);
+    const diffMins = Math.floor(diffSecs / 60);
+    const diffHours = Math.floor(diffMins / 60);
+
+    if (diffMins < 1) {
+      return 'Just now';
+    } else if (diffMins < 60) {
+      return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    } else {
+      return date.toLocaleDateString();
+    }
   }
 
   coWidth(value: number): number {
@@ -133,6 +167,37 @@ export class AirQualitySensorCardComponent {
       hour: 'numeric',
       minute: '2-digit',
     }).format(parsed);
+  }
+
+  private toAirSensorItem(reading: AirPollutionSensorReading): AirSensorItem {
+    return {
+      id: reading.id,
+      location: reading.location,
+      timestamp: reading.timestamp,
+      pm2_5: reading.pm2_5,
+      pm10: reading.pm10,
+      co: reading.co,
+      ozone: reading.ozone,
+      no2: reading.no2,
+      so2: reading.so2,
+      pollutionLevel: this.toPollutionLevel(reading.pollutionLevel),
+    };
+  }
+
+  private toPollutionLevel(level: AirPollutionSensorReading['pollutionLevel']): PollutionLevel {
+    switch (level) {
+      case 'GOOD':
+        return 'Good';
+      case 'MODERATE':
+        return 'Moderate';
+      case 'UNHEALTHY':
+        return 'Unhealthy';
+      case 'VERY_UNHEALTHY':
+        return 'Very Unhealthy';
+      case 'HAZARDOUS':
+      default:
+        return 'Unhealthy';
+    }
   }
 
   @HostListener('window:openSensorAlerts', ['$event'])

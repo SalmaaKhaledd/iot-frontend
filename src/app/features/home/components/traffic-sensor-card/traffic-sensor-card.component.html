@@ -1,4 +1,15 @@
 <section class="traffic-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading traffic readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (selectedSensorData(); as sensor) {
   <div class="traffic-header">
     <div class="title-wrap">
       <div class="sensor-icon">
@@ -8,8 +19,10 @@
         <div class="title-row">
           <h2>Traffic Sensors</h2>
           <div class="sensor-select">
-            <select (change)="onSelectSensor($any($event.target).value)" [value]="selectedSensor()" aria-label="Select traffic sensor">
-              <option *ngFor="let s of sensors" [value]="s.id">{{ s.id }}</option>
+            <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select traffic reading">
+              @for (item of dropdownReadings(); track item.index) {
+                <option [value]="item.index">{{ item.label }}</option>
+              }
             </select>
           </div>
         </div>
@@ -19,8 +32,8 @@
 
     <div class="meta-wrap">
       <div class="meta-row">
-        <span class="meta-chip">{{ selectedSensorData().location }}</span>
-        <span class="meta-chip">{{ formatTimestamp(selectedSensorData().timestamp) }}</span>
+        <span class="meta-chip">{{ sensor.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
       </div>
       <div class="actions-wrap">
         <button class="alerts-btn" type="button" aria-label="View traffic alerts" (click)="showAlerts.set(true)">
@@ -33,24 +46,19 @@
 
   <div class="stats-row">
     <article class="stat-box">
-      <p class="label">Sensor ID</p>
-      <p class="value text-value">{{ selectedSensorData().id }}</p>
-    </article>
-
-    <article class="stat-box">
       <p class="label">Traffic Density</p>
-      <p class="value">{{ selectedSensorData().trafficDensity }} <span>vehicles/min</span></p>
+      <p class="value">{{ sensor.trafficDensity }} <span>vehicles/min</span></p>
     </article>
 
     <article class="stat-box">
       <p class="label">Average Speed</p>
-      <p class="value">{{ selectedSensorData().avgSpeed }} <span>km/h</span></p>
+      <p class="value">{{ sensor.avgSpeed }} <span>km/h</span></p>
     </article>
 
     <article class="stat-box">
       <p class="label">Congestion Level</p>
-      <span class="pill congestion" [ngClass]="selectedSensorData().congestionLevel.toLowerCase()">
-        {{ selectedSensorData().congestionLevel }}
+      <span class="pill congestion" [ngClass]="sensor.congestionLevel.toLowerCase()">
+        {{ sensor.congestionLevel }}
       </span>
     </article>
   </div>
@@ -59,7 +67,7 @@
     <h3>Traffic Density Trend</h3>
 
     <div class="bar-chart">
-      @for (point of trendData; track point.time; let i = $index) {
+      @for (point of trendData(); track point.time; let i = $index) {
       <div
         class="bar-item"
         [style.--bar-height]="getBarHeight(point.density)"
@@ -78,6 +86,12 @@
       }
     </div>
   </div>
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No traffic readings available.</p>
+    </div>
+  }
 
   @if (showAlerts()) {
     <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>

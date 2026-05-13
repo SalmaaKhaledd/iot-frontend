@@ -1,17 +1,35 @@
 <section class="street-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading street light readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (latestReading(); as light) {
   <div class="street-header">
     <div class="title-wrap">
       <div class="sensor-icon"><mat-icon>lightbulb</mat-icon></div>
       <div>
         <h2>Street Light Controls</h2>
+        <div class="sensor-select">
+          <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select street light reading">
+            @for (item of dropdownReadings(); track item.index) {
+              <option [value]="item.index">{{ item.label }}</option>
+            }
+          </select>
+        </div>
         <p>Manage lighting and energy usage</p>
       </div>
     </div>
 
     <div class="meta-wrap">
       <div class="meta-row">
-        <span class="meta-chip">{{ lightsOn() }} ON</span>
-        <span class="meta-chip">{{ lightsOff() }} OFF</span>
+        <span class="meta-chip">{{ light.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(light.timestamp) }}</span>
       </div>
       <div class="actions-wrap">
         <button class="alerts-btn" type="button" (click)="showAlerts.set(true)">
@@ -24,16 +42,12 @@
 
   <div class="stats-row">
     <article class="stat-box">
-      <p>Total Sensors</p>
-      <strong>{{ totalLights() }}</strong>
+      <p>Status</p>
+      <strong [class.ok]="light.status === 'ON'">{{ light.status }}</strong>
     </article>
     <article class="stat-box">
-      <p>Active Sensors</p>
-      <strong class="ok">{{ lightsOn() }}</strong>
-    </article>
-    <article class="stat-box">
-      <p>Average Brightness</p>
-      <strong>{{ averageBrightness() }}%</strong>
+      <p>Brightness Level</p>
+      <strong>{{ light.brightnessLevel }}%</strong>
     </article>
     <article class="stat-box">
       <p>Power Usage</p>
@@ -42,39 +56,15 @@
   </div>
 
   <div class="maintenance">
-    <h3><mat-icon>schedule</mat-icon>Status Summary</h3>
-    <p>All sensors are reporting valid brightness and power readings.</p>
+    <h3><mat-icon>schedule</mat-icon>Light Status</h3>
+    <p>{{ light.id }} is currently {{ light.status === 'ON' ? 'ON' : 'OFF' }} with {{ light.brightnessLevel }}% brightness.</p>
   </div>
-
-  <div class="light-list">
-    @for (light of lights(); track light.id) {
-    <article class="light-item">
-      <div class="light-head">
-        <div class="left">
-          <div class="bulb" [class.on]="light.status === 'ON'" [class.off]="light.status === 'OFF'"><mat-icon>lightbulb</mat-icon></div>
-          <div>
-            <h4>{{ light.id }}</h4>
-            <p>{{ light.location }}</p>
-          </div>
-        </div>
-        <div class="right">
-          <div><span>Status</span><strong [class.on]="light.status === 'ON'">{{ light.status }}</strong></div>
-          <div><span>Timestamp</span><strong class="timestamp">{{ formatTimestamp(light.timestamp) }}</strong></div>
-        </div>
-      </div>
-      <div class="metrics-grid">
-        <div class="metric-chip">
-          <span>Brightness Level</span>
-          <strong>{{ light.brightnessLevel }}%</strong>
-        </div>
-        <div class="metric-chip">
-          <span>Power Consumption</span>
-          <strong>{{ light.powerConsumption }}W</strong>
-        </div>
-      </div>
-    </article>
-    }
-  </div>
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No street light readings available.</p>
+    </div>
+  }
 
   @if (showAlerts()) {
     <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>

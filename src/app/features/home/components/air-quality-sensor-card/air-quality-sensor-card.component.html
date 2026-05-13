@@ -1,4 +1,15 @@
 <section class="air-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading air quality readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (selectedSensorData(); as sensor) {
   <div class="air-header">
     <div class="title-wrap">
       <div class="sensor-icon">
@@ -8,15 +19,17 @@
         <div class="title-row">
           <h2>Air Quality Sensors</h2>
           <div class="sensor-select">
-            <select (change)="onSelectSensor($any($event.target).value)" [value]="selectedSensor()" aria-label="Select air sensor">
-              <option *ngFor="let s of sensors" [value]="s.id">{{ s.id }}</option>
+            <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select air reading">
+              @for (item of dropdownReadings(); track item.index) {
+                <option [value]="item.index">{{ item.label }}</option>
+              }
             </select>
           </div>
         </div>
         <p>Monitor pollution levels and air health</p>
         <div class="meta-row">
-          <span class="meta-chip">{{ selectedSensorData().location }}</span>
-          <span class="meta-chip">{{ formatTimestamp(selectedSensorData().timestamp) }}</span>
+          <span class="meta-chip">{{ sensor.location }}</span>
+          <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
         </div>
       </div>
     </div>
@@ -26,8 +39,8 @@
         <mat-icon>error_outline</mat-icon>
         <span>View Alerts</span>
       </button>
-      <span class="status-chip" [ngClass]="selectedSensorData().pollutionLevel.toLowerCase().replace(' ', '-')">
-        {{ selectedSensorData().pollutionLevel }}
+      <span class="status-chip" [ngClass]="sensor.pollutionLevel.toLowerCase().replace(' ', '-')">
+        {{ sensor.pollutionLevel }}
       </span>
     </div>
   </div>
@@ -41,7 +54,7 @@
         </svg>
 
         <div class="ring-center">
-          <div class="aqi-score">{{ selectedSensorData().pollutionLevel }}</div>
+          <div class="aqi-score">{{ sensor.pollutionLevel }}</div>
           <div class="aqi-label">Air Quality</div>
           <span class="aqi-pill">Pollution Level</span>
         </div>
@@ -52,49 +65,49 @@
       <article class="pollutant">
         <div class="pollutant-head">
           <span>PM2.5 (µg/m³)</span>
-          <strong>{{ selectedSensorData().pm2_5 }}</strong>
+          <strong>{{ sensor.pm2_5 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar amber" [style.width.%]="particulateWidth(selectedSensorData().pm2_5)"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="particulateWidth(sensor.pm2_5)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>PM10 (µg/m³)</span>
-          <strong>{{ selectedSensorData().pm10 }}</strong>
+          <strong>{{ sensor.pm10 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar green" [style.width.%]="particulateWidth(selectedSensorData().pm10)"></div></div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="particulateWidth(sensor.pm10)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>CO (ppm)</span>
-          <strong>{{ selectedSensorData().co }}</strong>
+          <strong>{{ sensor.co }}</strong>
         </div>
-        <div class="bar-track"><div class="bar amber" [style.width.%]="coWidth(selectedSensorData().co)"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="coWidth(sensor.co)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>Ozone (ppb)</span>
-          <strong>{{ selectedSensorData().ozone }}</strong>
+          <strong>{{ sensor.ozone }}</strong>
         </div>
-        <div class="bar-track"><div class="bar red" [style.width.%]="ozoneWidth(selectedSensorData().ozone)"></div></div>
+        <div class="bar-track"><div class="bar red" [style.width.%]="ozoneWidth(sensor.ozone)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>NO2 (ppb)</span>
-          <strong>{{ selectedSensorData().no2 }}</strong>
+          <strong>{{ sensor.no2 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar amber" [style.width.%]="gasWidth(selectedSensorData().no2)"></div></div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="gasWidth(sensor.no2)"></div></div>
       </article>
 
       <article class="pollutant">
         <div class="pollutant-head">
           <span>SO2 (ppb)</span>
-          <strong>{{ selectedSensorData().so2 }}</strong>
+          <strong>{{ sensor.so2 }}</strong>
         </div>
-        <div class="bar-track"><div class="bar green" [style.width.%]="gasWidth(selectedSensorData().so2)"></div></div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="gasWidth(sensor.so2)"></div></div>
       </article>
     </div>
   </div>
@@ -106,6 +119,12 @@
     </div>
     <p>{{ recommendationText() }}</p>
   </div>
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No air quality readings available.</p>
+    </div>
+  }
 
   @if (showAlerts()) {
     <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
