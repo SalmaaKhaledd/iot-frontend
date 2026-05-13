@@ -9,7 +9,7 @@
   </div>
 
   <div class="topbar-actions">
-    <app-notification-panel></app-notification-panel>
+    <app-notification-panel (jumpToAlert)="onJumpToAlert($event)"></app-notification-panel>
     <button class="icon-button" type="button" (click)="goToSettings()" aria-label="Settings">
       <mat-icon aria-hidden="true">settings</mat-icon>
     </button>

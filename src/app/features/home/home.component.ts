@@ -66,6 +66,26 @@ export class HomeComponent {
     }
   }
 
+  handleJumpToAlert(alertType: 'traffic' | 'air-quality' | 'street-light'): void {
+    // Map alert type to sensor ID
+    const sensorMap: { [key: string]: string } = {
+      traffic: 'traffic-sensor',
+      'air-quality': 'air-quality-sensor',
+      'street-light': 'street-light-sensor',
+    };
+
+    const sensorId = sensorMap[alertType];
+    if (sensorId) {
+      this.scrollToSensor(sensorId);
+      // Trigger alert opening through a custom event
+      window.dispatchEvent(
+        new CustomEvent('openSensorAlerts', {
+          detail: { sensorType: alertType },
+        })
+      );
+    }
+  }
+
   private applyUser(user: User): void {
     this.currentUser.set(user);
     this.authService.saveUser(user);

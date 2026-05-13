@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, HostListener, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
@@ -133,5 +133,13 @@ export class AirQualitySensorCardComponent {
       hour: 'numeric',
       minute: '2-digit',
     }).format(parsed);
+  }
+
+  @HostListener('window:openSensorAlerts', ['$event'])
+  onOpenSensorAlerts(event: Event): void {
+    const customEvent = event as CustomEvent;
+    if (customEvent.detail.sensorType === 'air-quality') {
+      this.showAlerts.set(true);
+    }
   }
 }

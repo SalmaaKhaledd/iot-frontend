@@ -213,6 +213,11 @@ body[data-theme="light"] :host .close-btn:hover {
   }
 }
 
+.alert-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
 /* Left severity indicator strip */
 .severity-bar {
   width: 4px;
@@ -384,7 +389,12 @@ h4 {
 /* ─── Responsive ─── */
 @media (max-width: 480px) {
   .notification-panel {
+    position: fixed;
     width: calc(100vw - 24px);
-    right: -60px;
+    max-width: calc(100vw - 24px);
+    right: 12px;
+    left: 12px;
+    top: 80px;
+    max-height: calc(100vh - 100px);
   }
 }

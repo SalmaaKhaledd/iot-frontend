@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
@@ -47,6 +47,14 @@ export class TrafficSensorCardComponent {
   getBarHeight(density: number): string {
     const percentage = (density / this.maxDensity()) * 100;
     return percentage + '%';
+  }
+
+  @HostListener('window:openSensorAlerts', ['$event'])
+  onOpenSensorAlerts(event: Event): void {
+    const customEvent = event as CustomEvent;
+    if (customEvent.detail.sensorType === 'traffic') {
+      this.showAlerts.set(true);
+    }
   }
   readonly sensors = [
     {

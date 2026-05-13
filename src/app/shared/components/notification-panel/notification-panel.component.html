@@ -31,8 +31,11 @@
     </div>
     } @else { @for (alert of alerts; track alert.id) {
     <div
-      class="alert-card severity-{{ alert.severity }}"
-      (click)="toggleReport(alert.id)"
+      class="alert-card severity-{{ alert.severity }} clickable"
+      (click)="navigateToAlert(alert); toggleReport(alert.id)"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="alert.title + ' - Jump to location'"
     >
       <div class="severity-bar"></div>
       <div class="alert-body">

@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  Output,
   computed,
   inject,
 } from '@angular/core';
@@ -25,6 +27,8 @@ export class TopbarComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
+
+  @Output() readonly jumpToAlert = new EventEmitter<'traffic' | 'air-quality' | 'street-light'>();
 
   /** Reactive current user shared by the auth service. */
   readonly currentUser = this.authService.currentUser;
@@ -51,5 +55,9 @@ export class TopbarComponent {
 
   goToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+
+  onJumpToAlert(alertType: 'traffic' | 'air-quality' | 'street-light'): void {
+    this.jumpToAlert.emit(alertType);
   }
 }

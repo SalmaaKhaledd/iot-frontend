@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-alerts.component';
 
@@ -71,5 +71,13 @@ export class StreetLightCardComponent {
       hour: 'numeric',
       minute: '2-digit',
     }).format(parsed);
+  }
+
+  @HostListener('window:openSensorAlerts', ['$event'])
+  onOpenSensorAlerts(event: Event): void {
+    const customEvent = event as CustomEvent;
+    if (customEvent.detail.sensorType === 'street-light') {
+      this.showAlerts.set(true);
+    }
   }
 }

@@ -3,6 +3,8 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Output,
+  EventEmitter,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,6 +31,8 @@ export interface NotificationAlert {
 export class NotificationPanelComponent {
   readonly isOpen = signal(false);
   readonly expandedAlertId = signal<string | null>(null);
+
+  @Output() readonly jumpToAlert = new EventEmitter<'traffic' | 'air-quality' | 'street-light'>();
 
   readonly alerts: NotificationAlert[] = [
     {
@@ -139,6 +143,29 @@ export class NotificationPanelComponent {
         return 'lightbulb';
       default:
         return 'sensors';
+    }
+  }
+
+  navigateToAlert(alert: NotificationAlert): void {
+    const sensorMap: { [key: string]: string } = {
+      traffic: 'traffic-sensor',
+      'air-quality': 'air-quality-sensor',
+      'street-light': 'street-light-sensor',
+    };
+
+    const sensorId = sensorMap[alert.type];
+    if (sensorId) {
+      // Scroll to the sensor
+      const element = document.getElementById(sensorId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Emit event to open alerts
+      this.jumpToAlert.emit(alert.type);
+
+      // Close notification panel
+      this.close();
     }
   }
 }
