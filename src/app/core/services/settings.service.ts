@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
+import type { SensorConfiguration } from '../../features/settings/settings.types';
 
 export interface ThresholdSetting {
   id: string;
@@ -28,6 +29,32 @@ export class SettingsService {
   private readonly http = inject(HttpClient);
   private readonly authService = inject(AuthService);
   private readonly baseUrl = environment.apiUrl;
+  private readonly sensorConfigSubject = new BehaviorSubject<SensorConfiguration>(this.loadInitialConfig());
+
+  private loadInitialConfig(): SensorConfiguration {
+    const stored = localStorage.getItem('sensorConfig');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error('Failed to parse stored sensor config', e);
+      }
+    }
+    return {
+      trafficReadingInterval: 5,
+      airQualityReadingInterval: 10,
+      streetLightReadingInterval: 15,
+    };
+  }
+
+  getSensorConfig(): Observable<SensorConfiguration> {
+    return this.sensorConfigSubject.asObservable();
+  }
+
+  saveSensorConfig(config: SensorConfiguration): void {
+    localStorage.setItem('sensorConfig', JSON.stringify(config));
+    this.sensorConfigSubject.next(config);
+  }
 
   getSettings(): Observable<ThresholdSetting[]> {
     return this.http.get<ThresholdSetting[]>(`${this.baseUrl}/settings`).pipe(

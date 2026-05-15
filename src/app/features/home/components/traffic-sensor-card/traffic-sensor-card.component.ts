@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, timer } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -43,6 +45,7 @@ export class TrafficSensorCardComponent {
   readonly selectedReadingIndex = signal(0);
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
+  readonly refreshTrigger$ = new Subject<void>();
 
   readonly hoveredIndex = signal<number | null>(null);
 
@@ -88,9 +91,20 @@ export class TrafficSensorCardComponent {
   });
 
   constructor() {
-    this.sensorReadingsService
-      .getTrafficReadings()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.settingsService.getSensorConfig()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(config => 
+          this.refreshTrigger$.pipe(
+            startWith(undefined),
+            switchMap(() => timer(0, config.trafficReadingInterval * 1000))
+          )
+        ),
+        switchMap(() => {
+          // Keep the previous data visible while loading the new data
+          return this.sensorReadingsService.getTrafficReadings();
+        })
+      )
       .subscribe({
         next: (readings) => {
           const items = readings.map((reading) => this.toTrafficSensorItem(reading));
@@ -134,6 +148,10 @@ export class TrafficSensorCardComponent {
     if (customEvent.detail.sensorType === 'traffic') {
       this.showAlerts.set(true);
     }
+  }
+
+  refresh(): void {
+    this.refreshTrigger$.next();
   }
 
   onSelectReading(index: number): void {

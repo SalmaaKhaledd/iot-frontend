@@ -56,6 +56,13 @@ export class Settings {
   }
 
   private loadSettings(): void {
+    this.settingsService.getSensorConfig()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((config) => {
+        this.sensorConfig.set({ ...config });
+        this.originalSensorConfig.set({ ...config });
+      });
+
     this.settingsService.getSettings()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((settings) => {
@@ -254,6 +261,8 @@ export class Settings {
     const deleteRequests = deletedIds.map(id => this.settingsService.deleteSetting(id).pipe(defaultIfEmpty(null)));
     const saveRequest = toSave.length > 0 ? this.settingsService.saveSettings(toSave).pipe(defaultIfEmpty(null)) : of(null);
     
+    this.settingsService.saveSensorConfig(this.sensorConfig());
+
     forkJoin([saveRequest, ...deleteRequests]).subscribe({
       next: () => {
         this.originalSensorConfig.set({ ...this.sensorConfig() });

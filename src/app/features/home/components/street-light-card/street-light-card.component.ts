@@ -1,5 +1,7 @@
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, timer } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -35,6 +37,7 @@ export class StreetLightCardComponent {
   readonly selectedReadingIndex = signal(0);
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
+  readonly refreshTrigger$ = new Subject<void>();
 
   readonly selectedReading = computed(() => {
     const history = this.readingHistory();
@@ -53,9 +56,19 @@ export class StreetLightCardComponent {
   });
 
   constructor() {
-    this.sensorReadingsService
-      .getStreetLightReadings()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.settingsService.getSensorConfig()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap(config => 
+          this.refreshTrigger$.pipe(
+            startWith(undefined),
+            switchMap(() => timer(0, config.streetLightReadingInterval * 1000))
+          )
+        ),
+        switchMap(() => {
+          return this.sensorReadingsService.getStreetLightReadings();
+        })
+      )
       .subscribe({
         next: (readings) => {
           const items = readings.map((reading) => this.toStreetLightItem(reading));
@@ -102,6 +115,10 @@ export class StreetLightCardComponent {
       hour: 'numeric',
       minute: '2-digit',
     }).format(parsed);
+  }
+
+  refresh(): void {
+    this.refreshTrigger$.next();
   }
 
   onSelectReading(index: number): void {
