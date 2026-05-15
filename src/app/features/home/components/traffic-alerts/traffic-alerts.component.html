@@ -10,14 +10,14 @@
           <p>Real-time traffic incidents and updates</p>
         </div>
       </div>
-      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen">
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen()">
         <mat-icon>filter_list</mat-icon>
         Filters
-        <mat-icon class="chevron">{{ isFiltersOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        <mat-icon class="chevron">{{ isFiltersOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
       </button>
     </div>
 
-    <div class="filter-panel" *ngIf="isFiltersOpen">
+    <div class="filter-panel" *ngIf="isFiltersOpen()">
       <div class="filter-panel-title">
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
@@ -25,11 +25,11 @@
       <div class="filter-group">
         <span class="filter-label">Congestion Level</span>
         <div class="chip-row">
-          <div class="chip" [class.active]="congestionFilter === 'all'" (click)="setCongestion('all')">All</div>
-          <div class="chip chip-success" [class.active]="congestionFilter === 'low'" (click)="setCongestion('low')">Low</div>
-          <div class="chip chip-warning" [class.active]="congestionFilter === 'moderate'" (click)="setCongestion('moderate')">Moderate</div>
-          <div class="chip chip-error" [class.active]="congestionFilter === 'high'" (click)="setCongestion('high')">High</div>
-          <div class="chip chip-critical" [class.active]="congestionFilter === 'severe'" (click)="setCongestion('severe')">Severe</div>
+          <div class="chip" [class.active]="congestionFilter() === 'all'" (click)="setCongestion('all')">All</div>
+          <div class="chip chip-success" [class.active]="congestionFilter() === 'low'" (click)="setCongestion('low')">Low</div>
+          <div class="chip chip-warning" [class.active]="congestionFilter() === 'moderate'" (click)="setCongestion('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="congestionFilter() === 'high'" (click)="setCongestion('high')">High</div>
+          <div class="chip chip-critical" [class.active]="congestionFilter() === 'severe'" (click)="setCongestion('severe')">Severe</div>
         </div>
       </div>
     </div>
@@ -40,11 +40,14 @@
       <div class="alert-content">
         <div class="alert-header-row">
           <div class="alert-info">
-            <div class="location-badge">
+            <span class="location-badge">
               <mat-icon>location_on</mat-icon>
-              <span class="location-text">{{ alert.location }}</span>
-              <span class="uuid">{{ alert.sensorId }}</span>
-            </div>
+              {{ alert.location | uppercase }}
+            </span>
+            <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+              <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+              {{ alert.direction }} THRESHOLD
+            </span>
             <h3>{{ alert.title }}</h3>
             <p class="alert-message">{{ alert.message }}</p>
           </div>

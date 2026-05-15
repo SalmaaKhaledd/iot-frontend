@@ -10,14 +10,14 @@
           <p>Maintenance history and system events</p>
         </div>
       </div>
-      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen">
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen()">
         <mat-icon>filter_list</mat-icon>
         Filters
-        <mat-icon class="chevron">{{ isFiltersOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        <mat-icon class="chevron">{{ isFiltersOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
       </button>
     </div>
 
-    <div class="filter-panel" *ngIf="isFiltersOpen">
+    <div class="filter-panel" *ngIf="isFiltersOpen()">
       <div class="filter-panel-title">
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
@@ -25,9 +25,9 @@
       <div class="filter-group">
         <span class="filter-label">Status</span>
         <div class="chip-row">
-          <div class="chip" [class.active]="statusFilter === 'all'" (click)="setStatus('all')">All</div>
-          <div class="chip chip-success" [class.active]="statusFilter === 'on'" (click)="setStatus('on')">On</div>
-          <div class="chip chip-inactive" [class.active]="statusFilter === 'off'" (click)="setStatus('off')">Off</div>
+          <div class="chip" [class.active]="statusFilter() === 'all'" (click)="setStatus('all')">All</div>
+          <div class="chip chip-success" [class.active]="statusFilter() === 'on'" (click)="setStatus('on')">ON</div>
+          <div class="chip chip-inactive" [class.active]="statusFilter() === 'off'" (click)="setStatus('off')">OFF</div>
         </div>
       </div>
     </div>
@@ -42,10 +42,14 @@
         <div class="alert-header-row">
           <div class="alert-info">
             <div class="location-info">
-              <div class="location-badge">
+              <span class="location-badge">
                 <mat-icon>location_on</mat-icon>
-                <span>{{ alert.lightId }} - {{ alert.location }}</span>
-              </div>
+                {{ alert.location | uppercase }}
+              </span>
+              <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+                <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+                {{ alert.direction }} THRESHOLD
+              </span>
               <span class="status-badge" [class]="'status-' + getStatusColor(alert.status)">
                 {{ alert.status | uppercase }}
               </span>

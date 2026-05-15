@@ -178,6 +178,9 @@ body[data-theme="light"] :host .close-btn:hover {
 /* ─── Alert Card ─── */
 .alert-card {
   display: flex;
+  flex-shrink: 0; /* PREVENT SQUISHING! */
+  width: 100%;
+  min-height: 85px;
   gap: 0;
   border-radius: 10px;
   border: 1px solid;
@@ -211,11 +214,23 @@ body[data-theme="light"] :host .close-btn:hover {
     background: var(--t-info-bg);
     .severity-bar { background: #3b82f6; }
   }
+
+  &.read {
+    opacity: 0.6;
+    filter: grayscale(80%);
+    background: var(--t-card-bg) !important;
+    border-color: var(--t-card-border) !important;
+    .severity-bar { background: var(--t-text-muted) !important; }
+    h4, .alert-message { color: var(--t-text-muted) !important; }
+  }
 }
 
 .alert-card.clickable:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  &.read {
+    opacity: 0.9;
+  }
 }
 
 /* Left severity indicator strip */
@@ -226,12 +241,13 @@ body[data-theme="light"] :host .close-btn:hover {
 
 /* ─── Alert Body ─── */
 .alert-body {
-  flex: 1;
+  flex: 1 1 auto;
   padding: 14px 14px 14px 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 0;
+  width: 100%;
 }
 
 .alert-top-row {
@@ -297,6 +313,51 @@ body[data-theme="light"] :host {
   .type-street-light {
     background: #fef9c3;
     color: #a16207;
+  }
+}
+
+/* ─── Direction Badge ─── */
+.direction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid;
+  letter-spacing: 0.4px;
+  line-height: 1;
+
+  mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+
+  &.dir-above {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+
+  &.dir-below {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+}
+
+body[data-theme="light"] :host .direction-badge {
+  &.dir-above {
+    background: #fef3c7;
+    color: #b45309;
+    border-color: #fcd34d;
+  }
+  &.dir-below {
+    background: #dbeafe;
+    color: #1d4ed8;
+    border-color: #93c5fd;
   }
 }
 

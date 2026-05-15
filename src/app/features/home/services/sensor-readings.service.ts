@@ -32,4 +32,22 @@ export class SensorReadingsService {
       .get<StreetLightSensorReading[]>(`${this.baseUrl}/sensors/street-lights`)
       .pipe(timeout(10000));
   }
+
+  getTrafficReadingById(id: string): Observable<TrafficSensorReading> {
+    return this.http
+      .get<TrafficSensorReading>(`${this.baseUrl}/sensors/traffic/${id}`)
+      .pipe(timeout(10000));
+  }
+
+  getAirPollutionReadingById(id: string): Observable<AirPollutionSensorReading> {
+    return this.http
+      .get<AirPollutionSensorReading>(`${this.baseUrl}/sensors/air-pollution/${id}`)
+      .pipe(timeout(10000));
+  }
+
+  getStreetLightReadingById(id: string): Observable<StreetLightSensorReading> {
+    return this.http
+      .get<StreetLightSensorReading>(`${this.baseUrl}/sensors/street-lights/${id}`)
+      .pipe(timeout(10000));
+  }
 }

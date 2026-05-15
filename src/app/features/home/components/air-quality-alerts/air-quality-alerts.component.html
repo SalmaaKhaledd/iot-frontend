@@ -10,14 +10,14 @@
           <p>Historical air quality events and updates</p>
         </div>
       </div>
-      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen">
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen()">
         <mat-icon>filter_list</mat-icon>
         Filters
-        <mat-icon class="chevron">{{ isFiltersOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        <mat-icon class="chevron">{{ isFiltersOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
       </button>
     </div>
 
-    <div class="filter-panel" *ngIf="isFiltersOpen">
+    <div class="filter-panel" *ngIf="isFiltersOpen()">
       <div class="filter-panel-title">
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
@@ -25,12 +25,12 @@
       <div class="filter-group">
         <span class="filter-label">Pollution Level</span>
         <div class="chip-row">
-          <div class="chip" [class.active]="pollutionFilter === 'all'" (click)="setPollution('all')">All</div>
-          <div class="chip chip-success" [class.active]="pollutionFilter === 'good'" (click)="setPollution('good')">Good</div>
-          <div class="chip chip-warning" [class.active]="pollutionFilter === 'moderate'" (click)="setPollution('moderate')">Moderate</div>
-          <div class="chip chip-error" [class.active]="pollutionFilter === 'unhealthy'" (click)="setPollution('unhealthy')">Unhealthy</div>
-          <div class="chip chip-critical" [class.active]="pollutionFilter === 'very-unhealthy'" (click)="setPollution('very-unhealthy')">Very Unhealthy</div>
-          <div class="chip chip-critical" [class.active]="pollutionFilter === 'hazardous'" (click)="setPollution('hazardous')">Hazardous</div>
+          <div class="chip" [class.active]="pollutionFilter() === 'all'" (click)="setPollution('all')">All</div>
+          <div class="chip chip-success" [class.active]="pollutionFilter() === 'good'" (click)="setPollution('good')">Good</div>
+          <div class="chip chip-warning" [class.active]="pollutionFilter() === 'moderate'" (click)="setPollution('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="pollutionFilter() === 'unhealthy'" (click)="setPollution('unhealthy')">Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'very-unhealthy'" (click)="setPollution('very-unhealthy')">Very Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'hazardous'" (click)="setPollution('hazardous')">Hazardous</div>
         </div>
       </div>
     </div>
@@ -45,8 +45,15 @@
             <div class="event-badge">
               <mat-icon>cloud</mat-icon>
               <span class="event-text">Air Quality Event</span>
-              <span class="uuid">{{ alert.sensorId }}</span>
             </div>
+            <span class="location-badge" *ngIf="alert.location">
+              <mat-icon>location_on</mat-icon>
+              {{ alert.location | uppercase }}
+            </span>
+            <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+              <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+              {{ alert.direction }} THRESHOLD
+            </span>
             <h3>{{ alert.title }}</h3>
             <p class="alert-message">{{ alert.message }}</p>
           </div>

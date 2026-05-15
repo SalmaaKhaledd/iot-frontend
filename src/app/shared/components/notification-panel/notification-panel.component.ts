@@ -6,18 +6,28 @@ import {
   Output,
   EventEmitter,
   signal,
+  computed,
+  inject,
+  DestroyRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface NotificationAlert {
   id: string;
   type: 'traffic' | 'air-quality' | 'street-light';
-  severity: 'info' | 'warning' | 'critical';
+  typeIcon: string;
+  typeLabel: string;
+  severity: string;
+  severityIcon: string;
+  direction: 'ABOVE' | 'BELOW';
   title: string;
   message: string;
   report: string;
   time: string;
+  isRead: boolean;
 }
 
 @Component({
@@ -29,69 +39,110 @@ export interface NotificationAlert {
   styleUrl: './notification-panel.component.scss',
 })
 export class NotificationPanelComponent {
+  private readonly alertsService = inject(AlertsService);
+  private readonly destroyRef = inject(DestroyRef);
+
   readonly isOpen = signal(false);
   readonly expandedAlertId = signal<string | null>(null);
+  
+  readonly alerts = signal<NotificationAlert[]>([]);
+  readonly rawAlerts = signal<any>(null);
+  readonly unreadCount = computed(() => this.alerts().filter((a: NotificationAlert) => !a.isRead).length);
 
   @Output() readonly jumpToAlert = new EventEmitter<'traffic' | 'air-quality' | 'street-light'>();
 
-  readonly alerts: NotificationAlert[] = [
-    {
-      id: 'alert-1',
-      type: 'traffic',
-      severity: 'warning',
-      title: 'High Traffic Congestion',
-      message: 'Main Street experiencing heavy traffic',
-      report:
-        'Traffic density has increased by 45% in the last hour. Average speed reduced to 25 km/h. Estimated clearance time: 30 minutes. Recommend alternative routes via Park Avenue.',
-      time: '2 min ago',
-    },
-    {
-      id: 'alert-2',
-      type: 'air-quality',
-      severity: 'critical',
-      title: 'Poor Air Quality Detected',
-      message: 'AQI reached unhealthy levels',
-      report:
-        'PM2.5 levels exceeded safe threshold at 85 μg/m³. CO₂ concentration at 480 ppm. Air quality index: 152 (Unhealthy). Recommendation: Limit outdoor activities and use air purifiers indoors.',
-      time: '15 min ago',
-    },
-    {
-      id: 'alert-3',
-      type: 'street-light',
-      severity: 'warning',
-      title: 'Street Light Malfunction',
-      message: 'SL-005 on Elm Street reported fault',
-      report:
-        'Street light SL-005 has failed diagnostic checks. Power consumption dropped to 0W. Last operational: 45 minutes ago. Maintenance team has been notified. Priority: Medium.',
-      time: '45 min ago',
-    },
-    {
-      id: 'alert-4',
-      type: 'traffic',
-      severity: 'info',
-      title: 'Traffic Flow Normalized',
-      message: 'Congestion cleared on Oak Boulevard',
-      report:
-        'Traffic conditions have returned to normal levels. Current vehicle count: 98 cars/min. Average speed: 52 km/h. Congestion level reduced to 28%. No further action required.',
-      time: '1 hour ago',
-    },
-    {
-      id: 'alert-5',
-      type: 'air-quality',
-      severity: 'info',
-      title: 'Air Quality Improved',
-      message: 'AQI back to moderate levels',
-      report:
-        'Air quality has improved significantly. Current AQI: 68 (Moderate). PM2.5: 32 μg/m³. Wind speed increased, helping disperse pollutants. Safe for normal outdoor activities.',
-      time: '2 hours ago',
-    },
-  ];
+  constructor(private readonly elRef: ElementRef) {
+    this.alertsService.getAlerts()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (apiAlerts: ApiAlert[]) => {
+          this.rawAlerts.set(apiAlerts);
+          const mappedAlerts = apiAlerts.map((a: ApiAlert) => this.mapToNotificationAlert(a));
+          // Sort newest first
+          mappedAlerts.sort((a: NotificationAlert, b: NotificationAlert) => new Date(b.time).getTime() - new Date(a.time).getTime());
+          this.alerts.set(mappedAlerts);
+        },
+        error: (err: unknown) => console.error('Failed to load alerts', err)
+      });
+  }
 
-  readonly unreadCount = this.alerts.filter(
-    (a) => a.severity !== 'info'
-  ).length;
+  private formatDate(isoString: string): string {
+    if (!isoString) return 'Unknown Time';
+    const date = new Date(isoString);
+    if (isNaN(date.getTime())) return 'Unknown Time';
+    
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    
+    return `${day} ${month}, ${hours}:${minutes} ${ampm}`;
+  }
 
-  constructor(private readonly elRef: ElementRef) {}
+  private mapToNotificationAlert(apiAlert: ApiAlert): NotificationAlert {
+    try {
+      const typeMap: Record<string, string> = {
+        'TRAFFIC': 'traffic',
+        'AIR_POLLUTION': 'air-quality',
+        'STREET_LIGHT': 'street-light'
+      };
+      
+      const typeStr = typeMap[apiAlert.sensorType] || 'traffic';
+      const type = typeStr as 'traffic' | 'air-quality' | 'street-light';
+      const severity: string = apiAlert.alertType === 'ABOVE' ? 'warning' : 'info';
+      
+      const metricName = (apiAlert.metric || 'Sensor').replace(/_/g, ' ');
+      const isBelow = apiAlert.alertType === 'BELOW';
+      const directionStr = isBelow ? 'BELOW' : 'ABOVE';
+      const title = `${metricName} Alert`;
+      const directionVerb = isBelow ? 'dropped below' : 'exceeded';
+      const message = `${metricName} in ${apiAlert.location || 'Unknown Location'} ${directionVerb} threshold.`;
+      const report = `Value reached ${apiAlert.triggeredValue ?? 'N/A'} (Threshold: ${apiAlert.thresholdValue ?? 'N/A'}).`;
+
+      let typeIcon = 'sensors';
+      if (type === 'traffic') typeIcon = 'traffic';
+      else if (type === 'air-quality') typeIcon = 'air';
+      else if (type === 'street-light') typeIcon = 'lightbulb';
+
+      let severityIcon = 'info';
+      if (severity === 'warning') severityIcon = 'warning';
+      else if (severity === 'critical') severityIcon = 'error';
+
+      return {
+        id: apiAlert.id || Math.random().toString(),
+        type: type,
+        typeIcon: typeIcon,
+        typeLabel: type.replace(/-/g, ' ').toUpperCase(),
+        severity: severity,
+        severityIcon: severityIcon,
+        direction: directionStr as 'ABOVE' | 'BELOW',
+        title: title,
+        message: message,
+        report: report,
+        time: this.formatDate(apiAlert.triggeredAt || new Date().toISOString()),
+        isRead: false
+      };
+    } catch (e) {
+      console.error("Error mapping alert", e, apiAlert);
+      return {
+        id: apiAlert?.id || Math.random().toString(),
+        type: 'traffic',
+        typeIcon: 'sensors',
+        typeLabel: 'UNKNOWN',
+        severity: 'info',
+        severityIcon: 'info',
+        direction: 'ABOVE',
+        title: 'Data Error',
+        message: 'Could not map alert data.',
+        report: '',
+        time: this.formatDate(new Date().toISOString()),
+        isRead: false
+      };
+    }
+  }
 
   /** Close panel when clicking outside */
   @HostListener('document:click', ['$event'])
@@ -118,41 +169,16 @@ export class NotificationPanelComponent {
     this.expandedAlertId.update((id) => (id === alertId ? null : alertId));
   }
 
-  getSeverityIcon(severity: string): string {
-    switch (severity) {
-      case 'critical':
-        return 'error';
-      case 'warning':
-        return 'warning';
-      default:
-        return 'info';
-    }
-  }
-
-  getTypeLabel(type: string): string {
-    return type.replace('-', ' ').toUpperCase();
-  }
-
-  getTypeIcon(type: string): string {
-    switch (type) {
-      case 'traffic':
-        return 'traffic';
-      case 'air-quality':
-        return 'air';
-      case 'street-light':
-        return 'lightbulb';
-      default:
-        return 'sensors';
-    }
-  }
-
   navigateToAlert(alert: NotificationAlert): void {
+    this.markAsRead(alert.id);
     const sensorMap: { [key: string]: string } = {
       traffic: 'traffic-sensor',
       'air-quality': 'air-quality-sensor',
-      'street-light': 'street-light-sensor',
+      'street-light': 'street-light-sensor'
     };
-
+    
+    // Jump to the alert modal
+    this.jumpToAlert.emit(alert.type);
     const sensorId = sensorMap[alert.type];
     if (sensorId) {
       // Scroll to the sensor
@@ -167,5 +193,11 @@ export class NotificationPanelComponent {
       // Close notification panel
       this.close();
     }
+  }
+
+  markAsRead(alertId: string): void {
+    this.alerts.update(alerts =>
+      alerts.map(a => a.id === alertId ? { ...a, isRead: true } : a)
+    );
   }
 }
