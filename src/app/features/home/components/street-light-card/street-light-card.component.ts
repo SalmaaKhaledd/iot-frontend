@@ -36,9 +36,10 @@ export class StreetLightCardComponent {
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
 
-  readonly latestReading = computed(() => {
+  readonly selectedReading = computed(() => {
     const history = this.readingHistory();
-    return history.length > 0 ? history[0] : null;
+    const index = this.selectedReadingIndex();
+    return history.length > index ? history[index] : null;
   });
 
   readonly dropdownReadings = computed(() => {
@@ -82,11 +83,11 @@ export class StreetLightCardComponent {
       });
   }
 
-  readonly totalLights = computed(() => this.latestReading()?.id ? 1 : 0);
-  readonly lightsOn = computed(() => (this.latestReading()?.status === 'ON' ? 1 : 0));
-  readonly lightsOff = computed(() => (this.latestReading()?.status === 'OFF' ? 1 : 0));
-  readonly averageBrightness = computed(() => this.latestReading()?.brightnessLevel ?? 0);
-  readonly powerUsage = computed(() => this.latestReading()?.powerConsumption ?? 0);
+  readonly totalLights = computed(() => this.selectedReading()?.id ? 1 : 0);
+  readonly lightsOn = computed(() => (this.selectedReading()?.status === 'ON' ? 1 : 0));
+  readonly lightsOff = computed(() => (this.selectedReading()?.status === 'OFF' ? 1 : 0));
+  readonly averageBrightness = computed(() => this.selectedReading()?.brightnessLevel ?? 0);
+  readonly powerUsage = computed(() => this.selectedReading()?.powerConsumption ?? 0);
 
   formatTimestamp(timestamp: string): string {
     const parsed = new Date(timestamp);
