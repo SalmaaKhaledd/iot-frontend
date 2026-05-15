@@ -38,7 +38,7 @@ export class SettingsConfigurationPanelComponent {
       colorClass: 'blue',
       min: 1,
       max: 60,
-      placeholder: 'Traffic interval',
+      placeholder: 'Enter a valid interval',
     },
     {
       key: 'airQualityReadingInterval',
@@ -48,7 +48,7 @@ export class SettingsConfigurationPanelComponent {
       colorClass: 'green',
       min: 1,
       max: 60,
-      placeholder: 'Air quality interval',
+      placeholder: 'Enter a valid interval',
     },
     {
       key: 'streetLightReadingInterval',
@@ -58,18 +58,36 @@ export class SettingsConfigurationPanelComponent {
       colorClass: 'yellow',
       min: 1,
       max: 60,
-      placeholder: 'Street light interval',
+      placeholder: 'Enter a valid interval',
     },
   ];
 
   updateInterval(key: keyof SensorConfiguration, value: string): void {
-    this.sensorConfig()[key] = Number(value) || 0;
+    if (value === '') {
+      this.sensorConfig()[key] = null as any;
+    } else {
+      const num = Number(value);
+      this.sensorConfig()[key] = isNaN(num) ? null as any : num;
+    }
     this.changed.emit();
+  }
+
+  revertIfEmpty(key: keyof SensorConfiguration, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value === '') {
+      const current = this.sensorConfig()[key];
+      if (current === null) {
+        // already null, nothing to revert to — keep it empty visually
+        input.value = '';
+      } else {
+        input.value = String(current);
+      }
+    }
   }
 
   hasValueError(field: ConfigurationField): boolean {
     const value = this.sensorConfig()[field.key];
-    return value < field.min || value > field.max;
+    return value !== null && (value < field.min || value > field.max);
   }
 
   markChanged(): void {

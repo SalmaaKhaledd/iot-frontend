@@ -28,8 +28,9 @@
               [min]="field.min"
               [max]="field.max"
               [step]="field.step || '1'"
-              [(ngModel)]="sensorConfig()[field.key]"
+              [ngModel]="sensorConfig()[field.key]"
               (ngModelChange)="updateInterval(field.key, $event)"
+              (blur)="revertIfEmpty(field.key, $event)"
               [placeholder]="field.placeholder" />
 
             @if (hasValueError(field)) {

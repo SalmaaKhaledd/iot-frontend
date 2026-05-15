@@ -17,6 +17,7 @@ export class SettingsThresholdsPanelComponent {
   readonly categories = input.required<SensorCategory[]>();
   readonly changed = output<void>();
   readonly isCompactView = signal(this.getCompactView());
+  readonly focusedThresholdId = signal<string | null>(null);
 
   @HostListener('window:resize')
   onWindowResize(): void {
@@ -25,6 +26,18 @@ export class SettingsThresholdsPanelComponent {
 
   trackById(_: number, item: { id: string }): string {
     return item.id;
+  }
+
+  onThresholdFocus(thresholdId: string): void {
+    this.focusedThresholdId.set(thresholdId);
+  }
+
+  onThresholdBlur(): void {
+    this.focusedThresholdId.set(null);
+  }
+
+  showPlaceholder(metric: SensorMetric, threshold: Threshold): boolean {
+    return threshold.value === null && this.focusedThresholdId() !== threshold.id;
   }
 
   onThresholdValueChange(metric: SensorMetric, threshold: Threshold): void {

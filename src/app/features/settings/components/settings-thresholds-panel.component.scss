@@ -197,6 +197,7 @@ body[data-theme="light"] :host .metric-card {
 
 .input-wrap {
   position: relative;
+  overflow: hidden;
 
   input {
     width: 100%;
@@ -207,15 +208,54 @@ body[data-theme="light"] :host .metric-card {
     background: var(--t-card-bg);
     color: var(--t-text-primary);
     outline: none;
+    font-size: 14px;
 
-    &:focus {
-      border-color: var(--cat-primary);
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-primary) 20%, transparent);
+    &::placeholder {
+      color: transparent;
     }
+  }
+
+  &:focus-within input {
+    border-color: var(--cat-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat-primary) 20%, transparent);
+  }
+
+  &:focus-within input::placeholder {
+    color: var(--t-text-secondary);
   }
 
   &.has-error input {
     border-color: #f87171;
+  }
+}
+
+.placeholder-scroll {
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--t-text-secondary);
+    animation: marquee 4s linear infinite;
+    padding-right: 40px;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 

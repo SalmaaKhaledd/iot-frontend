@@ -38,12 +38,20 @@
                     </button>
 
                     <div class="input-wrap" [class.has-error]="hasValueError(metric, threshold)">
+                      @if (showPlaceholder(metric, threshold)) {
+                        <div class="placeholder-scroll" aria-hidden="true">
+                          <span>{{ placeholderFor(metric) }}</span>
+                          <span>{{ placeholderFor(metric) }}</span>
+                        </div>
+                      }
                       <input
                         type="number"
                         [min]="metric.min"
                         [max]="metric.max"
                         [(ngModel)]="threshold.value"
                         (ngModelChange)="onThresholdValueChange(metric, threshold)"
+                        (focus)="onThresholdFocus(threshold.id)"
+                        (blur)="onThresholdBlur()"
                         [placeholder]="placeholderFor(metric)" />
 
                       @if (hasValueError(metric, threshold)) {
