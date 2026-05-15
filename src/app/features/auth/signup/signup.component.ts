@@ -231,12 +231,16 @@ export class SignupComponent implements OnDestroy {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.authService.login(payload.email, payload.password)),
-        finalize(() => (this.isLoading = false)),
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.markForCheck();
+        }),
       )
       .subscribe({
         next: (response) => {
           if (!response?.token || !response?.userId) {
             this.errorMessage = 'Invalid email or password. Please try again.';
+            this.changeDetectorRef.markForCheck();
             return;
           }
           this.authService.saveToken(response.token);
@@ -247,9 +251,11 @@ export class SignupComponent implements OnDestroy {
             profilePicture: payload.profilePicture ?? null,
           });
           this.router.navigate(['/home']);
+          this.changeDetectorRef.markForCheck();
         },
         error: (error: unknown) => {
           this.errorMessage = mapAuthError(error);
+          this.changeDetectorRef.markForCheck();
         },
       });
   }
