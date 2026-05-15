@@ -17,7 +17,12 @@
       </div>
       <div>
         <div class="title-row">
-          <h2>Air Quality Sensors</h2>
+          <div style="display: flex; align-items: center;">
+            <h2>Air Quality Sensors</h2>
+            @if (missingThresholds().length > 0) {
+              <mat-icon #tooltip="matTooltip" class="warning-icon" [matTooltip]="'Missing thresholds: ' + missingThresholds().join(', ')" matTooltipShowDelay="0" (click)="tooltip.toggle()" (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()">warning</mat-icon>
+            }
+          </div>
           <div class="sensor-select-wrap">
             <span class="history-chip" aria-hidden="true">
               <mat-icon>history</mat-icon>
@@ -32,21 +37,23 @@
           </div>
         </div>
         <p>Monitor pollution levels and air health</p>
-        <div class="meta-row">
-          <span class="meta-chip">{{ sensor.location }}</span>
-          <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
-        </div>
       </div>
     </div>
 
-    <div class="actions-wrap">
-      <button class="alerts-btn" type="button" aria-label="View air quality alerts" (click)="showAlerts.set(true)">
-        <mat-icon>error_outline</mat-icon>
-        <span>View Alerts</span>
-      </button>
-      <span class="status-chip" [ngClass]="sensor.pollutionLevel.toLowerCase().replace(' ', '-')">
-        {{ sensor.pollutionLevel }}
-      </span>
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ sensor.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" aria-label="View air quality alerts" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
+        <span class="status-chip" [ngClass]="sensor.pollutionLevel.toLowerCase().replace(' ', '-')">
+          {{ sensor.pollutionLevel }}
+        </span>
+      </div>
     </div>
   </div>
 

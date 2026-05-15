@@ -488,6 +488,11 @@ p {
 		gap: 10px;
 	}
 
+	.title-wrap {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
 	.title-row {
 		flex-direction: column;
 		align-items: flex-start;

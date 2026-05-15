@@ -142,4 +142,15 @@ textarea,
 select {
   font: inherit;
   line-height: 1.5;
+}
+
+.warning-icon {
+  color: #f59e0b; /* Amber 500 */
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

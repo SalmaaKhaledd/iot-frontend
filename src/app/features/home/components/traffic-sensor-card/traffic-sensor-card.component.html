@@ -17,7 +17,12 @@
       </div>
       <div>
         <div class="title-row">
-          <h2>Traffic Sensors</h2>
+          <div style="display: flex; align-items: center;">
+            <h2>Traffic Sensors</h2>
+            @if (missingThresholds().length > 0) {
+              <mat-icon #tooltip="matTooltip" class="warning-icon" [matTooltip]="'Missing thresholds: ' + missingThresholds().join(', ')" matTooltipShowDelay="0" (click)="tooltip.toggle()" (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()">warning</mat-icon>
+            }
+          </div>
           <div class="sensor-select-wrap">
             <span class="history-chip" aria-hidden="true">
               <mat-icon>history</mat-icon>

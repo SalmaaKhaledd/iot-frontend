@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import type { TrafficCongestionLevel, TrafficSensorReading } from '../../models/sensor-reading.models';
 import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SettingsService } from '../../../../core/services/settings.service';
 import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
 
 type TrendPoint = {
@@ -26,15 +28,17 @@ type TrafficSensorItem = {
 @Component({
   selector: 'app-traffic-sensor-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, TrafficAlertsComponent],
+  imports: [CommonModule, MatIconModule, MatTooltipModule, TrafficAlertsComponent],
   templateUrl: './traffic-sensor-card.component.html',
   styleUrl: './traffic-sensor-card.component.scss',
 })
 export class TrafficSensorCardComponent {
   private readonly sensorReadingsService = inject(SensorReadingsService);
+  private readonly settingsService = inject(SettingsService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly showAlerts = signal(false);
+  readonly missingThresholds = signal<string[]>([]);
   readonly readingHistory = signal<TrafficSensorItem[]>([]);
   readonly selectedReadingIndex = signal(0);
   readonly isLoading = signal(true);
@@ -99,6 +103,18 @@ export class TrafficSensorCardComponent {
           this.isLoading.set(false);
           this.errorMessage.set('Unable to load traffic readings right now.');
         },
+      });
+
+    this.settingsService.getSettings()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (settings) => {
+          const trafficSettings = settings.filter(s => s.type === 'TRAFFIC');
+          const metrics = trafficSettings.map(s => s.metric);
+          const required = ['TRAFFIC_DENSITY', 'AVG_SPEED'];
+          const missing = required.filter(m => !metrics.includes(m));
+          this.missingThresholds.set(missing);
+        }
       });
   }
 

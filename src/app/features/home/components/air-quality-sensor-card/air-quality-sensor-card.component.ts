@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import type { AirPollutionSensorReading } from '../../models/sensor-reading.models';
 import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SettingsService } from '../../../../core/services/settings.service';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
 
 type PollutionLevel = 'Good' | 'Moderate' | 'Unhealthy' | 'Very Unhealthy';
@@ -25,15 +27,17 @@ type AirSensorItem = {
 @Component({
   selector: 'app-air-quality-sensor-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, AirQualityAlertsComponent],
+  imports: [CommonModule, MatIconModule, MatTooltipModule, AirQualityAlertsComponent],
   templateUrl: './air-quality-sensor-card.component.html',
   styleUrl: './air-quality-sensor-card.component.scss',
 })
 export class AirQualitySensorCardComponent {
   private readonly sensorReadingsService = inject(SensorReadingsService);
+  private readonly settingsService = inject(SettingsService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly showAlerts = signal(false);
+  readonly missingThresholds = signal<string[]>([]);
   readonly readingHistory = signal<AirSensorItem[]>([]);
   readonly selectedReadingIndex = signal(0);
   readonly isLoading = signal(true);
@@ -123,6 +127,18 @@ export class AirQualitySensorCardComponent {
           this.isLoading.set(false);
           this.errorMessage.set('Unable to load air quality readings right now.');
         },
+      });
+
+    this.settingsService.getSettings()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (settings) => {
+          const airSettings = settings.filter(s => s.type === 'AIR_POLLUTION');
+          const metrics = airSettings.map(s => s.metric);
+          const required = ['CO', 'OZONE'];
+          const missing = required.filter(m => !metrics.includes(m));
+          this.missingThresholds.set(missing);
+        }
       });
   }
 

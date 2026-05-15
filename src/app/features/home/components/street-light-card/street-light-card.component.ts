@@ -1,9 +1,11 @@
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import type { StreetLightSensorReading } from '../../models/sensor-reading.models';
 import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SettingsService } from '../../../../core/services/settings.service';
 import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-alerts.component';
 
 type StreetLightItem = {
@@ -18,15 +20,17 @@ type StreetLightItem = {
 @Component({
   selector: 'app-street-light-card',
   standalone: true,
-  imports: [MatIconModule, StreetLightAlertsComponent],
+  imports: [MatIconModule, MatTooltipModule, StreetLightAlertsComponent],
   templateUrl: './street-light-card.component.html',
   styleUrl: './street-light-card.component.scss',
 })
 export class StreetLightCardComponent {
   private readonly sensorReadingsService = inject(SensorReadingsService);
+  private readonly settingsService = inject(SettingsService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly showAlerts = signal(false);
+  readonly missingThresholds = signal<string[]>([]);
   readonly readingHistory = signal<StreetLightItem[]>([]);
   readonly selectedReadingIndex = signal(0);
   readonly isLoading = signal(true);
@@ -63,6 +67,18 @@ export class StreetLightCardComponent {
           this.isLoading.set(false);
           this.errorMessage.set('Unable to load street light readings right now.');
         },
+      });
+
+    this.settingsService.getSettings()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (settings) => {
+          const lightSettings = settings.filter(s => s.type === 'STREET_LIGHT');
+          const metrics = lightSettings.map(s => s.metric);
+          const required = ['BRIGHTNESS_LEVEL', 'POWER_CONSUMPTION'];
+          const missing = required.filter(m => !metrics.includes(m));
+          this.missingThresholds.set(missing);
+        }
       });
   }
 
