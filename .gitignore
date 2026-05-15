@@ -46,3 +46,4 @@ Thumbs.db
 HANDOFF_DRAFT.md
 HANDOFF.md
 angular.json
+iot-selenium/target/*
