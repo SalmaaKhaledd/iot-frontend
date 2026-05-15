@@ -314,3 +314,43 @@ body[data-theme="light"] :host .tab-panel {
     align-items: center;
   }
 }
+
+.toast-success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  padding: 16px 24px;
+  border-radius: 16px;
+  max-width: 1240px;
+  margin: 0 auto 24px auto;
+  font-weight: 600;
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  mat-icon {
+    color: #10b981;
+  }
+}
+
+body[data-theme="light"] :host .toast-success {
+  background: #d1fae5;
+  color: #047857;
+  border-color: #a7f3d0;
+
+  mat-icon {
+    color: #059669;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

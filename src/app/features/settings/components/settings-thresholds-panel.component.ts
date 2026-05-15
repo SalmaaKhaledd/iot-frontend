@@ -41,7 +41,6 @@ export class SettingsThresholdsPanelComponent {
   }
 
   onThresholdValueChange(metric: SensorMetric, threshold: Threshold): void {
-    this.enforceConstraint(metric, threshold);
     this.changed.emit();
   }
 
@@ -59,7 +58,7 @@ export class SettingsThresholdsPanelComponent {
       return;
     }
 
-    const existingCondition = metric.thresholds[0]?.condition || 'above';
+    const existingCondition = metric.thresholds[0]?.condition;
     const newCondition = existingCondition === 'above' ? 'below' : 'above';
 
     metric.thresholds.push({
@@ -77,33 +76,37 @@ export class SettingsThresholdsPanelComponent {
     this.changed.emit();
   }
 
+  getThresholdError(metric: SensorMetric, threshold: Threshold): string | null {
+    if (threshold.value === null) return null;
+    
+    if (threshold.value < metric.min || threshold.value > metric.max) {
+      return `Value must be between ${metric.min} and ${metric.max}`;
+    }
+
+    if (metric.thresholds.length === 2) {
+      const above = metric.thresholds.find((t) => t.condition === 'above');
+      const below = metric.thresholds.find((t) => t.condition === 'below');
+
+      if (above && below && above.value !== null && below.value !== null) {
+        if (above.value <= below.value) {
+          if (threshold.condition === 'above') {
+            return 'Above must be strictly greater than Below';
+          } else {
+            return 'Below must be strictly less than Above';
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
   hasValueError(metric: SensorMetric, threshold: Threshold): boolean {
-    return threshold.value !== null && (threshold.value < metric.min || threshold.value > metric.max);
+    return this.getThresholdError(metric, threshold) !== null;
   }
 
   placeholderFor(metric: SensorMetric): string {
     return this.isCompactView() ? `${metric.min} - ${metric.max}` : metric.placeholder;
-  }
-
-  private enforceConstraint(metric: SensorMetric, changedThreshold: Threshold): void {
-    if (metric.thresholds.length !== 2) {
-      return;
-    }
-
-    const aboveThreshold = metric.thresholds.find((threshold) => threshold.condition === 'above');
-    const belowThreshold = metric.thresholds.find((threshold) => threshold.condition === 'below');
-
-    if (!aboveThreshold || !belowThreshold || aboveThreshold.value === null || belowThreshold.value === null) {
-      return;
-    }
-
-    if (aboveThreshold.value <= belowThreshold.value) {
-      if (changedThreshold.id === aboveThreshold.id) {
-        aboveThreshold.value = belowThreshold.value + (Number.isInteger(belowThreshold.value) ? 1 : 0.01);
-      } else {
-        belowThreshold.value = aboveThreshold.value - (Number.isInteger(aboveThreshold.value) ? 1 : 0.01);
-      }
-    }
   }
 
   private getCompactView(): boolean {

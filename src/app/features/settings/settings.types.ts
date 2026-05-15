@@ -13,6 +13,8 @@ export interface Threshold {
   id: string;
   condition: ThresholdCondition;
   value: number | null;
+  apiId?: string;
+  originalValue?: number | null;
 }
 
 export interface SensorMetric {

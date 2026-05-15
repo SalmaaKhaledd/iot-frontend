@@ -54,22 +54,20 @@
                         (blur)="onThresholdBlur()"
                         [placeholder]="placeholderFor(metric)" />
 
-                      @if (hasValueError(metric, threshold)) {
+                      @if (getThresholdError(metric, threshold); as errorMsg) {
                         <div class="error-tooltip">
-                          Value must be between {{ metric.min }} and {{ metric.max }}
+                          {{ errorMsg }}
                         </div>
                       }
                     </div>
 
-                    @if (metric.thresholds.length > 1) {
-                      <button
-                        type="button"
-                        class="remove-btn"
-                        (click)="removeThreshold(metric, threshold.id)"
-                        aria-label="Remove threshold">
-                        <mat-icon aria-hidden="true">close</mat-icon>
-                      </button>
-                    }
+                    <button
+                      type="button"
+                      class="remove-btn"
+                      (click)="removeThreshold(metric, threshold.id)"
+                      aria-label="Remove threshold">
+                      <mat-icon aria-hidden="true">close</mat-icon>
+                    </button>
                   </div>
                 }
               </div>

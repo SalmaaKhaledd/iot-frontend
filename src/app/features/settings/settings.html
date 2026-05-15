@@ -2,6 +2,13 @@
   <app-topbar></app-topbar>
 
   <main class="content">
+    @if (showSuccessMessage()) {
+      <div class="toast-success" role="alert">
+        <mat-icon aria-hidden="true">check_circle</mat-icon>
+        <span>Settings saved successfully!</span>
+      </div>
+    }
+
     <div class="page-frame">
       <div class="page-toolbar">
         <button type="button" class="back-button" (click)="goHome()">
@@ -47,13 +54,13 @@
             @case ('thresholds') {
               <app-settings-thresholds-panel
                 [categories]="categories()"
-                (changed)="markDirty()" />
+                (changed)="checkForChanges()" />
             }
 
             @case ('configuration') {
               <app-settings-configuration-panel
                 [sensorConfig]="sensorConfig()"
-                (changed)="markDirty()" />
+                (changed)="checkForChanges()" />
             }
           }
 

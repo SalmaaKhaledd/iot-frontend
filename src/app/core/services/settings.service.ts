@@ -16,6 +16,7 @@ export interface ThresholdSetting {
 }
 
 export interface SaveThresholdSetting {
+  id?: string;
   type: string;
   metric: string;
   thresholdValue: number;
@@ -39,5 +40,9 @@ export class SettingsService {
 
   saveSettings(settings: SaveThresholdSetting[]): Observable<ThresholdSetting[]> {
     return this.http.put<ThresholdSetting[]>(`${this.baseUrl}/settings`, settings);
+  }
+
+  deleteSetting(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/settings/${id}`);
   }
 }

@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { defaultIfEmpty } from 'rxjs/operators';
 
 import { SettingsService, SaveThresholdSetting } from '../../core/services/settings.service';
 
@@ -44,8 +46,16 @@ export class Settings {
   readonly isDirty = signal(false);
   readonly categories = signal<SensorCategory[]>(createDefaultSensorCategories());
   readonly sensorConfig = signal<SensorConfiguration>(createDefaultSensorConfiguration());
+  private readonly originalSensorConfig = signal<SensorConfiguration>(createDefaultSensorConfiguration());
+  private readonly originalSettings = signal<import('../../core/services/settings.service').ThresholdSetting[]>([]);
+  private readonly deletedThresholdIds = new Set<string>();
+  readonly showSuccessMessage = signal(false);
 
   constructor() {
+    this.loadSettings();
+  }
+
+  private loadSettings(): void {
     this.settingsService.getSettings()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((settings) => {
@@ -82,14 +92,20 @@ export class Settings {
           
           if (existingCondition) {
             existingCondition.value = setting.thresholdValue;
+            existingCondition.apiId = setting.id;
+            existingCondition.originalValue = setting.thresholdValue;
           } else if (emptyDefault) {
             emptyDefault.condition = condition;
             emptyDefault.value = setting.thresholdValue;
+            emptyDefault.apiId = setting.id;
+            emptyDefault.originalValue = setting.thresholdValue;
           } else {
             metric.thresholds.push({
               id: Math.random().toString(36).substring(2, 9),
               condition,
-              value: setting.thresholdValue
+              value: setting.thresholdValue,
+              apiId: setting.id,
+              originalValue: setting.thresholdValue
             });
           }
         });
@@ -101,6 +117,7 @@ export class Settings {
           });
         });
 
+        this.originalSettings.set(settings);
         this.categories.set(defaultCats);
       });
   }
@@ -121,13 +138,55 @@ export class Settings {
     return true;
   }
 
-  markDirty(): void {
-    this.isDirty.set(true);
+  checkForChanges(): void {
+    let isChanged = false;
+    const currentApiIds = new Set<string>();
+
+    for (const cat of this.categories()) {
+      for (const met of cat.metrics) {
+        for (const t of met.thresholds) {
+          if (t.apiId) {
+            currentApiIds.add(t.apiId);
+            const originalSetting = this.originalSettings().find(s => s.id === t.apiId);
+            if (originalSetting) {
+              if (originalSetting.thresholdValue !== t.value || originalSetting.alertType.toLowerCase() !== t.condition) {
+                isChanged = true;
+              }
+            } else {
+              isChanged = true;
+            }
+          } else if (t.value !== null) {
+            isChanged = true;
+          }
+        }
+      }
+    }
+
+    if (!isChanged) {
+      if (currentApiIds.size !== this.originalSettings().length) {
+        isChanged = true;
+      }
+    }
+
+    if (!isChanged) {
+      const currentConfig = this.sensorConfig();
+      const originalConfig = this.originalSensorConfig();
+      if (
+        currentConfig.trafficReadingInterval !== originalConfig.trafficReadingInterval ||
+        currentConfig.airQualityReadingInterval !== originalConfig.airQualityReadingInterval ||
+        currentConfig.streetLightReadingInterval !== originalConfig.streetLightReadingInterval
+      ) {
+        isChanged = true;
+      }
+    }
+
+    this.isDirty.set(isChanged);
   }
 
   saveChanges(): void {
     let hasErrors = false;
     const toSave: SaveThresholdSetting[] = [];
+    const currentApiIds = new Set<string>();
 
     for (const cat of this.categories()) {
       let type: string;
@@ -146,64 +205,67 @@ export class Settings {
         else if (met.id === 'power') metricName = 'POWER_CONSUMPTION';
         else continue;
 
+        const above = met.thresholds.find(t => t.condition === 'above');
+        const below = met.thresholds.find(t => t.condition === 'below');
+        if (above && below && above.value !== null && below.value !== null) {
+          if (above.value <= below.value) {
+            hasErrors = true;
+          }
+        }
+
         for (const t of met.thresholds) {
+          if (t.apiId) {
+            currentApiIds.add(t.apiId);
+          }
+
           if (t.value !== null) {
             if (t.value < met.min || t.value > met.max) {
               hasErrors = true;
-              break;
             }
-            toSave.push({
-              type,
-              metric: metricName,
-              thresholdValue: t.value,
-              alertType: t.condition.toUpperCase()
-            });
+
+            const originalSetting = this.originalSettings().find(s => s.id === t.apiId);
+            const valueChanged = originalSetting 
+              ? originalSetting.thresholdValue !== t.value || originalSetting.alertType.toLowerCase() !== t.condition
+              : true;
+
+            if (valueChanged) {
+              toSave.push({
+                id: t.apiId,
+                type,
+                metric: metricName,
+                thresholdValue: t.value,
+                alertType: t.condition.toUpperCase()
+              });
+            }
           }
         }
       }
     }
 
     if (hasErrors) {
-      alert('Some threshold values are out of range. Please fix them before saving.');
+      alert('Please fix the threshold validation errors before saving.');
       return;
     }
 
-    this.settingsService.saveSettings(toSave).subscribe({
+    const deletedIds = this.originalSettings()
+      .map(s => s.id)
+      .filter(id => !currentApiIds.has(id));
+
+    const deleteRequests = deletedIds.map(id => this.settingsService.deleteSetting(id).pipe(defaultIfEmpty(null)));
+    const saveRequest = toSave.length > 0 ? this.settingsService.saveSettings(toSave).pipe(defaultIfEmpty(null)) : of(null);
+    
+    forkJoin([saveRequest, ...deleteRequests]).subscribe({
       next: () => {
+        this.originalSensorConfig.set({ ...this.sensorConfig() });
         this.isDirty.set(false);
+        this.showSuccessMessage.set(true);
+        setTimeout(() => this.showSuccessMessage.set(false), 3000);
+        this.loadSettings();
       },
       error: () => {
         alert('Failed to save settings. Please try again.');
       }
     });
-  }
-
-  enforceConstraint(metric: SensorMetric, changedThreshold: Threshold): void {
-    if (metric.thresholds.length !== 2) {
-      return;
-    }
-
-    const aboveThreshold = metric.thresholds.find((threshold) => threshold.condition === 'above');
-    const belowThreshold = metric.thresholds.find((threshold) => threshold.condition === 'below');
-
-    if (
-      !aboveThreshold ||
-      !belowThreshold ||
-      aboveThreshold.value === null ||
-      belowThreshold.value === null
-    ) {
-      return;
-    }
-
-    if (aboveThreshold.value <= belowThreshold.value) {
-      if (changedThreshold.id === aboveThreshold.id) {
-        aboveThreshold.value = belowThreshold.value + (Number.isInteger(belowThreshold.value) ? 1 : 0.01);
-      } else {
-        belowThreshold.value = aboveThreshold.value - (Number.isInteger(aboveThreshold.value) ? 1 : 0.01);
-      }
-
-      this.categories.update((categories) => [...categories]);
-    }
   }
 
   toggleCondition(metric: SensorMetric, threshold: Threshold): void {
@@ -212,7 +274,7 @@ export class Settings {
     }
 
     threshold.condition = threshold.condition === 'above' ? 'below' : 'above';
-    this.markDirty();
+    this.checkForChanges();
   }
 
   addThreshold(metric: SensorMetric): void {
@@ -220,7 +282,7 @@ export class Settings {
       return;
     }
 
-    const existingCondition = metric.thresholds[0]?.condition || 'above';
+    const existingCondition = metric.thresholds[0]?.condition;
     const newCondition = existingCondition === 'above' ? 'below' : 'above';
 
     metric.thresholds.push({
@@ -230,11 +292,11 @@ export class Settings {
     });
 
     metric.thresholds.sort((a, b) => (a.condition === 'above' ? -1 : 1));
-    this.markDirty();
+    this.checkForChanges();
   }
 
   removeThreshold(metric: SensorMetric, thresholdId: string): void {
     metric.thresholds = metric.thresholds.filter((threshold) => threshold.id !== thresholdId);
-    this.markDirty();
+    this.checkForChanges();
   }
 }
