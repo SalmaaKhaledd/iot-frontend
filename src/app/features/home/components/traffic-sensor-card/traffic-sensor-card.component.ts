@@ -137,7 +137,13 @@ export class TrafficSensorCardComponent {
     } else if (diffHours < 24) {
       return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
     } else {
-      return date.toLocaleDateString();
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: false,
+      }).format(date);
     }
   }
 
