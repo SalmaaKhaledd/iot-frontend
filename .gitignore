@@ -39,8 +39,16 @@ testem.log
 /typings
 __screenshots__/
 
+# Selenium — optional local pip install target (e.g. openpyxl for scripting edits to
+# iot-selenium/src/test/resources/testdata/frontend-testing.xlsx). Recreate with:
+#   pip install openpyxl --target iot-selenium/.pip_openpyxl
+#   PYTHONPATH=iot-selenium/.pip_openpyxl python3 your_script.py
+iot-selenium/.pip_openpyxl/
+
 # System files
 .DS_Store
 Thumbs.db
 .cursor/
 HANDOFF_DRAFT.md
+docs/sprint1.md
+iot-selenium/target/
