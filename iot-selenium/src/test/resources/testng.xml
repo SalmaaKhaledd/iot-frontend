@@ -21,4 +21,9 @@
             <class name="com.iot.selenium.tests.UserProfileTest" />
         </classes>
     </test>
+       <test name="Logout Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.LogoutTest" />
+        </classes>
+    </test>
 </suite>

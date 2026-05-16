@@ -11,6 +11,7 @@ public class UserProfilePage extends BasePage {
     private static final By EMAIL = By.cssSelector(".profile-card .email");
     private static final By BACK_BUTTON = By.cssSelector(".back-button");
     private static final By CHANGE_PASSWORD = By.cssSelector(".change-password-btn");
+    private static final By LOGOUT_BUTTON = By.cssSelector("button.logout-btn");
 
     public UserProfilePage(WebDriver driver) {
         super(driver);
@@ -56,6 +57,10 @@ public class UserProfilePage extends BasePage {
     public boolean isChangePasswordVisible() {
         List<WebElement> elements = driver.findElements(CHANGE_PASSWORD);
         return !elements.isEmpty() && elements.get(0).isDisplayed();
+    }
+
+    public void clickLogout() {
+        click(LOGOUT_BUTTON);
     }
 
     private String getFieldValue(String label) {
