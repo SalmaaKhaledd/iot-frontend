@@ -23,6 +23,7 @@
           <label [for]="field.key">Reading Interval (minutes)</label>
           <div class="input-shell" [class.has-error]="hasValueError(field)">
             <input
+              #configInput
               [id]="field.key"
               type="number"
               [min]="field.min"
@@ -31,6 +32,7 @@
               [ngModel]="sensorConfig()[field.key]"
               (ngModelChange)="updateInterval(field.key, $event)"
               (blur)="revertIfEmpty(field.key, $event)"
+              (wheel)="configInput.blur()"
               [placeholder]="field.placeholder" />
 
             @if (hasValueError(field)) {

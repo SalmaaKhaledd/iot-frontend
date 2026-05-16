@@ -45,6 +45,7 @@
                         </div>
                       }
                       <input
+                        #thresholdInput
                         type="number"
                         [min]="metric.min"
                         [max]="metric.max"
@@ -52,6 +53,7 @@
                         (ngModelChange)="onThresholdValueChange(metric, threshold)"
                         (focus)="onThresholdFocus(threshold.id)"
                         (blur)="onThresholdBlur()"
+                        (wheel)="thresholdInput.blur()"
                         [placeholder]="placeholderFor(metric)" />
 
                       @if (getThresholdError(metric, threshold); as errorMsg) {

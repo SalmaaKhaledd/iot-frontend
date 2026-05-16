@@ -62,8 +62,8 @@ export class SettingsConfigurationPanelComponent {
     },
   ];
 
-  updateInterval(key: keyof SensorConfiguration, value: string): void {
-    if (value === '') {
+  updateInterval(key: keyof SensorConfiguration, value: number | null | string): void {
+    if (value === null || value === undefined || value === '') {
       this.sensorConfig()[key] = null as any;
     } else {
       const num = Number(value);
