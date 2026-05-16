@@ -153,6 +153,21 @@ export class StreetLightCardComponent {
     const customEvent = event as CustomEvent;
     if (customEvent.detail.sensorType === 'street-light') {
       this.showAlerts.set(true);
+      if (customEvent.detail.alertId) {
+        let attempts = 0;
+        const interval = setInterval(() => {
+          const alertEl = document.getElementById('alert-' + customEvent.detail.alertId);
+          if (alertEl) {
+            clearInterval(interval);
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            alertEl.classList.add('highlight-alert');
+            setTimeout(() => alertEl.classList.remove('highlight-alert'), 2000);
+          } else if (attempts >= 20) {
+            clearInterval(interval);
+          }
+          attempts++;
+        }, 100);
+      }
     }
   }
 

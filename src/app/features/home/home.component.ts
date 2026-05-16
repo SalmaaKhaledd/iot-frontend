@@ -66,7 +66,8 @@ export class HomeComponent {
     }
   }
 
-  handleJumpToAlert(alertType: 'traffic' | 'air-quality' | 'street-light'): void {
+  handleJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+    const alertType = event.type;
     // Map alert type to sensor ID
     const sensorMap: { [key: string]: string } = {
       traffic: 'traffic-sensor',
@@ -80,7 +81,7 @@ export class HomeComponent {
       // Trigger alert opening through a custom event
       window.dispatchEvent(
         new CustomEvent('openSensorAlerts', {
-          detail: { sensorType: alertType },
+          detail: { sensorType: alertType, alertId: event.alertId },
         })
       );
     }

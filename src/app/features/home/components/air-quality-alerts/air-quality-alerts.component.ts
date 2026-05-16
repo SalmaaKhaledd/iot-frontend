@@ -71,7 +71,7 @@ export class AirQualityAlertsComponent {
             const title = `${metricName} Alert`;
             const directionVerb = isBelow ? 'dropped below' : 'exceeded';
             const message = `${metricName} in ${alert.location || 'Unknown Location'} ${directionVerb} threshold.`;
-            const report = `Value reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
+            const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
 
             const fallbackObj = {
               id: alert.id || Math.random().toString(),
@@ -174,6 +174,16 @@ export class AirQualityAlertsComponent {
       default:
         return 'info';
     }
+  }
+
+  deleteAlert(alertId: string, event: Event): void {
+    event.stopPropagation();
+    this.alertsService.deleteAlert(alertId).subscribe({
+      next: () => {
+        this.airQualityAlerts.update(alerts => alerts.filter(a => a.id !== alertId));
+      },
+      error: (err) => console.error('Failed to delete alert', err)
+    });
   }
 
   onAlertHover(alert: AirQualityAlert): void {

@@ -62,7 +62,7 @@ export class StreetLightAlertsComponent {
             const title = `${metricName} Alert`;
             const directionVerb = isBelow ? 'dropped below' : 'exceeded';
             const message = `${metricName} in ${alert.location || 'Unknown Location'} ${directionVerb} threshold.`;
-            const report = `Value reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
+            const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
 
             const fallbackObj = {
               id: alert.id || Math.random().toString(),
@@ -140,6 +140,16 @@ export class StreetLightAlertsComponent {
       default:
         return 'inactive';
     }
+  }
+
+  deleteAlert(alertId: string, event: Event): void {
+    event.stopPropagation();
+    this.alertsService.deleteAlert(alertId).subscribe({
+      next: () => {
+        this.streetLightAlerts.update(alerts => alerts.filter(a => a.id !== alertId));
+      },
+      error: (err) => console.error('Failed to delete alert', err)
+    });
   }
 
   onAlertHover(alert: StreetLightAlert): void {

@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="alerts-list">
-    <div *ngFor="let alert of filteredAlerts()" class="alert-card">
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [id]="'alert-' + alert.id">
       
       <div class="alert-content">
         <div class="alert-header-row">
@@ -48,12 +48,17 @@
               <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
               {{ alert.direction }} THRESHOLD
             </span>
-            <h3>{{ alert.title }}</h3>
+
             <p class="alert-message">{{ alert.message }}</p>
           </div>
-          <div class="alert-time">
-            <mat-icon>schedule</mat-icon>
-            <span>{{ alert.time }}</span>
+          <div class="alert-actions" style="display: flex; align-items: flex-start; gap: 12px; margin-left: auto;">
+            <div class="alert-time">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ alert.time }}</span>
+            </div>
+            <button (click)="deleteAlert(alert.id, $event)" aria-label="Delete alert" style="background: none; border: none; cursor: pointer; color: var(--text-muted, #94a3b8); padding: 0px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted, #94a3b8)'">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">close</mat-icon>
+            </button>
           </div>
         </div>
 

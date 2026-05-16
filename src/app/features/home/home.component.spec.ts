@@ -108,5 +108,30 @@ describe('HomeComponent', () => {
 
     expect(component.refreshNotice()).toBe('');
   });
-});
 
+  it('dispatches openSensorAlerts event when handleJumpToAlert is called', () => {
+    authServiceSpy.getUser.mockReturnValue(cachedUser);
+    authServiceSpy.getMe.mockReturnValue(of(profileResponse));
+
+    const component = createComponent();
+    const dispatchSpy = vi.spyOn(window, 'dispatchEvent');
+    
+    const originalScrollIntoView = window.HTMLElement.prototype.scrollIntoView;
+    const scrollSpy = vi.fn();
+    window.HTMLElement.prototype.scrollIntoView = scrollSpy;
+
+    component.handleJumpToAlert({ type: 'traffic', alertId: 'alert-123' });
+
+    expect(scrollSpy).toHaveBeenCalled();
+    expect(dispatchSpy).toHaveBeenCalled();
+    
+    const call = dispatchSpy.mock.calls.find(c => (c[0] as Event).type === 'openSensorAlerts');
+    expect(call).toBeTruthy();
+    
+    const dispatchedEvent = call![0] as CustomEvent;
+    expect(dispatchedEvent.type).toBe('openSensorAlerts');
+    expect(dispatchedEvent.detail).toEqual({ sensorType: 'traffic', alertId: 'alert-123' });
+
+    window.HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
+  });
+});

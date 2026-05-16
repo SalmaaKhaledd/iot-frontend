@@ -49,7 +49,7 @@ export class NotificationPanelComponent {
   readonly rawAlerts = signal<any>(null);
   readonly unreadCount = computed(() => this.alerts().filter((a: NotificationAlert) => !a.isRead).length);
 
-  @Output() readonly jumpToAlert = new EventEmitter<'traffic' | 'air-quality' | 'street-light'>();
+  @Output() readonly jumpToAlert = new EventEmitter<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}>();
 
   constructor(private readonly elRef: ElementRef) {
     this.alertsService.getAlerts()
@@ -63,6 +63,12 @@ export class NotificationPanelComponent {
           this.alerts.set(mappedAlerts);
         },
         error: (err: unknown) => console.error('Failed to load alerts', err)
+      });
+
+    this.alertsService.alertDeleted$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((deletedId) => {
+        this.alerts.update(alerts => alerts.filter(a => a.id !== deletedId));
       });
   }
 
@@ -100,7 +106,7 @@ export class NotificationPanelComponent {
       const title = `${metricName} Alert`;
       const directionVerb = isBelow ? 'dropped below' : 'exceeded';
       const message = `${metricName} in ${apiAlert.location || 'Unknown Location'} ${directionVerb} threshold.`;
-      const report = `Value reached ${apiAlert.triggeredValue ?? 'N/A'} (Threshold: ${apiAlert.thresholdValue ?? 'N/A'}).`;
+      const report = `${metricName} reached ${apiAlert.triggeredValue ?? 'N/A'} (Threshold: ${apiAlert.thresholdValue ?? 'N/A'}).`;
 
       let typeIcon = 'sensors';
       if (type === 'traffic') typeIcon = 'traffic';
@@ -178,7 +184,7 @@ export class NotificationPanelComponent {
     };
     
     // Jump to the alert modal
-    this.jumpToAlert.emit(alert.type);
+    this.jumpToAlert.emit({type: alert.type, alertId: alert.id});
     const sensorId = sensorMap[alert.type];
     if (sensorId) {
       // Scroll to the sensor
@@ -186,9 +192,6 @@ export class NotificationPanelComponent {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-
-      // Emit event to open alerts
-      this.jumpToAlert.emit(alert.type);
 
       // Close notification panel
       this.close();

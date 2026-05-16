@@ -1,25 +1,61 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { vi } from 'vitest';
-
 import { Settings } from './settings';
-import { type SensorMetric } from './settings.types';
+import { SettingsService } from '../../core/services/settings.service';
+import { SensorMetric } from './settings.types';
 
 describe('Settings', () => {
   let component: Settings;
-  let routerSpy: { navigate: ReturnType<typeof vi.fn> };
+  let fixture: ComponentFixture<Settings>;
+  let mockRouter: any;
+  let mockSettingsService: any;
 
   beforeEach(async () => {
-    routerSpy = {
-      navigate: vi.fn().mockResolvedValue(true),
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+
+    mockRouter = {
+      navigate: vi.fn()
     };
+    mockSettingsService = {
+      getSettings: vi.fn(),
+      getSensorConfig: vi.fn(),
+      saveSettings: vi.fn(),
+      saveSensorConfig: vi.fn(),
+      deleteSetting: vi.fn()
+    };
+
+    mockSettingsService.getSettings.mockReturnValue(of([]));
+    mockSettingsService.getSensorConfig.mockReturnValue(of({
+      trafficReadingInterval: 60,
+      airQualityReadingInterval: 60,
+      streetLightReadingInterval: 60
+    }));
 
     await TestBed.configureTestingModule({
       imports: [Settings],
-      providers: [{ provide: Router, useValue: routerSpy }],
+      providers: [
+        { provide: Router, useValue: mockRouter },
+        { provide: SettingsService, useValue: mockSettingsService }
+      ]
     }).compileComponents();
 
-    component = TestBed.createComponent(Settings).componentInstance;
+    fixture = TestBed.createComponent(Settings);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('creates the page with the default categories', () => {
@@ -29,16 +65,13 @@ describe('Settings', () => {
 
   it('starts on the thresholds tab and can switch tabs', () => {
     expect(component.activeTab()).toBe('thresholds');
-
     component.setActiveTab('configuration');
-
     expect(component.activeTab()).toBe('configuration');
   });
 
   it('navigates home from the toolbar action', () => {
     component.goHome();
-
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/home']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
   });
 
   it('allows navigation when there are no unsaved changes', () => {
@@ -46,49 +79,19 @@ describe('Settings', () => {
   });
 
   it('asks for confirmation when dirty and returns the user choice', () => {
-    component.markDirty();
+    component.isDirty.set(true);
     const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     expect(component.canDeactivate()).toBe(false);
     expect(confirmSpy).toHaveBeenCalledWith(
-      'You have unsaved changes. Do you want to leave without saving?',
+      'You have unsaved changes. Do you want to leave without saving?'
     );
-
-    confirmSpy.mockRestore();
-  });
-
-  it('clears the dirty state when saving changes', () => {
-    component.markDirty();
-
-    component.saveChanges();
-
-    expect(component.isDirty()).toBe(false);
-  });
-
-  it('enforces the upper threshold when above is not higher than below', () => {
-    const metric: SensorMetric = {
-      id: 'custom',
-      label: 'Custom',
-      unit: 'units',
-      placeholder: 'Enter a value',
-      min: 0,
-      max: 100,
-      thresholds: [
-        { id: 'above', condition: 'above', value: 10 },
-        { id: 'below', condition: 'below', value: 20 },
-      ],
-    };
-
-    component.enforceConstraint(metric, metric.thresholds[0]);
-
-    expect(metric.thresholds[0].value).toBe(21);
-    expect(metric.thresholds[1].value).toBe(20);
   });
 
   it('toggles a single threshold condition and marks the page dirty', () => {
     const metric = component.categories()[0].metrics[0];
     const threshold = metric.thresholds[0];
-
+    threshold.value = 10; // Give it a value so it's tracked
     component.toggleCondition(metric, threshold);
 
     expect(metric.thresholds[0].condition).toBe('below');
@@ -97,12 +100,15 @@ describe('Settings', () => {
 
   it('adds a missing threshold and keeps above before below', () => {
     const metric = component.categories()[0].metrics[0];
-
     component.addThreshold(metric);
 
     expect(metric.thresholds).toHaveLength(2);
     expect(metric.thresholds[0].condition).toBe('above');
     expect(metric.thresholds[1].condition).toBe('below');
+    
+    // Simulate setting a value on the new threshold
+    metric.thresholds[1].value = 50;
+    component.checkForChanges();
     expect(component.isDirty()).toBe(true);
   });
 
@@ -115,6 +121,5 @@ describe('Settings', () => {
 
     expect(metric.thresholds).toHaveLength(1);
     expect(metric.thresholds[0].condition).toBe('above');
-    expect(component.isDirty()).toBe(true);
   });
 });

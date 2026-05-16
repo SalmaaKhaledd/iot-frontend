@@ -1,37 +1,81 @@
-import { TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { vi } from 'vitest';
 import { AirQualitySensorCardComponent } from './air-quality-sensor-card.component';
+import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SettingsService } from '../../../../core/services/settings.service';
+import { AirPollutionSensorReading } from '../../models/sensor-reading.models';
 
 describe('AirQualitySensorCardComponent', () => {
   let component: AirQualitySensorCardComponent;
+  let fixture: ComponentFixture<AirQualitySensorCardComponent>;
+  let mockSensorService: any;
+  let mockSettingsService: any;
 
   beforeEach(async () => {
+    mockSensorService = {
+      getAirPollutionReadings: vi.fn()
+    };
+    mockSettingsService = {
+      getSettings: vi.fn(),
+      getSensorConfig: vi.fn()
+    };
+
+    const mockReadings: AirPollutionSensorReading[] = [
+      {
+        id: '1',
+        location: 'Downtown',
+        timestamp: new Date().toISOString(),
+        pm2_5: 50,
+        pm10: 100,
+        co: 25,
+        ozone: 150,
+        no2: 200,
+        so2: 100,
+        pollutionLevel: 'VERY_UNHEALTHY'
+      }
+    ];
+
+    mockSensorService.getAirPollutionReadings.mockReturnValue(of(mockReadings));
+    mockSettingsService.getSettings.mockReturnValue(of([]));
+    mockSettingsService.getSensorConfig.mockReturnValue(of({ airQualityReadingInterval: 60 } as any));
+
     await TestBed.configureTestingModule({
       imports: [AirQualitySensorCardComponent],
+      providers: [
+        { provide: SensorReadingsService, useValue: mockSensorService },
+        { provide: SettingsService, useValue: mockSettingsService }
+      ]
     }).compileComponents();
 
-    component = TestBed.createComponent(AirQualitySensorCardComponent).componentInstance;
+    fixture = TestBed.createComponent(AirQualitySensorCardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    await new Promise(resolve => setTimeout(resolve, 0));
   });
 
-  it('selects the first sensor by default', () => {
-    expect(component.selectedSensorData().id).toBe(component.sensors[0].id);
+  it('exposes the latest reading and history', () => {
+    expect(component.readingHistory()).toHaveLength(1);
+    expect(component.latestReading()?.id).toBe('1');
+    expect(component.selectedSensorData()?.id).toBe('1');
   });
 
-  it('switches the selected sensor when onSelectSensor is called', () => {
-    component.onSelectSensor(component.sensors[2].id);
-
-    expect(component.selectedSensorData().id).toBe(component.sensors[2].id);
+  it('updates the selected reading index', () => {
+    component.onSelectReading(0);
+    expect(component.selectedReadingIndex()).toBe(0);
   });
 
   it('exposes the full pollution sensor schema', () => {
     const sensor = component.selectedSensorData();
-
-    expect(sensor.location).toBeTruthy();
-    expect(sensor.timestamp).toBeTruthy();
-    expect(sensor.pm2_5).toBeGreaterThanOrEqual(0);
-    expect(sensor.pm10).toBeGreaterThanOrEqual(0);
-    expect(sensor.no2).toBeGreaterThanOrEqual(0);
-    expect(sensor.so2).toBeGreaterThanOrEqual(0);
+    expect(sensor).toBeTruthy();
+    if (sensor) {
+      expect(sensor.location).toBeTruthy();
+      expect(sensor.timestamp).toBeTruthy();
+      expect(sensor.pm2_5).toBeGreaterThanOrEqual(0);
+      expect(sensor.pm10).toBeGreaterThanOrEqual(0);
+      expect(sensor.no2).toBeGreaterThanOrEqual(0);
+      expect(sensor.so2).toBeGreaterThanOrEqual(0);
+    }
   });
 
   it('scales CO values into a capped percentage', () => {
@@ -59,8 +103,34 @@ describe('AirQualitySensorCardComponent', () => {
   });
 
   it('describes the selected pollution level', () => {
-    component.onSelectSensor(component.sensors[0].id);
-
     expect(component.recommendationText()).toContain('very unhealthy');
+  });
+
+  it('handles openSensorAlerts event', async () => {
+    vi.useFakeTimers();
+
+    const mockEvent = new CustomEvent('openSensorAlerts', {
+      detail: { sensorType: 'air-quality', alertId: '123' }
+    });
+
+    const mockEl = document.createElement('div');
+    mockEl.id = 'alert-123';
+    document.body.appendChild(mockEl);
+
+    mockEl.scrollIntoView = vi.fn();
+    const spy = mockEl.scrollIntoView;
+    
+    component.onOpenSensorAlerts(mockEvent);
+    expect(component.showAlerts()).toBe(true);
+
+    vi.advanceTimersByTime(100);
+    expect(spy).toHaveBeenCalled();
+    expect(mockEl.classList.contains('highlight-alert')).toBe(true);
+
+    vi.advanceTimersByTime(2000);
+    expect(mockEl.classList.contains('highlight-alert')).toBe(false);
+
+    document.body.removeChild(mockEl);
+    vi.useRealTimers();
   });
 });

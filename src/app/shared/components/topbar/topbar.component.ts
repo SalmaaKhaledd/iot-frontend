@@ -28,7 +28,7 @@ export class TopbarComponent {
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
 
-  @Output() readonly jumpToAlert = new EventEmitter<'traffic' | 'air-quality' | 'street-light'>();
+  @Output() readonly jumpToAlert = new EventEmitter<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}>();
 
   /** Reactive current user shared by the auth service. */
   readonly currentUser = this.authService.currentUser;
@@ -57,7 +57,7 @@ export class TopbarComponent {
     this.router.navigate(['/profile']);
   }
 
-  onJumpToAlert(alertType: 'traffic' | 'air-quality' | 'street-light'): void {
-    this.jumpToAlert.emit(alertType);
+  onJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+    this.jumpToAlert.emit(event);
   }
 }

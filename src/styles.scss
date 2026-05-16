@@ -153,4 +153,19 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+@keyframes highlight-flash {
+  0% { 
+    background-color: rgba(29, 158, 117, 0.2); 
+    border-color: #1D9E75; 
+  }
+  100% { 
+    background-color: transparent; 
+  }
+}
+
+.highlight-alert {
+  animation: highlight-flash 2s ease-out;
+  border: 1px solid transparent; /* Ensure there is a border to animate if not already present */
 }
