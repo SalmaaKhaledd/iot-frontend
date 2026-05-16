@@ -47,6 +47,7 @@ describe('StreetLightCardComponent', () => {
     fixture = TestBed.createComponent(StreetLightCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.refresh();
     await new Promise(resolve => setTimeout(resolve, 0));
   });
 

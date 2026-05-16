@@ -33,7 +33,7 @@ export class SettingsConfigurationPanelComponent {
     {
       key: 'trafficReadingInterval',
       label: 'Traffic Sensors',
-      description: 'How often traffic sensors collect and report data',
+      description: 'How often traffic sensors report data',
       icon: 'directions_car',
       colorClass: 'blue',
       min: 1,
@@ -43,7 +43,7 @@ export class SettingsConfigurationPanelComponent {
     {
       key: 'airQualityReadingInterval',
       label: 'Air Quality Sensors',
-      description: 'How often air quality sensors collect and report data',
+      description: 'How often air quality sensors report data',
       icon: 'air',
       colorClass: 'green',
       min: 1,
@@ -53,7 +53,7 @@ export class SettingsConfigurationPanelComponent {
     {
       key: 'streetLightReadingInterval',
       label: 'Street Light Sensors',
-      description: 'How often street light sensors collect and report data',
+      description: 'How often street light sensors report data',
       icon: 'lightbulb',
       colorClass: 'yellow',
       min: 1,

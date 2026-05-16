@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject, timer } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { merge, Subject, timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -45,20 +45,25 @@ export class AirQualitySensorCardComponent {
   readonly isLoading = signal(true);
   readonly errorMessage = signal<string | null>(null);
   readonly refreshTrigger$ = new Subject<void>();
+  readonly currentTime = signal(Date.now());
 
   readonly latestReading = computed(() => {
     const history = this.readingHistory();
     return history.length > 0 ? history[0] : null;
   });
 
+  readonly configuredInterval = signal<number>(10); // minutes (default)
+
   readonly dropdownReadings = computed(() => {
     const history = this.readingHistory().slice(0, 5);
-    const now = Date.now();
-    return history.map((reading, index) => ({
-      index,
-      label: index === 0 ? 'Now' : this.formatRelativeTime(new Date(reading.timestamp), new Date(now)),
-      reading,
-    }));
+    if (history.length === 0) return [];
+    const now = this.currentTime();
+
+    return history.map((reading, index) => {
+      const target = new Date(reading.timestamp);
+      const label = this.formatRelativeTime(target, new Date(now));
+      return { index, label, reading };
+    });
   });
 
   readonly selectedSensorData = computed<AirSensorItem | null>(() => {
@@ -115,15 +120,19 @@ export class AirQualitySensorCardComponent {
   });
 
   constructor() {
+    const intervalId = setInterval(() => this.currentTime.set(Date.now()), 60000);
+    this.destroyRef.onDestroy(() => clearInterval(intervalId));
+
     this.settingsService.getSensorConfig()
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap(config => 
-          this.refreshTrigger$.pipe(
-            startWith(undefined),
-            switchMap(() => timer(0, config.airQualityReadingInterval * 1000))
-          )
-        ),
+        switchMap(config => {
+          this.configuredInterval.set(config.airQualityReadingInterval);
+          return merge(
+            this.refreshTrigger$,
+            timer(0, config.airQualityReadingInterval * 60000),
+          );
+        }),
         switchMap(() => {
           return this.sensorReadingsService.getAirPollutionReadings();
         })

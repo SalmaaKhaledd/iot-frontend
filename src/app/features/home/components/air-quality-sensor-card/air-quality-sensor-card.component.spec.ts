@@ -51,6 +51,7 @@ describe('AirQualitySensorCardComponent', () => {
     fixture = TestBed.createComponent(AirQualitySensorCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.refresh();
     await new Promise(resolve => setTimeout(resolve, 0));
   });
 

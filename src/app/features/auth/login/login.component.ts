@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 
 import { LoginRequest } from '../../../core/models/auth.models';
 import { AuthService } from '../../../core/services/auth.service';
+import { SettingsService } from '../../../core/services/settings.service';
 import { AUTH_VALIDATION } from '../../../core/validation/auth-validation.constants';
 import { mapAuthError } from '../../../core/utils/auth-error';
 import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
@@ -22,6 +23,7 @@ import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
+  private readonly settingsService = inject(SettingsService);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
@@ -82,7 +84,18 @@ export class LoginComponent {
 
           this.authService.saveToken(response.token);
           this.authService.saveUser(toUserFromAuthResponse(response));
-          this.router.navigate(['/home']);
+
+          this.settingsService
+            .loadSensorConfig()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+              next: () => {
+                this.router.navigate(['/home']);
+              },
+              error: () => {
+                this.router.navigate(['/home']);
+              },
+            });
         },
         error: (error: unknown) => {
           this.errorMessage = mapAuthError(error);

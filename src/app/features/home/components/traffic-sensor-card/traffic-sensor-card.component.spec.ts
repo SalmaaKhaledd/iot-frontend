@@ -47,6 +47,7 @@ describe('TrafficSensorCardComponent', () => {
     fixture = TestBed.createComponent(TrafficSensorCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.refresh();
     await new Promise(resolve => setTimeout(resolve, 0));
   });
 

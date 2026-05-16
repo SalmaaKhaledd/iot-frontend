@@ -261,9 +261,9 @@ export class Settings {
     const deleteRequests = deletedIds.map(id => this.settingsService.deleteSetting(id).pipe(defaultIfEmpty(null)));
     const saveRequest = toSave.length > 0 ? this.settingsService.saveSettings(toSave).pipe(defaultIfEmpty(null)) : of(null);
     
-    this.settingsService.saveSensorConfig(this.sensorConfig());
+    const configRequest = this.settingsService.saveSensorConfig(this.sensorConfig()).pipe(defaultIfEmpty(null));
 
-    forkJoin([saveRequest, ...deleteRequests]).subscribe({
+    forkJoin([saveRequest, configRequest, ...deleteRequests]).subscribe({
       next: () => {
         this.originalSensorConfig.set({ ...this.sensorConfig() });
         this.isDirty.set(false);

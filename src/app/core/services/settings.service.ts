@@ -1,10 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
-import type { SensorConfiguration } from '../../features/settings/settings.types';
+import {
+  createDefaultSensorConfiguration,
+  type SensorConfiguration,
+} from '../../features/settings/settings.types';
+
+interface IntervalSettingsResponse {
+  id: string;
+  trafficInterval: number;
+  airPollutionInterval: number;
+  streetLightInterval: number;
+}
+
+interface IntervalSettingsPayload {
+  id?: string;
+  trafficInterval: number;
+  airPollutionInterval: number;
+  streetLightInterval: number;
+}
 
 export interface ThresholdSetting {
   id: string;
@@ -29,31 +46,73 @@ export class SettingsService {
   private readonly http = inject(HttpClient);
   private readonly authService = inject(AuthService);
   private readonly baseUrl = environment.apiUrl;
-  private readonly sensorConfigSubject = new BehaviorSubject<SensorConfiguration>(this.loadInitialConfig());
+  private readonly defaultSensorConfig = createDefaultSensorConfiguration();
+  private readonly sensorConfigSubject = new BehaviorSubject<SensorConfiguration>(this.defaultSensorConfig);
+  private currentIntervalId: string | null = null;
+  private sensorConfigLoaded = false;
+  private sensorConfigLoading = false;
 
-  private loadInitialConfig(): SensorConfiguration {
-    const stored = localStorage.getItem('sensorConfig');
-    if (stored) {
-      try {
-        return JSON.parse(stored);
-      } catch (e) {
-        console.error('Failed to parse stored sensor config', e);
-      }
-    }
+  private toSensorConfig(response: IntervalSettingsResponse): SensorConfiguration {
+    this.currentIntervalId = response.id;
+
     return {
-      trafficReadingInterval: 5,
-      airQualityReadingInterval: 10,
-      streetLightReadingInterval: 15,
+      trafficReadingInterval: response.trafficInterval,
+      airQualityReadingInterval: response.airPollutionInterval,
+      streetLightReadingInterval: response.streetLightInterval,
+    };
+  }
+
+  private toPayload(config: SensorConfiguration): IntervalSettingsPayload {
+    return {
+      ...(this.currentIntervalId ? { id: this.currentIntervalId } : {}),
+      trafficInterval: config.trafficReadingInterval,
+      airPollutionInterval: config.airQualityReadingInterval,
+      streetLightInterval: config.streetLightReadingInterval,
     };
   }
 
   getSensorConfig(): Observable<SensorConfiguration> {
+    if (!this.sensorConfigLoaded && !this.sensorConfigLoading) {
+      void this.loadSensorConfig().subscribe();
+    }
+
     return this.sensorConfigSubject.asObservable();
   }
 
-  saveSensorConfig(config: SensorConfiguration): void {
-    localStorage.setItem('sensorConfig', JSON.stringify(config));
-    this.sensorConfigSubject.next(config);
+  loadSensorConfig(): Observable<SensorConfiguration> {
+    if (this.sensorConfigLoaded) {
+      return of(this.sensorConfigSubject.getValue());
+    }
+
+    this.sensorConfigLoading = true;
+
+    return this.http.get<IntervalSettingsResponse>(`${this.baseUrl}/intervals`).pipe(
+      map((response) => this.toSensorConfig(response)),
+      tap((config) => {
+        this.sensorConfigLoaded = true;
+        this.sensorConfigSubject.next(config);
+      }),
+      catchError((error: unknown) => {
+        console.error('Failed to load sensor intervals', error);
+        this.currentIntervalId = null;
+        this.sensorConfigLoaded = true;
+        this.sensorConfigSubject.next(this.defaultSensorConfig);
+        return of(this.defaultSensorConfig);
+      }),
+      finalize(() => {
+        this.sensorConfigLoading = false;
+      }),
+    );
+  }
+
+  saveSensorConfig(config: SensorConfiguration): Observable<SensorConfiguration> {
+    return this.http.put<IntervalSettingsResponse>(`${this.baseUrl}/intervals`, this.toPayload(config)).pipe(
+      map((response) => this.toSensorConfig(response)),
+      tap((savedConfig) => {
+        this.sensorConfigLoaded = true;
+        this.sensorConfigSubject.next(savedConfig);
+      }),
+    );
   }
 
   getSettings(): Observable<ThresholdSetting[]> {
