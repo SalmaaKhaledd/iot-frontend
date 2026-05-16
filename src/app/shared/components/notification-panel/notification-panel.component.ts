@@ -12,8 +12,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AlertToastComponent } from '../alert-toast/alert-toast.component';
 
 export interface NotificationAlert {
   id: string;
@@ -33,7 +35,7 @@ export interface NotificationAlert {
 @Component({
   selector: 'app-notification-panel',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatSnackBarModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './notification-panel.component.html',
   styleUrl: './notification-panel.component.scss',
@@ -41,9 +43,11 @@ export interface NotificationAlert {
 export class NotificationPanelComponent {
   private readonly alertsService = inject(AlertsService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly isOpen = signal(false);
   readonly expandedAlertId = signal<string | null>(null);
+  private isInitialized = false;
   
   readonly alerts = signal<NotificationAlert[]>([]);
   readonly rawAlerts = signal<any>(null);
@@ -52,7 +56,7 @@ export class NotificationPanelComponent {
   @Output() readonly jumpToAlert = new EventEmitter<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}>();
 
   constructor(private readonly elRef: ElementRef) {
-    this.alertsService.getAlerts()
+    this.alertsService.alerts$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (apiAlerts: ApiAlert[]) => {
@@ -60,6 +64,31 @@ export class NotificationPanelComponent {
           const mappedAlerts = apiAlerts.map((a: ApiAlert) => this.mapToNotificationAlert(a));
           // Sort newest first
           mappedAlerts.sort((a: NotificationAlert, b: NotificationAlert) => new Date(b.time).getTime() - new Date(a.time).getTime());
+          
+          // Check for new alerts to show toast
+          if (this.isInitialized) {
+            const currentIds = new Set(this.alerts().map(a => a.id));
+            const newAlerts = mappedAlerts.filter(a => !currentIds.has(a.id));
+            
+            newAlerts.forEach(alert => {
+              this.snackBar.openFromComponent(AlertToastComponent, {
+                data: {
+                  title: alert.title,
+                  message: alert.message,
+                  type: alert.type,
+                  severity: alert.severity,
+                  icon: alert.typeIcon
+                },
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: ['transparent-snackbar']
+              });
+            });
+          } else {
+            this.isInitialized = true;
+          }
+
           this.alerts.set(mappedAlerts);
         },
         error: (err: unknown) => console.error('Failed to load alerts', err)

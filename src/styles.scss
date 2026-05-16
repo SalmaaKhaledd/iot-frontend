@@ -168,4 +168,18 @@ select {
 .highlight-alert {
   animation: highlight-flash 2s ease-out;
   border: 1px solid transparent; /* Ensure there is a border to animate if not already present */
+}
+
+/* Custom Snackbar wrapper */
+.transparent-snackbar {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  .mdc-snackbar__surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
 }

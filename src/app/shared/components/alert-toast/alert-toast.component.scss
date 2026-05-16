@@ -1,0 +1,111 @@
+.alert-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--t-card-bg, rgba(15, 23, 42, 0.95));
+  border: 1px solid var(--t-card-border, #1e293b);
+  border-left: 4px solid var(--t-accent, #3b82f6);
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  min-width: 300px;
+  max-width: 400px;
+
+  /* Use light mode variables if applicable */
+  :host-context(body[data-theme="light"]) & {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  &.severity-warning {
+    border-left-color: #f59e0b;
+    .icon-container { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+  }
+
+  &.severity-critical {
+    border-left-color: #ef4444;
+    .icon-container { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+  }
+
+  &.severity-info {
+    border-left-color: #3b82f6;
+    .icon-container { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+  }
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--t-text-primary, #f8fafc);
+
+    :host-context(body[data-theme="light"]) & {
+      color: #0f172a;
+    }
+  }
+
+  .message {
+    margin: 0;
+    font-size: 13px;
+    color: var(--t-text-secondary, #94a3b8);
+    line-height: 1.4;
+
+    :host-context(body[data-theme="light"]) & {
+      color: #475569;
+    }
+  }
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--t-text-muted, #64748b);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    color: var(--t-text-primary, #f8fafc);
+    background: rgba(255, 255, 255, 0.1);
+
+    :host-context(body[data-theme="light"]) & {
+      color: #0f172a;
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
