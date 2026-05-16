@@ -1,5 +1,5 @@
 <div class="settings-page">
-  <app-topbar></app-topbar>
+  <app-topbar (jumpToAlert)="onJumpToAlert($event)"></app-topbar>
 
   <main class="content">
     @if (showSuccessMessage()) {

@@ -206,25 +206,8 @@ export class NotificationPanelComponent {
 
   navigateToAlert(alert: NotificationAlert): void {
     this.markAsRead(alert.id);
-    const sensorMap: { [key: string]: string } = {
-      traffic: 'traffic-sensor',
-      'air-quality': 'air-quality-sensor',
-      'street-light': 'street-light-sensor'
-    };
-    
-    // Jump to the alert modal
     this.jumpToAlert.emit({type: alert.type, alertId: alert.id});
-    const sensorId = sensorMap[alert.type];
-    if (sensorId) {
-      // Scroll to the sensor
-      const element = document.getElementById(sensorId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      // Close notification panel
-      this.close();
-    }
+    this.close();
   }
 
   markAsRead(alertId: string): void {

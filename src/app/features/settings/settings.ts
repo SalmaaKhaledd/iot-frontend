@@ -3,8 +3,10 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, of, Observable } from 'rxjs';
 import { defaultIfEmpty } from 'rxjs/operators';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 import { SettingsService, SaveThresholdSetting } from '../../core/services/settings.service';
 
@@ -31,6 +33,7 @@ import {
     TopbarComponent,
     SettingsThresholdsPanelComponent,
     SettingsConfigurationPanelComponent,
+    MatDialogModule
   ],
   templateUrl: './settings.html',
   styleUrl: './settings.scss',
@@ -40,6 +43,7 @@ export class Settings {
   private readonly router = inject(Router);
   private readonly settingsService = inject(SettingsService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
 
   readonly tabs = SETTINGS_TABS;
   readonly activeTab = signal<SettingsTab>('thresholds');
@@ -137,9 +141,20 @@ export class Settings {
     this.router.navigate(['/home']);
   }
 
-  canDeactivate(): boolean {
+  canDeactivate(): boolean | Observable<boolean> {
     if (this.isDirty()) {
-      return window.confirm('You have unsaved changes. Do you want to leave without saving?');
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Unsaved Changes',
+          message: 'You have unsaved changes. Are you sure you want to leave without saving?',
+          confirmText: 'Leave',
+          cancelText: 'Cancel'
+        },
+        width: '400px',
+        disableClose: true
+      });
+      
+      return dialogRef.afterClosed();
     }
 
     return true;
@@ -307,5 +322,11 @@ export class Settings {
   removeThreshold(metric: SensorMetric, thresholdId: string): void {
     metric.thresholds = metric.thresholds.filter((threshold) => threshold.id !== thresholdId);
     this.checkForChanges();
+  }
+
+  onJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+    this.router.navigate(['/home'], {
+      queryParams: { openAlert: event.type, alertId: event.alertId }
+    });
   }
 }

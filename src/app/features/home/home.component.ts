@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TopbarComponent } from '../../shared/components/topbar/topbar.component';
 import { TrafficSensorCardComponent } from './components/traffic-sensor-card/traffic-sensor-card.component';
 import { AirQualitySensorCardComponent } from './components/air-quality-sensor-card/air-quality-sensor-card.component';
@@ -29,6 +30,8 @@ import { StreetLightCardComponent } from './components/street-light-card/street-
 export class HomeComponent {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   private readonly currentUser = signal<User | null>(this.authService.getUser());
 
@@ -57,6 +60,24 @@ export class HomeComponent {
           );
         },
       });
+
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
+      const openAlert = params['openAlert'] as 'traffic' | 'air-quality' | 'street-light' | undefined;
+      const alertId = params['alertId'] as string | undefined;
+
+      if (openAlert && alertId) {
+        // slight delay to ensure UI components are fully rendered before scrolling
+        setTimeout(() => {
+          this.handleJumpToAlert({ type: openAlert, alertId });
+          
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { openAlert: null, alertId: null },
+            queryParamsHandling: 'merge'
+          });
+        }, 100);
+      }
+    });
   }
 
   scrollToSensor(sensorId: string): void {
