@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge, Subject, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -112,13 +112,13 @@ export class TrafficSensorCardComponent {
         switchMap(config => {
           this.configuredInterval.set(config.trafficReadingInterval);
           return merge(
-            this.refreshTrigger$.pipe(map(() => 'manual' as const)),
-            timer(0, config.trafficReadingInterval * 60000).pipe(map(() => 'scheduled' as const)),
+            this.refreshTrigger$,
+            timer(0, config.trafficReadingInterval * 60000),
           );
         }),
-        switchMap((trigger) => {
-          const force = trigger === 'manual';
-          return this.sensorReadingsService.getTrafficReadings(force);
+        switchMap(() => {
+          // Keep the previous data visible while loading the new data
+          return this.sensorReadingsService.getTrafficReadings();
         })
       )
       .subscribe({

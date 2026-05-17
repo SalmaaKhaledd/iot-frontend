@@ -1,7 +1,7 @@
 import { Component, DestroyRef, HostListener, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge, Subject, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -77,12 +77,12 @@ export class StreetLightCardComponent {
         switchMap(config => {
           this.configuredInterval.set(config.streetLightReadingInterval);
           return merge(
-            this.refreshTrigger$.pipe(map(() => 'manual' as const)),
-            timer(0, config.streetLightReadingInterval * 60000).pipe(map(() => 'scheduled' as const)),
+            this.refreshTrigger$,
+            timer(0, config.streetLightReadingInterval * 60000),
           );
         }),
-        switchMap((trigger) => {
-          return this.sensorReadingsService.getStreetLightReadings(trigger === 'manual');
+        switchMap(() => {
+          return this.sensorReadingsService.getStreetLightReadings();
         })
       )
       .subscribe({

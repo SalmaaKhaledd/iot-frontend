@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { vi } from 'vitest';
 import { NotificationPanelComponent } from './notification-panel.component';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
@@ -8,16 +7,15 @@ import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 describe('NotificationPanelComponent', () => {
   let component: NotificationPanelComponent;
   let fixture: ComponentFixture<NotificationPanelComponent>;
-  let mockAlertsService: {
-    alerts$: ReturnType<BehaviorSubject<ApiAlert[]>['asObservable']>;
-    alertDeleted$: ReturnType<Subject<string>['asObservable']>;
-    newAlertsForType$: ReturnType<Subject<unknown>['asObservable']>;
-  };
+  let mockAlertsService: any;
   let alertDeletedSubject: Subject<string>;
-  let alertsSubject: BehaviorSubject<ApiAlert[]>;
 
   beforeEach(async () => {
     alertDeletedSubject = new Subject<string>();
+    mockAlertsService = {
+      getAlerts: vi.fn(),
+      alertDeleted$: alertDeletedSubject.asObservable()
+    };
 
     const mockApiAlerts: ApiAlert[] = [
       {
@@ -44,22 +42,13 @@ describe('NotificationPanelComponent', () => {
       }
     ];
 
-    alertsSubject = new BehaviorSubject<ApiAlert[]>(mockApiAlerts);
-    mockAlertsService = {
-      alerts$: alertsSubject.asObservable(),
-      alertDeleted$: alertDeletedSubject.asObservable(),
-      newAlertsForType$: new Subject().asObservable(),
-    };
+    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
 
     await TestBed.configureTestingModule({
       imports: [NotificationPanelComponent],
       providers: [
-        { provide: AlertsService, useValue: mockAlertsService },
-        {
-          provide: MatSnackBar,
-          useValue: { openFromComponent: vi.fn() },
-        },
-      ],
+        { provide: AlertsService, useValue: mockAlertsService }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationPanelComponent);

@@ -1,26 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { firstValueFrom, of, Subject, type Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { Settings } from './settings';
 import { SettingsService } from '../../core/services/settings.service';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SensorMetric } from './settings.types';
 
 describe('Settings', () => {
   let component: Settings;
   let fixture: ComponentFixture<Settings>;
-  let mockRouter: { navigate: ReturnType<typeof vi.fn> };
-  let mockSettingsService: {
-    getSettings: ReturnType<typeof vi.fn>;
-    loadSensorConfig: ReturnType<typeof vi.fn>;
-    getSensorConfig: ReturnType<typeof vi.fn>;
-    saveSettings: ReturnType<typeof vi.fn>;
-    saveSensorConfig: ReturnType<typeof vi.fn>;
-    deleteSetting: ReturnType<typeof vi.fn>;
-  };
-  let mockDialog: { open: ReturnType<typeof vi.fn> };
-  let dialogClosed$: Subject<boolean | undefined>;
+  let mockRouter: any;
+  let mockSettingsService: any;
 
   beforeEach(async () => {
     Object.defineProperty(window, 'matchMedia', {
@@ -37,40 +27,31 @@ describe('Settings', () => {
       })),
     });
 
-    dialogClosed$ = new Subject<boolean | undefined>();
-    mockDialog = {
-      open: vi.fn().mockReturnValue({
-        afterClosed: () => dialogClosed$.asObservable(),
-      }),
-    };
-
     mockRouter = {
-      navigate: vi.fn(),
+      navigate: vi.fn()
     };
     mockSettingsService = {
-      getSettings: vi.fn().mockReturnValue(of([])),
-      loadSensorConfig: vi.fn().mockReturnValue(
-        of({
-          trafficReadingInterval: 60,
-          airQualityReadingInterval: 60,
-          streetLightReadingInterval: 60,
-        }),
-      ),
+      getSettings: vi.fn(),
       getSensorConfig: vi.fn(),
       saveSettings: vi.fn(),
       saveSensorConfig: vi.fn(),
-      deleteSetting: vi.fn(),
+      deleteSetting: vi.fn()
     };
+
+    mockSettingsService.getSettings.mockReturnValue(of([]));
+    mockSettingsService.getSensorConfig.mockReturnValue(of({
+      trafficReadingInterval: 60,
+      airQualityReadingInterval: 60,
+      streetLightReadingInterval: 60
+    }));
 
     await TestBed.configureTestingModule({
       imports: [Settings],
       providers: [
         { provide: Router, useValue: mockRouter },
-        { provide: SettingsService, useValue: mockSettingsService },
-      ],
-    })
-      .overrideProvider(MatDialog, { useValue: mockDialog })
-      .compileComponents();
+        { provide: SettingsService, useValue: mockSettingsService }
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Settings);
     component = fixture.componentInstance;
@@ -97,22 +78,14 @@ describe('Settings', () => {
     expect(component.canDeactivate()).toBe(true);
   });
 
-  it('asks for confirmation when dirty and returns the user choice', async () => {
+  it('asks for confirmation when dirty and returns the user choice', () => {
     component.isDirty.set(true);
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
 
-    const deactivate$ = component.canDeactivate() as Observable<boolean>;
-    expect(mockDialog.open).toHaveBeenCalledWith(
-      ConfirmDialogComponent,
-      expect.objectContaining({
-        data: expect.objectContaining({
-          message: expect.stringMatching(/unsaved changes/i),
-        }),
-      }),
+    expect(component.canDeactivate()).toBe(false);
+    expect(confirmSpy).toHaveBeenCalledWith(
+      'You have unsaved changes. Do you want to leave without saving?'
     );
-
-    const canLeavePromise = firstValueFrom(deactivate$);
-    dialogClosed$.next(false);
-    await expect(canLeavePromise).resolves.toBe(false);
   });
 
   it('toggles a single threshold condition and marks the page dirty', () => {

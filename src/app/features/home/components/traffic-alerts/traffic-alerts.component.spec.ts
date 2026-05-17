@@ -13,6 +13,14 @@ describe('TrafficAlertsComponent', () => {
   let mockSensorService: any;
 
   beforeEach(async () => {
+    mockAlertsService = {
+      getAlerts: vi.fn(),
+      deleteAlert: vi.fn()
+    };
+    mockSensorService = {
+      getTrafficReadingById: vi.fn()
+    };
+    
     const mockApiAlerts: ApiAlert[] = [
       {
         id: '1',
@@ -23,8 +31,8 @@ describe('TrafficAlertsComponent', () => {
         thresholdValue: 80,
         alertType: 'ABOVE',
         triggeredAt: new Date().toISOString(),
-        readingId: '123',
-      },
+        readingId: '123'
+      }
     ];
 
     const mockReading: TrafficSensorReading = {
@@ -33,16 +41,12 @@ describe('TrafficAlertsComponent', () => {
       timestamp: new Date().toISOString(),
       trafficDensity: 80,
       avgSpeed: 25,
-      congestionLevel: 'HIGH',
+      congestionLevel: 'HIGH'
     };
 
-    mockAlertsService = {
-      alertsForType: vi.fn().mockReturnValue(of(mockApiAlerts)),
-      deleteAlert: vi.fn().mockReturnValue(of(undefined)),
-    };
-    mockSensorService = {
-      getTrafficReadingById: vi.fn().mockReturnValue(of(mockReading)),
-    };
+    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
+    mockAlertsService.deleteAlert.mockReturnValue(of(undefined));
+    mockSensorService.getTrafficReadingById.mockReturnValue(of(mockReading));
 
     await TestBed.configureTestingModule({
       imports: [TrafficAlertsComponent],
