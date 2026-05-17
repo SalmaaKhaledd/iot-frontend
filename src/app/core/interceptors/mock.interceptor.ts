@@ -409,7 +409,8 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
 
     const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
     if (userIndex >= 0) {
-      mockUsers[userIndex].profilePicture = '/api/user/profile/picture';
+      mockUsers[userIndex].profilePicture =
+        'uploads/profile-pictures/user_mock_1715000000.jpeg';
     }
 
     return of(

@@ -1,41 +1,24 @@
 /**
  * Helpers for the profile-picture wire format.
  *
- * Per the updated API contract, `profilePicture` is exchanged as an API path
- * (e.g. `"/api/user/profile/picture"`).
+ * `profilePicture` on GET /api/user/profile is a server filesystem path (or null).
+ * It must not be used as an <img> src — fetch bytes from GET /api/user/profile/picture.
  */
 
-/**
- * Checks if the given profile picture value is valid.
- * Treats legacy base64 strings as invalid.
- */
+/** True when the user has uploaded a picture (non-null, non-empty path). */
 export function hasProfilePicture(value: string | null | undefined): boolean {
   if (!value || !value.trim()) {
     return false;
   }
-  // Ignore legacy base64 or empty strings
-  if (value.startsWith('data:image') || value.length > 200) {
+  // Ignore legacy inline base64 stored in older clients.
+  if (value.startsWith('data:image')) {
     return false;
   }
   return true;
 }
 
-/**
- * Constructs a full URL for the profile picture using the API base URL.
- */
-export function buildProfilePictureUrl(
-  profilePicture: string | null | undefined,
-  apiBaseUrl: string,
-): string {
-  if (!hasProfilePicture(profilePicture)) return '';
-  if (profilePicture!.startsWith('http')) return profilePicture!;
+/** Authenticated download endpoint for profile picture bytes. */
+export function profilePictureDownloadUrl(apiBaseUrl: string): string {
   const base = apiBaseUrl.replace(/\/$/, '');
-  const pic = profilePicture!;
-  let path = pic.startsWith('/') ? pic : `/${pic}`;
-  
-  if (base.endsWith('/api') && path.startsWith('/api/')) {
-    path = path.substring(4);
-  }
-  
-  return `${base}${path}`;
+  return `${base}/user/profile/picture`;
 }

@@ -16,13 +16,9 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { mapAuthError } from '../../core/utils/auth-error';
-import {
-  buildProfilePictureUrl,
-  hasProfilePicture,
-} from '../../core/utils/profile-picture';
+import { hasProfilePicture } from '../../core/utils/profile-picture';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
-import { environment } from '../../../environments/environment';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
 import { authRules, profileImageError } from '../../core/validation/auth-validators';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
@@ -58,7 +54,7 @@ export class ProfileComponent {
   profilePictureError = '';
   /**
    * Object URL shown as an optimistic preview while the picture upload is in flight.
-   * Reverts to the saved `user.profilePicture` if the upload fails.
+   * Cleared after upload completes or fails; saved picture is loaded via GET /picture.
    */
   pendingPreviewUrl: string | null = null;
   showPasswordModal = false;
@@ -136,10 +132,8 @@ export class ProfileComponent {
       return;
     }
 
-    const fullUrl = buildProfilePictureUrl(this.user?.profilePicture, environment.apiUrl);
-    const cacheBustedUrl = `${fullUrl}?t=${new Date().getTime()}`;
     this.authService
-      .fetchProfilePictureBlob(cacheBustedUrl)
+      .getProfilePicture(true)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (blob) => {

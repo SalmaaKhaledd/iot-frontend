@@ -59,7 +59,12 @@ export class AuthService {
     );
   }
 
-  fetchProfilePictureBlob(url: string): Observable<Blob> {
+  /** Downloads profile picture bytes from GET /api/user/profile/picture. */
+  getProfilePicture(cacheBust = false): Observable<Blob> {
+    let url = `${this.baseUrl}/user/profile/picture`;
+    if (cacheBust) {
+      url += `?t=${Date.now()}`;
+    }
     return this.http.get(url, { responseType: 'blob' });
   }
 

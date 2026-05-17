@@ -13,9 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { buildProfilePictureUrl, hasProfilePicture } from '../../../core/utils/profile-picture';
+import { hasProfilePicture } from '../../../core/utils/profile-picture';
 import { ThemeService } from '../../../core/services/theme.service';
-import { environment } from '../../../../environments/environment';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
 import { NotificationPanelComponent } from '../notification-panel/notification-panel.component';
 
@@ -58,9 +57,7 @@ export class TopbarComponent {
         return;
       }
 
-      const fullUrl = buildProfilePictureUrl(user?.profilePicture, environment.apiUrl);
-      const cacheBustedUrl = `${fullUrl}?t=${new Date().getTime()}`;
-      this.authService.fetchProfilePictureBlob(cacheBustedUrl).subscribe({
+      this.authService.getProfilePicture(true).subscribe({
         next: (blob) => {
           this.clearActiveBlobUrl();
           this.activeBlobUrl = URL.createObjectURL(blob);

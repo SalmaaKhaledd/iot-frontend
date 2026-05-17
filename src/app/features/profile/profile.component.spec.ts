@@ -22,7 +22,7 @@ describe('ProfileComponent', () => {
     firstName: 'Farida',
     lastName: 'Khaled',
     email: 'farida@example.com',
-    profilePicture: '/api/user/profile/picture',
+    profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
   };
 
   let authServiceSpy: {
@@ -33,6 +33,7 @@ describe('ProfileComponent', () => {
     clearSession: ReturnType<typeof vi.fn>;
     updatePassword: ReturnType<typeof vi.fn>;
     updateProfilePicture: ReturnType<typeof vi.fn>;
+    getProfilePicture: ReturnType<typeof vi.fn>;
   };
   let routerSpy: { navigate: ReturnType<typeof vi.fn> };
 
@@ -45,6 +46,7 @@ describe('ProfileComponent', () => {
       clearSession: vi.fn(),
       updatePassword: vi.fn(),
       updateProfilePicture: vi.fn(),
+      getProfilePicture: vi.fn().mockReturnValue(of(new Blob(['image'], { type: 'image/jpeg' }))),
     };
     routerSpy = {
       navigate: vi.fn().mockResolvedValue(true),
@@ -71,7 +73,7 @@ describe('ProfileComponent', () => {
       firstName: 'Farida',
       lastName: 'Khaled',
       email: 'farida@example.com',
-      profilePicture: '/api/user/profile/picture',
+      profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
     });
     expect(authServiceSpy.saveUser).toHaveBeenCalled();
     expect(component.initials).toBe('FK');
