@@ -151,7 +151,11 @@ public class SettingsPage extends BasePage {
     }
 
     public void clickTopbarSettings() {
-        click(TOPBAR_SETTINGS);
+        dismissAlertToastsIfPresent();
+        waitForAngular();
+        dismissAlertToastsIfPresent();
+        WebElement settings = waitForVisible(TOPBAR_SETTINGS);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", settings);
         waitForUrl("/settings", 15);
         waitForAngular();
     }

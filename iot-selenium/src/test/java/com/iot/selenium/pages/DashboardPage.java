@@ -21,6 +21,7 @@ public class DashboardPage extends BasePage {
     }
 
     public void clickAvatar() {
+        dismissAlertToastsIfPresent();
         click(AVATAR_BUTTON);
     }
 
@@ -42,7 +43,7 @@ public class DashboardPage extends BasePage {
     }
 
     public UserProfilePage openProfile() {
-        click(AVATAR_BUTTON);
+        clickAvatar();
         return new UserProfilePage(driver);
     }
 }

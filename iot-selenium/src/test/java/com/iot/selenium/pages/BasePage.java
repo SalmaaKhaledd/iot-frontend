@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
+    private static final By ALERT_TOAST = By.cssSelector(".alert-toast");
+    private static final By ALERT_TOAST_CLOSE = By.cssSelector(".alert-toast .close-btn");
+
     protected final WebDriver driver;
     protected final WebDriverWait wait;
 
@@ -39,6 +42,36 @@ public abstract class BasePage {
 
     protected String getText(By locator) {
         return waitForVisible(locator).getText().trim();
+    }
+
+    /** Dismisses stacked traffic/alert toasts that can block topbar clicks after alert seeding. */
+    protected void dismissAlertToastsIfPresent() {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(8))
+                    .pollingEvery(Duration.ofMillis(300))
+                    .until(driver -> {
+                        clickVisibleAlertToastCloseButtons();
+                        return driver.findElements(ALERT_TOAST).stream()
+                                .noneMatch(WebElement::isDisplayed);
+                    });
+        } catch (TimeoutException ignored) {
+            for (int attempt = 0; attempt < 3; attempt++) {
+                if (!clickVisibleAlertToastCloseButtons()) {
+                    break;
+                }
+            }
+        }
+    }
+
+    private boolean clickVisibleAlertToastCloseButtons() {
+        boolean clicked = false;
+        for (WebElement closeButton : driver.findElements(ALERT_TOAST_CLOSE)) {
+            if (closeButton.isDisplayed()) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeButton);
+                clicked = true;
+            }
+        }
+        return clicked;
     }
 
     protected String firstDisplayedText(By locator) {
