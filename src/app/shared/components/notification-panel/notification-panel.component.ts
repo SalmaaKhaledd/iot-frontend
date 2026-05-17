@@ -13,7 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
+import { AlertsService, ApiAlert, normalizeAlertSensorType } from '../../../core/services/alerts.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertToastComponent } from '../alert-toast/alert-toast.component';
 
@@ -47,8 +47,6 @@ export class NotificationPanelComponent {
 
   readonly isOpen = signal(false);
   readonly expandedAlertId = signal<string | null>(null);
-  private isInitialized = false;
-  
   readonly alerts = signal<NotificationAlert[]>([]);
   readonly rawAlerts = signal<any>(null);
   readonly unreadCount = computed(() => this.alerts().filter((a: NotificationAlert) => !a.isRead).length);
@@ -62,36 +60,37 @@ export class NotificationPanelComponent {
         next: (apiAlerts: ApiAlert[]) => {
           this.rawAlerts.set(apiAlerts);
           const mappedAlerts = apiAlerts.map((a: ApiAlert) => this.mapToNotificationAlert(a));
-          // Sort newest first
-          mappedAlerts.sort((a: NotificationAlert, b: NotificationAlert) => new Date(b.time).getTime() - new Date(a.time).getTime());
-          
-          // Check for new alerts to show toast
-          if (this.isInitialized) {
-            const currentIds = new Set(this.alerts().map(a => a.id));
-            const newAlerts = mappedAlerts.filter(a => !currentIds.has(a.id));
-            
-            newAlerts.forEach(alert => {
-              this.snackBar.openFromComponent(AlertToastComponent, {
-                data: {
-                  title: alert.title,
-                  message: alert.message,
-                  type: alert.type,
-                  severity: alert.severity,
-                  icon: alert.typeIcon
-                },
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                panelClass: ['transparent-snackbar']
-              });
-            });
-          } else {
-            this.isInitialized = true;
-          }
-
+          mappedAlerts.sort(
+            (a: NotificationAlert, b: NotificationAlert) =>
+              new Date(b.time).getTime() - new Date(a.time).getTime(),
+          );
           this.alerts.set(mappedAlerts);
         },
-        error: (err: unknown) => console.error('Failed to load alerts', err)
+        error: (err: unknown) => console.error('Failed to load alerts', err),
+      });
+
+    this.alertsService.newAlertsForType$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ sensorType, alerts }) => {
+        alerts.forEach((apiAlert) => {
+          if (normalizeAlertSensorType(apiAlert.sensorType) !== sensorType) {
+            return;
+          }
+          const alert = this.mapToNotificationAlert(apiAlert);
+          this.snackBar.openFromComponent(AlertToastComponent, {
+            data: {
+              title: alert.title,
+              message: alert.message,
+              type: alert.type,
+              severity: alert.severity,
+              icon: alert.typeIcon,
+            },
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['transparent-snackbar'],
+          });
+        });
       });
 
     this.alertsService.alertDeleted$

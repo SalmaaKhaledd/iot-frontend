@@ -13,14 +13,6 @@ describe('StreetLightAlertsComponent', () => {
   let mockSensorService: any;
 
   beforeEach(async () => {
-    mockAlertsService = {
-      getAlerts: vi.fn(),
-      deleteAlert: vi.fn()
-    };
-    mockSensorService = {
-      getStreetLightReadingById: vi.fn()
-    };
-    
     const mockApiAlerts: ApiAlert[] = [
       {
         id: '1',
@@ -44,9 +36,13 @@ describe('StreetLightAlertsComponent', () => {
       status: 'ON'
     };
 
-    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
-    mockAlertsService.deleteAlert.mockReturnValue(of(undefined));
-    mockSensorService.getStreetLightReadingById.mockReturnValue(of(mockReading));
+    mockAlertsService = {
+      alertsForType: vi.fn().mockReturnValue(of(mockApiAlerts)),
+      deleteAlert: vi.fn().mockReturnValue(of(undefined)),
+    };
+    mockSensorService = {
+      getStreetLightReadingById: vi.fn().mockReturnValue(of(mockReading)),
+    };
 
     await TestBed.configureTestingModule({
       imports: [StreetLightAlertsComponent],

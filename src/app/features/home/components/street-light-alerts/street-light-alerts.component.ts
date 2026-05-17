@@ -49,10 +49,10 @@ export class StreetLightAlertsComponent {
   });
 
   constructor() {
-    this.alertsService.getAlerts()
+    this.alertsService
+      .alertsForType('STREET_LIGHT')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((alerts: ApiAlert[]) => alerts.filter((a: ApiAlert) => a.sensorType === 'STREET_LIGHT')),
         switchMap((alerts: ApiAlert[]) => {
           if (alerts.length === 0) return of([]);
           const requests = alerts.map((alert: ApiAlert) => {

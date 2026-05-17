@@ -13,14 +13,6 @@ describe('AirQualityAlertsComponent', () => {
   let mockSensorService: any;
 
   beforeEach(async () => {
-    mockAlertsService = {
-      getAlerts: vi.fn(),
-      deleteAlert: vi.fn()
-    };
-    mockSensorService = {
-      getAirPollutionReadingById: vi.fn()
-    };
-    
     const mockApiAlerts: ApiAlert[] = [
       {
         id: '1',
@@ -48,9 +40,13 @@ describe('AirQualityAlertsComponent', () => {
       pollutionLevel: 'VERY_UNHEALTHY'
     };
 
-    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
-    mockAlertsService.deleteAlert.mockReturnValue(of(undefined));
-    mockSensorService.getAirPollutionReadingById.mockReturnValue(of(mockReading));
+    mockAlertsService = {
+      alertsForType: vi.fn().mockReturnValue(of(mockApiAlerts)),
+      deleteAlert: vi.fn().mockReturnValue(of(undefined)),
+    };
+    mockSensorService = {
+      getAirPollutionReadingById: vi.fn().mockReturnValue(of(mockReading)),
+    };
 
     await TestBed.configureTestingModule({
       imports: [AirQualityAlertsComponent],

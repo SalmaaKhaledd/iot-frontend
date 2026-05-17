@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Subject, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { vi } from 'vitest';
 import { NotificationPanelComponent } from './notification-panel.component';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
@@ -7,15 +8,16 @@ import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 describe('NotificationPanelComponent', () => {
   let component: NotificationPanelComponent;
   let fixture: ComponentFixture<NotificationPanelComponent>;
-  let mockAlertsService: any;
+  let mockAlertsService: {
+    alerts$: ReturnType<BehaviorSubject<ApiAlert[]>['asObservable']>;
+    alertDeleted$: ReturnType<Subject<string>['asObservable']>;
+    newAlertsForType$: ReturnType<Subject<unknown>['asObservable']>;
+  };
   let alertDeletedSubject: Subject<string>;
+  let alertsSubject: BehaviorSubject<ApiAlert[]>;
 
   beforeEach(async () => {
     alertDeletedSubject = new Subject<string>();
-    mockAlertsService = {
-      getAlerts: vi.fn(),
-      alertDeleted$: alertDeletedSubject.asObservable()
-    };
 
     const mockApiAlerts: ApiAlert[] = [
       {
@@ -42,13 +44,22 @@ describe('NotificationPanelComponent', () => {
       }
     ];
 
-    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
+    alertsSubject = new BehaviorSubject<ApiAlert[]>(mockApiAlerts);
+    mockAlertsService = {
+      alerts$: alertsSubject.asObservable(),
+      alertDeleted$: alertDeletedSubject.asObservable(),
+      newAlertsForType$: new Subject().asObservable(),
+    };
 
     await TestBed.configureTestingModule({
       imports: [NotificationPanelComponent],
       providers: [
-        { provide: AlertsService, useValue: mockAlertsService }
-      ]
+        { provide: AlertsService, useValue: mockAlertsService },
+        {
+          provide: MatSnackBar,
+          useValue: { openFromComponent: vi.fn() },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationPanelComponent);

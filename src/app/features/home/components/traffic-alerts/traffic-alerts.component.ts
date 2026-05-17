@@ -53,10 +53,10 @@ export class TrafficAlertsComponent {
   });
 
   constructor() {
-    this.alertsService.getAlerts()
+    this.alertsService
+      .alertsForType('TRAFFIC')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((alerts: ApiAlert[]) => alerts.filter((a: ApiAlert) => a.sensorType === 'TRAFFIC')),
         switchMap((alerts: ApiAlert[]) => {
           if (alerts.length === 0) return of([]);
           const requests = alerts.map((alert: ApiAlert) => {

@@ -58,10 +58,10 @@ export class AirQualityAlertsComponent {
   });
 
   constructor() {
-    this.alertsService.getAlerts()
+    this.alertsService
+      .alertsForType('AIR_POLLUTION')
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((alerts: ApiAlert[]) => alerts.filter((a: ApiAlert) => a.sensorType === 'AIR_POLLUTION')),
         switchMap((alerts: ApiAlert[]) => {
           if (alerts.length === 0) return of([]);
           const requests = alerts.map((alert: ApiAlert) => {
