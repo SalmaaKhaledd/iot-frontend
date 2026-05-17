@@ -7,6 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import type { TrafficCongestionLevel, TrafficSensorReading } from '../../models/sensor-reading.models';
+import {
+  formatReadingMetaTimestamp,
+  formatRelativeWithClock,
+  formatTrendBarTime,
+  parseReadingTimestamp,
+} from '../../utils/reading-time';
 import { SensorReadingsService } from '../../services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
@@ -62,8 +68,10 @@ export class TrafficSensorCardComponent {
     const now = this.currentTime();
 
     return history.map((reading, index) => {
-      const target = new Date(reading.timestamp);
-      const label = this.formatRelativeTime(target, new Date(now));
+      const target = parseReadingTimestamp(reading.timestamp);
+      const label = target
+        ? formatRelativeWithClock(target, new Date(now))
+        : reading.timestamp;
       return { index, label, reading };
     });
   });
@@ -73,7 +81,7 @@ export class TrafficSensorCardComponent {
       .slice(0, 6)
       .reverse()
       .map((reading) => ({
-        time: this.formatTrendTime(reading.timestamp),
+        time: formatTrendBarTime(reading.timestamp),
         density: reading.trafficDensity,
       })),
   );
@@ -181,54 +189,8 @@ export class TrafficSensorCardComponent {
     this.selectedReadingIndex.set(index);
   }
 
-  private formatRelativeTime(date: Date, now: Date): string {
-    const diffMs = now.getTime() - date.getTime();
-    const diffSecs = Math.floor(diffMs / 1000);
-    const diffMins = Math.floor(diffSecs / 60);
-    const diffHours = Math.floor(diffMins / 60);
-
-    if (diffMins < 1) {
-      return 'Just now';
-    } else if (diffMins < 60) {
-      return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-    } else if (diffHours < 24) {
-      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    } else {
-      return new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: false,
-      }).format(date);
-    }
-  }
-
   formatTimestamp(timestamp: string): string {
-    const parsed = new Date(timestamp);
-    if (Number.isNaN(parsed.getTime())) {
-      return timestamp;
-    }
-
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(parsed);
-  }
-
-  private formatTrendTime(timestamp: string): string {
-    const parsed = new Date(timestamp);
-    if (Number.isNaN(parsed.getTime())) {
-      return timestamp;
-    }
-
-    return new Intl.DateTimeFormat('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(parsed);
+    return formatReadingMetaTimestamp(timestamp);
   }
 
   private toTrafficSensorItem(reading: TrafficSensorReading): TrafficSensorItem {

@@ -7,6 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import type { AirPollutionSensorReading } from '../../models/sensor-reading.models';
+import {
+  formatReadingMetaTimestamp,
+  formatRelativeWithClock,
+  parseReadingTimestamp,
+} from '../../utils/reading-time';
 import { SensorReadingsService } from '../../services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
@@ -60,8 +65,10 @@ export class AirQualitySensorCardComponent {
     const now = this.currentTime();
 
     return history.map((reading, index) => {
-      const target = new Date(reading.timestamp);
-      const label = this.formatRelativeTime(target, new Date(now));
+      const target = parseReadingTimestamp(reading.timestamp);
+      const label = target
+        ? formatRelativeWithClock(target, new Date(now))
+        : reading.timestamp;
       return { index, label, reading };
     });
   });
@@ -172,29 +179,6 @@ export class AirQualitySensorCardComponent {
     this.selectedReadingIndex.set(index);
   }
 
-  private formatRelativeTime(date: Date, now: Date): string {
-    const diffMs = now.getTime() - date.getTime();
-    const diffSecs = Math.floor(diffMs / 1000);
-    const diffMins = Math.floor(diffSecs / 60);
-    const diffHours = Math.floor(diffMins / 60);
-
-    if (diffMins < 1) {
-      return 'Just now';
-    } else if (diffMins < 60) {
-      return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-    } else if (diffHours < 24) {
-      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    } else {
-      return new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: false,
-      }).format(date);
-    }
-  }
-
   coWidth(value: number): number {
     return Math.min(100, Math.round((value / 50) * 100));
   }
@@ -212,18 +196,7 @@ export class AirQualitySensorCardComponent {
   }
 
   formatTimestamp(timestamp: string): string {
-    const parsed = new Date(timestamp);
-    if (Number.isNaN(parsed.getTime())) {
-      return timestamp;
-    }
-
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(parsed);
+    return formatReadingMetaTimestamp(timestamp);
   }
 
   private toAirSensorItem(reading: AirPollutionSensorReading): AirSensorItem {
