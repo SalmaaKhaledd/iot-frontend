@@ -7,6 +7,8 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
 
+import com.iot.selenium.config.ConfigReader;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
@@ -17,8 +19,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SettingsPage extends BasePage {
-    private static final String BASE_URL = "http://localhost:4200";
-    private static final String API_BASE_URL = "http://localhost:8080";
+    private final String baseUrl;
+    private final String apiBaseUrl;
 
     private static final By PAGE_HEADING = By.cssSelector(".settings-page .page-header h1");
     private static final By BACK_BUTTON = By.cssSelector(".settings-page button.back-button");
@@ -37,10 +39,13 @@ public class SettingsPage extends BasePage {
 
     public SettingsPage(WebDriver driver) {
         super(driver);
+        ConfigReader config = new ConfigReader();
+        this.baseUrl = config.getBaseUrl();
+        this.apiBaseUrl = config.getApiBaseUrl();
     }
 
     public void navigateToSettings() {
-        driver.get(BASE_URL + "/settings");
+        driver.get(baseUrl + "/settings");
         waitForUrl("/settings", 15);
         waitForAngular();
     }
@@ -198,7 +203,7 @@ public class SettingsPage extends BasePage {
         HttpClient client = HttpClient.newHttpClient();
         String intervalId = null;
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/intervals"))
+                .uri(URI.create(apiBaseUrl + "/api/intervals"))
                 .header("Authorization", "Bearer " + token)
                 .GET()
                 .build();
@@ -227,7 +232,7 @@ public class SettingsPage extends BasePage {
                         airPollution,
                         streetLight);
         HttpRequest putRequest = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/intervals"))
+                .uri(URI.create(apiBaseUrl + "/api/intervals"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .PUT(HttpRequest.BodyPublishers.ofString(payload))
@@ -340,7 +345,7 @@ public class SettingsPage extends BasePage {
     public void flushSettings() throws Exception {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/settings/flush"))
+                .uri(URI.create(apiBaseUrl + "/api/settings/flush"))
                 .DELETE()
                 .build();
         client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -355,7 +360,7 @@ public class SettingsPage extends BasePage {
                 password);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/auth/register"))
+                .uri(URI.create(apiBaseUrl + "/api/auth/register"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
@@ -371,7 +376,7 @@ public class SettingsPage extends BasePage {
                 password);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/auth/register"))
+                .uri(URI.create(apiBaseUrl + "/api/auth/register"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
@@ -386,7 +391,7 @@ public class SettingsPage extends BasePage {
         String body = String.format("{\"email\":\"%s\"}", email);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_BASE_URL + "/api/user/delete"))
+                .uri(URI.create(apiBaseUrl + "/api/user/delete"))
                 .header("Content-Type", "application/json")
                 .method("DELETE", HttpRequest.BodyPublishers.ofString(body))
                 .build();

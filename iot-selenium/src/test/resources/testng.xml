@@ -36,4 +36,9 @@
             <class name="com.iot.selenium.tests.ConfigurationTest" />
         </classes>
     </test>
+    <test name="Sensor Dashboard Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.SensorDashboardTest" />
+        </classes>
+    </test>
 </suite>

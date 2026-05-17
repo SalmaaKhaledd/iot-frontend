@@ -26,4 +26,40 @@ public class ConfigReader {
     public String getBaseUrl() {
         return properties.getProperty("baseUrl", "http://localhost:4200").trim();
     }
+
+    public String getApiBaseUrl() {
+        return properties.getProperty("apiBaseUrl", "http://localhost:8080").trim();
+    }
+
+    public String getHomePath() {
+        return properties.getProperty("homePath", "/home").trim();
+    }
+
+    public String getLoginPath() {
+        return properties.getProperty("loginPath", "/login").trim();
+    }
+
+    public String getApiAuthLoginPath() {
+        return properties.getProperty("apiAuthLoginPath", "/api/auth/login").trim();
+    }
+
+    public String getApiSensorsGeneratePath() {
+        return properties.getProperty("apiSensorsGeneratePath", "/api/sensors/generate").trim();
+    }
+
+    public String getApiSensorsFlushPath() {
+        return properties.getProperty("apiSensorsFlushPath", "/api/sensors/flush").trim();
+    }
+
+    public String getLoginEmail() {
+        return properties.getProperty("loginEmail", "").trim();
+    }
+
+    public String getLoginPassword() {
+        return properties.getProperty("loginPassword", "").trim();
+    }
+
+    public int getExplicitWaitSeconds() {
+        return Integer.parseInt(properties.getProperty("explicitWait", "15").trim());
+    }
 }
