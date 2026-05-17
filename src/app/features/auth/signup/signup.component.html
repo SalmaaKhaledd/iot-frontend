@@ -20,6 +20,7 @@
           type="email"
           formControlName="email"
           placeholder="you@example.com"
+          [class.input-error]="errorMessage !== ''"
           autocomplete="username"
         />
         @if (hasError('email', 'required')) {
@@ -41,6 +42,7 @@
             type="text"
             formControlName="firstName"
             placeholder="e.g., Jane"
+            [class.input-error]="errorMessage !== ''"
             autocomplete="given-name"
           />
           @if (hasError('firstName', 'required')) {
@@ -61,6 +63,7 @@
             type="text"
             formControlName="lastName"
             placeholder="e.g., Doe"
+            [class.input-error]="errorMessage !== ''"
             autocomplete="family-name"
           />
           @if (hasError('lastName', 'required')) {
@@ -83,6 +86,7 @@
             [type]="showPassword ? 'text' : 'password'"
             formControlName="password"
             placeholder="Create a strong password (min 8 chars)"
+            [class.input-error]="errorMessage !== ''"
             autocomplete="new-password"
           />
           <button
@@ -118,6 +122,7 @@
             [type]="showConfirmPassword ? 'text' : 'password'"
             formControlName="confirmPassword"
             placeholder="Repeat the same password"
+            [class.input-error]="errorMessage !== ''"
             autocomplete="new-password"
           />
           <button
@@ -200,8 +205,8 @@
       <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Creating account...' : 'Create account' }}
+      <button type="submit" [disabled]="isLoading()">
+      {{ isLoading() ? 'Creating account...' : 'Create account' }}
       </button>
     </form>
 

@@ -96,6 +96,22 @@ export class ProfileComponent {
     void this.router.navigate(['/home']);
   }
 
+  logout(): void {
+    this.authService
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+      });
+  }
+
   get initials(): string {
     if (!this.user) {
       return 'U';

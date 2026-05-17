@@ -20,6 +20,7 @@
           type="email"
           formControlName="email"
           placeholder="you@example.com"
+          [class.input-error]="errorMessage !== ''"
           autocomplete="username"
         />
         @if (loginForm.controls.email.touched &&
@@ -69,8 +70,8 @@
       <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="isLoading">
-        {{ isLoading ? 'Signing in...' : 'Sign in' }}
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Signing in...' : 'Sign in' }}
       </button>
     </form>
 

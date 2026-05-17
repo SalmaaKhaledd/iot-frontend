@@ -1,0 +1,76 @@
+:host { display: block; }
+
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 0 10px;
+  background: var(--t-topbar-bg);
+  border-bottom: 1px solid var(--t-topbar-border);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  cursor: pointer;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 0;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
+
+body[data-theme="light"] :host .icon-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #15a17e;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: clamp(0.95rem, 1.5vw, 1.125rem);
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.avatar-button {
+  border: none;
+  cursor: pointer;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

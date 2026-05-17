@@ -51,4 +51,7 @@ Thumbs.db
 .cursor/
 HANDOFF_DRAFT.md
 docs/sprint1.md
+HANDOFF.md
+angular.json
 iot-selenium/target/
+iot-selenium/target/*

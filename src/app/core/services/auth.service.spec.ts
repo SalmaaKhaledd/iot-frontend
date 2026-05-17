@@ -83,9 +83,25 @@ describe('AuthService', () => {
       lastName: 'Test',
       profilePicture: null,
     });
+    expect(service.currentUser()).toEqual({
+      id: '1',
+      email: 'user@example.com',
+      firstName: 'User',
+      lastName: 'Test',
+      profilePicture: null,
+    });
   });
 
-  it('logout clears token and user keys', () => {
+  it('logout calls backend logout endpoint', () => {
+    service.logout().subscribe();
+
+    const req = httpMock.expectOne('http://localhost:8080/api/auth/logout');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({});
+    req.flush({ message: 'Logged out successfully.' });
+  });
+
+  it('clearSession clears token and user keys', () => {
     service.saveToken('abc-token');
     service.saveUser({
       id: '1',
@@ -95,9 +111,10 @@ describe('AuthService', () => {
       profilePicture: null,
     });
 
-    service.logout();
+    service.clearSession();
 
     expect(service.getToken()).toBeNull();
     expect(service.getUser()).toBeNull();
+    expect(service.currentUser()).toBeNull();
   });
 });

@@ -2,7 +2,7 @@
   <div class="page-toolbar">
     <button type="button" class="back-button" (click)="goBack()">
       <mat-icon aria-hidden="true">arrow_back</mat-icon>
-      <span>Back</span>
+      <span>Back to Home</span>
     </button>
   </div>
 
@@ -76,6 +76,11 @@
 
       <button type="button" class="change-password-btn" (click)="openPasswordModal()">
         Change password
+      </button>
+
+      <button type="button" class="logout-btn" (click)="logout()" aria-label="Logout">
+        <mat-icon aria-hidden="true">logout</mat-icon>
+        <span>Logout</span>
       </button>
     }
 
