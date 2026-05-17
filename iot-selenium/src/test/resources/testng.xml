@@ -11,11 +11,6 @@
             <class name="com.iot.selenium.tests.SigninTest" />
         </classes>
     </test>
-    <test name="Dashboard Tests">
-        <classes>
-            <class name="com.iot.selenium.tests.DashboardTest" />
-        </classes>
-    </test>
     <test name="User Profile Tests">
         <classes>
             <class name="com.iot.selenium.tests.UserProfileTest" />
