@@ -33,6 +33,7 @@ public class SettingsPage extends BasePage {
             "//aside[contains(@class,'tab-rail')]//button[contains(@class,'tab-button')]//strong[text()='Configuration']");
 
     private static final String THRESHOLDS_PANEL = "app-settings-thresholds-panel";
+    private static final String CONFIG_PANEL = "app-settings-configuration-panel";
 
     public SettingsPage(WebDriver driver) {
         super(driver);
@@ -102,6 +103,15 @@ public class SettingsPage extends BasePage {
         }
     }
 
+    public String getValidationAlertText() {
+        return driver.switchTo().alert().getText().trim();
+    }
+
+    public void waitForValidationAlert() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
+    }
+
     public boolean isSuccessToastVisible() {
         List<WebElement> elements = driver.findElements(SUCCESS_TOAST);
         return !elements.isEmpty() && elements.get(0).isDisplayed();
@@ -139,6 +149,90 @@ public class SettingsPage extends BasePage {
         click(TOPBAR_SETTINGS);
         waitForUrl("/settings", 15);
         waitForAngular();
+    }
+
+    public void waitForConfigurationPanel() {
+        waitForVisible(By.cssSelector(CONFIG_PANEL));
+    }
+
+    public void enterConfigurationInterval(String field, String value) {
+        WebElement input = waitForVisible(configurationIntervalInput(field));
+        ((JavascriptExecutor) driver).executeScript(
+                """
+                arguments[0].value = arguments[1];
+                arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+                arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+                """,
+                input,
+                value == null ? "" : value);
+        waitForAngular();
+    }
+
+    public String getConfigurationIntervalValue(String field) {
+        WebElement input = waitForVisible(configurationIntervalInput(field));
+        String value = input.getAttribute("value");
+        return value == null ? "" : value.trim();
+    }
+
+    public boolean isConfigurationErrorTooltipVisible(String field) {
+        WebElement shell = configurationInputShell(field);
+        List<WebElement> tooltips = shell.findElements(By.cssSelector(".error-tooltip[role='alert']"));
+        return !tooltips.isEmpty() && tooltips.get(0).isDisplayed();
+    }
+
+    public String getConfigurationErrorTooltipText(String field) {
+        WebElement shell = configurationInputShell(field);
+        List<WebElement> tooltips = shell.findElements(By.cssSelector(".error-tooltip[role='alert']"));
+        if (tooltips.isEmpty() || !tooltips.get(0).isDisplayed()) {
+            return "";
+        }
+        return tooltips.get(0).getText().trim();
+    }
+
+    public void saveIntervalsViaApi(int traffic, int airPollution, int streetLight) throws Exception {
+        String token = (String) ((JavascriptExecutor) driver).executeScript(
+                "return window.localStorage.getItem('iot_auth_token');");
+        if (token == null || token.isBlank()) {
+            return;
+        }
+        HttpClient client = HttpClient.newHttpClient();
+        String intervalId = null;
+        HttpRequest getRequest = HttpRequest.newBuilder()
+                .uri(URI.create(API_BASE_URL + "/api/intervals"))
+                .header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+        HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        if (getResponse.statusCode() == 200) {
+            String body = getResponse.body();
+            int idIndex = body.indexOf("\"id\"");
+            if (idIndex >= 0) {
+                int start = body.indexOf('"', idIndex + 4) + 1;
+                int end = body.indexOf('"', start);
+                if (start > 0 && end > start) {
+                    intervalId = body.substring(start, end);
+                }
+            }
+        }
+        String payload = intervalId == null || intervalId.isBlank()
+                ? String.format(
+                        "{\"trafficInterval\":%d,\"airPollutionInterval\":%d,\"streetLightInterval\":%d}",
+                        traffic,
+                        airPollution,
+                        streetLight)
+                : String.format(
+                        "{\"id\":\"%s\",\"trafficInterval\":%d,\"airPollutionInterval\":%d,\"streetLightInterval\":%d}",
+                        intervalId,
+                        traffic,
+                        airPollution,
+                        streetLight);
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create(API_BASE_URL + "/api/intervals"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + token)
+                .PUT(HttpRequest.BodyPublishers.ofString(payload))
+                .build();
+        client.send(putRequest, HttpResponse.BodyHandlers.ofString());
     }
 
     public void enterThresholdValue(String placeholder, String value) {
@@ -313,6 +407,24 @@ public class SettingsPage extends BasePage {
         }
         WebElement tabButton = labels.get(0).findElement(By.xpath("./ancestor::button[contains(@class,'tab-button')]"));
         return "true".equals(tabButton.getAttribute("aria-selected"));
+    }
+
+    private By configurationIntervalInput(String field) {
+        return By.cssSelector(CONFIG_PANEL + " #" + configurationIntervalDomId(field));
+    }
+
+    private String configurationIntervalDomId(String field) {
+        return switch (field.trim().toLowerCase()) {
+            case "traffic" -> "trafficReadingInterval";
+            case "air" -> "airQualityReadingInterval";
+            case "street" -> "streetLightReadingInterval";
+            default -> throw new IllegalArgumentException("Unknown configuration field: " + field);
+        };
+    }
+
+    private WebElement configurationInputShell(String field) {
+        WebElement input = waitForVisible(configurationIntervalInput(field));
+        return closest(input, ".input-shell");
     }
 
     private By thresholdInput(String placeholder) {
