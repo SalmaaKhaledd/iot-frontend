@@ -17,8 +17,8 @@
       <mat-icon aria-hidden="true">{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
     <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
-      @if (profilePictureUrl()) {
-      <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" />
+      @if (profilePictureUrl) {
+      <img [src]="profilePictureUrl" alt="Profile picture" class="avatar-image" (error)="onImageError()" />
       } @else {
       {{ userInitials() }}
       }

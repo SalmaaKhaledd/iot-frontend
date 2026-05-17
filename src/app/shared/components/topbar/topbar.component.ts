@@ -5,13 +5,17 @@ import {
   Output,
   computed,
   inject,
+  effect,
+  DestroyRef,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { toRenderablePicture } from '../../../core/utils/profile-picture';
+import { buildProfilePictureUrl, hasProfilePicture } from '../../../core/utils/profile-picture';
 import { ThemeService } from '../../../core/services/theme.service';
+import { environment } from '../../../../environments/environment';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
 import { NotificationPanelComponent } from '../notification-panel/notification-panel.component';
 
@@ -41,9 +45,52 @@ export class TopbarComponent {
     return `${first}${last}`.toUpperCase() || 'U';
   });
 
-  readonly profilePictureUrl = computed(() =>
-    toRenderablePicture(this.currentUser()?.profilePicture),
-  );
+  activeBlobUrl: string | null = null;
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly cdr = inject(ChangeDetectorRef);
+
+  constructor() {
+    effect(() => {
+      const user = this.currentUser();
+      if (!hasProfilePicture(user?.profilePicture)) {
+        this.clearActiveBlobUrl();
+        this.cdr.markForCheck();
+        return;
+      }
+
+      const fullUrl = buildProfilePictureUrl(user?.profilePicture, environment.apiUrl);
+      const cacheBustedUrl = `${fullUrl}?t=${new Date().getTime()}`;
+      this.authService.fetchProfilePictureBlob(cacheBustedUrl).subscribe({
+        next: (blob) => {
+          this.clearActiveBlobUrl();
+          this.activeBlobUrl = URL.createObjectURL(blob);
+          this.cdr.markForCheck();
+        },
+        error: () => {
+          this.clearActiveBlobUrl();
+          this.cdr.markForCheck();
+        }
+      });
+    });
+
+    this.destroyRef.onDestroy(() => this.clearActiveBlobUrl());
+  }
+
+  private clearActiveBlobUrl(): void {
+    if (this.activeBlobUrl) {
+      URL.revokeObjectURL(this.activeBlobUrl);
+      this.activeBlobUrl = null;
+    }
+  }
+
+  onImageError(): void {
+    this.clearActiveBlobUrl();
+    this.cdr.markForCheck();
+  }
+
+  get profilePictureUrl(): string {
+    return this.activeBlobUrl || '';
+  }
 
   goHome(): void {
     this.router.navigate(['/home']);

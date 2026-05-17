@@ -3,6 +3,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  /** API path to the profile picture, e.g. '/api/user/profile/picture', or null */
   profilePicture: string | null;
 }
 
@@ -17,5 +18,6 @@ export interface UserProfileResponse {
   firstName: string;
   lastName: string;
   email: string;
+  /** API path to the profile picture, e.g. '/api/user/profile/picture', or null */
   profilePicture: string | null;
 }

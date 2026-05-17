@@ -26,7 +26,7 @@ describe('auth-user.mapper', () => {
       firstName: 'C',
       lastName: 'D',
       email: 'c@d.com',
-      profilePicture: 'data:image/png;base64,xx',
+      profilePicture: '/api/user/profile/picture',
     });
 
     expect(user).toEqual({
@@ -34,7 +34,7 @@ describe('auth-user.mapper', () => {
       firstName: 'C',
       lastName: 'D',
       email: 'c@d.com',
-      profilePicture: 'data:image/png;base64,xx',
+      profilePicture: '/api/user/profile/picture',
     });
   });
 });

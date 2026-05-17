@@ -10,7 +10,6 @@ import type {
   MessageResponse,
   RegisterRequest,
   UpdatePasswordRequest,
-  UpdateProfilePictureRequest,
 } from '../models/auth.models';
 
 //one shared singleton instance of the AuthService
@@ -51,13 +50,17 @@ export class AuthService {
     );
   }
 
-  updateProfilePicture(
-    payload: UpdateProfilePictureRequest,
-  ): Observable<MessageResponse> {
+  updateProfilePicture(file: File): Observable<MessageResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
     return this.http.patch<MessageResponse>(
       `${this.baseUrl}/user/profile/picture`,
-      payload,
+      formData,
     );
+  }
+
+  fetchProfilePictureBlob(url: string): Observable<Blob> {
+    return this.http.get(url, { responseType: 'blob' });
   }
 
   logout(): Observable<MessageResponse> {

@@ -143,8 +143,8 @@ export const DEFAULT_SENSOR_CATEGORIES: SensorCategory[] = [
 
 export const DEFAULT_SENSOR_CONFIGURATION: SensorConfiguration = {
   trafficReadingInterval: 5,
-  airQualityReadingInterval: 10,
-  streetLightReadingInterval: 15,
+  airQualityReadingInterval: 5,
+  streetLightReadingInterval: 5,
 };
 
 export function createDefaultSensorCategories(): SensorCategory[] {

@@ -60,7 +60,7 @@ export class Settings {
   }
 
   private loadSettings(): void {
-    this.settingsService.getSensorConfig()
+    this.settingsService.loadSensorConfig(true)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((config) => {
         this.sensorConfig.set({ ...config });

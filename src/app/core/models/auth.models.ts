@@ -4,7 +4,6 @@ export interface RegisterRequest {
   firstName: string;
   lastName: string;
   password: string;
-  profilePicture?: string;
 }
 
 /** Captures the credentials payload required for user sign-in. */
@@ -35,9 +34,7 @@ export interface UpdatePasswordRequest {
   newPassword: string;
 }
 
-export interface UpdateProfilePictureRequest {
-  profilePicture: string;
-}
+
 
 export interface MessageResponse {
   message: string;

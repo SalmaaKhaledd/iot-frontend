@@ -1,41 +1,41 @@
 /**
  * Helpers for the profile-picture wire format.
  *
- * Per the API contract, `profilePicture` is exchanged as a raw base64 string
- * (e.g. `"/9j/4AAQSkZJRg..."`) — without the `data:image/...;base64,` prefix
- * that `FileReader.readAsDataURL` produces and that `<img [src]>` requires.
- *
- * - `stripDataUrlPrefix` is used at the network boundary when sending.
- * - `toRenderablePicture` is used at the template boundary when displaying.
+ * Per the updated API contract, `profilePicture` is exchanged as an API path
+ * (e.g. `"/api/user/profile/picture"`).
  */
-
-const DATA_URL_PREFIX_PATTERN = /^data:image\/[a-z+.-]+;base64,/i;
 
 /**
- * Removes the `data:image/...;base64,` prefix from a value produced by
- * `FileReader.readAsDataURL`. Returns the input unchanged if it does not
- * carry a data-URL prefix (already raw base64, empty string, etc.).
+ * Checks if the given profile picture value is valid.
+ * Treats legacy base64 strings as invalid.
  */
-export function stripDataUrlPrefix(value: string): string {
-  return value.replace(DATA_URL_PREFIX_PATTERN, '');
+export function hasProfilePicture(value: string | null | undefined): boolean {
+  if (!value || !value.trim()) {
+    return false;
+  }
+  // Ignore legacy base64 or empty strings
+  if (value.startsWith('data:image') || value.length > 200) {
+    return false;
+  }
+  return true;
 }
 
 /**
- * Converts a stored `profilePicture` (raw base64) into a value the browser
- * can render in `<img [src]>`. Already-prefixed values pass through, and
- * empty / missing values return an empty string so callers can fall back
- * to initials.
- *
- * A generic `image/jpeg` MIME is used for the prefix because the contract
- * does not preserve the original type; browsers sniff the actual format
- * from the bytes regardless of the prefix.
+ * Constructs a full URL for the profile picture using the API base URL.
  */
-export function toRenderablePicture(value: string | null | undefined): string {
-  if (!value) {
-    return '';
+export function buildProfilePictureUrl(
+  profilePicture: string | null | undefined,
+  apiBaseUrl: string,
+): string {
+  if (!hasProfilePicture(profilePicture)) return '';
+  if (profilePicture!.startsWith('http')) return profilePicture!;
+  const base = apiBaseUrl.replace(/\/$/, '');
+  const pic = profilePicture!;
+  let path = pic.startsWith('/') ? pic : `/${pic}`;
+  
+  if (base.endsWith('/api') && path.startsWith('/api/')) {
+    path = path.substring(4);
   }
-  if (DATA_URL_PREFIX_PATTERN.test(value)) {
-    return value;
-  }
-  return `data:image/jpeg;base64,${value}`;
+  
+  return `${base}${path}`;
 }

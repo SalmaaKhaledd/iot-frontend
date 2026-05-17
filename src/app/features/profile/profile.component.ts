@@ -16,15 +16,16 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { mapAuthError } from '../../core/utils/auth-error';
-import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 import {
-  stripDataUrlPrefix,
-  toRenderablePicture,
+  buildProfilePictureUrl,
+  hasProfilePicture,
 } from '../../core/utils/profile-picture';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user.model';
+import { environment } from '../../../environments/environment';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
 import { authRules, profileImageError } from '../../core/validation/auth-validators';
+import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 
 @Component({
   selector: 'app-profile',
@@ -85,11 +86,15 @@ export class ProfileComponent {
     ],
   });
 
+  activeBlobUrl: string | null = null;
+
   constructor() {
     this.refreshProfile();
-    // Make sure any in-flight optimistic preview URL is released when the
-    // component is destroyed (avoids leaking blob URLs across navigations).
-    this.destroyRef.onDestroy(() => this.clearPendingPreview());
+    // Make sure any in-flight optimistic preview URL or active blob URL is released
+    this.destroyRef.onDestroy(() => {
+      this.clearPendingPreview();
+      this.clearActiveBlobUrl();
+    });
   }
 
   goBack(): void {
@@ -119,9 +124,47 @@ export class ProfileComponent {
     return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
   }
 
-  /** Renderable `<img>` src for the saved picture (raw base64 + prefix). */
+  /** Renderable `<img>` src for the saved picture (Blob URL or fallback). */
   get profilePictureSrc(): string {
-    return toRenderablePicture(this.user?.profilePicture);
+    return this.pendingPreviewUrl || this.activeBlobUrl || '';
+  }
+
+  private loadProfilePictureUrl(): void {
+    if (!hasProfilePicture(this.user?.profilePicture)) {
+      this.clearActiveBlobUrl();
+      this.cdr.markForCheck();
+      return;
+    }
+
+    const fullUrl = buildProfilePictureUrl(this.user?.profilePicture, environment.apiUrl);
+    const cacheBustedUrl = `${fullUrl}?t=${new Date().getTime()}`;
+    this.authService
+      .fetchProfilePictureBlob(cacheBustedUrl)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (blob) => {
+          this.clearActiveBlobUrl();
+          this.activeBlobUrl = URL.createObjectURL(blob);
+          this.cdr.markForCheck();
+        },
+        error: () => {
+          this.clearActiveBlobUrl();
+          this.cdr.markForCheck();
+        },
+      });
+  }
+
+  private clearActiveBlobUrl(): void {
+    if (this.activeBlobUrl) {
+      URL.revokeObjectURL(this.activeBlobUrl);
+      this.activeBlobUrl = null;
+    }
+  }
+
+  onImageError(): void {
+    this.clearPendingPreview();
+    this.clearActiveBlobUrl();
+    this.cdr.markForCheck();
   }
 
   openPasswordModal(): void {
@@ -212,32 +255,11 @@ export class ProfileComponent {
       return;
     }
 
-    // Show the picked image immediately via an object URL so the user sees the
-    // change before the API call resolves. The URL is revoked on success/error
-    // and on component destroy.
     this.clearPendingPreview();
     this.pendingPreviewUrl = URL.createObjectURL(file);
     this.cdr.markForCheck();
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result !== 'string') {
-        this.profilePictureError =
-          'Could not read this image. Please try a different file.';
-        this.clearPendingPreview();
-        this.cdr.markForCheck();
-        return;
-      }
-      this.uploadProfilePicture(result);
-    };
-    reader.onerror = () => {
-      this.profilePictureError =
-        'Could not read this image. Please try a different file.';
-      this.clearPendingPreview();
-      this.cdr.markForCheck();
-    };
-    reader.readAsDataURL(file);
+    this.uploadProfilePicture(file);
   }
 
   openProfilePicturePicker(): void {
@@ -247,17 +269,12 @@ export class ProfileComponent {
     this.profilePictureInput?.nativeElement.click();
   }
 
-  private uploadProfilePicture(profilePicture: string): void {
-    // Contract: send raw base64. `FileReader.readAsDataURL` produces a data
-    // URL, so we strip the prefix here and persist the same raw value the
-    // server stores (so subsequent reads round-trip cleanly).
-    const serverPicture = stripDataUrlPrefix(profilePicture);
-
+  private uploadProfilePicture(file: File): void {
     this.isUploadingPicture = true;
     this.cdr.markForCheck();
 
     this.authService
-      .updateProfilePicture({ profilePicture: serverPicture })
+      .updateProfilePicture(file)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
@@ -268,11 +285,9 @@ export class ProfileComponent {
       )
       .subscribe({
         next: (response) => {
-          if (this.user) {
-            this.user = { ...this.user, profilePicture: serverPicture };
-            this.authService.saveUser(this.user);
-          }
           this.successMessage = response.message;
+          // After a successful upload, refresh the profile to get the new API path
+          this.refreshProfile();
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
@@ -315,8 +330,10 @@ export class ProfileComponent {
       .subscribe({
         next: (profileResponse) => {
           this.refreshNotice = '';
-          this.user = toUserFromProfileResponse(profileResponse);
-          this.authService.saveUser(this.user);
+          const mappedUser = toUserFromProfileResponse(profileResponse);
+          this.user = mappedUser;
+          this.authService.saveUser(mappedUser);
+          this.loadProfilePictureUrl();
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {

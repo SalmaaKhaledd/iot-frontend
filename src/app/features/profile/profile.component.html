@@ -19,6 +19,7 @@
             class="avatar-image"
             [src]="pendingPreviewUrl || profilePictureSrc"
             alt="Profile picture"
+            (error)="onImageError()"
           />
         } @else {
           <div class="avatar">{{ initials }}</div>

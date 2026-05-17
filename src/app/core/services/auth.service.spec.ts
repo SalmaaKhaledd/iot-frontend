@@ -48,7 +48,6 @@ describe('AuthService', () => {
         firstName: 'New',
         lastName: 'User',
         password: 'Password123!',
-        profilePicture: 'data:image/png;base64,abc',
       })
       .subscribe();
 
@@ -63,6 +62,17 @@ describe('AuthService', () => {
       token: 'mock-token',
       message: 'User registered successfully.',
     });
+  });
+
+  it('calls updateProfilePicture endpoint with FormData', () => {
+    const file = new File(['dummy content'], 'profile.png', { type: 'image/png' });
+    service.updateProfilePicture(file).subscribe();
+
+    const req = httpMock.expectOne('http://localhost:8080/api/user/profile/picture');
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body instanceof FormData).toBe(true);
+    expect((req.request.body as FormData).get('file')).toBe(file);
+    req.flush({ message: 'Profile picture updated successfully.' });
   });
 
   it('saves and retrieves token and user from localStorage', () => {
