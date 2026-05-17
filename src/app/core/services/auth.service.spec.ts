@@ -2,6 +2,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 
+import { writeProfilePictureCache } from '../utils/profile-picture-cache';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -111,7 +112,8 @@ describe('AuthService', () => {
     req.flush({ message: 'Logged out successfully.' });
   });
 
-  it('clearSession clears token and user keys', () => {
+  it('clearSession clears token, user, and profile picture cache', () => {
+    writeProfilePictureCache('1', 'uploads/pic.jpeg', 'data:image/jpeg;base64,abc');
     service.saveToken('abc-token');
     service.saveUser({
       id: '1',
@@ -126,5 +128,6 @@ describe('AuthService', () => {
     expect(service.getToken()).toBeNull();
     expect(service.getUser()).toBeNull();
     expect(service.currentUser()).toBeNull();
+    expect(localStorage.getItem('iot_profile_picture_cache')).toBeNull();
   });
 });

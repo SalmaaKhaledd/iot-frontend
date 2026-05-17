@@ -7,6 +7,7 @@ import {
   DestroyRef,
   ElementRef,
   ViewChild,
+  effect,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,8 +17,8 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { mapAuthError } from '../../core/utils/auth-error';
-import { hasProfilePicture } from '../../core/utils/profile-picture';
 import { AuthService } from '../../core/services/auth.service';
+import { ProfilePictureService } from '../../core/services/profile-picture.service';
 import { User } from '../../core/models/user.model';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
 import { authRules, profileImageError } from '../../core/validation/auth-validators';
@@ -33,6 +34,7 @@ import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 })
 export class ProfileComponent {
   private readonly authService = inject(AuthService);
+  private readonly profilePictureService = inject(ProfilePictureService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -82,15 +84,15 @@ export class ProfileComponent {
     ],
   });
 
-  activeBlobUrl: string | null = null;
-
   constructor() {
     this.refreshProfile();
-    // Make sure any in-flight optimistic preview URL or active blob URL is released
-    this.destroyRef.onDestroy(() => {
-      this.clearPendingPreview();
-      this.clearActiveBlobUrl();
+    effect(() => {
+      if (this.pendingPreviewUrl && this.profilePictureService.pictureUrl()) {
+        this.clearPendingPreview();
+        this.cdr.markForCheck();
+      }
     });
+    this.destroyRef.onDestroy(() => this.clearPendingPreview());
   }
 
   goBack(): void {
@@ -120,44 +122,19 @@ export class ProfileComponent {
     return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
   }
 
-  /** Renderable `<img>` src for the saved picture (Blob URL or fallback). */
+  /** Renderable `<img>` src for the saved picture (blob URL from shared loader). */
   get profilePictureSrc(): string {
-    return this.pendingPreviewUrl || this.activeBlobUrl || '';
+    return this.profilePictureService.pictureUrl() || '';
   }
 
-  private loadProfilePictureUrl(): void {
-    if (!hasProfilePicture(this.user?.profilePicture)) {
-      this.clearActiveBlobUrl();
-      this.cdr.markForCheck();
-      return;
-    }
-
-    this.authService
-      .getProfilePicture(true)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (blob) => {
-          this.clearActiveBlobUrl();
-          this.activeBlobUrl = URL.createObjectURL(blob);
-          this.cdr.markForCheck();
-        },
-        error: () => {
-          this.clearActiveBlobUrl();
-          this.cdr.markForCheck();
-        },
-      });
-  }
-
-  private clearActiveBlobUrl(): void {
-    if (this.activeBlobUrl) {
-      URL.revokeObjectURL(this.activeBlobUrl);
-      this.activeBlobUrl = null;
-    }
+  /** Rate-limit or other load failure from GET /picture (shown under the avatar). */
+  get profilePictureLoadError(): string {
+    return this.profilePictureService.loadError() || '';
   }
 
   onImageError(): void {
     this.clearPendingPreview();
-    this.clearActiveBlobUrl();
+    this.profilePictureService.invalidatePictureUrl();
     this.cdr.markForCheck();
   }
 
@@ -273,7 +250,6 @@ export class ProfileComponent {
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
           this.isUploadingPicture = false;
-          this.clearPendingPreview();
           this.cdr.markForCheck();
         }),
       )
@@ -285,9 +261,13 @@ export class ProfileComponent {
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
+          this.clearPendingPreview();
           // Picture-specific failures (validation 400 from server) belong inline
           // next to the avatar; other failures fall back to the generic message.
-          if (error instanceof HttpErrorResponse && error.status === 400) {
+          if (
+            error instanceof HttpErrorResponse &&
+            (error.status === 400 || error.status === 429)
+          ) {
             this.profilePictureError = mapAuthError(error);
           } else {
             this.errorMessage = mapAuthError(error);
@@ -327,11 +307,15 @@ export class ProfileComponent {
           const mappedUser = toUserFromProfileResponse(profileResponse);
           this.user = mappedUser;
           this.authService.saveUser(mappedUser);
-          this.loadProfilePictureUrl();
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
+            return;
+          }
+          if (error instanceof HttpErrorResponse && error.status === 429) {
+            this.profilePictureError = mapAuthError(error);
+            this.cdr.markForCheck();
             return;
           }
           this.refreshNotice = this.user

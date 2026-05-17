@@ -1,5 +1,6 @@
 import {
   hasProfilePicture,
+  isImageBlob,
   profilePictureDownloadUrl,
 } from './profile-picture';
 
@@ -20,6 +21,19 @@ describe('profile-picture utils', () => {
 
     it('returns false for legacy data URLs', () => {
       expect(hasProfilePicture('data:image/png;base64,abc')).toBe(false);
+    });
+  });
+
+  describe('isImageBlob', () => {
+    it('accepts image and octet-stream blobs', () => {
+      expect(isImageBlob(new Blob(['x'], { type: 'image/jpeg' }))).toBe(true);
+      expect(isImageBlob(new Blob(['x'], { type: 'application/octet-stream' }))).toBe(true);
+    });
+
+    it('rejects empty, JSON, and text blobs', () => {
+      expect(isImageBlob(new Blob([], { type: 'image/jpeg' }))).toBe(false);
+      expect(isImageBlob(new Blob(['{}'], { type: 'application/json' }))).toBe(false);
+      expect(isImageBlob(new Blob(['err'], { type: 'text/plain' }))).toBe(false);
     });
   });
 

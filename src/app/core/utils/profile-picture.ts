@@ -22,3 +22,19 @@ export function profilePictureDownloadUrl(apiBaseUrl: string): string {
   const base = apiBaseUrl.replace(/\/$/, '');
   return `${base}/user/profile/picture`;
 }
+
+/** True when GET /picture returned real image bytes (not a JSON error body). */
+export function isImageBlob(blob: Blob): boolean {
+  if (!blob.size) {
+    return false;
+  }
+  const type = blob.type.toLowerCase();
+  if (type.includes('json') || type.startsWith('text/')) {
+    return false;
+  }
+  if (type.startsWith('image/')) {
+    return true;
+  }
+  // Spring may serve valid files as application/octet-stream.
+  return type === '' || type === 'application/octet-stream';
+}

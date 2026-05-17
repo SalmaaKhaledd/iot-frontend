@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
+import { clearProfilePictureCache } from '../utils/profile-picture-cache';
 import { environment } from '../../../environments/environment';
 import type { User, UserProfileResponse } from '../models/user.model';
 import type {
@@ -101,6 +102,7 @@ export class AuthService {
   clearSession(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
+    clearProfilePictureCache();
     this.currentUser.set(null);
   }
 }

@@ -3,14 +3,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { finalize } from 'rxjs';
+import { catchError, finalize, of, switchMap } from 'rxjs';
 
 import { LoginRequest } from '../../../core/models/auth.models';
 import { AuthService } from '../../../core/services/auth.service';
 import { SettingsService } from '../../../core/services/settings.service';
 import { AUTH_VALIDATION } from '../../../core/validation/auth-validation.constants';
 import { mapAuthError } from '../../../core/utils/auth-error';
-import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
+import {
+  toUserFromAuthResponse,
+  toUserFromProfileResponse,
+} from '../../../core/utils/auth-user.mapper';
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
@@ -73,32 +76,45 @@ export class LoginComponent {
       .login(payload.email, payload.password)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => this.isLoading.set(false)),
-      )
-      .subscribe({
-        next: (response) => {
+        switchMap((response) => {
           if (!response?.token || !response?.userId) {
-            this.errorMessage = 'Invalid email or password. Please try again.';
-            return;
+            throw new Error('Invalid email or password. Please try again.');
           }
 
           this.authService.saveToken(response.token);
-          this.authService.saveUser(toUserFromAuthResponse(response));
+          return this.authService.getMe().pipe(
+            catchError(() => {
+              this.authService.saveUser(toUserFromAuthResponse(response));
+              return of(null);
+            }),
+          );
+        }),
+        finalize(() => this.isLoading.set(false)),
+      )
+      .subscribe({
+        next: (profileResponse) => {
+          if (profileResponse) {
+            this.authService.saveUser(toUserFromProfileResponse(profileResponse));
+          }
 
           this.settingsService
             .loadSensorConfig()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
               next: () => {
-                this.router.navigate(['/home']);
+                void this.router.navigate(['/home']);
               },
               error: () => {
-                this.router.navigate(['/home']);
+                void this.router.navigate(['/home']);
               },
             });
         },
         error: (error: unknown) => {
-          this.errorMessage = mapAuthError(error);
+          this.errorMessage =
+            error instanceof Error &&
+            error.message === 'Invalid email or password. Please try again.'
+              ? error.message
+              : mapAuthError(error);
         },
       });
   }

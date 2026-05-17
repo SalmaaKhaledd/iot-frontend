@@ -5,15 +5,12 @@ import {
   Output,
   computed,
   inject,
-  effect,
-  DestroyRef,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { hasProfilePicture } from '../../../core/utils/profile-picture';
+import { ProfilePictureService } from '../../../core/services/profile-picture.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
 import { NotificationPanelComponent } from '../notification-panel/notification-panel.component';
@@ -28,6 +25,7 @@ import { NotificationPanelComponent } from '../notification-panel/notification-p
 })
 export class TopbarComponent {
   private readonly authService = inject(AuthService);
+  private readonly profilePictureService = inject(ProfilePictureService);
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
 
@@ -44,49 +42,11 @@ export class TopbarComponent {
     return `${first}${last}`.toUpperCase() || 'U';
   });
 
-  activeBlobUrl: string | null = null;
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly cdr = inject(ChangeDetectorRef);
-
-  constructor() {
-    effect(() => {
-      const user = this.currentUser();
-      if (!hasProfilePicture(user?.profilePicture)) {
-        this.clearActiveBlobUrl();
-        this.cdr.markForCheck();
-        return;
-      }
-
-      this.authService.getProfilePicture(true).subscribe({
-        next: (blob) => {
-          this.clearActiveBlobUrl();
-          this.activeBlobUrl = URL.createObjectURL(blob);
-          this.cdr.markForCheck();
-        },
-        error: () => {
-          this.clearActiveBlobUrl();
-          this.cdr.markForCheck();
-        }
-      });
-    });
-
-    this.destroyRef.onDestroy(() => this.clearActiveBlobUrl());
-  }
-
-  private clearActiveBlobUrl(): void {
-    if (this.activeBlobUrl) {
-      URL.revokeObjectURL(this.activeBlobUrl);
-      this.activeBlobUrl = null;
-    }
-  }
+  readonly profilePictureUrl = this.profilePictureService.pictureUrl;
+  readonly profilePictureLoadError = this.profilePictureService.loadError;
 
   onImageError(): void {
-    this.clearActiveBlobUrl();
-    this.cdr.markForCheck();
-  }
-
-  get profilePictureUrl(): string {
-    return this.activeBlobUrl || '';
+    this.profilePictureService.invalidatePictureUrl();
   }
 
   goHome(): void {
