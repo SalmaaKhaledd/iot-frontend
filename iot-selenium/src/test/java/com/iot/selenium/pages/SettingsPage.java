@@ -265,6 +265,11 @@ public class SettingsPage extends BasePage {
         return value == null ? "" : value.trim();
     }
 
+    public void waitForThresholdValue(String placeholder, String expected) {
+        new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(d -> expected.equals(getThresholdValue(placeholder)));
+    }
+
     public String getPlaceholderText(String placeholder) {
         WebElement input = waitForVisible(thresholdInput(placeholder));
         String text = input.getAttribute("placeholder");

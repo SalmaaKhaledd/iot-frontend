@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.SettingsPage;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,6 +21,7 @@ public class ConfigurationTest extends BaseTest {
 
     private boolean driverInitialized = false;
     private SettingsPage settingsPage;
+    private ConfigReader configReader;
 
     @BeforeMethod(alwaysRun = true)
     @Override
@@ -29,6 +31,9 @@ public class ConfigurationTest extends BaseTest {
             driverInitialized = true;
         }
         settingsPage = new SettingsPage(driver);
+        if (configReader == null) {
+            configReader = new ConfigReader();
+        }
         dismissAlertIfPresent();
     }
 
@@ -69,7 +74,7 @@ public class ConfigurationTest extends BaseTest {
         String testType = rd.get("Test Type");
 
         if ("TC-CFG11".equals(tcId)) {
-            loginIfNeeded(data.get("email"), data.get("password"));
+            loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
             driver.get(baseUrl + "/settings");
             settingsPage.waitForUrl("/settings", 15);
             settingsPage.waitForAngular();
@@ -167,7 +172,7 @@ public class ConfigurationTest extends BaseTest {
     }
 
     private void openConfigurationTab(Map<String, String> data) throws Exception {
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         settingsPage.saveIntervalsViaApi(5, 5, 5);
         settingsPage.navigateToSettings();
         new WebDriverWait(driver, Duration.ofSeconds(15))

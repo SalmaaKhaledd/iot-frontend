@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,8 +68,12 @@ public abstract class BasePage {
         boolean clicked = false;
         for (WebElement closeButton : driver.findElements(ALERT_TOAST_CLOSE)) {
             if (closeButton.isDisplayed()) {
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeButton);
-                clicked = true;
+                try {
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeButton);
+                    clicked = true;
+                } catch (StaleElementReferenceException ignored) {
+                    // Re-query on next poll iteration
+                }
             }
         }
         return clicked;

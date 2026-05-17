@@ -100,7 +100,7 @@ public class SensorDashboardTest extends BaseTest {
         int minHistoryOptions = Integer.parseInt(data.get("minHistoryOptions"));
         int historyIndex = Integer.parseInt(data.get("historyIndex"));
 
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
 
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
@@ -124,7 +124,7 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         Assert.assertTrue(
@@ -135,7 +135,7 @@ public class SensorDashboardTest extends BaseTest {
     private void assertEmptyState(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
 
         String section = data.get("section");
@@ -150,7 +150,7 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         sensorDashboardPage.clickRefresh(section);
@@ -164,7 +164,7 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         sensorDashboardPage.clickViewAlerts(section);

@@ -130,6 +130,12 @@ public class AlertsPage extends BasePage {
         return !badges.isEmpty() && badges.get(0).isDisplayed();
     }
 
+    public void waitForBadgeVisible(boolean expected, int timeoutSeconds) {
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                .pollingEvery(Duration.ofMillis(500))
+                .until(d -> isBadgeVisible() == expected);
+    }
+
     public int getPanelAlertCardCount() {
         return (int) driver.findElements(PANEL_ALERT_CARDS).stream()
                 .filter(WebElement::isDisplayed)

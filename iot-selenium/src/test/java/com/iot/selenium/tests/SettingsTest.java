@@ -298,35 +298,53 @@ public class SettingsTest extends BaseTest {
         } else if (name.contains("disappears after successful save")) {
             settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             Assert.assertFalse(settingsPage.isUnsavedBadgeVisible(), "[" + tcId + "]");
         } else if (name.contains("becomes disabled again")) {
             settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             Assert.assertTrue(settingsPage.isSaveButtonDisabled(), "[" + tcId + "]");
         } else if (name.contains("toggling condition")) {
             settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.clickConditionButton(TD);
             new WebDriverWait(driver, Duration.ofSeconds(5))
                     .until(d -> settingsPage.isUnsavedBadgeVisible());
             Assert.assertTrue(settingsPage.isUnsavedBadgeVisible(), "[" + tcId + "]");
         } else if (name.contains("persist after leaving")) {
-            settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
-            settingsPage.clickConditionButton(TD);
+            String expectedValue = data.get("thresholdValue");
+            settingsPage.enterThresholdValue(TD, expectedValue);
+            String targetCondition = data.get("condition");
+            if (!targetCondition.equals(settingsPage.getConditionButtonText(TD))) {
+                settingsPage.clickConditionButton(TD);
+            }
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
             settingsPage.clickBackToHome();
             settingsPage.navigateToSettings();
+            settingsPage.waitForThresholdValue(TD, expectedValue);
             Assert.assertEquals(
                     settingsPage.getThresholdValue(TD),
-                    data.get("thresholdValue"),
+                    expectedValue,
                     "[" + tcId + "] Value not persisted");
             Assert.assertEquals(
                     settingsPage.getConditionButtonText(TD),
-                    data.get("condition"),
+                    targetCondition,
                     "[" + tcId + "] Condition not persisted");
         }
     }
@@ -437,7 +455,11 @@ public class SettingsTest extends BaseTest {
                 .until(d -> settingsPage.isSaveButtonDisabled());
         settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
         settingsPage.clickSaveChanges();
-        settingsPage.waitForSuccessToastVisible();
+        new WebDriverWait(driver, Duration.ofSeconds(15))
+                .until(d -> settingsPage.isSaveButtonDisabled());
+        Assert.assertTrue(
+                settingsPage.isSaveButtonDisabled(),
+                "Save button should be disabled after successful save");
 
         new UserProfilePage(driver).open(baseUrl).waitForLoad().clickLogout();
         new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -487,11 +509,19 @@ public class SettingsTest extends BaseTest {
         if (name.contains("removing")) {
             settingsPage.enterThresholdValue(TD, data.get("thresholdValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.waitForSuccessToastGone();
             settingsPage.clickRemoveThreshold(TD);
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.clickBackToHome();
             settingsPage.navigateToSettings();
             Assert.assertEquals(
@@ -501,10 +531,18 @@ public class SettingsTest extends BaseTest {
         } else if (name.contains("updating")) {
             settingsPage.enterThresholdValue(TD, data.get("initialValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.enterThresholdValue(TD, data.get("updatedValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.clickBackToHome();
             settingsPage.navigateToSettings();
             Assert.assertEquals(
@@ -514,7 +552,11 @@ public class SettingsTest extends BaseTest {
         } else if (name.contains("reverting")) {
             settingsPage.enterThresholdValue(TD, data.get("savedValue"));
             settingsPage.clickSaveChanges();
-            settingsPage.waitForSuccessToastVisible();
+            new WebDriverWait(driver, Duration.ofSeconds(15))
+                    .until(d -> settingsPage.isSaveButtonDisabled());
+            Assert.assertTrue(
+                    settingsPage.isSaveButtonDisabled(),
+                    "Save button should be disabled after successful save");
             settingsPage.enterThresholdValue(TD, data.get("changedValue"));
             new WebDriverWait(driver, Duration.ofSeconds(5))
                     .until(d -> !settingsPage.isSaveButtonDisabled());

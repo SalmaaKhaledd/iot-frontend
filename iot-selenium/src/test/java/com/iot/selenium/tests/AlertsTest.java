@@ -168,7 +168,7 @@ public class AlertsTest extends BaseTest {
     private void runPanelOpenCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -182,7 +182,7 @@ public class AlertsTest extends BaseTest {
     private void runPanelCloseCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -194,7 +194,7 @@ public class AlertsTest extends BaseTest {
     private void runEmptyStateCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -214,7 +214,7 @@ public class AlertsTest extends BaseTest {
     private void runBadgeHiddenCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         boolean expectedVisible = Boolean.parseBoolean(data.get("expectedBadgeVisible"));
         Assert.assertEquals(
@@ -227,9 +227,13 @@ public class AlertsTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         boolean expectedVisible = Boolean.parseBoolean(data.get("expectedBadgeVisible"));
+        if (expectedVisible) {
+            sensorDashboardPage.clickRefresh("traffic");
+            alertsPage.waitForBadgeVisible(true, 20);
+        }
         Assert.assertEquals(
                 alertsPage.isBadgeVisible(),
                 expectedVisible,
@@ -241,7 +245,7 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         int minCards = Integer.parseInt(data.get("minAlertCards"));
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -254,7 +258,7 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         String sensorType = data.get("sensorType");
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -278,7 +282,7 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -300,7 +304,7 @@ public class AlertsTest extends BaseTest {
     private void runPanelOnRouteCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(data.get("email"), data.get("password"));
+        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateTo(data.get("route"));
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
