@@ -41,4 +41,9 @@
             <class name="com.iot.selenium.tests.SensorDashboardTest" />
         </classes>
     </test>
+    <test name="Alerts &amp; Notifications Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.AlertsTest" />
+        </classes>
+    </test>
 </suite>

@@ -51,6 +51,10 @@ public class ConfigReader {
         return properties.getProperty("apiSensorsFlushPath", "/api/sensors/flush").trim();
     }
 
+    public String getApiAlertsPath() {
+        return properties.getProperty("apiAlertsPath", "/api/alerts").trim();
+    }
+
     public String getLoginEmail() {
         return properties.getProperty("loginEmail", "").trim();
     }
