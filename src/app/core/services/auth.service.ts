@@ -1,7 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
+import { clearProfilePictureCache } from '../utils/profile-picture-cache';
 import { environment } from '../../../environments/environment';
 import type { User, UserProfileResponse } from '../models/user.model';
 import type {
@@ -9,7 +11,6 @@ import type {
   MessageResponse,
   RegisterRequest,
   UpdatePasswordRequest,
-  UpdateProfilePictureRequest,
 } from '../models/auth.models';
 
 //one shared singleton instance of the AuthService
@@ -19,18 +20,23 @@ export class AuthService {
   private readonly baseUrl = environment.apiUrl;
   private readonly tokenStorageKey = 'iot_auth_token';
   private readonly userStorageKey = 'iot_user';
+  readonly currentUser = signal<User | null>(this.getUser());
 
   login(email: string, password: string): Observable<AuthApiSuccessResponse> {
     return this.http.post<AuthApiSuccessResponse>(`${this.baseUrl}/auth/login`, {
       email,
       password,
-    });
+    }).pipe(
+      timeout(10000), // 10 second timeout
+    );
   }
 
   register(user: RegisterRequest): Observable<AuthApiSuccessResponse> {
     return this.http.post<AuthApiSuccessResponse>(
       `${this.baseUrl}/auth/register`,
       user,
+    ).pipe(
+      timeout(10000), // 10 second timeout
     );
   }
 
@@ -45,13 +51,26 @@ export class AuthService {
     );
   }
 
-  updateProfilePicture(
-    payload: UpdateProfilePictureRequest,
-  ): Observable<MessageResponse> {
+  updateProfilePicture(file: File): Observable<MessageResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
     return this.http.patch<MessageResponse>(
       `${this.baseUrl}/user/profile/picture`,
-      payload,
+      formData,
     );
+  }
+
+  /** Downloads profile picture bytes from GET /api/user/profile/picture. */
+  getProfilePicture(cacheBust = false): Observable<Blob> {
+    let url = `${this.baseUrl}/user/profile/picture`;
+    if (cacheBust) {
+      url += `?t=${Date.now()}`;
+    }
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  logout(): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/auth/logout`, {});
   }
 
   saveToken(token: string): void {
@@ -64,6 +83,7 @@ export class AuthService {
 
   saveUser(user: User): void {
     localStorage.setItem(this.userStorageKey, JSON.stringify(user));
+    this.currentUser.set(user);
   }
 
   getUser(): User | null {
@@ -79,8 +99,10 @@ export class AuthService {
     }
   }
 
-  logout(): void {
+  clearSession(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
+    clearProfilePictureCache();
+    this.currentUser.set(null);
   }
 }

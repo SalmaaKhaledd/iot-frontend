@@ -84,7 +84,6 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
           lastName?: string;
           email?: string;
           password?: string;
-          profilePicture?: string;
         }
       | null;
 
@@ -92,7 +91,6 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const lastName = String(requestBody?.lastName ?? '').trim();
     const email = String(requestBody?.email ?? '').trim().toLowerCase();
     const password = String(requestBody?.password ?? '');
-    const profilePicture = requestBody?.profilePicture ?? null;
 
     const validationMessages: string[] = [];
     if (!email) {
@@ -165,7 +163,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       lastName,
       email,
       password,
-      profilePicture: typeof profilePicture === 'string' ? profilePicture : null,
+      profilePicture: null,
     };
     mockUsers.push(newUser);
 
@@ -391,10 +389,10 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    const requestBody = req.body as { profilePicture?: string } | null;
-    const profilePicture = String(requestBody?.profilePicture ?? '').trim();
+    const requestBody = req.body as FormData;
+    const profilePictureFile = requestBody?.get('file');
 
-    if (!profilePicture) {
+    if (!profilePictureFile) {
       return throwError(
         () =>
           new HttpErrorResponse({
@@ -409,13 +407,10 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    // Per the API contract, the server stores the raw base64 string and does
-    // not validate type or size — that is enforced client-side before the
-    // file is read. The mock mirrors the contract so the UI behaves the same
-    // against either backend.
     const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
     if (userIndex >= 0) {
-      mockUsers[userIndex].profilePicture = profilePicture;
+      mockUsers[userIndex].profilePicture =
+        'uploads/profile-pictures/user_mock_1715000000.jpeg';
     }
 
     return of(
@@ -424,6 +419,29 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
         body: { message: 'Profile picture updated successfully.' },
       }),
     ).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && path.endsWith('/api/user/profile/picture')) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    // Return a dummy blob
+    const dummyBlob = new Blob(['dummy image content'], { type: 'image/jpeg' });
+    return of(new HttpResponse({ status: 200, body: dummyBlob })).pipe(delay(300));
   }
 
   return next(req);

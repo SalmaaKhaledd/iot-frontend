@@ -7,6 +7,7 @@ import {
   DestroyRef,
   ElementRef,
   ViewChild,
+  effect,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,15 +17,12 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { mapAuthError } from '../../core/utils/auth-error';
-import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
-import {
-  stripDataUrlPrefix,
-  toRenderablePicture,
-} from '../../core/utils/profile-picture';
 import { AuthService } from '../../core/services/auth.service';
+import { ProfilePictureService } from '../../core/services/profile-picture.service';
 import { User } from '../../core/models/user.model';
 import { AUTH_VALIDATION } from '../../core/validation/auth-validation.constants';
 import { authRules, profileImageError } from '../../core/validation/auth-validators';
+import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +34,7 @@ import { authRules, profileImageError } from '../../core/validation/auth-validat
 })
 export class ProfileComponent {
   private readonly authService = inject(AuthService);
+  private readonly profilePictureService = inject(ProfilePictureService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -57,7 +56,7 @@ export class ProfileComponent {
   profilePictureError = '';
   /**
    * Object URL shown as an optimistic preview while the picture upload is in flight.
-   * Reverts to the saved `user.profilePicture` if the upload fails.
+   * Cleared after upload completes or fails; saved picture is loaded via GET /picture.
    */
   pendingPreviewUrl: string | null = null;
   showPasswordModal = false;
@@ -87,13 +86,33 @@ export class ProfileComponent {
 
   constructor() {
     this.refreshProfile();
-    // Make sure any in-flight optimistic preview URL is released when the
-    // component is destroyed (avoids leaking blob URLs across navigations).
+    effect(() => {
+      if (this.pendingPreviewUrl && this.profilePictureService.pictureUrl()) {
+        this.clearPendingPreview();
+        this.cdr.markForCheck();
+      }
+    });
     this.destroyRef.onDestroy(() => this.clearPendingPreview());
   }
 
   goBack(): void {
     void this.router.navigate(['/home']);
+  }
+
+  logout(): void {
+    this.authService
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.authService.clearSession();
+          void this.router.navigate(['/login']);
+        },
+      });
   }
 
   get initials(): string {
@@ -103,9 +122,20 @@ export class ProfileComponent {
     return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
   }
 
-  /** Renderable `<img>` src for the saved picture (raw base64 + prefix). */
+  /** Renderable `<img>` src for the saved picture (blob URL from shared loader). */
   get profilePictureSrc(): string {
-    return toRenderablePicture(this.user?.profilePicture);
+    return this.profilePictureService.pictureUrl() || '';
+  }
+
+  /** Rate-limit or other load failure from GET /picture (shown under the avatar). */
+  get profilePictureLoadError(): string {
+    return this.profilePictureService.loadError() || '';
+  }
+
+  onImageError(): void {
+    this.clearPendingPreview();
+    this.profilePictureService.invalidatePictureUrl();
+    this.cdr.markForCheck();
   }
 
   openPasswordModal(): void {
@@ -196,32 +226,11 @@ export class ProfileComponent {
       return;
     }
 
-    // Show the picked image immediately via an object URL so the user sees the
-    // change before the API call resolves. The URL is revoked on success/error
-    // and on component destroy.
     this.clearPendingPreview();
     this.pendingPreviewUrl = URL.createObjectURL(file);
     this.cdr.markForCheck();
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result !== 'string') {
-        this.profilePictureError =
-          'Could not read this image. Please try a different file.';
-        this.clearPendingPreview();
-        this.cdr.markForCheck();
-        return;
-      }
-      this.uploadProfilePicture(result);
-    };
-    reader.onerror = () => {
-      this.profilePictureError =
-        'Could not read this image. Please try a different file.';
-      this.clearPendingPreview();
-      this.cdr.markForCheck();
-    };
-    reader.readAsDataURL(file);
+    this.uploadProfilePicture(file);
   }
 
   openProfilePicturePicker(): void {
@@ -231,38 +240,34 @@ export class ProfileComponent {
     this.profilePictureInput?.nativeElement.click();
   }
 
-  private uploadProfilePicture(profilePicture: string): void {
-    // Contract: send raw base64. `FileReader.readAsDataURL` produces a data
-    // URL, so we strip the prefix here and persist the same raw value the
-    // server stores (so subsequent reads round-trip cleanly).
-    const serverPicture = stripDataUrlPrefix(profilePicture);
-
+  private uploadProfilePicture(file: File): void {
     this.isUploadingPicture = true;
     this.cdr.markForCheck();
 
     this.authService
-      .updateProfilePicture({ profilePicture: serverPicture })
+      .updateProfilePicture(file)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => {
           this.isUploadingPicture = false;
-          this.clearPendingPreview();
           this.cdr.markForCheck();
         }),
       )
       .subscribe({
         next: (response) => {
-          if (this.user) {
-            this.user = { ...this.user, profilePicture: serverPicture };
-            this.authService.saveUser(this.user);
-          }
           this.successMessage = response.message;
+          // After a successful upload, refresh the profile to get the new API path
+          this.refreshProfile();
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
+          this.clearPendingPreview();
           // Picture-specific failures (validation 400 from server) belong inline
           // next to the avatar; other failures fall back to the generic message.
-          if (error instanceof HttpErrorResponse && error.status === 400) {
+          if (
+            error instanceof HttpErrorResponse &&
+            (error.status === 400 || error.status === 429)
+          ) {
             this.profilePictureError = mapAuthError(error);
           } else {
             this.errorMessage = mapAuthError(error);
@@ -299,12 +304,18 @@ export class ProfileComponent {
       .subscribe({
         next: (profileResponse) => {
           this.refreshNotice = '';
-          this.user = toUserFromProfileResponse(profileResponse);
-          this.authService.saveUser(this.user);
+          const mappedUser = toUserFromProfileResponse(profileResponse);
+          this.user = mappedUser;
+          this.authService.saveUser(mappedUser);
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
           if (error instanceof HttpErrorResponse && error.status === 401) {
+            return;
+          }
+          if (error instanceof HttpErrorResponse && error.status === 429) {
+            this.profilePictureError = mapAuthError(error);
+            this.cdr.markForCheck();
             return;
           }
           this.refreshNotice = this.user

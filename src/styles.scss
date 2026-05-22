@@ -9,7 +9,7 @@ html {
     ));
 }
 
-// Sensorix design tokens
+// Sensorix design tokens — dark (default)
 :root {
   --background: #0d1117;
   --card: #161b22;
@@ -35,6 +35,87 @@ html {
   --text-lg: 18px;
   --text-xl: 20px;
   --text-2xl: 24px;
+
+  // Component-level theme tokens (dark defaults)
+  --t-page-bg:        #0d1117;
+  --t-card-bg:        #1e2c43;
+  --t-card-inner:     #223452;
+  --t-card-border:    #2f4568;
+  --t-text-primary:   #f6f9ff;
+  --t-text-secondary: #8ea3c2;
+  --t-text-muted:     #6b7d94;
+  --t-chip-bg:        #253548;
+  --t-chip-text:      #cfe3ff;
+  --t-chip-border:    rgba(255,255,255,0.06);
+  --t-chip-hover:     #2e4160;
+  --t-metric-bg:      #253a52;
+  --t-metric-border:  #2f4568;
+  --t-filter-bg:      #1a2436;
+  --t-filter-border:  #2f4568;
+  --t-topbar-bg:      #1e2c43;
+  --t-topbar-border:  #2f4568;
+  --t-modal-close:    #f6f9ff;
+  --t-scrollbar:      #3a5a7f;
+  // Severity card tokens
+  --t-crit-bg:        rgba(139,58,58,0.15);
+  --t-crit-border:    #8b3a3a;
+  --t-warn-bg:        rgba(139,122,58,0.15);
+  --t-warn-border:    #8b7a3a;
+  --t-info-bg:        rgba(58,107,139,0.15);
+  --t-info-border:    #3a6b8b;
+  --t-green-bg:       rgba(58,139,74,0.15);
+  --t-green-border:   #3a8b4a;
+  --t-hint-bg:        rgba(255,200,124,0.1);
+  --t-hint-border:    rgba(255,200,124,0.4);
+  --t-hint-text:      #b4c4d9;
+  --t-hint-color:     #b4c4d9;
+}
+
+// Light mode token overrides
+body[data-theme="light"] {
+  color-scheme: light;
+  background-color: #f1f5f9;
+  color: #0f172a;
+
+  --background: #f1f5f9;
+  --card: #ffffff;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input-bg: #f8fafc;
+
+  --t-page-bg:        #f1f5f9;
+  --t-card-bg:        #ffffff;
+  --t-card-inner:     #f8fafc;
+  --t-card-border:    #e2e8f0;
+  --t-text-primary:   #0f172a;
+  --t-text-secondary: #475569;
+  --t-text-muted:     #94a3b8;
+  --t-chip-bg:        #f1f5f9;
+  --t-chip-text:      #334155;
+  --t-chip-border:    #e2e8f0;
+  --t-chip-hover:     #e2e8f0;
+  --t-metric-bg:      #f8fafc;
+  --t-metric-border:  #e2e8f0;
+  --t-filter-bg:      #f8fafc;
+  --t-filter-border:  #e2e8f0;
+  --t-topbar-bg:      #ffffff;
+  --t-topbar-border:  #e2e8f0;
+  --t-modal-close:    #334155;
+  --t-scrollbar:      #cbd5e1;
+  // Severity card tokens (light)
+  --t-crit-bg:        #fef2f2;
+  --t-crit-border:    #fecaca;
+  --t-warn-bg:        #fefce8;
+  --t-warn-border:    #fef08a;
+  --t-info-bg:        #eff6ff;
+  --t-info-border:    #bfdbfe;
+  --t-green-bg:       #f0fdf4;
+  --t-green-border:   #bbf7d0;
+  --t-hint-bg:        #fffbeb;
+  --t-hint-border:    #fde68a;
+  --t-hint-text:      #92400e;
+  --t-hint-color:     #92400e;
 }
 
 * {
@@ -62,3 +143,43 @@ select {
   font: inherit;
   line-height: 1.5;
 }
+
+.warning-icon {
+  color: #f59e0b; /* Amber 500 */
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes highlight-flash {
+  0% { 
+    background-color: rgba(29, 158, 117, 0.2); 
+    border-color: #1D9E75; 
+  }
+  100% { 
+    background-color: transparent; 
+  }
+}
+
+.highlight-alert {
+  animation: highlight-flash 2s ease-out;
+  border: 1px solid transparent; /* Ensure there is a border to animate if not already present */
+}
+
+/* Custom Snackbar wrapper */
+.transparent-snackbar {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+
+  .mdc-snackbar__surface {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}

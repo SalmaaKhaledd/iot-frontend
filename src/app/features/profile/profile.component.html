@@ -2,7 +2,7 @@
   <div class="page-toolbar">
     <button type="button" class="back-button" (click)="goBack()">
       <mat-icon aria-hidden="true">arrow_back</mat-icon>
-      <span>Back</span>
+      <span>Back to Home</span>
     </button>
   </div>
 
@@ -19,6 +19,7 @@
             class="avatar-image"
             [src]="pendingPreviewUrl || profilePictureSrc"
             alt="Profile picture"
+            (error)="onImageError()"
           />
         } @else {
           <div class="avatar">{{ initials }}</div>
@@ -48,8 +49,10 @@
           Uploading new picture…
         </p>
       }
-      @if (profilePictureError) {
-        <p class="upload-error" role="alert">{{ profilePictureError }}</p>
+      @if (profilePictureError || profilePictureLoadError) {
+        <p class="upload-error" role="alert">
+          {{ profilePictureError || profilePictureLoadError }}
+        </p>
       }
 
       <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
@@ -76,6 +79,11 @@
 
       <button type="button" class="change-password-btn" (click)="openPasswordModal()">
         Change password
+      </button>
+
+      <button type="button" class="logout-btn" (click)="logout()" aria-label="Logout">
+        <mat-icon aria-hidden="true">logout</mat-icon>
+        <span>Logout</span>
       </button>
     }
 

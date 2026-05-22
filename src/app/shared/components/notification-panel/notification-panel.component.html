@@ -1,0 +1,79 @@
+<div class="notification-trigger">
+  <button
+    class="icon-button notify-button"
+    type="button"
+    aria-label="Notifications"
+    (click)="toggle(); $event.stopPropagation()"
+  >
+    <mat-icon aria-hidden="true">notifications</mat-icon>
+    @if (unreadCount() > 0) {
+    <span class="notify-badge">{{ unreadCount() }}</span>
+    }
+  </button>
+</div>
+
+@if (isOpen()) {
+<div class="notification-panel">
+  <!-- Header -->
+  <div class="panel-header">
+    <h3>Notifications</h3>
+    <button class="close-btn" (click)="close()" aria-label="Close notifications">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Alert list -->
+  <div class="panel-body">
+    @if (alerts().length === 0) {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">check_circle</mat-icon>
+      <p>No new notifications</p>
+    </div>
+    } @else { @for (alert of alerts(); track alert.id) {
+    <div
+      class="alert-card severity-{{ alert.severity }} clickable"
+      [class.read]="alert.isRead"
+      (click)="navigateToAlert(alert); toggleReport(alert.id)"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="alert.title + ' - Jump to location'"
+    >
+      <div class="severity-bar"></div>
+      <div class="alert-body">
+        <div class="alert-top-row">
+          <div class="alert-meta">
+            <span class="type-badge type-{{ alert.type }}">
+              <mat-icon>{{ alert.typeIcon }}</mat-icon>
+              {{ alert.typeLabel }}
+            </span>
+            <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+              <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+              {{ alert.direction }} THRESHOLD
+            </span>
+            <span class="alert-time">
+              <mat-icon>schedule</mat-icon>
+              {{ alert.time }}
+            </span>
+          </div>
+          <mat-icon class="severity-icon sev-{{ alert.severity }}">{{
+            alert.severityIcon
+          }}</mat-icon>
+        </div>
+        <h4>{{ alert.title }}</h4>
+        <p class="alert-message">{{ alert.message }}</p>
+
+        @if (expandedAlertId() === alert.id) {
+        <div class="report-section">
+          <div class="report-label">
+            <mat-icon>description</mat-icon>
+            Detailed Report
+          </div>
+          <p class="report-text">{{ alert.report }}</p>
+        </div>
+        }
+      </div>
+    </div>
+    } }
+  </div>
+</div>
+}

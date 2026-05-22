@@ -1,0 +1,91 @@
+<section class="street-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading street light readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (selectedReading(); as light) {
+  <div class="street-header">
+    <div class="title-wrap">
+      <div class="sensor-icon"><mat-icon>lightbulb</mat-icon></div>
+      <div>
+        <div class="title-row">
+          <div style="display: flex; align-items: center;">
+            <h2>Street Light Controls</h2>
+            @if (missingThresholds().length > 0) {
+              <mat-icon #tooltip="matTooltip" class="warning-icon" [matTooltip]="'Missing thresholds: ' + missingThresholds().join(', ')" matTooltipShowDelay="0" (click)="tooltip.toggle()" (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()">warning</mat-icon>
+            }
+          </div>
+          <div class="sensor-select-wrap">
+            <button (click)="refresh()" title="Refresh" aria-label="Refresh" style="background:none; border:none; color:var(--text-secondary, #64748b); cursor:pointer; padding:4px; display:flex; align-items:center;">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">refresh</mat-icon>
+            </button>
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select street light reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+        <p>Manage lighting and energy usage</p>
+      </div>
+    </div>
+
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ light.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(light.timestamp) }}</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <article class="stat-box">
+      <p>Status</p>
+      <strong [class.ok]="light.status === 'ON'">{{ light.status }}</strong>
+    </article>
+    <article class="stat-box">
+      <p>Brightness Level</p>
+      <strong>{{ light.brightnessLevel }}%</strong>
+    </article>
+    <article class="stat-box">
+      <p>Power Usage</p>
+      <strong><mat-icon>bolt</mat-icon>{{ powerUsage() }} <span>W</span></strong>
+    </article>
+  </div>
+
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No street light readings available.</p>
+    </div>
+  }
+
+  @if (showAlerts()) {
+    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
+    <div class="modal-content">
+      <div class="modal-topbar">
+        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-street-light-alerts></app-street-light-alerts>
+    </div>
+  }
+</section>

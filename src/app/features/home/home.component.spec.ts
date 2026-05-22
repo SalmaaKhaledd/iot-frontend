@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -22,10 +22,9 @@ describe('HomeComponent', () => {
     firstName: 'Farida',
     lastName: 'Khaled',
     email: 'farida@example.com',
-    profilePicture: 'data:image/png;base64,abc',
+    profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
   };
 
-  let router: Router;
   let authServiceSpy: {
     getUser: ReturnType<typeof vi.fn>;
     getMe: ReturnType<typeof vi.fn>;
@@ -51,9 +50,6 @@ describe('HomeComponent', () => {
         { provide: AuthService, useValue: authServiceSpy as unknown as AuthService },
       ],
     }).compileComponents();
-
-    router = TestBed.inject(Router);
-    vi.spyOn(router, 'navigate').mockResolvedValue(true);
   });
 
   it('refreshes user from getMe() and saves mapped user', () => {
@@ -63,15 +59,13 @@ describe('HomeComponent', () => {
     const component = createComponent();
 
     expect(component.displayName()).toBe('Farida');
-    expect(component.userInitials()).toBe('FK');
-    expect(component.profilePictureUrl()).toBe('data:image/png;base64,abc');
     expect(component.refreshNotice()).toBe('');
     expect(authServiceSpy.saveUser).toHaveBeenCalledWith({
       id: '2',
       firstName: 'Farida',
       lastName: 'Khaled',
       email: 'farida@example.com',
-      profilePicture: 'data:image/png;base64,abc',
+      profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
     });
   });
 
@@ -84,7 +78,6 @@ describe('HomeComponent', () => {
     const component = createComponent();
 
     expect(component.displayName()).toBe('Cached');
-    expect(component.userInitials()).toBe('CU');
     expect(component.refreshNotice()).toBe(
       'Could not refresh profile. Showing saved data.',
     );
@@ -100,7 +93,6 @@ describe('HomeComponent', () => {
     const component = createComponent();
 
     expect(component.displayName()).toBe('User');
-    expect(component.userInitials()).toBe('U');
     expect(component.refreshNotice()).toBe(
       'Could not load profile right now. Please try again.',
     );
@@ -117,13 +109,29 @@ describe('HomeComponent', () => {
     expect(component.refreshNotice()).toBe('');
   });
 
-  it('navigates to profile on goToProfile()', () => {
+  it('dispatches openSensorAlerts event when handleJumpToAlert is called', () => {
     authServiceSpy.getUser.mockReturnValue(cachedUser);
     authServiceSpy.getMe.mockReturnValue(of(profileResponse));
+
     const component = createComponent();
+    const dispatchSpy = vi.spyOn(window, 'dispatchEvent');
+    
+    const originalScrollIntoView = window.HTMLElement.prototype.scrollIntoView;
+    const scrollSpy = vi.fn();
+    window.HTMLElement.prototype.scrollIntoView = scrollSpy;
 
-    component.goToProfile();
+    component.handleJumpToAlert({ type: 'traffic', alertId: 'alert-123' });
 
-    expect(router.navigate).toHaveBeenCalledWith(['/profile']);
+    expect(scrollSpy).toHaveBeenCalled();
+    expect(dispatchSpy).toHaveBeenCalled();
+    
+    const call = dispatchSpy.mock.calls.find(c => (c[0] as Event).type === 'openSensorAlerts');
+    expect(call).toBeTruthy();
+    
+    const dispatchedEvent = call![0] as CustomEvent;
+    expect(dispatchedEvent.type).toBe('openSensorAlerts');
+    expect(dispatchedEvent.detail).toEqual({ sensorType: 'traffic', alertId: 'alert-123' });
+
+    window.HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
   });
 });

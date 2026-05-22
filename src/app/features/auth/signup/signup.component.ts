@@ -8,6 +8,7 @@ import {
   OnDestroy,
   ViewChild,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -24,8 +25,8 @@ import {
   profileImageError,
 } from '../../../core/validation/auth-validators';
 import { mapAuthError } from '../../../core/utils/auth-error';
-import { toUserFromAuthResponse } from '../../../core/utils/auth-user.mapper';
-import { stripDataUrlPrefix } from '../../../core/utils/profile-picture';
+import { toUserFromAuthResponse, toUserFromProfileResponse } from '../../../core/utils/auth-user.mapper';
+
 import { SensorixLogoComponent } from '../../../shared/components/sensorix-logo/sensorix-logo.component';
 
 @Component({
@@ -59,8 +60,9 @@ export class SignupComponent implements OnDestroy {
   isReadingProfilePicture = false;
   showPassword = false;
   showConfirmPassword = false;
+  private selectedFile: File | null = null;
   private objectPreviewUrl: string | null = null;
-  isLoading = false;
+  isLoading = signal(false);
   submitted = false;
 
   readonly signupForm = this.formBuilder.group(
@@ -127,6 +129,7 @@ export class SignupComponent implements OnDestroy {
     this.profilePictureError = '';
     this.isReadingProfilePicture = false;
     if (!file) {
+      this.selectedFile = null;
       this.selectedProfilePictureName = '';
       this.clearPreviewUrl();
       this.resetProfilePictureInput();
@@ -138,6 +141,7 @@ export class SignupComponent implements OnDestroy {
     const imageError = profileImageError(file);
     if (imageError) {
       this.profilePictureError = imageError;
+      this.selectedFile = null;
       this.selectedProfilePictureName = '';
       this.clearPreviewUrl();
       this.signupForm.patchValue({ profilePicture: '' });
@@ -146,32 +150,15 @@ export class SignupComponent implements OnDestroy {
       return;
     }
 
+    this.selectedFile = file;
+
     this.selectedProfilePictureName = file.name;
     this.clearPreviewUrl();
     this.objectPreviewUrl = URL.createObjectURL(file);
     this.profilePicturePreviewUrl = this.objectPreviewUrl;
-    this.isReadingProfilePicture = true;
+    // We do not need to convert to base64 anymore
+    this.signupForm.patchValue({ profilePicture: file.name });
     this.changeDetectorRef.markForCheck();
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result;
-      if (typeof result === 'string') {
-        this.signupForm.patchValue({ profilePicture: result });
-      }
-      this.isReadingProfilePicture = false;
-      this.changeDetectorRef.markForCheck();
-    };
-    reader.onerror = () => {
-      this.profilePictureError = 'Could not read this image. Please try a different file.';
-      this.selectedProfilePictureName = '';
-      this.clearPreviewUrl();
-      this.signupForm.patchValue({ profilePicture: '' });
-      this.resetProfilePictureInput();
-      this.isReadingProfilePicture = false;
-      this.changeDetectorRef.markForCheck();
-    };
-    reader.readAsDataURL(file);
   }
 
   ngOnDestroy(): void {
@@ -212,7 +199,7 @@ export class SignupComponent implements OnDestroy {
     }
 
     this.errorMessage = '';
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     const formValue = this.signupForm.getRawValue();
     const payload: RegisterRequest = {
@@ -220,10 +207,8 @@ export class SignupComponent implements OnDestroy {
       firstName: (formValue.firstName ?? '').trim(),
       lastName: (formValue.lastName ?? '').trim(),
       password: formValue.password ?? '',
-      // Server expects raw base64 per the API contract, not a data URL.
-      profilePicture: formValue.profilePicture
-        ? stripDataUrlPrefix(formValue.profilePicture.trim())
-        : undefined,
+      // Note: Backend register does not accept a picture. 
+      // We upload it immediately after successful login.
     };
 
     this.authService
@@ -231,25 +216,38 @@ export class SignupComponent implements OnDestroy {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         switchMap(() => this.authService.login(payload.email, payload.password)),
-        finalize(() => (this.isLoading = false)),
-      )
-      .subscribe({
-        next: (response) => {
+        switchMap((response) => {
           if (!response?.token || !response?.userId) {
-            this.errorMessage = 'Invalid email or password. Please try again.';
-            return;
+            throw new Error('Invalid email or password. Please try again.');
           }
           this.authService.saveToken(response.token);
-          // Carry the just-uploaded picture into the saved user so /home
-          // can render the avatar on first paint, before getMe() returns.
-          this.authService.saveUser({
-            ...toUserFromAuthResponse(response),
-            profilePicture: payload.profilePicture ?? null,
-          });
+          
+          // If a file was selected, upload it now
+          if (this.selectedFile) {
+            return this.authService.updateProfilePicture(this.selectedFile).pipe(
+              switchMap(() => this.authService.getMe()),
+              switchMap((profileResponse) => {
+                this.authService.saveUser(toUserFromAuthResponse(response)); // Temporary
+                this.authService.saveUser(toUserFromProfileResponse(profileResponse)); // Actual
+                return [true];
+              })
+            );
+          }
+          
+          // Otherwise, just save the basic user and continue
+          this.authService.saveUser(toUserFromAuthResponse(response));
+          return [true];
+        }),
+        finalize(() => this.isLoading.set(false)),
+      )
+      .subscribe({
+        next: () => {
           this.router.navigate(['/home']);
         },
         error: (error: unknown) => {
-          this.errorMessage = mapAuthError(error);
+          this.errorMessage = error instanceof Error && error.message.includes('Invalid email') 
+            ? error.message 
+            : mapAuthError(error);
         },
       });
   }

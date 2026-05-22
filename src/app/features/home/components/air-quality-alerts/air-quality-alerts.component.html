@@ -1,0 +1,129 @@
+<section class="alerts-container">
+  <div class="alerts-header-wrap">
+    <div class="alerts-header">
+      <div class="header-content">
+        <div class="icon-wrap">
+          <mat-icon>air</mat-icon>
+        </div>
+        <div>
+          <h2>Air Quality Alerts</h2>
+          <p>Historical air quality events and updates</p>
+        </div>
+      </div>
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen()">
+        <mat-icon>filter_list</mat-icon>
+        Filters
+        <mat-icon class="chevron">{{ isFiltersOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-panel" *ngIf="isFiltersOpen()">
+      <div class="filter-panel-title">
+        <mat-icon>filter_alt</mat-icon>
+        <span>Filters</span>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Pollution Level</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="pollutionFilter() === 'all'" (click)="setPollution('all')">All</div>
+          <div class="chip chip-success" [class.active]="pollutionFilter() === 'good'" (click)="setPollution('good')">Good</div>
+          <div class="chip chip-warning" [class.active]="pollutionFilter() === 'moderate'" (click)="setPollution('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="pollutionFilter() === 'unhealthy'" (click)="setPollution('unhealthy')">Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'very-unhealthy'" (click)="setPollution('very-unhealthy')">Very Unhealthy</div>
+          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'hazardous'" (click)="setPollution('hazardous')">Hazardous</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alerts-list">
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [id]="'alert-' + alert.id">
+      
+      <div class="alert-content">
+        <div class="alert-header-row">
+          <div class="alert-info">
+            <div class="event-badge">
+              <mat-icon>cloud</mat-icon>
+              <span class="event-text">Air Quality Event</span>
+            </div>
+            <span class="location-badge" *ngIf="alert.location">
+              <mat-icon>location_on</mat-icon>
+              {{ alert.location | uppercase }}
+            </span>
+            <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+              <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+              {{ alert.direction }} THRESHOLD
+            </span>
+
+            <p class="alert-message">{{ alert.message }}</p>
+          </div>
+          <div class="alert-actions" style="display: flex; align-items: flex-start; gap: 12px; margin-left: auto;">
+            <div class="alert-time">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ alert.time }}</span>
+            </div>
+            <button (click)="deleteAlert(alert.id, $event)" aria-label="Delete alert" style="background: none; border: none; cursor: pointer; color: var(--text-muted, #94a3b8); padding: 0px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted, #94a3b8)'">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">close</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">Pollution Level</div>
+            <div class="metric-value" [class]="'text-' + getPollutionColor(alert.pollutionLevel)">
+              {{ alert.pollutionLevel }}
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">PM2.5</div>
+            <div class="metric-value">
+              {{ alert.pm2_5 }}
+              <span class="unit">μg/m³</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">PM10</div>
+            <div class="metric-value">
+              {{ alert.pm10 }}
+              <span class="unit">μg/m³</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">CO</div>
+            <div class="metric-value">
+              {{ alert.co }}
+              <span class="unit">ppm</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">O3</div>
+            <div class="metric-value">
+              {{ alert.ozone }}
+              <span class="unit">ppb</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">NO₂</div>
+            <div class="metric-value">
+              {{ alert.no2 }}
+              <span class="unit">ppb</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">SO₂</div>
+            <div class="metric-value">
+              {{ alert.so2 }}
+              <span class="unit">ppb</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-hint">
+          <mat-icon>info</mat-icon>
+          <span>{{ alert.report }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,120 @@
+<section class="traffic-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading traffic readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (selectedSensorData(); as sensor) {
+  <div class="traffic-header">
+    <div class="title-wrap">
+      <div class="sensor-icon">
+        <mat-icon>directions_car</mat-icon>
+      </div>
+      <div>
+        <div class="title-row">
+          <div style="display: flex; align-items: center;">
+            <h2>Traffic Sensors</h2>
+            @if (missingThresholds().length > 0) {
+              <mat-icon #tooltip="matTooltip" class="warning-icon" [matTooltip]="'Missing thresholds: ' + missingThresholds().join(', ')" matTooltipShowDelay="0" (click)="tooltip.toggle()" (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()">warning</mat-icon>
+            }
+          </div>
+          <div class="sensor-select-wrap">
+            <button (click)="refresh()" title="Refresh" aria-label="Refresh" style="background:none; border:none; color:var(--text-secondary, #64748b); cursor:pointer; padding:4px; display:flex; align-items:center;">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">refresh</mat-icon>
+            </button>
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select traffic reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+        <p>Real-time road congestion monitoring</p>
+      </div>
+    </div>
+
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ sensor.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" aria-label="View traffic alerts" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <article class="stat-box">
+      <p class="label">Traffic Density</p>
+      <p class="value">{{ sensor.trafficDensity }} <span>vehicles/min</span></p>
+    </article>
+
+    <article class="stat-box">
+      <p class="label">Average Speed</p>
+      <p class="value">{{ sensor.avgSpeed }} <span>km/h</span></p>
+    </article>
+
+    <article class="stat-box">
+      <p class="label">Congestion Level</p>
+      <span class="pill congestion" [ngClass]="sensor.congestionLevel.toLowerCase()">
+        {{ sensor.congestionLevel }}
+      </span>
+    </article>
+  </div>
+
+  <div class="trend-panel">
+    <h3>Traffic Density Trend</h3>
+
+    <div class="bar-chart">
+      @for (point of trendData(); track point.time; let i = $index) {
+      <div
+        class="bar-item"
+        [style.--bar-height]="getBarHeight(point.density)"
+        (mouseenter)="hoveredIndex.set(i)"
+        (mouseleave)="hoveredIndex.set(null)"
+      >
+        <div class="bar" [class.bar-active]="hoveredIndex() === i"></div>
+        <span class="bar-label">{{ point.time }}</span>
+        @if (hoveredIndex() === i) {
+        <div class="bar-tooltip">
+          <strong>{{ point.density }}</strong>
+          <span>vehicles/min</span>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No traffic readings available.</p>
+    </div>
+  }
+
+  @if (showAlerts()) {
+    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
+    <div class="modal-content">
+      <div class="modal-topbar">
+        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-traffic-alerts></app-traffic-alerts>
+    </div>
+  }
+</section>

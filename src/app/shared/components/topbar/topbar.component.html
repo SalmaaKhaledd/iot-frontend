@@ -1,0 +1,33 @@
+<header class="topbar">
+  <div class="brand" (click)="goHome()" role="button" tabindex="0" (keyup.enter)="goHome()">
+    <app-sensorix-logo
+      [iconSize]="'clamp(22px, 2.8vw, 30px)'"
+      [textSize]="'clamp(18px, 2.2vw, 24px)'"
+      [gap]="'12px'"
+      [textWeight]="'600'"
+    />
+  </div>
+
+  <div class="topbar-actions">
+    <app-notification-panel (jumpToAlert)="onJumpToAlert($event)"></app-notification-panel>
+    <button class="icon-button" type="button" (click)="goToSettings()" aria-label="Settings">
+      <mat-icon aria-hidden="true">settings</mat-icon>
+    </button>
+    <button class="icon-button" type="button" aria-label="Toggle theme" (click)="themeService.toggle()">
+      <mat-icon aria-hidden="true">{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+    <button
+      class="avatar avatar-button"
+      type="button"
+      (click)="goToProfile()"
+      [attr.aria-label]="profilePictureLoadError() || 'Open profile'"
+      [attr.title]="profilePictureLoadError() || null"
+    >
+      @if (profilePictureUrl()) {
+      <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" (error)="onImageError()" />
+      } @else {
+      {{ userInitials() }}
+      }
+    </button>
+  </div>
+</header>

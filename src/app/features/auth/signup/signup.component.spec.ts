@@ -15,6 +15,8 @@ describe('SignupComponent', () => {
     login: ReturnType<typeof vi.fn>;
     saveToken: ReturnType<typeof vi.fn>;
     saveUser: ReturnType<typeof vi.fn>;
+    updateProfilePicture: ReturnType<typeof vi.fn>;
+    getMe: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(async () => {
@@ -23,6 +25,8 @@ describe('SignupComponent', () => {
       login: vi.fn(),
       saveToken: vi.fn(),
       saveUser: vi.fn(),
+      updateProfilePicture: vi.fn(),
+      getMe: vi.fn(),
     };
     await TestBed.configureTestingModule({
       imports: [SignupComponent],
@@ -77,7 +81,7 @@ describe('SignupComponent', () => {
     expect(component.signupForm.valid).toBe(false);
   });
 
-  it('normalizes signup payload and chains register -> login', () => {
+  it('normalizes signup payload and chains register -> login -> updateProfilePicture', () => {
     authServiceSpy.register.mockReturnValue(
       of({
         userId: '1',
@@ -97,13 +101,26 @@ describe('SignupComponent', () => {
         message: 'ok',
       }),
     );
+    authServiceSpy.updateProfilePicture.mockReturnValue(of({ message: 'uploaded' }));
+    authServiceSpy.getMe.mockReturnValue(of({
+        userId: '1',
+        email: 'user@example.com',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        profilePicture: '/api/user/profile/picture',
+    }));
+
+    const file = new File(['dummy'], 'avatar.png', { type: 'image/png' });
+    const input = document.createElement('input');
+    Object.defineProperty(input, 'files', { value: [file] });
+    component.onFileChange({ target: input } as unknown as Event);
+
     component.signupForm.patchValue({
       email: '  USER@Example.com ',
       firstName: '  Jane  ',
       lastName: '  Doe  ',
       password: 'StrongPassword1!',
       confirmPassword: 'StrongPassword1!',
-      profilePicture: '  data:image/png;base64,abc  ',
     });
 
     component.onSubmit();
@@ -113,13 +130,12 @@ describe('SignupComponent', () => {
       firstName: 'Jane',
       lastName: 'Doe',
       password: 'StrongPassword1!',
-      // Contract: server stores raw base64; the data-URL prefix is stripped.
-      profilePicture: 'abc',
     });
     expect(authServiceSpy.login).toHaveBeenCalledWith(
       'user@example.com',
       'StrongPassword1!',
     );
+    expect(authServiceSpy.updateProfilePicture).toHaveBeenCalledWith(file);
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 
@@ -151,7 +167,7 @@ describe('SignupComponent', () => {
     component.profilePictureError = 'Some error';
     component.selectedProfilePictureName = 'avatar.png';
     component.profilePicturePreviewUrl = 'blob:preview';
-    component.signupForm.patchValue({ profilePicture: 'data:image/png;base64,abc' });
+    component.signupForm.patchValue({ profilePicture: 'avatar.png' });
 
     component.removeProfilePicture();
 
@@ -161,75 +177,12 @@ describe('SignupComponent', () => {
     expect(component.signupForm.controls.profilePicture.value).toBe('');
   });
 
-  it('shows friendly message when FileReader fails', () => {
-    const originalFileReader = globalThis.FileReader;
-    const originalCreateObjectURL = URL.createObjectURL;
-    const originalRevokeObjectURL = URL.revokeObjectURL;
 
-    class MockFailingFileReader {
-      result: string | ArrayBuffer | null = null;
-      onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => unknown) | null = null;
-      onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => unknown) | null = null;
-
-      readAsDataURL(): void {
-        this.onerror?.call(
-          this as unknown as FileReader,
-          new ProgressEvent('error') as unknown as ProgressEvent<FileReader>,
-        );
-      }
-    }
-
-    Object.defineProperty(globalThis, 'FileReader', {
-      configurable: true,
-      writable: true,
-      value: MockFailingFileReader,
-    });
-    Object.defineProperty(URL, 'createObjectURL', {
-      configurable: true,
-      writable: true,
-      value: vi.fn(() => 'blob:preview'),
-    });
-    Object.defineProperty(URL, 'revokeObjectURL', {
-      configurable: true,
-      writable: true,
-      value: vi.fn(),
-    });
-
-    const file = new File(['hello'], 'avatar.png', { type: 'image/png' });
-    const input = document.createElement('input');
-    Object.defineProperty(input, 'files', { value: [file] });
-
-    component.onFileChange({ target: input } as unknown as Event);
-
-    expect(component.profilePictureError).toBe(
-      'Could not read this image. Please try a different file.',
-    );
-    expect(component.selectedProfilePictureName).toBe('');
-    expect(component.profilePicturePreviewUrl).toBe('');
-    expect(component.signupForm.controls.profilePicture.value).toBe('');
-    expect(component.isReadingProfilePicture).toBe(false);
-
-    Object.defineProperty(globalThis, 'FileReader', {
-      configurable: true,
-      writable: true,
-      value: originalFileReader,
-    });
-    Object.defineProperty(URL, 'createObjectURL', {
-      configurable: true,
-      writable: true,
-      value: originalCreateObjectURL,
-    });
-    Object.defineProperty(URL, 'revokeObjectURL', {
-      configurable: true,
-      writable: true,
-      value: originalRevokeObjectURL,
-    });
-  });
 
   it('shows remove button when preview exists and resets UI after removing', () => {
     component.profilePicturePreviewUrl = 'blob:preview';
     component.selectedProfilePictureName = 'avatar.png';
-    component.signupForm.patchValue({ profilePicture: 'data:image/png;base64,abc' });
+    component.signupForm.patchValue({ profilePicture: 'avatar.png' });
     fixture.detectChanges();
 
     const removeButton = fixture.nativeElement.querySelector(

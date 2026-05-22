@@ -1,0 +1,12 @@
+<div class="alert-toast" [ngClass]="['severity-' + data.severity, 'type-' + data.type]">
+  <div class="icon-container">
+    <mat-icon>{{ data.icon }}</mat-icon>
+  </div>
+  <div class="content">
+    <h4 class="title">{{ data.title }}</h4>
+    <p class="message">{{ data.message }}</p>
+  </div>
+  <button class="close-btn" (click)="dismiss()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

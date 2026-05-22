@@ -1,0 +1,95 @@
+<section class="alerts-container">
+  <div class="alerts-header-wrap">
+    <div class="alerts-header">
+      <div class="header-content">
+        <div class="icon-wrap">
+          <mat-icon>directions_car</mat-icon>
+        </div>
+        <div>
+          <h2>Traffic Alerts</h2>
+          <p>Real-time traffic incidents and updates</p>
+        </div>
+      </div>
+      <button class="filter-toggle" (click)="toggleFilters()" [class.open]="isFiltersOpen()">
+        <mat-icon>filter_list</mat-icon>
+        Filters
+        <mat-icon class="chevron">{{ isFiltersOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="filter-panel" *ngIf="isFiltersOpen()">
+      <div class="filter-panel-title">
+        <mat-icon>filter_alt</mat-icon>
+        <span>Filters</span>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Congestion Level</span>
+        <div class="chip-row">
+          <div class="chip" [class.active]="congestionFilter() === 'all'" (click)="setCongestion('all')">All</div>
+          <div class="chip chip-success" [class.active]="congestionFilter() === 'low'" (click)="setCongestion('low')">Low</div>
+          <div class="chip chip-warning" [class.active]="congestionFilter() === 'moderate'" (click)="setCongestion('moderate')">Moderate</div>
+          <div class="chip chip-error" [class.active]="congestionFilter() === 'high'" (click)="setCongestion('high')">High</div>
+          <div class="chip chip-critical" [class.active]="congestionFilter() === 'severe'" (click)="setCongestion('severe')">Severe</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alerts-list">
+    <div *ngFor="let alert of filteredAlerts()" class="alert-card" [id]="'alert-' + alert.id">
+      
+      <div class="alert-content">
+        <div class="alert-header-row">
+          <div class="alert-info">
+            <span class="location-badge">
+              <mat-icon>location_on</mat-icon>
+              {{ alert.location | uppercase }}
+            </span>
+            <span class="direction-badge dir-{{ alert.direction | lowercase }}">
+              <mat-icon>{{ alert.direction === 'ABOVE' ? 'trending_up' : 'trending_down' }}</mat-icon>
+              {{ alert.direction }} THRESHOLD
+            </span>
+
+            <p class="alert-message">{{ alert.message }}</p>
+          </div>
+          <div class="alert-actions" style="display: flex; align-items: flex-start; gap: 12px; margin-left: auto;">
+            <div class="alert-time">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ alert.time }}</span>
+            </div>
+            <button (click)="deleteAlert(alert.id, $event)" aria-label="Delete alert" style="background: none; border: none; cursor: pointer; color: var(--text-muted, #94a3b8); padding: 0px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted, #94a3b8)'">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">close</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-label">Traffic Density</div>
+            <div class="metric-value">
+              {{ alert.trafficDensity }}
+              <span class="unit">vehicles/min</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Avg Speed</div>
+            <div class="metric-value">
+              {{ alert.avgSpeed }}
+              <span class="unit">km/h</span>
+            </div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Congestion</div>
+            <div class="metric-value" [class]="'text-' + getCongestionColor(alert.congestionLevel)">
+              {{ alert.congestionLevel }}
+            </div>
+          </div>
+        </div>
+
+        <div class="report-hint">
+          <mat-icon>info</mat-icon>
+          <span>{{ alert.report }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

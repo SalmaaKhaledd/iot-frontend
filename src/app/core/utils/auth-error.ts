@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { TimeoutError } from 'rxjs';
 
 import type { ApiErrorResponse } from '../models/auth.models';
 
@@ -10,9 +11,9 @@ const FALLBACK_MESSAGES = {
   badRequest: 'Please review the form and try again.',
   unauthorized: 'Invalid email or password.',
   conflict: 'This email is already registered.',
-  rateLimited: 'Too many requests. Please wait a moment and try again.',
-  serverError: 'An internal error occurred. Please try again.',
-  network: 'Could not connect to the server. Check your connection.',
+  rateLimited: 'Too many requests, try again later.',
+  serverError: 'Something went wrong with our server, try again later.',
+  network: 'Something went wrong with our server, try again later.',
   unknown: 'An unexpected error occurred. Please try again.',
 } as const;
 
@@ -20,12 +21,25 @@ const FALLBACK_MESSAGES = {
  * Maps any error thrown from an auth-related HTTP call to a single,
  * user-facing message. Prefers the backend-provided `message` (per the
  * agreed `ApiErrorResponse` contract) and falls back to shared
- * defaults for 400 / 401 / 409 / 429 / 500, network failures, and unknown errors.
+ * defaults for 400 / 401 / 409 / 429 / 500, network failures, timeouts, and unknown errors.
  */
 export function mapAuthError(error: unknown): string {
+  // Handle timeout errors
+  if (error instanceof TimeoutError) {
+    return FALLBACK_MESSAGES.serverError;
+  }
+
   if (error instanceof HttpErrorResponse) {
     if (error.status === 0) {
       return FALLBACK_MESSAGES.network;
+    }
+
+    // GET with responseType "blob" returns error bodies as Blob instead of JSON.
+    if (error.error instanceof Blob) {
+      if (error.status === 429) {
+        return FALLBACK_MESSAGES.rateLimited;
+      }
+      return FALLBACK_MESSAGES.unknown;
     }
 
     const apiMessage = extractApiMessage(error.error);
