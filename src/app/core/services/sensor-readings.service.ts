@@ -1,15 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { timeout, tap } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
+
 import type {
   AirPollutionSensorReading,
+  PaginatedResponse,
   StreetLightSensorReading,
   TrafficSensorReading,
+  TrafficQueryParams,
 } from '../models/sensor-reading.models';
-import { AlertsService } from '../../../core/services/alerts.service';
+
+import { AlertsService } from './alerts.service';
 
 @Injectable({ providedIn: 'root' })
 export class SensorReadingsService {
@@ -17,14 +21,22 @@ export class SensorReadingsService {
   private readonly alertsService = inject(AlertsService);
   private readonly baseUrl = environment.apiUrl;
 
-  getTrafficReadings(): Observable<TrafficSensorReading[]> {
+  getTrafficReadings(params: TrafficQueryParams = {}): Observable<PaginatedResponse<TrafficSensorReading>> {
+    let httpParams = new HttpParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        httpParams = httpParams.set(key, String(value));
+      }
+    });
+
     return this.http
-      .get<TrafficSensorReading[]>(`${this.baseUrl}/sensors/traffic`)
+      .get<PaginatedResponse<TrafficSensorReading>>(`${this.baseUrl}/sensors/traffic`, { params: httpParams })
       .pipe(
         timeout(10000),
         tap(() => this.alertsService.refreshAlerts())
       );
   }
+
 
   getAirPollutionReadings(): Observable<AirPollutionSensorReading[]> {
     return this.http
@@ -35,6 +47,7 @@ export class SensorReadingsService {
       );
   }
 
+  
   getStreetLightReadings(): Observable<StreetLightSensorReading[]> {
     return this.http
       .get<StreetLightSensorReading[]>(`${this.baseUrl}/sensors/street-lights`)

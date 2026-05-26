@@ -1,0 +1,290 @@
+<div class="dashboard-page" data-testid="traffic-dashboard-page">
+  <app-topbar></app-topbar>
+
+  <div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <nav class="breadcrumb">
+        <span class="breadcrumb-item" (click)="goBack()">
+          <mat-icon class="breadcrumb-home-icon">home</mat-icon>
+          Home
+        </span>
+        <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
+        <span class="breadcrumb-item active">Traffic dashboard</span>
+      </nav>
+      <div class="title-row">
+        <button class="back-btn" (click)="goBack()" data-testid="back-button">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div>
+          <h1 class="page-title">Traffic dashboard</h1>
+          <p class="page-subtitle">Data auto-refreshes every 60 seconds</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert Banners -->
+    @if (activeAlerts().length > 0) {
+      <div class="alert-banner-strip" data-testid="alert-banner-strip">
+        @for (alert of activeAlerts(); track alert.id) {
+          <div class="alert-banner" [ngClass]="alertSeverityClass(alert)" role="alert" data-testid="alert-banner">
+            <div class="alert-banner-content">
+              <mat-icon class="alert-banner-icon">
+                {{ alertSeverityClass(alert) === 'banner-danger' ? 'error' : 'warning' }}
+              </mat-icon>
+              <span class="alert-banner-message">{{ alertBannerMessage(alert) }}</span>
+            </div>
+            <button class="alert-banner-close" (click)="dismissAlert(alert.id)" aria-label="Dismiss alert" data-testid="alert-banner-close">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Filter Panel -->
+    <div class="filter-panel" data-testid="filter-panel">
+      <div class="filter-header" [class.expanded]="isFilterExpanded()" (click)="toggleFilters()">
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <mat-icon class="filter-icon">tune</mat-icon>
+          <span class="filter-title">Filters</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <span class="filter-toggle-hint">{{ isFilterExpanded() ? 'Collapse' : 'Expand' }}</span>
+          <mat-icon class="filter-chevron" [class.rotated]="isFilterExpanded()">expand_more</mat-icon>
+        </div>
+      </div>
+
+      @if (isFilterExpanded()) {
+
+        <!-- Row 1: All filters -->
+        <div class="filter-row-1">
+          <div class="filter-group">
+            <label class="filter-label">From</label>
+            <app-date-time-picker
+              [value]="filterForm.fromDate"
+              [timeValue]="filterForm.fromTime"
+              placeholder="Pick date & time"
+              (valueChange)="filterForm.fromDate = $event; onDateChange()"
+              (timeValueChange)="filterForm.fromTime = $event; onTimeRangeChange()"
+              data-testid="from-datetime">
+            </app-date-time-picker>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">To</label>
+            <app-date-time-picker
+              [value]="filterForm.toDate"
+              [timeValue]="filterForm.toTime"
+              placeholder="Pick date & time"
+              (valueChange)="filterForm.toDate = $event; onDateChange()"
+              (timeValueChange)="filterForm.toTime = $event; onTimeRangeChange()"
+              data-testid="to-datetime">
+            </app-date-time-picker>
+            @if (dateRangeError()) {
+              <span class="filter-error">{{ dateRangeError() }}</span>
+            }
+            @if (timeRangeError()) {
+              <span class="filter-error">{{ timeRangeError() }}</span>
+            }
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Location</label>
+            <app-custom-select
+              [options]="locationOptions"
+              placeholder="All locations"
+              [(value)]="filterForm.location"
+              data-testid="location-select">
+            </app-custom-select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Congestion</label>
+            <app-custom-select
+              [options]="congestionOptions"
+              placeholder="All levels"
+              [(value)]="filterForm.congestionLevel"
+              data-testid="congestion-select">
+            </app-custom-select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Density (vehicles)</label>
+            <div class="range-inputs">
+              <input class="filter-input range-input" type="number" min="0" max="500"
+                placeholder="0" [(ngModel)]="filterForm.minDensity" (blur)="onDensityChange()" />
+              <span class="range-sep">-</span>
+              <input class="filter-input range-input" type="number" min="0" max="500"
+                placeholder="500" [(ngModel)]="filterForm.maxDensity" (blur)="onDensityChange()" />
+            </div>
+            <div class="range-hints">
+              <span class="range-hint">min</span>
+              <span class="range-hint">max</span>
+            </div>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Speed (km/h)</label>
+            <div class="range-inputs">
+              <input class="filter-input range-input" type="number" min="0" max="120" step="any"
+                placeholder="0" [(ngModel)]="filterForm.minSpeed" (blur)="onSpeedChange()" />
+              <span class="range-sep">-</span>
+              <input class="filter-input range-input" type="number" min="0" max="120" step="any"
+                placeholder="120" [(ngModel)]="filterForm.maxSpeed" (blur)="onSpeedChange()" />
+            </div>
+            <div class="range-hints">
+              <span class="range-hint">min</span>
+              <span class="range-hint">max</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Sort by (left) + Buttons (right) -->
+        <div class="filter-row-2">
+          <div class="filter-group">
+            <label class="filter-label">Sort by</label>
+            <app-custom-select
+              [options]="sortOptions"
+              placeholder="Most recent first"
+              [(value)]="filterForm.sortBy"
+              data-testid="sort-select">
+            </app-custom-select>
+          </div>
+          <div class="filter-btn-group">
+            <button class="btn-reset" (click)="resetFilters()" data-testid="reset-filters-btn">
+              Clear filters
+            </button>
+            <button class="btn-apply" (click)="applyFilters()" data-testid="apply-filters-btn">
+              Apply filters
+            </button>
+          </div>
+        </div>
+
+      }
+    </div>
+
+    <!-- Table Panel -->
+    <div class="table-panel">
+      <div class="table-header">
+        <div class="table-title-row">
+          <span class="live-dot"></span>
+          <h2 class="table-title">Sensor readings</h2>
+        </div>
+        @if (lastUpdated()) {
+          <span class="last-updated">Last updated: {{ lastUpdated() }}</span>
+        }
+      </div>
+
+      @if (isLoading()) {
+        <div class="state-container" data-testid="loading-state">
+          <mat-icon class="state-icon spinning">autorenew</mat-icon>
+          <p class="state-text">Loading traffic data...</p>
+        </div>
+      }
+
+      @if (!isLoading() && error()) {
+        <div class="state-container error" data-testid="error-state">
+          <mat-icon class="state-icon">error_outline</mat-icon>
+          <p class="state-text">{{ error() }}</p>
+        </div>
+      }
+
+      @if (!isLoading() && !error() && readings().length > 0) {
+        <div class="table-wrapper">
+          <table class="readings-table" data-testid="traffic-table">
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Timestamp</th>
+                <th>Density</th>
+                <th>Avg Speed</th>
+                <th>Congestion</th>
+                <th>Vehicles/min</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (reading of readings(); track reading.id) {
+                <tr class="table-row" data-testid="traffic-row">
+                  <td class="location-cell">
+                    <mat-icon class="location-icon">location_on</mat-icon>
+                    {{ reading.location }}
+                  </td>
+                  <td class="muted-cell">{{ reading.timestamp | date:'yyyy-MM-dd HH:mm' }}</td>
+                  <td>
+                    <span class="congestion-badge" [ngClass]="reading.congestionLevel.toLowerCase()">
+                      {{ reading.congestionLevel }}
+                    </span>
+                  </td>
+                  <td>{{ reading.avgSpeed }} km/h</td>
+                  <td>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-track">
+                        <div class="progress-bar-fill"
+                          [ngClass]="reading.congestionLevel.toLowerCase()"
+                          [style.width.%]="(reading.trafficDensity / 500) * 100">
+                        </div>
+                      </div>
+                      <span class="progress-label">{{ ((reading.trafficDensity / 500) * 100).toFixed(0) }}%</span>
+                    </div>
+                  </td>
+                  <td>{{ reading.trafficDensity }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination-row">
+          <div class="pagination-size">
+            <label class="filter-label">Items per page</label>
+            <app-custom-select
+              [options]="pageSizeOptions"
+              [(value)]="selectedPageSize"
+              (valueChange)="onPageSizeChange($event)"
+              data-testid="page-size-select">
+            </app-custom-select>
+          </div>
+
+          <span class="pagination-info">
+            {{ currentPage() * pageSize() + 1 }} – {{ min((currentPage() + 1) * pageSize(), totalElements()) }}
+            of {{ totalElements() }} readings
+          </span>
+
+          <div class="pagination-controls">
+            <button class="page-btn icon-btn"
+              [disabled]="currentPage() === 0"
+              (click)="goToPage(0)"
+              title="First page"
+              data-testid="first-page-btn">
+              <mat-icon>first_page</mat-icon>
+            </button>
+            <button class="page-btn labeled-btn"
+              [disabled]="currentPage() === 0"
+              (click)="goToPage(currentPage() - 1)"
+              data-testid="prev-page-btn">
+              <mat-icon>arrow_back</mat-icon> Prev
+            </button>
+            <button class="page-btn labeled-btn"
+              [disabled]="currentPage() >= totalPages() - 1"
+              (click)="goToPage(currentPage() + 1)"
+              data-testid="next-page-btn">
+              Next <mat-icon>arrow_forward</mat-icon>
+            </button>
+            <button class="page-btn icon-btn"
+              [disabled]="currentPage() >= totalPages() - 1"
+              (click)="goToPage(totalPages() - 1)"
+              title="Last page"
+              data-testid="last-page-btn">
+              <mat-icon>last_page</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (!isLoading() && !error() && readings().length === 0) {
+        <div class="state-container" data-testid="empty-state">
+          <mat-icon class="state-icon">inbox</mat-icon>
+          <p class="state-text">No readings match your filters.</p>
+        </div>
+      }
+
+    </div>
+  </div>
+</div>

@@ -6,13 +6,13 @@ import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import type { AirPollutionSensorReading } from '../../models/sensor-reading.models';
+import type { AirPollutionSensorReading } from '../../../../core/models/sensor-reading.models';
 import {
   formatReadingMetaTimestamp,
   formatRelativeWithClock,
   parseReadingTimestamp,
 } from '../../utils/reading-time';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
 
@@ -253,3 +253,4 @@ export class AirQualitySensorCardComponent {
     }
   }
 }
+

@@ -69,6 +69,40 @@ function sessionUserFromRequest(req: HttpRequest<unknown>): User | null {
   return withoutPassword;
 }
 
+// In-memory alert store — DELETE mutates this so subsequent GET reflects dismissals
+let mockAlerts = [
+  {
+    id: 'alert-1',
+    sensorType: 'TRAFFIC',
+    location: 'CAIRO_RING_ROAD',
+    metric: 'TRAFFIC_DENSITY',
+    triggeredValue: 480.0,
+    thresholdValue: 400.0,
+    alertType: 'ABOVE' as const,
+    triggeredAt: '2026-05-26T10:05:00',
+  },
+  {
+    id: 'alert-2',
+    sensorType: 'TRAFFIC',
+    location: 'CAIRO_OCTOBER_BRIDGE',
+    metric: 'AVG_SPEED',
+    triggeredValue: 15.0,
+    thresholdValue: 20.0,
+    alertType: 'BELOW' as const,
+    triggeredAt: '2026-05-26T10:03:00',
+  },
+  {
+    id: 'alert-3',
+    sensorType: 'TRAFFIC',
+    location: 'CAIRO_SALAH_SALEM_ROAD',
+    metric: 'TRAFFIC_DENSITY',
+    triggeredValue: 210.0,
+    thresholdValue: 200.0,
+    alertType: 'ABOVE' as const,
+    triggeredAt: '2026-05-26T09:58:00',
+  },
+];
+
 export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   if (!environment.useMock) {
     return next(req);
@@ -442,6 +476,170 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     // Return a dummy blob
     const dummyBlob = new Blob(['dummy image content'], { type: 'image/jpeg' });
     return of(new HttpResponse({ status: 200, body: dummyBlob })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/traffic$/.test(path)) {
+    const allReadings: Array<{
+      id: string;
+      location: string;
+      timestamp: string;
+      trafficDensity: number;
+      avgSpeed: number;
+      congestionLevel: 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
+    }> = [
+      { id: '1', location: 'CAIRO_RING_ROAD',        timestamp: '2026-05-26T10:47:01', trafficDensity: 187, avgSpeed: 35, congestionLevel: 'HIGH' },
+      { id: '2', location: 'CAIRO_OCTOBER_BRIDGE',   timestamp: '2026-05-26T10:46:01', trafficDensity: 121, avgSpeed: 28, congestionLevel: 'MODERATE' },
+      { id: '3', location: 'CAIRO_SALAH_SALEM_ROAD', timestamp: '2026-05-26T10:45:01', trafficDensity: 54,  avgSpeed: 62, congestionLevel: 'LOW' },
+      { id: '4', location: 'CAIRO_RING_ROAD',        timestamp: '2026-05-26T10:44:01', trafficDensity: 139, avgSpeed: 41, congestionLevel: 'MODERATE' },
+      { id: '5', location: 'CAIRO_OCTOBER_BRIDGE',   timestamp: '2026-05-26T10:43:01', trafficDensity: 38,  avgSpeed: 70, congestionLevel: 'LOW' },
+      { id: '6', location: 'CAIRO_RING_ROAD',        timestamp: '2026-05-26T10:42:01', trafficDensity: 165, avgSpeed: 37, congestionLevel: 'HIGH' },
+      { id: '7', location: 'CAIRO_SALAH_SALEM_ROAD', timestamp: '2026-05-26T10:41:01', trafficDensity: 92,  avgSpeed: 55, congestionLevel: 'MODERATE' },
+      { id: '8', location: 'CAIRO_OCTOBER_BRIDGE',   timestamp: '2026-05-26T10:40:01', trafficDensity: 210, avgSpeed: 22, congestionLevel: 'SEVERE' },
+    ];
+
+    // Parse query params directly from the request URL
+    const p = req.params;
+    const page       = Number(p.get('page')  ?? '0');
+    const size       = Number(p.get('size')  ?? '20');
+    const sortBy     = p.get('sortBy')  ?? 'timestamp';
+    const sortDir    = p.get('sortDir') ?? 'desc';
+    const location        = p.get('location')        ?? '';
+    const congestionLevel = p.get('congestionLevel') ?? '';
+    const minDensity = p.get('minDensity') !== null ? Number(p.get('minDensity')) : null;
+    const maxDensity = p.get('maxDensity') !== null ? Number(p.get('maxDensity')) : null;
+    const minSpeed   = p.get('minSpeed')   !== null ? Number(p.get('minSpeed'))   : null;
+    const maxSpeed   = p.get('maxSpeed')   !== null ? Number(p.get('maxSpeed'))   : null;
+    const tsStart    = p.get('timestampStart') ?? '';
+    const tsEnd      = p.get('timestampEnd')   ?? '';
+    console.log('location filter:', p.get('location'), '| page:', page, '| size:', size);
+    console.log('req.url:', req.url);
+    console.log('req.params keys:', req.params.keys());
+    console.log('req.params toString:', req.params.toString());
+
+    // Filter
+    let filtered = allReadings.filter(r => {
+      if (location        && !r.location.includes(location))              return false;
+      if (congestionLevel && r.congestionLevel !== congestionLevel)        return false;
+      if (minDensity !== null && r.trafficDensity < minDensity)            return false;
+      if (maxDensity !== null && r.trafficDensity > maxDensity)            return false;
+      if (minSpeed   !== null && r.avgSpeed < minSpeed)                    return false;
+      if (maxSpeed   !== null && r.avgSpeed > maxSpeed)                    return false;
+      if (tsStart && r.timestamp < tsStart)                                return false;
+      if (tsEnd   && r.timestamp > tsEnd)                                  return false;
+      return true;
+    });
+
+    // Sort
+    filtered.sort((a, b) => {
+      let aVal: number | string;
+      let bVal: number | string;
+      if (sortBy === 'trafficDensity') { aVal = a.trafficDensity; bVal = b.trafficDensity; }
+      else if (sortBy === 'avgSpeed')  { aVal = a.avgSpeed;       bVal = b.avgSpeed; }
+      else                             { aVal = a.timestamp;      bVal = b.timestamp; }
+      if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    // Paginate
+    const totalElements = filtered.length;
+    const totalPages    = Math.max(1, Math.ceil(totalElements / size));
+    const safePage      = Math.min(page, totalPages - 1);
+    const content       = filtered.slice(safePage * size, safePage * size + size);
+
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        content,
+        pageNo: safePage,
+        pageSize: size,
+        totalElements,
+        totalPages,
+        last: safePage >= totalPages - 1,
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  // DELETE must be checked before GET to avoid the /alerts$ regex accidentally
+  // matching a path that still has an id segment on it.
+  // Negative lookahead excludes /api/alerts/flush so flush is not treated as a dismiss.
+  if (req.method === 'DELETE' && /\/api\/alerts\/(?!flush)[^/]+$/.test(path)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    const alertId = path.split('/').pop()!;
+    const exists = mockAlerts.some(a => a.id === alertId);
+
+    if (!exists) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 404,
+            statusText: 'Not Found',
+            error: {
+              status: 404,
+              error: 'Not Found',
+              // Exact string from tester reference — trailing period is intentional
+              message: 'Alert not found.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    mockAlerts = mockAlerts.filter(a => a.id !== alertId);
+
+    return of(
+      new HttpResponse({
+        status: 200,
+        body: { message: 'Alert dismissed successfully.' },
+      }),
+    ).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  // GET /api/alerts requires Bearer — backend calls getCurrentUser() with no null
+  // check on the Authorization header, so a missing token causes 500 not 401.
+  // The mock mirrors this strictness to catch integration issues early.
+  if (req.method === 'GET' && /\/api\/alerts$/.test(path)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    return of(
+      new HttpResponse({
+        status: 200,
+        // Spread into a new array so mutations to mockAlerts don't affect
+        // already-emitted responses
+        body: [...mockAlerts],
+      }),
+    ).pipe(delay(300));
   }
 
   return next(req);

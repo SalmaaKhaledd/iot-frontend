@@ -1,0 +1,106 @@
+<div class="dtp-wrap" [class.open]="isOpen()">
+
+  <button type="button" class="dtp-trigger" [class.has-value]="selectedDate()" (click)="toggle()" data-testid="dtp-trigger">
+    <mat-icon class="dtp-icon">calendar_today</mat-icon>
+    <span class="dtp-value" [class.placeholder]="!displayValue()">
+      {{ displayValue() || placeholder }}
+    </span>
+  </button>
+
+  @if (isOpen()) {
+    <div class="dtp-popup" data-testid="dtp-popup">
+
+      <div class="dtp-header">
+        <span class="dtp-month-label">{{ monthLabel() }}</span>
+        <div class="dtp-nav">
+          <span class="dtp-today-btn" (click)="goToToday()">Today</span>
+          <button type="button" class="dtp-nav-btn" (click)="prevMonth()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button type="button" class="dtp-nav-btn" (click)="nextMonth()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="dtp-weekdays">
+        @for (day of weekDays; track day) {
+          <span class="dtp-weekday">{{ day }}</span>
+        }
+      </div>
+
+      <div class="dtp-grid">
+        @for (cell of calendarDays(); track cell.date.toISOString()) {
+          <button
+            type="button"
+            class="dtp-day"
+            [class.other-month]="!cell.currentMonth"
+            [class.today]="isToday(cell.date)"
+            [class.selected]="isSelected(cell.date)"
+            [class.future]="isFuture(cell.date)"
+            [disabled]="isFuture(cell.date)"
+            (click)="selectDate(cell.date)"
+            [attr.data-testid]="'day-' + cell.date.toISOString().slice(0,10)">
+            {{ cell.date.getDate() }}
+          </button>
+        }
+      </div>
+
+      <div class="dtp-footer">
+        <div class="dtp-toggle-row" (click)="toggleIncludeTime()">
+          <span class="dtp-toggle-label">Include time</span>
+          <div class="dtp-toggle" [class.on]="includeTime()">
+            <div class="dtp-toggle-knob"></div>
+          </div>
+        </div>
+
+        @if (includeTime()) {
+          <div class="dtp-time-row">
+            <mat-icon class="dtp-time-icon">schedule</mat-icon>
+            <div class="dtp-time-inputs">
+              <input
+                class="dtp-time-segment"
+                type="number"
+                min="1"
+                [attr.max]="maxHour()"
+                placeholder="HH"
+                [ngModel]="timeHour()"
+                (ngModelChange)="timeHour.set($event); onTimeSegmentChange()"
+                data-testid="dtp-hour-input" />
+              <span class="dtp-time-colon">:</span>
+              <input
+                class="dtp-time-segment"
+                type="number"
+                min="0"
+                [attr.max]="maxMinute()"
+                placeholder="MM"
+                [ngModel]="timeMinute()"
+                (ngModelChange)="timeMinute.set($event); onTimeSegmentChange()"
+                data-testid="dtp-minute-input" />
+              <div class="dtp-period-toggle">
+                <button
+                  type="button"
+                  class="dtp-period-btn"
+                  [class.active]="!isPM()"
+                  (click)="togglePeriod()">
+                  AM
+                </button>
+                <button
+                  type="button"
+                  class="dtp-period-btn"
+                  [class.active]="isPM()"
+                  [class.disabled]="isPMDisabled()"
+                  [disabled]="isPMDisabled()"
+                  (click)="togglePeriod()">
+                  PM
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    </div>
+  }
+
+</div>
