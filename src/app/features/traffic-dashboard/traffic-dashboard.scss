@@ -460,14 +460,13 @@ body[data-theme='light'] .filter-input {
     border-bottom: 1px solid var(--t-card-border);
   }
 
-td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--t-card-border);
-  color: var(--t-text-primary);
-  vertical-align: middle;
-  height: 3.76rem;
-  box-sizing: border-box;
-}
+  td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--t-card-border);
+    color: var(--t-text-primary);
+    vertical-align: middle;
+    box-sizing: border-box;
+  }
 
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:hover { background: var(--t-card-inner); }
@@ -491,8 +490,10 @@ td {
 
 // ─── Congestion Badge ─────────────────────────────────────
 .congestion-badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  height: 1.5rem;
+  padding: 0 0.6rem;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -518,6 +519,7 @@ body[data-theme='light'] .congestion-badge {
   align-items: center;
   gap: 0.6rem;
   min-width: 140px;
+  height: 1.5rem;
 }
 
 .progress-bar-track {
@@ -648,6 +650,156 @@ body[data-theme='light'] .congestion-badge {
 
 .labeled-btn {
   padding: 0 0.75rem;
+}
+
+// ─── Analytics Panel ──────────────────────────────────────
+.analytics-panel {
+  background: var(--t-card-bg);
+  border: 1px solid var(--t-card-border);
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover .analytics-title { color: var(--t-text-secondary); }
+}
+
+.analytics-header-left { display: flex; align-items: center; gap: 0.5rem; }
+.analytics-header-right { display: flex; align-items: center; gap: 0.5rem; }
+
+.analytics-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--t-text-secondary);
+}
+
+.analytics-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+  transition: color 0.2s ease;
+}
+
+.analytics-toggle-hint { font-size: 0.8rem; color: var(--t-text-muted); }
+
+.analytics-chevron {
+  color: var(--t-text-muted);
+  transition: transform 0.2s ease;
+  &.rotated { transform: rotate(180deg); }
+}
+
+.analytics-body {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--t-card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.analytics-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.analytics-card {
+  background: var(--t-card-inner);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.analytics-card-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--t-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.analytics-card-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+  line-height: 1.2;
+
+  &.low      { color: #4ade80; }
+  &.moderate { color: #facc15; }
+  &.high     { color: #fb923c; }
+  &.severe   { color: #f87171; }
+}
+
+body[data-theme='light'] .analytics-card-value {
+  &.low      { color: #15803d; }
+  &.moderate { color: #a16207; }
+  &.high     { color: #c2410c; }
+  &.severe   { color: #b91c1c; }
+}
+
+.analytics-card-unit {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--t-text-muted);
+}
+
+.analytics-chart-panel {
+  background: var(--t-card-inner);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.analytics-chart-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+}
+
+.analytics-chart-wrap {
+  position: relative;
+  height: 160px;
+  canvas { width: 100% !important; height: 100% !important; }
+}
+
+.analytics-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.donut-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 4px;
+}
+
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--t-text-muted);
+}
+
+.donut-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 // ─── Responsive ───────────────────────────────────────────

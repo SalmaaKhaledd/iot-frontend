@@ -57,8 +57,6 @@
       </div>
 
       @if (isFilterExpanded()) {
-
-        <!-- Row 1: All filters -->
         <div class="filter-row-1">
           <div class="filter-group">
             <label class="filter-label">From</label>
@@ -136,7 +134,6 @@
           </div>
         </div>
 
-        <!-- Row 2: Sort by (left) + Buttons (right) -->
         <div class="filter-row-2">
           <div class="filter-group">
             <label class="filter-label">Sort by</label>
@@ -156,7 +153,6 @@
             </button>
           </div>
         </div>
-
       }
     </div>
 
@@ -284,7 +280,81 @@
           <p class="state-text">No readings match your filters.</p>
         </div>
       }
-
     </div>
+
+    <!-- Detailed Analytics Panel -->
+    @if (!isLoading() && !error() && readings().length > 0) {
+      <div class="analytics-panel">
+
+        <div class="analytics-header" (click)="toggleAnalytics()" data-testid="analytics-header">
+          <div class="analytics-header-left">
+            <mat-icon class="analytics-icon">insert_chart</mat-icon>
+            <span class="analytics-title">Detailed analytics</span>
+          </div>
+          <div class="analytics-header-right">
+            <span class="analytics-toggle-hint">{{ isAnalyticsExpanded() ? 'Collapse' : 'Expand' }}</span>
+            <mat-icon class="analytics-chevron" [class.rotated]="isAnalyticsExpanded()">expand_more</mat-icon>
+          </div>
+        </div>
+
+        @if (isAnalyticsExpanded()) {
+          <div class="analytics-body">
+
+            <!-- Row 1: 4 metric cards -->
+            <div class="analytics-cards">
+              <div class="analytics-card">
+                <span class="analytics-card-label">Avg density</span>
+                <span class="analytics-card-value">{{ avgDensity() }} <span class="analytics-card-unit">v/min</span></span>
+              </div>
+              <div class="analytics-card">
+                <span class="analytics-card-label">Avg speed</span>
+                <span class="analytics-card-value">{{ avgSpeed() }} <span class="analytics-card-unit">km/h</span></span>
+              </div>
+              <div class="analytics-card">
+                <span class="analytics-card-label">Dominant level</span>
+                <span class="analytics-card-value congestion-value" [ngClass]="dominantCongestionClass()">
+                  {{ dominantCongestion() | titlecase }}
+                </span>
+              </div>
+              <div class="analytics-card">
+                <span class="analytics-card-label">Peak density</span>
+                <span class="analytics-card-value">{{ peakDensity() }} <span class="analytics-card-unit">v/min</span></span>
+              </div>
+            </div>
+
+            <!-- Row 2: 3 charts -->
+            <div class="analytics-charts-row">
+              <div class="analytics-chart-panel">
+                <span class="analytics-chart-label">Avg speed over time</span>
+                <div class="analytics-chart-wrap">
+                  <canvas id="speedChart"></canvas>
+                </div>
+              </div>
+              <div class="analytics-chart-panel">
+                <span class="analytics-chart-label">Vehicle density over time</span>
+                <div class="analytics-chart-wrap">
+                  <canvas id="densityChart"></canvas>
+                </div>
+              </div>
+              <div class="analytics-chart-panel">
+                <span class="analytics-chart-label">Congestion distribution</span>
+                <div class="analytics-chart-wrap">
+                  <canvas id="donutChart"></canvas>
+                </div>
+                <div class="donut-legend">
+                  <span class="donut-legend-item"><span class="donut-dot" style="background:#4ade80"></span>Low</span>
+                  <span class="donut-legend-item"><span class="donut-dot" style="background:#facc15"></span>Moderate</span>
+                  <span class="donut-legend-item"><span class="donut-dot" style="background:#fb923c"></span>High</span>
+                  <span class="donut-legend-item"><span class="donut-dot" style="background:#f87171"></span>Severe</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        }
+
+      </div>
+    }
+
   </div>
 </div>
