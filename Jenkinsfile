@@ -13,13 +13,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'npm install'
-                sh 'npm run build'
-            }
-        }
-
         stage('Docker Build') {
             steps {
                 sh 'docker build -t $DOCKER_IMAGE:$IMAGE_TAG .'
@@ -45,7 +38,18 @@ pipeline {
                     git url: 'https://github.com/faridakhaled05/iot-devops.git',
                         branch: 'main'
                 }
-                sh 'docker compose -f iot-devops/docker-compose.yml up -d --pull always'
+                withCredentials([
+                    string(credentialsId: 'db-password', variable: 'DB_PASS'),
+                    string(credentialsId: 'jwt-secret', variable: 'JWT_SECRET')
+                ]) {
+                    sh """
+                        mkdir -p "\$WORKSPACE/iot-devops/secrets"
+                        printf '%s' "\$DB_PASS" > "\$WORKSPACE/iot-devops/secrets/db_password.txt"
+                        printf '%s' "\$JWT_SECRET" > "\$WORKSPACE/iot-devops/secrets/jwt_secret.txt"
+                        SECRETS_PATH="\${HOST_WORKSPACE_ROOT}/\${JOB_NAME}/iot-devops/secrets" \
+                        docker-compose -f iot-devops/docker-compose.yml up -d --pull always
+                    """
+                }
             }
         }
     }
