@@ -219,7 +219,7 @@ export class TrafficDashboard {
         const trafficAlerts = alerts.filter(a => a.sensorType === 'TRAFFIC');
         trafficAlerts.forEach(alert => {
           if (!this.alertTimers.has(alert.id)) {
-            const handle = setTimeout(() => this.dismissAlert(alert.id), 5000);
+            const handle = setTimeout(() => this.hideBanner(alert.id), 5000);
             this.alertTimers.set(alert.id, handle);
           }
         });
@@ -441,9 +441,16 @@ export class TrafficDashboard {
   }
 
   // ── Alert methods ────────────────────────────────────────────────────────
-  dismissAlert(id: string): void {
+  // Called by the 5-second timer — UI only, no backend call
+  private hideBanner(id: string): void {
     const handle = this.alertTimers.get(id);
     if (handle !== undefined) { clearTimeout(handle); this.alertTimers.delete(id); }
+    this.activeAlerts.update(alerts => alerts.filter(a => a.id !== id));
+  }
+
+  // Called by the manual X button — deletes from backend
+  dismissAlert(id: string): void {
+    this.hideBanner(id);
     this.alertsService.deleteAlert(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({ error: err => console.error('Failed to dismiss alert', err) });
