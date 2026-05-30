@@ -42,7 +42,7 @@ describe('mapAuthError', () => {
     const err = new HttpErrorResponse({ status: 0, statusText: 'Unknown Error' });
 
     expect(mapAuthError(err)).toBe(
-      'Could not connect to the server. Check your connection.',
+      'Something went wrong with our server, try again later.',
     );
   });
 

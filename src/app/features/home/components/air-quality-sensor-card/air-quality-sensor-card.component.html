@@ -1,0 +1,157 @@
+<section class="air-card">
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-icon>hourglass_top</mat-icon>
+      <p>Loading air quality readings...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="loading-state error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (selectedSensorData(); as sensor) {
+  <div class="air-header">
+    <div class="title-wrap">
+      <div class="sensor-icon">
+        <mat-icon>air</mat-icon>
+      </div>
+      <div>
+        <div class="title-row">
+          <div style="display: flex; align-items: center;">
+            <h2>Air Quality Sensors</h2>
+            @if (missingThresholds().length > 0) {
+              <mat-icon #tooltip="matTooltip" class="warning-icon" [matTooltip]="'Missing thresholds: ' + missingThresholds().join(', ')" matTooltipShowDelay="0" (click)="tooltip.toggle()" (mouseenter)="tooltip.show()" (mouseleave)="tooltip.hide()">warning</mat-icon>
+            }
+          </div>
+          <div class="sensor-select-wrap">
+            <button (click)="refresh()" title="Refresh" aria-label="Refresh" style="background:none; border:none; color:var(--text-secondary, #64748b); cursor:pointer; padding:4px; display:flex; align-items:center;">
+              <mat-icon style="font-size: 20px; width: 20px; height: 20px;">refresh</mat-icon>
+            </button>
+            <span class="history-chip" aria-hidden="true">
+              <mat-icon>history</mat-icon>
+            </span>
+            <div class="sensor-select">
+              <select #readingSelect (change)="onSelectReading(+readingSelect.value)" [value]="selectedReadingIndex()" aria-label="Select air reading history">
+                @for (item of dropdownReadings(); track item.index) {
+                  <option [value]="item.index">{{ item.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+        <p>Monitor pollution levels and air health</p>
+      </div>
+    </div>
+
+    <div class="meta-wrap">
+      <div class="meta-row">
+        <span class="meta-chip">{{ sensor.location }}</span>
+        <span class="meta-chip">{{ formatTimestamp(sensor.timestamp) }}</span>
+      </div>
+      <div class="actions-wrap">
+        <button class="alerts-btn" type="button" aria-label="View air quality alerts" (click)="showAlerts.set(true)">
+          <mat-icon>error_outline</mat-icon>
+          <span>View Alerts</span>
+        </button>
+        <span class="status-chip" [ngClass]="sensor.pollutionLevel.toLowerCase().replace(' ', '-')">
+          {{ sensor.pollutionLevel }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="air-main">
+    <div class="ring-wrap">
+      <div class="ring">
+        <svg viewBox="0 0 220 220" class="ring-svg" aria-hidden="true">
+          <circle cx="110" cy="110" r="88" class="ring-track" />
+          <circle cx="110" cy="110" r="88" class="ring-value" [attr.stroke-dashoffset]="ringDashOffset()" />
+        </svg>
+
+        <div class="ring-center">
+          <div class="aqi-score">{{ sensor.pollutionLevel }}</div>
+          <div class="aqi-label">Air Quality</div>
+          <span class="aqi-pill">Pollution Level</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pollutants">
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>PM2.5 (µg/m³)</span>
+          <strong>{{ sensor.pm2_5 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="particulateWidth(sensor.pm2_5)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>PM10 (µg/m³)</span>
+          <strong>{{ sensor.pm10 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="particulateWidth(sensor.pm10)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>CO (ppm)</span>
+          <strong>{{ sensor.co }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="coWidth(sensor.co)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>Ozone (ppb)</span>
+          <strong>{{ sensor.ozone }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar red" [style.width.%]="ozoneWidth(sensor.ozone)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>NO2 (ppb)</span>
+          <strong>{{ sensor.no2 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar amber" [style.width.%]="gasWidth(sensor.no2)"></div></div>
+      </article>
+
+      <article class="pollutant">
+        <div class="pollutant-head">
+          <span>SO2 (ppb)</span>
+          <strong>{{ sensor.so2 }}</strong>
+        </div>
+        <div class="bar-track"><div class="bar green" [style.width.%]="gasWidth(sensor.so2)"></div></div>
+      </article>
+    </div>
+  </div>
+
+  @if (showRecommendation()) {
+  <div class="recommendation">
+    <div class="rec-title">
+      <mat-icon>air</mat-icon>
+      <h3>Air Quality Recommendation</h3>
+    </div>
+    <p>{{ recommendationText() }}</p>
+  </div>
+  }
+  } @else {
+    <div class="loading-state">
+      <mat-icon>info</mat-icon>
+      <p>No air quality readings available.</p>
+    </div>
+  }
+
+  @if (showAlerts()) {
+    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
+    <div class="modal-content">
+      <div class="modal-topbar">
+        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-air-quality-alerts></app-air-quality-alerts>
+    </div>
+  }
+</section>

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +31,7 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   errorMessage = '';
   isLoading = false;
@@ -66,26 +73,32 @@ export class LoginComponent {
       password: formValue.password ?? '',
     };
 
-    //finalize is used to set the isLoading flag to false after the login request is complete
+    // finalize clears loading; markForCheck keeps OnPush in sync after HttpClient emits outside the submit event path.
     this.authService
       .login(payload.email, payload.password)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        finalize(() => (this.isLoading = false)),
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.markForCheck();
+        }),
       )
       .subscribe({
         next: (response) => {
           if (!response?.token || !response?.userId) {
             this.errorMessage = 'Invalid email or password. Please try again.';
+            this.changeDetectorRef.markForCheck();
             return;
           }
 
           this.authService.saveToken(response.token);
           this.authService.saveUser(toUserFromAuthResponse(response));
           this.router.navigate(['/home']);
+          this.changeDetectorRef.markForCheck();
         },
         error: (error: unknown) => {
           this.errorMessage = mapAuthError(error);
+          this.changeDetectorRef.markForCheck();
         },
       });
   }

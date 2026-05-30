@@ -1,0 +1,16 @@
+com/iot/selenium/pages/DashboardPage.class
+com/iot/selenium/config/ConfigReader.class
+com/iot/selenium/tests/SensorDashboardTest.class
+com/iot/selenium/tests/BaseTest.class
+com/iot/selenium/pages/BasePage.class
+com/iot/selenium/pages/SigninPage.class
+com/iot/selenium/tests/SignupTest.class
+com/iot/selenium/pages/SensorDashboardPage.class
+com/iot/selenium/tests/AlertsTest.class
+com/iot/selenium/tests/UserProfileTest.class
+com/iot/selenium/tests/SigninTest.class
+com/iot/selenium/tests/ConfigurationTest.class
+com/iot/selenium/pages/SignupPage.class
+com/iot/selenium/pages/UserProfilePage.class
+com/iot/selenium/utils/ExcelReader.class
+com/iot/selenium/pages/AlertsPage.class

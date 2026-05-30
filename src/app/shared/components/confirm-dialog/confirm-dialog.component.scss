@@ -1,0 +1,82 @@
+.confirm-dialog-container {
+  background: var(--t-card-bg, #1e2c43);
+  color: var(--t-text-primary, #f6f9ff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  :host-context(body[data-theme="light"]) & {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.dialog-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--t-text-primary, #f6f9ff);
+
+  :host-context(body[data-theme="light"]) & {
+    color: #0f172a;
+  }
+}
+
+.dialog-content {
+  margin: 0 0 1.5rem;
+  font-size: 1rem;
+  color: var(--t-text-secondary, #8ea3c2);
+
+  :host-context(body[data-theme="light"]) & {
+    color: #475569;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+
+  button {
+    cursor: pointer;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: var(--t-text-secondary, #8ea3c2);
+    border: 1px solid var(--t-card-border, #2f4568);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--t-text-primary, #f6f9ff);
+    }
+
+    :host-context(body[data-theme="light"]) & {
+      color: #475569;
+      border-color: #e2e8f0;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #0f172a;
+      }
+    }
+  }
+
+  .btn-confirm {
+    background: #3b82f6; /* Accent color */
+    color: #ffffff;
+    
+    &:hover {
+      background: #2563eb;
+    }
+  }
+}

@@ -69,7 +69,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(request).pipe(
     catchError((error: unknown) => {
       if (error instanceof HttpErrorResponse && isTokenAuthFailure(error)) {
-        authService.logout();
+        authService.clearSession();
         void router.navigate(['/login']);
       }
 

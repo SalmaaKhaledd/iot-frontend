@@ -1,35 +1,56 @@
 <div class="home-page">
-  <header class="topbar">
-    <div class="brand">
-      <app-sensorix-logo
-        [iconSize]="'clamp(22px, 2.8vw, 30px)'"
-        [textSize]="'clamp(18px, 2.2vw, 24px)'"
-        [gap]="'12px'"
-        [textWeight]="'600'"
-      />
-    </div>
+  <app-topbar (jumpToAlert)="handleJumpToAlert($any($event))"></app-topbar>
 
-    <div class="topbar-actions">
-      <button class="icon-button" type="button" aria-label="Toggle theme">
-        <mat-icon aria-hidden="true">light_mode</mat-icon>
-      </button>
-      <button class="avatar avatar-button" type="button" (click)="goToProfile()" aria-label="Open profile">
-        @if (profilePictureUrl()) {
-        <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" />
-        } @else {
-        {{ userInitials() }}
-        }
-      </button>
-    </div>
-  </header>
 
   <main class="hero">
-    <h1>Hello, {{ displayName() }}</h1>
-    <p>Your dashboard is being set up</p>
-    @if (refreshNotice()) {
-    <p class="refresh-notice" role="status" aria-live="polite">
-      {{ refreshNotice() }}
-    </p>
-    }
+    <div class="max-w">
+      <div class="hero-intro mb-6">
+        <h1 class="greeting">Good morning, {{ displayName() }}</h1>
+        <p class="muted">Here's what's happening in your area today</p>
+      </div>
+      <div class="dashboard-cards">
+        <div class="card" (click)="scrollToSensor('traffic-sensor')">
+          <div class="card-header">
+            <div class="icon-wrap blue">
+              <mat-icon>traffic</mat-icon>
+            </div>
+            <h3>Traffic</h3>
+          </div>
+          <p class="muted small">Monitor road congestion and traffic flow</p>
+        </div>
+
+        <div class="card" (click)="scrollToSensor('air-quality-sensor')">
+          <div class="card-header">
+            <div class="icon-wrap green">
+              <mat-icon>air</mat-icon>
+            </div>
+            <h3>Air Quality</h3>
+          </div>
+          <p class="muted small">Track pollution levels and air health</p>
+        </div>
+
+        <div class="card" (click)="scrollToSensor('street-light-sensor')">
+          <div class="card-header">
+            <div class="icon-wrap yellow">
+              <mat-icon>lightbulb</mat-icon>
+            </div>
+            <h3>Street Lights</h3>
+          </div>
+          <p class="muted small">Manage lighting and energy usage</p>
+        </div>
+      </div>
+
+      <div class="sensor-cards">
+        <div id="traffic-sensor">
+          <app-traffic-sensor-card></app-traffic-sensor-card>
+        </div>
+        <div id="air-quality-sensor">
+          <app-air-quality-sensor-card></app-air-quality-sensor-card>
+        </div>
+        <div id="street-light-sensor">
+          <app-street-light-card></app-street-light-card>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
