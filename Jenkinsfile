@@ -14,11 +14,15 @@ pipeline {
         }
 
         stage('Docker Build') {
-            steps {
-                sh 'docker build --no-cache --progress=plain -t $DOCKER_IMAGE:$IMAGE_TAG .'
+    	   steps {
+        	sh '''
+            	     docker buildx create --name native --driver docker-container --use --bootstrap 2>/dev/null || docker buildx use native
+                     docker buildx build --no-cache --load -t $DOCKER_IMAGE:$IMAGE_TAG .
 
-            }
-        }
+
+                   '''
+    }
+}
 
         stage('Docker Push') {
             steps {
