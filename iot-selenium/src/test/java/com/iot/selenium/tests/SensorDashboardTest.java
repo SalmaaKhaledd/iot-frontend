@@ -22,12 +22,18 @@ public class SensorDashboardTest extends BaseTest {
     private ConfigReader configReader;
 
     @BeforeClass(alwaysRun = true)
-    public void seedSensorsBeforeClass() throws Exception {
+    public void seedSensorsBeforeClass() {
         configReader = new ConfigReader();
-        authToken = SensorDashboardPage.authenticate(
-                configReader.getLoginEmail(),
-                configReader.getLoginPassword());
-        SensorDashboardPage.generateSensors(authToken);
+        authToken = getSharedAuthToken();
+        try {
+            SensorDashboardPage.generateSensors(authToken);
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to seed sensors via API", e);
+        }
+        super.setUp();
+        driverInitialized = true;
+        sensorDashboardPage = new SensorDashboardPage(driver);
+        restoreAuthenticatedSession();
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -100,8 +106,6 @@ public class SensorDashboardTest extends BaseTest {
         int minHistoryOptions = Integer.parseInt(data.get("minHistoryOptions"));
         int historyIndex = Integer.parseInt(data.get("historyIndex"));
 
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
-
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         int optionCount = sensorDashboardPage.getHistoryOptionCount(section);
@@ -124,7 +128,6 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         Assert.assertTrue(
@@ -135,7 +138,6 @@ public class SensorDashboardTest extends BaseTest {
     private void assertEmptyState(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
 
         String section = data.get("section");
@@ -150,7 +152,6 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         sensorDashboardPage.clickRefresh(section);
@@ -164,7 +165,6 @@ public class SensorDashboardTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         sensorDashboardPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed(section);
         sensorDashboardPage.clickViewAlerts(section);
@@ -187,17 +187,4 @@ public class SensorDashboardTest extends BaseTest {
                 .orElseThrow(() -> new IllegalStateException("Row not found for tc_id: " + tcId));
     }
 
-    private void loginIfNeeded(String email, String password) throws Exception {
-        if (configReader == null) {
-            configReader = new ConfigReader();
-        }
-        String url = driver.getCurrentUrl();
-        String loginPath = configReader.getLoginPath();
-        boolean notAuthenticated = url == null
-                || url.contains("data:")
-                || url.contains(loginPath);
-        if (notAuthenticated) {
-            login(email, password);
-        }
-    }
 }

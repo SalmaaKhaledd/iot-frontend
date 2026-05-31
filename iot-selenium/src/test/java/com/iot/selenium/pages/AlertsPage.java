@@ -212,6 +212,25 @@ public class AlertsPage extends BasePage {
         }
     }
 
+    /** Seeds a low TRAFFIC_DENSITY ABOVE threshold for the authenticated user (reliable vs UI save). */
+    public static void seedTrafficDensityAboveThreshold(String bearerToken) throws Exception {
+        ConfigReader config = new ConfigReader();
+        String body =
+                "[{\"type\":\"TRAFFIC\",\"metric\":\"TRAFFIC_DENSITY\",\"thresholdValue\":1,\"alertType\":\"ABOVE\"}]";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(config.getApiBaseUrl() + "/api/settings"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + bearerToken)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        HttpResponse<String> response =
+                HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() < 200 || response.statusCode() >= 300) {
+            throw new IllegalStateException(
+                    "PUT /api/settings failed with status " + response.statusCode() + ": " + response.body());
+        }
+    }
+
     public String getAuthTokenFromLocalStorage() {
         Object token = ((JavascriptExecutor) driver).executeScript(
                 "return window.localStorage.getItem('" + LOCAL_STORAGE_TOKEN_KEY + "');");

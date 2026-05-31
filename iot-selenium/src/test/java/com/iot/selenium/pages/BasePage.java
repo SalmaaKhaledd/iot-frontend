@@ -52,8 +52,7 @@ public abstract class BasePage {
                     .pollingEvery(Duration.ofMillis(300))
                     .until(driver -> {
                         clickVisibleAlertToastCloseButtons();
-                        return driver.findElements(ALERT_TOAST).stream()
-                                .noneMatch(WebElement::isDisplayed);
+                        return !anyAlertToastDisplayed();
                     });
         } catch (TimeoutException ignored) {
             for (int attempt = 0; attempt < 3; attempt++) {
@@ -67,16 +66,29 @@ public abstract class BasePage {
     private boolean clickVisibleAlertToastCloseButtons() {
         boolean clicked = false;
         for (WebElement closeButton : driver.findElements(ALERT_TOAST_CLOSE)) {
-            if (closeButton.isDisplayed()) {
-                try {
+            try {
+                if (closeButton.isDisplayed()) {
                     ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeButton);
                     clicked = true;
-                } catch (StaleElementReferenceException ignored) {
-                    // Re-query on next poll iteration
                 }
+            } catch (StaleElementReferenceException ignored) {
+                // Toast DOM updated between findElements and click; caller re-polls.
             }
         }
         return clicked;
+    }
+
+    private boolean anyAlertToastDisplayed() {
+        for (WebElement toast : driver.findElements(ALERT_TOAST)) {
+            try {
+                if (toast.isDisplayed()) {
+                    return true;
+                }
+            } catch (StaleElementReferenceException ignored) {
+                // Toast removed from DOM between find and isDisplayed; re-query on next poll.
+            }
+        }
+        return false;
     }
 
     protected String firstDisplayedText(By locator) {

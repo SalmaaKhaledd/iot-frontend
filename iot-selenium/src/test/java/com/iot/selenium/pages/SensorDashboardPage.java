@@ -20,6 +20,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SensorDashboardPage extends BasePage {
     private static final Pattern TOKEN_PATTERN = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"");
+    private static final Pattern USER_ID_PATTERN = Pattern.compile("\"userId\"\\s*:\\s*\"([^\"]+)\"");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("\"email\"\\s*:\\s*\"([^\"]+)\"");
+    private static final Pattern FIRST_NAME_PATTERN = Pattern.compile("\"firstName\"\\s*:\\s*\"([^\"]+)\"");
+    private static final Pattern LAST_NAME_PATTERN = Pattern.compile("\"lastName\"\\s*:\\s*\"([^\"]+)\"");
+
+    /** Token and {@code iot_user} JSON for {@link com.iot.selenium.tests.BaseTest#restoreAuthenticatedSession()}. */
+    public record ApiAuthSession(String token, String userJson) {}
 
     private final String baseUrl;
     private final String apiBaseUrl;
@@ -42,6 +49,10 @@ public class SensorDashboardPage extends BasePage {
     }
 
     public static String authenticate(String email, String password) throws Exception {
+        return loginViaApi(email, password).token();
+    }
+
+    public static ApiAuthSession loginViaApi(String email, String password) throws Exception {
         ConfigReader config = new ConfigReader();
         String body = String.format("{\"email\":\"%s\",\"password\":\"%s\"}", email, password);
         HttpClient client = HttpClient.newHttpClient();
@@ -55,11 +66,26 @@ public class SensorDashboardPage extends BasePage {
             throw new IllegalStateException(
                     "Login failed with status " + response.statusCode() + ": " + response.body());
         }
-        Matcher matcher = TOKEN_PATTERN.matcher(response.body());
-        if (!matcher.find()) {
+        String responseBody = response.body();
+        Matcher tokenMatcher = TOKEN_PATTERN.matcher(responseBody);
+        if (!tokenMatcher.find()) {
             throw new IllegalStateException("Login response did not contain a token.");
         }
-        return matcher.group(1);
+        String userJson = String.format(
+                "{\"id\":\"%s\",\"firstName\":\"%s\",\"lastName\":\"%s\",\"email\":\"%s\",\"profilePicture\":null}",
+                jsonField(USER_ID_PATTERN, responseBody, "userId"),
+                jsonField(FIRST_NAME_PATTERN, responseBody, "firstName"),
+                jsonField(LAST_NAME_PATTERN, responseBody, "lastName"),
+                jsonField(EMAIL_PATTERN, responseBody, "email"));
+        return new ApiAuthSession(tokenMatcher.group(1), userJson);
+    }
+
+    private static String jsonField(Pattern pattern, String responseBody, String fieldName) {
+        Matcher matcher = pattern.matcher(responseBody);
+        if (!matcher.find()) {
+            throw new IllegalStateException("Login response did not contain " + fieldName + ".");
+        }
+        return matcher.group(1).replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
     public static void generateSensors(String bearerToken) throws Exception {
@@ -67,9 +93,13 @@ public class SensorDashboardPage extends BasePage {
         invokeSensorApi("POST", config.getApiBaseUrl(), config.getApiSensorsGeneratePath(), bearerToken);
     }
 
+    /** Clears all sensor readings via per-type flush endpoints (no unified {@code /api/sensors/flush} on backend). */
     public static void flushSensors(String bearerToken) throws Exception {
         ConfigReader config = new ConfigReader();
-        invokeSensorApi("DELETE", config.getApiBaseUrl(), config.getApiSensorsFlushPath(), bearerToken);
+        String apiBaseUrl = config.getApiBaseUrl();
+        invokeSensorApi("DELETE", apiBaseUrl, "/api/sensors/traffic/flush", bearerToken);
+        invokeSensorApi("DELETE", apiBaseUrl, "/api/sensors/air-pollution/flush", bearerToken);
+        invokeSensorApi("DELETE", apiBaseUrl, "/api/sensors/street-lights/flush", bearerToken);
     }
 
     public void navigateToHome() {
