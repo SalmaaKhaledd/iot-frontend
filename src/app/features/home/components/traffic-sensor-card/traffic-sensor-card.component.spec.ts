@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { TrafficSensorCardComponent } from './traffic-sensor-card.component';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
-import { TrafficSensorReading } from '../../models/sensor-reading.models';
+import { TrafficSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('TrafficSensorCardComponent', () => {
   let component: TrafficSensorCardComponent;

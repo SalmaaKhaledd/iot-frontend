@@ -44,6 +44,12 @@ export const routes: Routes = [
       import('./features/settings/settings').then((m) => m.Settings),
   },
   {
+    path: 'traffic-dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/traffic-dashboard/traffic-dashboard').then((m) => m.TrafficDashboard),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./features/not-found/not-found.component').then(

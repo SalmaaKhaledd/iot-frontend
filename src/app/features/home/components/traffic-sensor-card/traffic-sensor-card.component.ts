@@ -6,14 +6,14 @@ import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import type { TrafficCongestionLevel, TrafficSensorReading } from '../../models/sensor-reading.models';
+import type { TrafficCongestionLevel, TrafficSensorReading } from '../../../../core/models/sensor-reading.models';
 import {
   formatReadingMetaTimestamp,
   formatRelativeWithClock,
   formatTrendBarTime,
   parseReadingTimestamp,
 } from '../../utils/reading-time';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
 
@@ -123,7 +123,7 @@ export class TrafficSensorCardComponent {
       )
       .subscribe({
         next: (readings) => {
-          const items = readings.map((reading) => this.toTrafficSensorItem(reading));
+          const items = readings.content.map((reading) => this.toTrafficSensorItem(reading));
           this.readingHistory.set(items);
           this.selectedReadingIndex.set(0);
           this.isLoading.set(false);
@@ -218,3 +218,4 @@ export class TrafficSensorCardComponent {
     }
   }
 }
+
