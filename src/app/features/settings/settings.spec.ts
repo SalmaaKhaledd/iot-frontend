@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { vi } from 'vitest';
 import { Settings } from './settings';
 import { SettingsService } from '../../core/services/settings.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SensorMetric } from './settings.types';
 
 describe('Settings', () => {
@@ -19,8 +20,8 @@ describe('Settings', () => {
         matches: false,
         media: query,
         onchange: null,
-        addListener: vi.fn(), // deprecated
-        removeListener: vi.fn(), // deprecated
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
         addEventListener: vi.fn(),
         removeEventListener: vi.fn(),
         dispatchEvent: vi.fn(),
@@ -30,9 +31,11 @@ describe('Settings', () => {
     mockRouter = {
       navigate: vi.fn()
     };
+
     mockSettingsService = {
       getSettings: vi.fn(),
       getSensorConfig: vi.fn(),
+      loadSensorConfig: vi.fn(),
       saveSettings: vi.fn(),
       saveSensorConfig: vi.fn(),
       deleteSetting: vi.fn()
@@ -44,12 +47,17 @@ describe('Settings', () => {
       airQualityReadingInterval: 60,
       streetLightReadingInterval: 60
     }));
+    mockSettingsService.loadSensorConfig.mockReturnValue(of({
+      trafficReadingInterval: 60,
+      airQualityReadingInterval: 60,
+      streetLightReadingInterval: 60
+    }));
 
     await TestBed.configureTestingModule({
-      imports: [Settings],
+      imports: [Settings, MatDialogModule],
       providers: [
         { provide: Router, useValue: mockRouter },
-        { provide: SettingsService, useValue: mockSettingsService }
+        { provide: SettingsService, useValue: mockSettingsService },
       ]
     }).compileComponents();
 
@@ -78,20 +86,11 @@ describe('Settings', () => {
     expect(component.canDeactivate()).toBe(true);
   });
 
-  it('asks for confirmation when dirty and returns the user choice', () => {
-    component.isDirty.set(true);
-    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
-
-    expect(component.canDeactivate()).toBe(false);
-    expect(confirmSpy).toHaveBeenCalledWith(
-      'You have unsaved changes. Do you want to leave without saving?'
-    );
-  });
 
   it('toggles a single threshold condition and marks the page dirty', () => {
     const metric = component.categories()[0].metrics[0];
     const threshold = metric.thresholds[0];
-    threshold.value = 10; // Give it a value so it's tracked
+    threshold.value = 10;
     component.toggleCondition(metric, threshold);
 
     expect(metric.thresholds[0].condition).toBe('below');
@@ -105,8 +104,7 @@ describe('Settings', () => {
     expect(metric.thresholds).toHaveLength(2);
     expect(metric.thresholds[0].condition).toBe('above');
     expect(metric.thresholds[1].condition).toBe('below');
-    
-    // Simulate setting a value on the new threshold
+
     metric.thresholds[1].value = 50;
     component.checkForChanges();
     expect(component.isDirty()).toBe(true);

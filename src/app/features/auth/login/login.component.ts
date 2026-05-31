@@ -10,7 +10,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { catchError, finalize, of, switchMap } from 'rxjs';
-
+import { SettingsService } from '../../../core/services/settings.service';
 import { LoginRequest } from '../../../core/models/auth.models';
 import { AuthService } from '../../../core/services/auth.service';
 import { AUTH_VALIDATION } from '../../../core/validation/auth-validation.constants';
@@ -35,7 +35,8 @@ export class LoginComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
-
+  private readonly settingsService = inject(SettingsService);
+  
   errorMessage = '';
   isLoading = false;
   showPassword = false;
@@ -94,7 +95,10 @@ export class LoginComponent {
             }),
           );
         }),
-        finalize(() => this.isLoading.set(false)),
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.markForCheck();
+        })
       )
       .subscribe({
         next: (profileResponse) => {

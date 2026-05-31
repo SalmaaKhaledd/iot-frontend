@@ -18,7 +18,8 @@ describe('TrafficSensorCardComponent', () => {
     };
     mockSettingsService = {
       getSettings: vi.fn(),
-      getSensorConfig: vi.fn()
+      getSensorConfig: vi.fn(),
+      loadSensorConfig: vi.fn()
     };
 
     const mockReadings: TrafficSensorReading[] = [
@@ -32,9 +33,17 @@ describe('TrafficSensorCardComponent', () => {
       }
     ];
 
-    mockSensorService.getTrafficReadings.mockReturnValue(of(mockReadings));
+    mockSensorService.getTrafficReadings.mockReturnValue(of({
+      content: mockReadings,
+      pageNo: 0,
+      pageSize: 20,
+      totalElements: 1,
+      totalPages: 1,
+      last: true
+    }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ trafficReadingInterval: 60 } as any));
+    mockSettingsService.loadSensorConfig.mockReturnValue(of({ trafficReadingInterval: 60 } as any));
 
     await TestBed.configureTestingModule({
       imports: [TrafficSensorCardComponent],
@@ -83,7 +92,7 @@ describe('TrafficSensorCardComponent', () => {
 
     mockEl.scrollIntoView = vi.fn();
     const spy = mockEl.scrollIntoView;
-    
+
     component.onOpenSensorAlerts(mockEvent);
     expect(component.showAlerts()).toBe(true);
 
