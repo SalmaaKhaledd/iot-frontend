@@ -3,6 +3,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  /** Server filesystem path when a picture exists; null otherwise. Not a display URL. */
   profilePicture: string | null;
 }
 
@@ -12,5 +13,6 @@ export interface UserProfileResponse {
   firstName: string;
   lastName: string;
   email: string;
+  /** Server filesystem path when a picture exists; null otherwise. Not a display URL. */
   profilePicture: string | null;
 }

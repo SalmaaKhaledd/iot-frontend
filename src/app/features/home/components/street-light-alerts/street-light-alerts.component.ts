@@ -2,7 +2,7 @@ import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertsService } from '../../../../core/services/alerts.service';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
@@ -156,3 +156,4 @@ export class StreetLightAlertsComponent {
     // Handle hover - show report tooltip
   }
 }
+

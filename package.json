@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --configuration development",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -17,9 +17,12 @@
     "@angular/core": "^21.2.0",
     "@angular/forms": "^21.2.0",
     "@angular/material": "^21.2.8",
+    "@angular/material-moment-adapter": "^21.2.12",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@types/selenium-webdriver": "^4.35.5",
+    "chart.js": "^4.5.1",
+    "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "selenium-webdriver": "^4.43.0",
     "tslib": "^2.3.0"

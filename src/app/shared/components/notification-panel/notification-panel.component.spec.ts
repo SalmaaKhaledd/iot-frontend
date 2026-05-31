@@ -3,56 +3,61 @@ import { Subject, of } from 'rxjs';
 import { vi } from 'vitest';
 import { NotificationPanelComponent } from './notification-panel.component';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
+import { Router } from '@angular/router';
 
 describe('NotificationPanelComponent', () => {
   let component: NotificationPanelComponent;
   let fixture: ComponentFixture<NotificationPanelComponent>;
   let mockAlertsService: any;
   let alertDeletedSubject: Subject<string>;
+  let alertsSubject: Subject<ApiAlert[]>;
+
+  const mockApiAlerts: ApiAlert[] = [
+    {
+      id: 'alert-1',
+      sensorType: 'TRAFFIC',
+      location: 'Main St',
+      metric: 'CONGESTION',
+      triggeredValue: 90,
+      thresholdValue: 80,
+      alertType: 'ABOVE',
+      triggeredAt: new Date().toISOString(),
+      readingId: '123'
+    },
+    {
+      id: 'alert-2',
+      sensorType: 'AIR_POLLUTION',
+      location: 'Downtown',
+      metric: 'CO',
+      triggeredValue: 50,
+      thresholdValue: 40,
+      alertType: 'ABOVE',
+      triggeredAt: new Date().toISOString(),
+      readingId: '124'
+    }
+  ];
 
   beforeEach(async () => {
     alertDeletedSubject = new Subject<string>();
+    alertsSubject = new Subject<ApiAlert[]>();
+
     mockAlertsService = {
-      getAlerts: vi.fn(),
+      getAlerts: vi.fn().mockReturnValue(of(mockApiAlerts)),
+      alerts$: alertsSubject.asObservable(),
       alertDeleted$: alertDeletedSubject.asObservable()
     };
-
-    const mockApiAlerts: ApiAlert[] = [
-      {
-        id: 'alert-1',
-        sensorType: 'TRAFFIC',
-        location: 'Main St',
-        metric: 'CONGESTION',
-        triggeredValue: 90,
-        thresholdValue: 80,
-        alertType: 'ABOVE',
-        triggeredAt: new Date().toISOString(),
-        readingId: '123'
-      },
-      {
-        id: 'alert-2',
-        sensorType: 'AIR_POLLUTION',
-        location: 'Downtown',
-        metric: 'CO',
-        triggeredValue: 50,
-        thresholdValue: 40,
-        alertType: 'ABOVE',
-        triggeredAt: new Date().toISOString(),
-        readingId: '124'
-      }
-    ];
-
-    mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
 
     await TestBed.configureTestingModule({
       imports: [NotificationPanelComponent],
       providers: [
-        { provide: AlertsService, useValue: mockAlertsService }
+        { provide: AlertsService, useValue: mockAlertsService },
+        { provide: Router, useValue: { url: '/home' } }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationPanelComponent);
     component = fixture.componentInstance;
+    alertsSubject.next(mockApiAlerts);
     fixture.detectChanges();
   });
 

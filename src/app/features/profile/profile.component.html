@@ -19,6 +19,7 @@
             class="avatar-image"
             [src]="pendingPreviewUrl || profilePictureSrc"
             alt="Profile picture"
+            (error)="onImageError()"
           />
         } @else {
           <div class="avatar">{{ initials }}</div>
@@ -48,8 +49,10 @@
           Uploading new picture…
         </p>
       }
-      @if (profilePictureError) {
-        <p class="upload-error" role="alert">{{ profilePictureError }}</p>
+      @if (profilePictureError || profilePictureLoadError) {
+        <p class="upload-error" role="alert">
+          {{ profilePictureError || profilePictureLoadError }}
+        </p>
       }
 
       <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>

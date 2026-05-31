@@ -12,8 +12,8 @@ export interface ApiAlert {
   triggeredValue: number;
   thresholdValue: number;
   alertType: 'ABOVE' | 'BELOW';
-  triggeredAt: string;
-  readingId: string | null;
+  triggeredAt: string; //timestamp
+  readingId: string | null; // not in backend response
 }
 
 @Injectable({ providedIn: 'root' })

@@ -3,8 +3,8 @@ import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { StreetLightAlertsComponent } from './street-light-alerts.component';
 import { AlertsService, ApiAlert } from '../../../../core/services/alerts.service';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
-import { StreetLightSensorReading } from '../../models/sensor-reading.models';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
+import { StreetLightSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('StreetLightAlertsComponent', () => {
   let component: StreetLightAlertsComponent;

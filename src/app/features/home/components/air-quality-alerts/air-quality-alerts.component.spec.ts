@@ -3,8 +3,8 @@ import { of } from 'rxjs';
 import { vi } from 'vitest';
 import { AirQualityAlertsComponent } from './air-quality-alerts.component';
 import { AlertsService, ApiAlert } from '../../../../core/services/alerts.service';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
-import { AirPollutionSensorReading } from '../../models/sensor-reading.models';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
+import { AirPollutionSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('AirQualityAlertsComponent', () => {
   let component: AirQualityAlertsComponent;

@@ -11,7 +11,7 @@ const FALLBACK_MESSAGES = {
   badRequest: 'Please review the form and try again.',
   unauthorized: 'Invalid email or password.',
   conflict: 'This email is already registered.',
-  rateLimited: 'Too many requests. Please wait a moment and try again.',
+  rateLimited: 'Too many requests, try again later.',
   serverError: 'Something went wrong with our server, try again later.',
   network: 'Something went wrong with our server, try again later.',
   unknown: 'An unexpected error occurred. Please try again.',
@@ -32,6 +32,14 @@ export function mapAuthError(error: unknown): string {
   if (error instanceof HttpErrorResponse) {
     if (error.status === 0) {
       return FALLBACK_MESSAGES.network;
+    }
+
+    // GET with responseType "blob" returns error bodies as Blob instead of JSON.
+    if (error.error instanceof Blob) {
+      if (error.status === 429) {
+        return FALLBACK_MESSAGES.rateLimited;
+      }
+      return FALLBACK_MESSAGES.unknown;
     }
 
     const apiMessage = extractApiMessage(error.error);

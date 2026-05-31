@@ -32,3 +32,27 @@ export interface StreetLightSensorReading {
   readonly powerConsumption: number;
   readonly status: StreetLightStatus;
 }
+
+export interface PaginatedResponse<T> {
+  readonly content: T[];
+  readonly pageNo: number;
+  readonly pageSize: number;
+  readonly totalElements: number;
+  readonly totalPages: number;
+  readonly last: boolean;
+}
+
+export interface TrafficQueryParams {
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDir?: 'asc' | 'desc';
+  location?: string;
+  minDensity?: number;
+  maxDensity?: number;
+  minSpeed?: number;
+  maxSpeed?: number;
+  congestionLevel?: 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
+  timestampStart?: string;
+  timestampEnd?: string;
+}

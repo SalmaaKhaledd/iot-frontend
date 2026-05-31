@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, effect } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -11,6 +11,7 @@ import {
 
 interface IntervalSettingsResponse {
   id: string;
+  userId?: string;
   trafficInterval: number;
   airPollutionInterval: number;
   streetLightInterval: number;
@@ -18,6 +19,7 @@ interface IntervalSettingsResponse {
 
 interface IntervalSettingsPayload {
   id?: string;
+  userId?: string;
   trafficInterval: number;
   airPollutionInterval: number;
   streetLightInterval: number;
@@ -52,6 +54,24 @@ export class SettingsService {
   private sensorConfigLoaded = false;
   private sensorConfigLoading = false;
 
+  constructor() {
+    effect(() => {
+      if (!this.authService.currentUser()) {
+        this.clearCache();
+      }
+    });
+  }
+
+  clearCache(): void {
+    this.sensorConfigLoaded = false;
+    this.currentIntervalId = null;
+    this.sensorConfigSubject.next(this.defaultSensorConfig);
+    // Clear any potential legacy local storage keys
+    localStorage.removeItem('sensor_config');
+    localStorage.removeItem('sensorConfig');
+    localStorage.removeItem('intervals');
+  }
+
   private toSensorConfig(response: IntervalSettingsResponse): SensorConfiguration {
     this.currentIntervalId = response.id;
 
@@ -65,6 +85,7 @@ export class SettingsService {
   private toPayload(config: SensorConfiguration): IntervalSettingsPayload {
     return {
       ...(this.currentIntervalId ? { id: this.currentIntervalId } : {}),
+      userId: this.authService.getUser()?.id,
       trafficInterval: config.trafficReadingInterval,
       airPollutionInterval: config.airQualityReadingInterval,
       streetLightInterval: config.streetLightReadingInterval,
@@ -79,15 +100,35 @@ export class SettingsService {
     return this.sensorConfigSubject.asObservable();
   }
 
-  loadSensorConfig(): Observable<SensorConfiguration> {
-    if (this.sensorConfigLoaded) {
+  loadSensorConfig(forceReload = false): Observable<SensorConfiguration> {
+    if (this.sensorConfigLoaded && !forceReload) {
       return of(this.sensorConfigSubject.getValue());
     }
 
     this.sensorConfigLoading = true;
 
-    return this.http.get<IntervalSettingsResponse>(`${this.baseUrl}/intervals`).pipe(
-      map((response) => this.toSensorConfig(response)),
+    return this.http.get<any>(`${this.baseUrl}/intervals`).pipe(
+      map((responses) => {
+        const userId = this.authService.getUser()?.id;
+        let userConfig: any = null;
+
+        if (Array.isArray(responses)) {
+          userConfig = responses.find((c: any) => 
+            String(c.userId) === String(userId) || String(c.user_id) === String(userId)
+          );
+        } else if (responses && typeof responses === 'object') {
+          // If the backend returns a single object (authenticated via token), 
+          // we use it. We also verify userId if the backend provides it.
+          if (!responses.userId || String(responses.userId) === String(userId) || String(responses.user_id) === String(userId)) {
+            userConfig = responses;
+          }
+        }
+
+        if (userConfig) {
+          return this.toSensorConfig(userConfig);
+        }
+        return this.defaultSensorConfig;
+      }),
       tap((config) => {
         this.sensorConfigLoaded = true;
         this.sensorConfigSubject.next(config);

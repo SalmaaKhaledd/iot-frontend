@@ -1,0 +1,306 @@
+.dtp-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.dtp-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  background: var(--t-filter-bg);
+  border: 1px solid var(--t-filter-border);
+  border-radius: 8px;
+  color: var(--t-text-primary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  text-align: left;
+
+  &:hover { border-color: var(--sensorix-teal); }
+
+  &.has-value { border-color: var(--sensorix-teal); }
+
+  .open & {
+    border-color: var(--sensorix-teal);
+    box-shadow: 0 0 0 2px rgba(29, 158, 117, 0.15);
+  }
+}
+
+.dtp-icon {
+  font-size: 0.95rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--t-text-muted);
+  flex-shrink: 0;
+}
+
+.dtp-value {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.placeholder { color: var(--t-text-muted); }
+}
+
+// ─── Popup ────────────────────────────────────────────────
+.dtp-popup {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 270px;
+  background: var(--t-card-bg);
+  border: 1px solid var(--sensorix-teal);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: dtp-in 0.15s ease;
+}
+
+@keyframes dtp-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Header ───────────────────────────────────────────────
+.dtp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--t-card-border);
+}
+
+.dtp-month-label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+}
+
+.dtp-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.dtp-today-btn {
+  font-size: 0.7rem;
+  color: var(--sensorix-teal);
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+  margin-right: 0.2rem;
+
+  &:hover { background: rgba(29, 158, 117, 0.1); }
+}
+
+.dtp-nav-btn {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--t-card-border);
+  background: transparent;
+  color: var(--t-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  mat-icon {
+    font-size: 0.9rem;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &:hover {
+    background: var(--t-card-inner);
+    border-color: var(--sensorix-teal);
+  }
+}
+
+// ─── Weekdays ─────────────────────────────────────────────
+.dtp-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0.4rem 0.6rem 0.2rem;
+}
+
+.dtp-weekday {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--t-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+// ─── Day Grid ─────────────────────────────────────────────
+.dtp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  padding: 0.2rem 0.6rem 0.6rem;
+}
+
+.dtp-day {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--t-text-primary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) { background: var(--t-card-inner); }
+
+  &.other-month { color: var(--t-text-muted); opacity: 0.4; }
+
+  &.today {
+    border: 1px solid var(--t-card-border);
+    font-weight: 600;
+  }
+
+  &.selected {
+    background: var(--sensorix-teal);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover { opacity: 0.9; }
+  }
+
+  &.future {
+    color: var(--t-text-muted);
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// ─── Footer ───────────────────────────────────────────────
+.dtp-footer {
+  border-top: 1px solid var(--t-card-border);
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dtp-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dtp-toggle-label {
+  font-size: 0.8rem;
+  color: var(--t-text-secondary);
+}
+
+.dtp-toggle {
+  width: 1.75rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: var(--t-card-border);
+  position: relative;
+  transition: background 0.2s ease;
+
+  &.on { background: var(--sensorix-teal); }
+}
+
+.dtp-toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1rem - 4px);
+  height: calc(1rem - 4px);
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+
+  .on & { transform: translateX(0.75rem); }
+}
+
+// ─── Time Row ─────────────────────────────────────────────
+.dtp-time-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dtp-time-icon {
+  font-size: 0.9rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--t-text-muted);
+  flex-shrink: 0;
+}
+
+.dtp-time-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.dtp-time-segment {
+  width: 100%;
+  background: var(--t-filter-bg);
+  border: 1px solid var(--t-filter-border);
+  border-radius: 6px;
+  padding: 0.25rem 0.3rem;
+  color: var(--t-text-primary);
+  font-size: 0.8rem;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.2s ease;
+
+  &:focus { border-color: var(--sensorix-teal); }
+  &:not(:placeholder-shown) { border-color: var(--sensorix-teal); }
+}
+
+.dtp-time-colon {
+  color: var(--t-text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.dtp-period-toggle {
+  display: flex;
+  border: 1px solid var(--t-filter-border);
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.dtp-period-btn {
+  padding: 0.25rem 0.4rem;
+  border: none;
+  background: transparent;
+  color: var(--t-text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &.active {
+    background: var(--sensorix-teal);
+    color: #fff;
+  }
+
+  &:not(.active):hover {
+    background: var(--t-card-inner);
+    color: var(--t-text-primary);
+  }
+}
