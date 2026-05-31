@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { AuthService } from '../../core/services/auth.service';
+import { ProfilePictureService } from '../../core/services/profile-picture.service';
 import type { User, UserProfileResponse } from '../../core/models/user.model';
 import { ProfileComponent } from './profile.component';
 
@@ -22,7 +24,7 @@ describe('ProfileComponent', () => {
     firstName: 'Farida',
     lastName: 'Khaled',
     email: 'farida@example.com',
-    profilePicture: 'data:image/png;base64,abc',
+    profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
   };
 
   let authServiceSpy: {
@@ -33,6 +35,11 @@ describe('ProfileComponent', () => {
     clearSession: ReturnType<typeof vi.fn>;
     updatePassword: ReturnType<typeof vi.fn>;
     updateProfilePicture: ReturnType<typeof vi.fn>;
+  };
+  let profilePictureServiceSpy: {
+    pictureUrl: ReturnType<typeof signal<string | null>>;
+    loadError: ReturnType<typeof signal<string | null>>;
+    invalidatePictureUrl: ReturnType<typeof vi.fn>;
   };
   let routerSpy: { navigate: ReturnType<typeof vi.fn> };
 
@@ -46,6 +53,11 @@ describe('ProfileComponent', () => {
       updatePassword: vi.fn(),
       updateProfilePicture: vi.fn(),
     };
+    profilePictureServiceSpy = {
+      pictureUrl: signal<string | null>(null),
+      loadError: signal<string | null>(null),
+      invalidatePictureUrl: vi.fn(),
+    };
     routerSpy = {
       navigate: vi.fn().mockResolvedValue(true),
     };
@@ -58,6 +70,10 @@ describe('ProfileComponent', () => {
       imports: [ProfileComponent],
       providers: [
         { provide: AuthService, useValue: authServiceSpy as unknown as AuthService },
+        {
+          provide: ProfilePictureService,
+          useValue: profilePictureServiceSpy as unknown as ProfilePictureService,
+        },
         { provide: Router, useValue: routerSpy },
       ],
     }).compileComponents();
@@ -71,7 +87,7 @@ describe('ProfileComponent', () => {
       firstName: 'Farida',
       lastName: 'Khaled',
       email: 'farida@example.com',
-      profilePicture: 'data:image/png;base64,abc',
+      profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
     });
     expect(authServiceSpy.saveUser).toHaveBeenCalled();
     expect(component.initials).toBe('FK');

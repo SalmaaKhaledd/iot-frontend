@@ -16,6 +16,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertToastComponent } from '../alert-toast/alert-toast.component';
+import { Router } from '@angular/router';
 
 export interface NotificationAlert {
   id: string;
@@ -44,6 +45,7 @@ export class NotificationPanelComponent {
   private readonly alertsService = inject(AlertsService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
 
   readonly isOpen = signal(false);
   readonly expandedAlertId = signal<string | null>(null);
@@ -70,7 +72,9 @@ export class NotificationPanelComponent {
             const currentIds = new Set(this.alerts().map(a => a.id));
             const newAlerts = mappedAlerts.filter(a => !currentIds.has(a.id));
             
-            newAlerts.forEach(alert => {
+            const onHomePage = this.router.url === '/home';
+            if(onHomePage){
+              newAlerts.forEach(alert => {
               this.snackBar.openFromComponent(AlertToastComponent, {
                 data: {
                   title: alert.title,
@@ -85,6 +89,7 @@ export class NotificationPanelComponent {
                 panelClass: ['transparent-snackbar']
               });
             });
+            }
           } else {
             this.isInitialized = true;
           }

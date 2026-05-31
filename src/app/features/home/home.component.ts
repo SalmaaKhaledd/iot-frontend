@@ -87,6 +87,11 @@ export class HomeComponent {
     }
   }
 
+  // Navigation from card in home to dashboard
+  goToDashboard(type: 'traffic' | 'air-quality' | 'street-light'): void {
+    this.router.navigate([`/${type}-dashboard`]);
+  }
+
   handleJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
     const alertType = event.type;
     // Map alert type to sensor ID

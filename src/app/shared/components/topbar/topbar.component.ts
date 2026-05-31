@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { toRenderablePicture } from '../../../core/utils/profile-picture';
+import { ProfilePictureService } from '../../../core/services/profile-picture.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
 import { NotificationPanelComponent } from '../notification-panel/notification-panel.component';
@@ -25,6 +25,7 @@ import { NotificationPanelComponent } from '../notification-panel/notification-p
 })
 export class TopbarComponent {
   private readonly authService = inject(AuthService);
+  private readonly profilePictureService = inject(ProfilePictureService);
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
 
@@ -41,9 +42,12 @@ export class TopbarComponent {
     return `${first}${last}`.toUpperCase() || 'U';
   });
 
-  readonly profilePictureUrl = computed(() =>
-    toRenderablePicture(this.currentUser()?.profilePicture),
-  );
+  readonly profilePictureUrl = this.profilePictureService.pictureUrl;
+  readonly profilePictureLoadError = this.profilePictureService.loadError;
+
+  onImageError(): void {
+    this.profilePictureService.invalidatePictureUrl();
+  }
 
   goHome(): void {
     this.router.navigate(['/home']);

@@ -5,6 +5,7 @@ import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { SettingsService } from '../../../core/services/settings.service';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -13,21 +14,33 @@ describe('LoginComponent', () => {
   let router: Router;
   let authServiceSpy: {
     login: ReturnType<typeof vi.fn>;
+    getMe: ReturnType<typeof vi.fn>;
     saveToken: ReturnType<typeof vi.fn>;
     saveUser: ReturnType<typeof vi.fn>;
+  };
+  let settingsServiceSpy: {
+    loadSensorConfig: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(async () => {
     authServiceSpy = {
       login: vi.fn(),
+      getMe: vi.fn(),
       saveToken: vi.fn(),
       saveUser: vi.fn(),
+    };
+    settingsServiceSpy = {
+      loadSensorConfig: vi.fn().mockReturnValue(of({ categories: [] })),
     };
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
       providers: [
         provideRouter([]),
         { provide: AuthService, useValue: authServiceSpy as unknown as AuthService },
+        {
+          provide: SettingsService,
+          useValue: settingsServiceSpy as unknown as SettingsService,
+        },
       ],
     }).compileComponents();
 
@@ -48,7 +61,7 @@ describe('LoginComponent', () => {
     expect(authServiceSpy.login).not.toHaveBeenCalled();
   });
 
-  it('normalizes email and calls login for a valid form', () => {
+  it('normalizes email and calls login for a valid form', async () => {
     authServiceSpy.login.mockReturnValue(
       of({
         userId: '1',
@@ -59,18 +72,34 @@ describe('LoginComponent', () => {
         message: 'ok',
       }),
     );
+    authServiceSpy.getMe.mockReturnValue(
+      of({
+        userId: '1',
+        email: 'user@example.com',
+        firstName: 'Test',
+        lastName: 'User',
+        profilePicture: 'uploads/profile-pictures/user.jpeg',
+      }),
+    );
     component.loginForm.patchValue({
       email: '  USER@Example.com ',
       password: 'StrongPassword1!',
     });
 
     component.onSubmit();
+    await vi.waitFor(() => expect(router.navigate).toHaveBeenCalled());
 
     expect(authServiceSpy.login).toHaveBeenCalledWith(
       'user@example.com',
       'StrongPassword1!',
     );
     expect(authServiceSpy.saveToken).toHaveBeenCalledWith('token');
+    expect(authServiceSpy.getMe).toHaveBeenCalled();
+    expect(authServiceSpy.saveUser).toHaveBeenCalledWith(
+      expect.objectContaining({
+        profilePicture: 'uploads/profile-pictures/user.jpeg',
+      }),
+    );
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 

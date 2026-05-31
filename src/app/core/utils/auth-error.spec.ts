@@ -51,4 +51,27 @@ describe('mapAuthError', () => {
       'An unexpected error occurred. Please try again.',
     );
   });
+
+  it('returns rate-limit message for 429 with a blob error body', () => {
+    const err = new HttpErrorResponse({
+      status: 429,
+      statusText: 'Too Many Requests',
+      error: new Blob(['{}'], { type: 'application/json' }),
+    });
+
+    expect(mapAuthError(err)).toBe('Too many requests, try again later.');
+  });
+
+  it('prefers API message for 429 with a JSON body', () => {
+    const err = new HttpErrorResponse({
+      status: 429,
+      error: {
+        status: 429,
+        error: 'Too Many Requests',
+        message: 'Too many requests. Please try again later.',
+      },
+    });
+
+    expect(mapAuthError(err)).toBe('Too many requests. Please try again later.');
+  });
 });

@@ -5,8 +5,13 @@ import { switchMap } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import type { StreetLightSensorReading } from '../../models/sensor-reading.models';
-import { SensorReadingsService } from '../../services/sensor-readings.service';
+import type { StreetLightSensorReading } from '../../../../core/models/sensor-reading.models';
+import {
+  formatReadingMetaTimestamp,
+  formatRelativeWithClock,
+  parseReadingTimestamp,
+} from '../../utils/reading-time';
+import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-alerts.component';
 
@@ -52,8 +57,10 @@ export class StreetLightCardComponent {
     if (history.length === 0) return [];
 
     return history.map((reading, index) => {
-      const target = new Date(reading.timestamp);
-      const label = this.formatRelativeTime(target, new Date(now));
+      const target = parseReadingTimestamp(reading.timestamp);
+      const label = target
+        ? formatRelativeWithClock(target, new Date(now))
+        : reading.timestamp;
       return { index, label, reading };
     });
   });
@@ -112,18 +119,7 @@ export class StreetLightCardComponent {
   readonly powerUsage = computed(() => this.selectedReading()?.powerConsumption ?? 0);
 
   formatTimestamp(timestamp: string): string {
-    const parsed = new Date(timestamp);
-    if (Number.isNaN(parsed.getTime())) {
-      return timestamp;
-    }
-
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    }).format(parsed);
+    return formatReadingMetaTimestamp(timestamp);
   }
 
   refresh(): void {
@@ -132,29 +128,6 @@ export class StreetLightCardComponent {
 
   onSelectReading(index: number): void {
     this.selectedReadingIndex.set(index);
-  }
-
-  private formatRelativeTime(date: Date, now: Date): string {
-    const diffMs = now.getTime() - date.getTime();
-    const diffSecs = Math.floor(diffMs / 1000);
-    const diffMins = Math.floor(diffSecs / 60);
-    const diffHours = Math.floor(diffMins / 60);
-
-    if (diffMins < 1) {
-      return 'Just now';
-    } else if (diffMins < 60) {
-      return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-    } else if (diffHours < 24) {
-      return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-    } else {
-      return new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: false,
-      }).format(date);
-    }
   }
 
   @HostListener('window:openSensorAlerts', ['$event'])
@@ -191,3 +164,4 @@ export class StreetLightCardComponent {
     };
   }
 }
+
