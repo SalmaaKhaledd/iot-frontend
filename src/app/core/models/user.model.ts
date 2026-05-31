@@ -7,11 +7,6 @@ export interface User {
   profilePicture: string | null;
 }
 
-export interface AuthResponse {
-  token: string;
-  user: User;
-}
-
 /** Contract response shape for GET /api/user/profile. */
 export interface UserProfileResponse {
   userId: string;

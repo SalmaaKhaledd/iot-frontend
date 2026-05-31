@@ -205,8 +205,8 @@
       <div class="error-message">{{ errorMessage }}</div>
       }
 
-      <button type="submit" [disabled]="isLoading()">
-      {{ isLoading() ? 'Creating account...' : 'Create account' }}
+      <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Creating account...' : 'Create account' }}
       </button>
     </form>
 

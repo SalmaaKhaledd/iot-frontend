@@ -11,14 +11,34 @@
             <class name="com.iot.selenium.tests.SigninTest" />
         </classes>
     </test>
-    <test name="Dashboard Tests">
-        <classes>
-            <class name="com.iot.selenium.tests.DashboardTest" />
-        </classes>
-    </test>
     <test name="User Profile Tests">
         <classes>
             <class name="com.iot.selenium.tests.UserProfileTest" />
+        </classes>
+    </test>
+       <test name="Logout Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.LogoutTest" />
+        </classes>
+    </test>
+    <test name="Settings Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.SettingsTest" />
+        </classes>
+    </test>
+    <test name="Configuration Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.ConfigurationTest" />
+        </classes>
+    </test>
+    <test name="Sensor Dashboard Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.SensorDashboardTest" />
+        </classes>
+    </test>
+    <test name="Alerts &amp; Notifications Tests">
+        <classes>
+            <class name="com.iot.selenium.tests.AlertsTest" />
         </classes>
     </test>
 </suite>

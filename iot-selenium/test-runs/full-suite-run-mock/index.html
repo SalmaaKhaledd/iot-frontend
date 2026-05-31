@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <meta charset='utf-8'>
+  <title>TestNG reports</title>
+
+    <link type="text/css" href="testng-reports1.css" rel="stylesheet" id="ultra" />
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" id="retro" disabled="false"/>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="testng-reports.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      var suiteTableInitFunctions = new Array();
+      var suiteTableData = new Array();
+    </script>
+    <!--
+      <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+     -->
+  </head>
+
+  <body>    <div class="top-banner-root">
+      <span class="top-banner-title-font">Test results</span>
+      <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
+      <br/>
+      <span class="top-banner-font-1">1 suite</span>
+    </div> <!-- top-banner-root -->
+    <div class="navigator-root">
+      <div class="navigator-suite-header">
+        <span>All suites</span>
+        <a href="#" title="Collapse/expand all the suites" class="collapse-all-link">
+          <img src="collapseall.gif" class="collapse-all-icon">
+          </img> <!-- collapse-all-icon -->
+        </a> <!-- collapse-all-link -->
+      </div> <!-- navigator-suite-header -->
+      <div class="suite">
+        <div class="rounded-window">
+          <div class="suite-header light-rounded-window-top">
+            <a href="#" panel-name="suite-Surefire_suite" class="navigator-link">
+              <span class="suite-name border-passed">Surefire suite</span>
+            </a> <!-- navigator-link -->
+          </div> <!-- suite-header light-rounded-window-top -->
+          <div class="navigator-suite-content">
+            <div class="suite-section-title">
+              <span>Info</span>
+            </div> <!-- suite-section-title -->
+            <div class="suite-section-content">
+              <ul>
+                <li>
+                  <a href="#" panel-name="test-xml-Surefire_suite" class="navigator-link ">
+                    <span>[unset file name]</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="testlist-Surefire_suite" class="navigator-link ">
+                    <span class="test-stats">1 test</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="group-Surefire_suite" class="navigator-link ">
+                    <span>0 groups</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="times-Surefire_suite" class="navigator-link ">
+                    <span>Times</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="reporter-Surefire_suite" class="navigator-link ">
+                    <span>Reporter output</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="ignored-methods-Surefire_suite" class="navigator-link ">
+                    <span>Ignored methods</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="chronological-Surefire_suite" class="navigator-link ">
+                    <span>Chronological view</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+              </ul>
+            </div> <!-- suite-section-content -->
+            <div class="result-section">
+              <div class="suite-section-title">
+                <span>Results</span>
+              </div> <!-- suite-section-title -->
+              <div class="suite-section-content">
+                <ul>
+                  <li>
+                    <span class="method-stats">31 methods,   31 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Surefire_suite" class="hide-methods passed suite-Surefire_suite"> (hide)</a> <!-- hide-methods passed suite-Surefire_suite -->
+                      <a href="#" panel-name="suite-Surefire_suite" class="show-methods passed suite-Surefire_suite"> (show)</a> <!-- show-methods passed suite-Surefire_suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Surefire_suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test ...)">testSignin([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, T...)">testSignin([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, T...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticke...)">testSignin([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticke...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Te...)">testSignin([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Te...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j...)">testSignin([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length ...)">testSignin([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Featur...)">testSignin([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Featur...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature ...)">testSignin([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test...)">testSignin([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test ...)">testSignin([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj...)">testSignin([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SigninTest" class="method navigator-link" hash-for-method="testSignin([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Sco...)">testSignin([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Sco...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test...)">testSignup([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, ...)">testSignup([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, ...)">testSignup([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature ...)">testSignup([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Featur...)">testSignup([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Featur...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9...)">testSignup([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature...)">testSignup([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, T...)">testSignup([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, T...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, T...)">testSignup([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, T...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature T...)">testSignup([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature T...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, ...)">testSignup([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, ...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature...)">testSignup([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Fea...)">testSignup([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Fea...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.SignupTest" class="method navigator-link" hash-for-method="testSignup([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h,...)">testSignup([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h,...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.UserProfileTest" class="method navigator-link" hash-for-method="testUserProfile([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #...)">testUserProfile([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.UserProfileTest" class="method navigator-link" hash-for-method="testUserProfile([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket...)">testUserProfile([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.UserProfileTest" class="method navigator-link" hash-for-method="testUserProfile([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to log...)">testUserProfile([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to log...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.UserProfileTest" class="method navigator-link" hash-for-method="testUserProfile([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Fe...)">testUserProfile([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Fe...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.iot.selenium.tests.UserProfileTest" class="method navigator-link" hash-for-method="testUserProfile([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ti...)">testUserProfile([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ti...)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Surefire_suite -->
+                  </li>
+                </ul>
+              </div> <!-- suite-section-content -->
+            </div> <!-- result-section -->
+          </div> <!-- navigator-suite-content -->
+        </div> <!-- rounded-window -->
+      </div> <!-- suite -->
+    </div> <!-- navigator-root -->
+    <div class="wrapper">
+      <div class="main-panel-root">
+        <div panel-name="suite-Surefire_suite" class="panel Surefire_suite">
+          <div class="suite-Surefire_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.iot.selenium.tests.UserProfileTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUserProfile([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #...)">
+                  </a> <!-- testUserProfile([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #...) -->
+                  <span class="method-name">testUserProfile</span>
+                  <span class="parameters">([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #=86c9hj8zp, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Log in
+2. Navigate to /profile
+3. Click back button
+4. Verify URL, Test Data Used=email=john@example.com;password=Password123!, Expected Results=Redirected back to /home. Dashboard visible., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Back button locator: .back-button. Wait for URL to contain /home after click., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUserProfile([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket...)">
+                  </a> <!-- testUserProfile([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket...) -->
+                  <span class="method-name">testUserProfile</span>
+                  <span class="parameters">([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket #=86c9hj8zp, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Log in with valid credentials
+2. Navigate to /profile
+3. Read email element, Test Data Used=email=john@example.com;password=Password123!;expectedEmail=john@example.com, Expected Results=Profile card shows email: john@example.com, Actual Results=, Pass / Fail=, Endpoint=—, Notes=Locator: .profile-card .email confirmed. Uses pre-seeded mock user., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUserProfile([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to log...)">
+                  </a> <!-- testUserProfile([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to log...) -->
+                  <span class="method-name">testUserProfile</span>
+                  <span class="parameters">([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to login, Feature Ticket #=86c9hj8zp, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Clear all cookies/localStorage
+2. Navigate directly to /profile without logging in
+3. Verify redirect, Test Data Used=email=;password=, Expected Results=User redirected to /login. Profile page not accessible without valid token., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Auth guard test. No token in storage → Angular route guard redirects to /login. If /profile loads without auth, file Critical bug., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUserProfile([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Fe...)">
+                  </a> <!-- testUserProfile([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Fe...) -->
+                  <span class="method-name">testUserProfile</span>
+                  <span class="parameters">([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Feature Ticket #=86c9hj8zp, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Log in
+2. On /home, click avatar button
+3. Verify navigation to /profile, Test Data Used=email=john@example.com;password=Password123!, Expected Results=URL changes to /profile. Profile page loads., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Avatar locator: .avatar-button on /home. Wait for URL to contain /profile after click., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testUserProfile([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ti...)">
+                  </a> <!-- testUserProfile([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ti...) -->
+                  <span class="method-name">testUserProfile</span>
+                  <span class="parameters">([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ticket #=86c9hj8zp, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Log in with valid credentials
+2. Navigate to /profile
+3. Read full name element, Test Data Used=email=john@example.com;password=Password123!;expectedName=John Doe, Expected Results=Profile card shows full name: John Doe, Actual Results=, Pass / Fail=, Endpoint=—, Notes=Locator: .profile-card h1 renders "firstName lastName". Uses pre-seeded mock user., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Surefire_suite-class-passed -->
+          <div class="suite-Surefire_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.iot.selenium.tests.SigninTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test ...)">
+                  </a> <!-- testSignin([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test ...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Leave both fields empty
+3. Click Sign In, Test Data Used=email=;password=;expectedError=Email is required., Expected Results=Validation errors shown on both fields. Assert email field shows 'Email is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation on both fields. Angular renders in .field-error. Assert on email field error first., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, T...)">
+                  </a> <!-- testSignin([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, T...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Type 3 spaces in email field
+3. Click Sign In, Test Data Used=email=   ;password=Password123!;expectedError=Email is required., Expected Results=Treated as empty after trim — validation error shown: 'Email is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Confirmed: login.component.ts trims + lowercases before submit. Whitespace-only → empty → 'Email is required.' in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticke...)">
+                  </a> <!-- testSignin([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticke...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter valid email, password 65 chars
+3. Click Sign In, Test Data Used=email=john@example.com;password=Password123!ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidP19A;expectedError=Password must be 64 characters or fewer., Expected Results=Error shown: 'Password must be 64 characters or fewer.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA just-above-max. 65-char password triggers frontend maxLength(64) validator before API call. .field-error fires client-side — mock not reached., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Te...)">
+                  </a> <!-- testSignin([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Te...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter valid email, leave password blank
+3. Click Sign In, Test Data Used=email=john@example.com;password=;expectedError=Password is required., Expected Results=Validation error shown on password field: 'Password is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j...)">
+                  </a> <!-- testSignin([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Open /login
+2. Enter valid email and password
+3. Click Sign In, Test Data Used=email=john@example.com;password=Password123!, Expected Results=Redirected to /home. Dashboard greeting visible., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Happy path. Uses mock user john@example.com / Password123!, Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length ...)">
+                  </a> <!-- testSignin([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length ...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length block), Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Positive, Steps to Reproduce=1. Open /login
+2. Enter valid email, password exactly 64 chars
+3. Click Sign In, Test Data Used=email=john@example.com;password=Password123!, Expected Results=Redirected to /home. Login succeeds., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Login form has maxLength(64) validator but no minLength. This confirms a normal valid login is not blocked by any length validator. BVA note: a true 64-char account does not exist in mock — this verifies the happy path is unaffected by length validators., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Featur...)">
+                  </a> <!-- testSignin([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Featur...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter valid email, 7-char password that fails backend auth
+3. Click Sign In, Test Data Used=email=john@example.com;password=Val@1Px;expectedError=password must be at least 8 characters long, Expected Results=Validation error shown: 'password must be at least 8 characters long', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Login form DOES have frontend minLength(8) validator. Error in .field-error not .error-message., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature ...)">
+                  </a> <!-- testSignin([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature ...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Positive, Steps to Reproduce=1. Open /login
+2. Enter valid email, password exactly 8 chars
+3. Click Sign In, Test Data Used=email=john@example.com;password=Password123!, Expected Results=Redirected to /home. Login succeeds., Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA lower boundary. Password123! is 10 chars — well above 8. Login uses mock user. Frontend maxLength check: 8 is min, mock accepts. Note: login has no minLength frontend validator — this tests that a short-ish valid password works end-to-end., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test...)">
+                  </a> <!-- testSignin([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter email that does not exist in DB
+3. Click Sign In, Test Data Used=email=notregistered.xyz@example.com;password=Password123!;expectedError=Invalid email or password., Expected Results=Error shown: 'Invalid email or password.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=, Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test ...)">
+                  </a> <!-- testSignin([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test ...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Leave email blank, enter valid password
+3. Click Sign In, Test Data Used=email=;password=Password123!;expectedError=Email is required., Expected Results=Validation error shown on email field: 'Email is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj...)">
+                  </a> <!-- testSignin([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter email without @ symbol
+3. Click Sign In, Test Data Used=email=notanemail;password=Password123!;expectedError=Please enter a valid email address., Expected Results=Email format validation error shown: 'Please enter a valid email address.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignin([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Sco...)">
+                  </a> <!-- testSignin([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Sco...) -->
+                  <span class="method-name">testSignin</span>
+                  <span class="parameters">([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /login
+2. Enter valid email, wrong password
+3. Click Sign In, Test Data Used=email=john@example.com;password=WrongPass@1;expectedError=Invalid email or password., Expected Results=Stays on /login. Error shown in .error-message: 'Invalid email or password.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=API error (401). Angular renders in .error-message. Mock returns 401 for wrong password., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Surefire_suite-class-passed -->
+          <div class="suite-Surefire_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.iot.selenium.tests.SignupTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test...)">
+                  </a> <!-- testSignup([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Leave email blank, fill rest valid
+3. Click Sign Up, Test Data Used=email=;firstName=Test;lastName=User;password=ValidP@1;confirmPassword=ValidP@1;expectedError=Email is required., Expected Results=Validation error on email: 'Email is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, ...)">
+                  </a> <!-- testSignup([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, ...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Leave firstName blank, fill rest valid
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=;lastName=User;password=ValidP@1;confirmPassword=ValidP@1;expectedError=First name is required., Expected Results=Validation error on firstName: 'First name is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, ...)">
+                  </a> <!-- testSignup([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, ...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Register successfully with email X
+2. Register again with same email X
+3. Observe, Test Data Used=email=john@example.com;firstName=Test;lastName=User;password=ValidP@1;confirmPassword=ValidP@1;expectedError=Email already exists., Expected Results=Error shown in .error-message: 'Email already exists.' (mock returns exact string from 409 error.message)., Actual Results=, Pass / Fail=, Endpoint=—, Notes=409 from mock. error.message = 'Email already exists.' Angular renders in .error-message. john@example.com is pre-seeded in mockUsers — no prior test needed. Safe to run in any order., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature ...)">
+                  </a> <!-- testSignup([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature ...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Positive, Steps to Reproduce=1. Open /signup
+2. Fill all fields, password = exactly 8 chars
+3. Click Sign Up, Test Data Used=email=test.bva8@example.com;firstName=Test;lastName=BVA;password=ValidP@1;confirmPassword=ValidP@1, Expected Results=Registration succeeds., Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA lower boundary. 8 chars exact minimum. Separate email to avoid 409., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Featur...)">
+                  </a> <!-- testSignup([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Featur...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Fill all fields, password = 65 chars
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=User;password=ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPassA;confirmPassword=ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPassA;expectedError=Password must be 64 characters or fewer., Expected Results=Error shown: 'Password must be 64 characters or fewer.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA just-above-max. Exactly 65 chars (one over 64-char max). Angular renders in .field-error. Password: ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPassA, Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9...)">
+                  </a> <!-- testSignup([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Positive, Steps to Reproduce=1. Open /signup
+2. Fill all fields with valid data
+3. Click Create account, Test Data Used=email=test.selenium@example.com;firstName=Test;lastName=User;password=ValidP@1;confirmPassword=ValidP@1, Expected Results=User redirected to /home immediately. No success message on /signup page., Actual Results=, Pass / Fail=, Endpoint=—, Notes=Happy path. Mock accepts any new email. Stores user in-memory. Auto-login after register succeeds., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature...)">
+                  </a> <!-- testSignup([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Fill all fields, password = 7 chars
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=User;password=Val@1Px;confirmPassword=Val@1Px;expectedError=Password must be at least 8 characters., Expected Results=Password error: 'Password must be at least 8 characters.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA just-below-min. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, T...)">
+                  </a> <!-- testSignup([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, T...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Leave password blank, fill rest valid
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=User;password=;confirmPassword=;expectedError=Password is required., Expected Results=Validation error on password: 'Password is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, T...)">
+                  </a> <!-- testSignup([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, T...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Leave lastName blank, fill rest valid
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=;password=ValidP@1;confirmPassword=ValidP@1;expectedError=Last name is required., Expected Results=Validation error on lastName: 'Last name is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature T...)">
+                  </a> <!-- testSignup([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature T...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Enter password with no special char
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=User;password=ValidPass1;confirmPassword=ValidPass1;expectedError=Use uppercase, lowercase, number, and one of @ $ ! % * ? &., Expected Results=Password char rule error: 'Use uppercase, lowercase, number, and one of @ $ ! % * ? &.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=EP char-rule partition. Angular renders in .field-error. Frontend message is shorter than API contract message — assert frontend text, not API text., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, ...)">
+                  </a> <!-- testSignup([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, ...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Enter email without @ symbol
+3. Click Sign Up, Test Data Used=email=notanemail;firstName=Test;lastName=User;password=ValidP@1;confirmPassword=ValidP@1;expectedError=Please enter a valid email., Expected Results=Email format error: 'Please enter a valid email.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation. Angular renders in .field-error. Note: signup message differs from login (no "address")., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature...)">
+                  </a> <!-- testSignup([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + Boundary (BVA), Test Type=Positive, Steps to Reproduce=1. Open /signup
+2. Fill all fields, password = exactly 64 chars
+3. Click Sign Up, Test Data Used=email=test.bva64@example.com;firstName=Test;lastName=BVA;password=ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass;confirmPassword=ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass1@ValidPass, Expected Results=Registration succeeds. User redirected to /home., Actual Results=, Pass / Fail=, Endpoint=—, Notes=BVA upper boundary. 64 chars exact maximum. Separate email to avoid 409. Mock accepts new email., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Fea...)">
+                  </a> <!-- testSignup([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Fea...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Fill all fields, enter different value in confirmPassword
+3. Click Sign Up, Test Data Used=email=test.sensorix@example.com;firstName=Test;lastName=User;password=ValidP@1;confirmPassword=Different@1;expectedError=Passwords do not match., Expected Results=Validation error shown on confirmPassword field: 'Passwords do not match.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Frontend-only validator. Angular renders in .field-error. Confirmed error text: 'Passwords do not match.' Never hits API., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testSignup([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h,...)">
+                  </a> <!-- testSignup([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h,...) -->
+                  <span class="method-name">testSignup</span>
+                  <span class="parameters">([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h, Test Scope=FE, Test Level=System, Test Technique=Automated + EP, Test Type=Negative, Steps to Reproduce=1. Open /signup
+2. Leave all fields empty
+3. Click Sign Up, Test Data Used=email=;firstName=;lastName=;password=;confirmPassword=;expectedError=Email is required., Expected Results=All required field errors shown. Assert email field shows 'Email is required.', Actual Results=, Pass / Fail=, Endpoint=—, Notes=Field validation on all fields. Angular renders in .field-error. Assert on email field error first., Status=New}])</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Surefire_suite-class-passed -->
+        </div> <!-- panel Surefire_suite -->
+        <div panel-name="test-xml-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite name=&quot;Surefire suite&quot; verbose=&quot;0&quot;&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;Surefire test&quot; verbose=&quot;0&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;com.iot.selenium.tests.UserProfileTest&quot;/&gt;
+      &lt;class name=&quot;com.iot.selenium.tests.SigninTest&quot;/&gt;
+      &lt;class name=&quot;com.iot.selenium.tests.SignupTest&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- Surefire test --&gt;
+&lt;/suite&gt; &lt;!-- Surefire suite --&gt;
+            </pre>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="testlist-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Tests for Surefire suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <ul>
+              <li>
+                <span class="test-name">Surefire test (3 classes)</span>
+              </li>
+            </ul>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="group-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Groups for Surefire suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="times-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Times for Surefire suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="times-div">
+              <script type="text/javascript">
+suiteTableInitFunctions.push('tableData_Surefire_suite');
+function tableData_Surefire_suite() {
+var data = new google.visualization.DataTable();
+data.addColumn('number', 'Number');
+data.addColumn('string', 'Method');
+data.addColumn('string', 'Class');
+data.addColumn('number', 'Time (ms)');
+data.addRows(31);
+data.setCell(0, 0, 0)
+data.setCell(0, 1, 'testSignup')
+data.setCell(0, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(0, 3, 4275);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'testUserProfile')
+data.setCell(1, 2, 'com.iot.selenium.tests.UserProfileTest')
+data.setCell(1, 3, 4275);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testSignin')
+data.setCell(2, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(2, 3, 4163);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'testSignin')
+data.setCell(3, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(3, 3, 4124);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'testSignin')
+data.setCell(4, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(4, 3, 4053);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'testSignin')
+data.setCell(5, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(5, 3, 2948);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'testSignup')
+data.setCell(6, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(6, 3, 2384);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'testSignin')
+data.setCell(7, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(7, 3, 2329);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'testUserProfile')
+data.setCell(8, 2, 'com.iot.selenium.tests.UserProfileTest')
+data.setCell(8, 3, 2126);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'testSignup')
+data.setCell(9, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(9, 3, 2109);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'testSignup')
+data.setCell(10, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(10, 3, 2109);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'testSignup')
+data.setCell(11, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(11, 3, 2084);
+data.setCell(12, 0, 12)
+data.setCell(12, 1, 'testSignup')
+data.setCell(12, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(12, 3, 2081);
+data.setCell(13, 0, 13)
+data.setCell(13, 1, 'testUserProfile')
+data.setCell(13, 2, 'com.iot.selenium.tests.UserProfileTest')
+data.setCell(13, 3, 2043);
+data.setCell(14, 0, 14)
+data.setCell(14, 1, 'testSignin')
+data.setCell(14, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(14, 3, 1954);
+data.setCell(15, 0, 15)
+data.setCell(15, 1, 'testUserProfile')
+data.setCell(15, 2, 'com.iot.selenium.tests.UserProfileTest')
+data.setCell(15, 3, 1733);
+data.setCell(16, 0, 16)
+data.setCell(16, 1, 'testSignin')
+data.setCell(16, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(16, 3, 1728);
+data.setCell(17, 0, 17)
+data.setCell(17, 1, 'testSignin')
+data.setCell(17, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(17, 3, 1490);
+data.setCell(18, 0, 18)
+data.setCell(18, 1, 'testSignin')
+data.setCell(18, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(18, 3, 1264);
+data.setCell(19, 0, 19)
+data.setCell(19, 1, 'testSignup')
+data.setCell(19, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(19, 3, 1236);
+data.setCell(20, 0, 20)
+data.setCell(20, 1, 'testSignup')
+data.setCell(20, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(20, 3, 1077);
+data.setCell(21, 0, 21)
+data.setCell(21, 1, 'testSignup')
+data.setCell(21, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(21, 3, 1070);
+data.setCell(22, 0, 22)
+data.setCell(22, 1, 'testSignup')
+data.setCell(22, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(22, 3, 1069);
+data.setCell(23, 0, 23)
+data.setCell(23, 1, 'testSignup')
+data.setCell(23, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(23, 3, 1068);
+data.setCell(24, 0, 24)
+data.setCell(24, 1, 'testSignup')
+data.setCell(24, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(24, 3, 1065);
+data.setCell(25, 0, 25)
+data.setCell(25, 1, 'testSignup')
+data.setCell(25, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(25, 3, 1052);
+data.setCell(26, 0, 26)
+data.setCell(26, 1, 'testSignup')
+data.setCell(26, 2, 'com.iot.selenium.tests.SignupTest')
+data.setCell(26, 3, 1033);
+data.setCell(27, 0, 27)
+data.setCell(27, 1, 'testSignin')
+data.setCell(27, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(27, 3, 1018);
+data.setCell(28, 0, 28)
+data.setCell(28, 1, 'testSignin')
+data.setCell(28, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(28, 3, 993);
+data.setCell(29, 0, 29)
+data.setCell(29, 1, 'testSignin')
+data.setCell(29, 2, 'com.iot.selenium.tests.SigninTest')
+data.setCell(29, 3, 930);
+data.setCell(30, 0, 30)
+data.setCell(30, 1, 'testUserProfile')
+data.setCell(30, 2, 'com.iot.selenium.tests.UserProfileTest')
+data.setCell(30, 3, 781);
+window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
+return data;
+}
+              </script>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <div id="times-div-Surefire_suite">
+              </div> <!-- times-div-Surefire_suite -->
+            </div> <!-- times-div -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="reporter-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Reporter output for Surefire suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="ignored-methods-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">0 ignored methods</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="chronological-Surefire_suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Methods in chronological order</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.iot.selenium.tests.UserProfileTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">3550 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUserProfile([{tc_id=TC-P01, Test Case Name=Selenium Profile — displays correct user name after login, Feature Ti...)</span>
+                <span class="method-start">3553 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">7831 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">7931 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">9486 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUserProfile([{tc_id=TC-P02, Test Case Name=Selenium Profile — displays correct email after login, Feature Ticket...)</span>
+                <span class="method-start">9487 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">11530 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">11639 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">13262 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUserProfile([{tc_id=TC-P03, Test Case Name=Selenium Profile — back button returns to dashboard, Feature Ticket #...)</span>
+                <span class="method-start">13263 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">14996 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">15094 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">16136 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUserProfile([{tc_id=TC-P04, Test Case Name=Selenium Profile — avatar click on dashboard navigates to profile, Fe...)</span>
+                <span class="method-start">16136 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">18263 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">18388 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testUserProfile([{tc_id=TC-P05, Test Case Name=Selenium Profile — unauthenticated direct navigation redirects to log...)</span>
+                <span class="method-start">19362 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">19362 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">20146 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.iot.selenium.tests.SigninTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">20432 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">21548 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L01, Test Case Name=Selenium Valid Login — correct credentials, Feature Ticket #=86c9hj8j...)</span>
+                <span class="method-start">21549 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">23503 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">23600 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L02, Test Case Name=Selenium Login — password at exact minimum length (8 chars), Feature ...)</span>
+                <span class="method-start">24450 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">24450 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">26781 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">26877 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">28550 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L03, Test Case Name=Selenium Login — wrong password, Feature Ticket #=86c9hj8j1, Test Sco...)</span>
+                <span class="method-start">28551 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">32715 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">32810 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L04, Test Case Name=Selenium Login — empty email field, Feature Ticket #=86c9hj8j1, Test ...)</span>
+                <span class="method-start">33981 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">33981 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">35246 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">35341 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">36138 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L05, Test Case Name=Selenium Login — empty password field, Feature Ticket #=86c9hj8j1, Te...)</span>
+                <span class="method-start">36139 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">37158 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">37255 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">38093 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L06, Test Case Name=Selenium Login — both fields empty, Feature Ticket #=86c9hj8j1, Test ...)</span>
+                <span class="method-start">38093 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">39023 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">39112 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L07, Test Case Name=Selenium Login — malformed email (missing @), Feature Ticket #=86c9hj...)</span>
+                <span class="method-start">39927 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">39927 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">41655 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">41747 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">42426 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L08, Test Case Name=Selenium Login — whitespace-only email, Feature Ticket #=86c9hj8j1, T...)</span>
+                <span class="method-start">42427 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">45376 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">45466 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">46280 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L09, Test Case Name=Selenium Login — password 7 chars below minimum (backend 401), Featur...)</span>
+                <span class="method-start">46281 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">50335 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">50434 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">51175 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L10, Test Case Name=Selenium Login — unregistered email, Feature Ticket #=86c9hj8j1, Test...)</span>
+                <span class="method-start">51176 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">55302 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">55398 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">56278 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L11, Test Case Name=Selenium Login — valid credentials reach backend (no frontend length ...)</span>
+                <span class="method-start">56279 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">57771 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">57920 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">58800 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignin([{tc_id=TC-L12, Test Case Name=Selenium Login — password 65 chars (one above maximum), Feature Ticke...)</span>
+                <span class="method-start">58800 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">59794 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">com.iot.selenium.tests.SignupTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">59929 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S01, Test Case Name=Selenium Valid Registration — all fields valid, Feature Ticket #=86c9...)</span>
+                <span class="method-start">60595 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">60595 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">62680 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">62785 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">63615 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S02, Test Case Name=Selenium Registration — password at exact minimum (8 chars), Feature ...)</span>
+                <span class="method-start">63616 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">65698 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">65798 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S03, Test Case Name=Selenium Registration — empty email, Feature Ticket #=86c9hj78h, Test...)</span>
+                <span class="method-start">66500 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">66500 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">67577 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">67671 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">68509 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S04, Test Case Name=Selenium Registration — empty firstName, Feature Ticket #=86c9hj78h, ...)</span>
+                <span class="method-start">68510 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">69580 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">69668 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">70326 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S05, Test Case Name=Selenium Registration — empty lastName, Feature Ticket #=86c9hj78h, T...)</span>
+                <span class="method-start">70327 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">72713 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">72812 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">73676 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S06, Test Case Name=Selenium Registration — empty password, Feature Ticket #=86c9hj78h, T...)</span>
+                <span class="method-start">73677 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">74745 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">74833 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S07, Test Case Name=Selenium Registration — all fields empty, Feature Ticket #=86c9hj78h,...)</span>
+                <span class="method-start">75493 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">75493 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">76526 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">76618 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S08, Test Case Name=Selenium Registration — malformed email, Feature Ticket #=86c9hj78h, ...)</span>
+                <span class="method-start">77426 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">77426 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">79535 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">79625 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">80403 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S09, Test Case Name=Selenium Registration — duplicate email, Feature Ticket #=86c9hj78h, ...)</span>
+                <span class="method-start">80404 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">84681 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">84781 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">85633 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S10, Test Case Name=Selenium Registration — password 7 chars (one below minimum), Feature...)</span>
+                <span class="method-start">85633 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">86699 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">86791 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">87492 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S11, Test Case Name=Selenium Registration — password missing special character, Feature T...)</span>
+                <span class="method-start">87492 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">88544 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">88643 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">89442 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S12, Test Case Name=Selenium Registration — confirm password does not match password, Fea...)</span>
+                <span class="method-start">89443 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">90512 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">90603 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">91291 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S13, Test Case Name=Selenium Registration — password at exact maximum (64 chars), Feature...)</span>
+                <span class="method-start">91291 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">93401 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">93502 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">initWait</span>
+                <span class="method-start">94326 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testSignup([{tc_id=TC-S14, Test Case Name=Selenium Registration — password 65 chars (one above maximum), Featur...)</span>
+                <span class="method-start">94326 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">95563 ms</span>
+              </div> <!-- configuration-method after -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+      </div> <!-- main-panel-root -->
+    </div> <!-- wrapper -->
+  </body>
+<script type="text/javascript" src="testng-reports2.js"></script>
+</html>
