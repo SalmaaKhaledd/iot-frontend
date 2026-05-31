@@ -8,7 +8,6 @@ import {
   OnDestroy,
   ViewChild,
   inject,
-  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -62,7 +61,7 @@ export class SignupComponent implements OnDestroy {
   showConfirmPassword = false;
   private selectedFile: File | null = null;
   private objectPreviewUrl: string | null = null;
-  isLoading = signal(false);
+  isLoading = false;
   submitted = false;
 
   readonly signupForm = this.formBuilder.group(
@@ -154,7 +153,7 @@ export class SignupComponent implements OnDestroy {
 
     this.selectedProfilePictureName = file.name;
     this.clearPreviewUrl();
-    this.objectPreviewUrl = URL.createObjectURL(file);
+    this.objectPreviewUrl = URL.createObjectURL(file); 
     this.profilePicturePreviewUrl = this.objectPreviewUrl;
     // We do not need to convert to base64 anymore
     this.signupForm.patchValue({ profilePicture: file.name });
@@ -199,7 +198,7 @@ export class SignupComponent implements OnDestroy {
     }
 
     this.errorMessage = '';
-    this.isLoading.set(true);
+    this.isLoading = true;
 
     const formValue = this.signupForm.getRawValue();
     const payload: RegisterRequest = {
@@ -243,6 +242,7 @@ export class SignupComponent implements OnDestroy {
       .subscribe({
         next: () => {
           this.router.navigate(['/home']);
+          this.changeDetectorRef.markForCheck();
         },
         error: (error: unknown) => {
           this.errorMessage = error instanceof Error && error.message.includes('Invalid email') 

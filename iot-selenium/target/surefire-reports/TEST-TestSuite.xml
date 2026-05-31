@@ -1,109 +1,545 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="18.572" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="215.046" tests="127" errors="0" skipped="2" failures="0">
   <properties>
-    <property name="java.specification.version" value="21"/>
-    <property name="webdriver.chrome.driver" value="C:\Users\aliba\.cache\selenium\chromedriver\win64\147.0.7727.117\chromedriver.exe"/>
-    <property name="sun.cpu.isalist" value="amd64"/>
-    <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\aliba\Desktop\Frontend\iot-selenium\target\test-classes;C:\Users\aliba\Desktop\Frontend\iot-selenium\target\classes;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-java\4.27.0\selenium-java-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-api\4.27.0\selenium-api-4.27.0.jar;C:\Users\aliba\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.27.0\selenium-chrome-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.27.0\selenium-chromium-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-json\4.27.0\selenium-json-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.27.0\selenium-manager-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v129\4.27.0\selenium-devtools-v129-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v130\4.27.0\selenium-devtools-v130-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v131\4.27.0\selenium-devtools-v131-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.27.0\selenium-devtools-v85-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.27.0\selenium-edge-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.27.0\selenium-firefox-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-http\4.27.0\selenium-http-4.27.0.jar;C:\Users\aliba\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.27.0\selenium-ie-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.27.0\selenium-remote-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\com\google\guava\guava\33.3.1-jre\guava-33.3.1-jre.jar;C:\Users\aliba\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\aliba\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\aliba\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\aliba\.m2\repository\org\checkerframework\checker-qual\3.43.0\checker-qual-3.43.0.jar;C:\Users\aliba\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-api\1.44.1\opentelemetry-api-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-context\1.44.1\opentelemetry-context-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.44.1\opentelemetry-exporter-logging-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.44.1\opentelemetry-sdk-common-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.44.1\opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.44.1\opentelemetry-sdk-extension-autoconfigure-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.44.1-alpha\opentelemetry-api-incubator-1.44.1-alpha.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.44.1\opentelemetry-sdk-trace-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.44.1\opentelemetry-sdk-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.44.1\opentelemetry-sdk-metrics-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.44.1\opentelemetry-sdk-logs-1.44.1.jar;C:\Users\aliba\.m2\repository\net\bytebuddy\byte-buddy\1.15.10\byte-buddy-1.15.10.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-os\4.27.0\selenium-os-4.27.0.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.27.0\selenium-safari-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-support\4.27.0\selenium-support-4.27.0.jar;C:\Users\aliba\.m2\repository\org\testng\testng\7.11.0\testng-7.11.0.jar;C:\Users\aliba\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\aliba\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\aliba\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\aliba\.m2\repository\io\github\bonigarcia\webdrivermanager\5.9.2\webdrivermanager-5.9.2.jar;C:\Users\aliba\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\aliba\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java\3.4.0\docker-java-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-core\3.4.0\docker-java-core-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-api\3.4.0\docker-java-api-3.4.0.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.3\jackson-annotations-2.10.3.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.3\jackson-databind-2.10.3.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.3\jackson-core-2.10.3.jar;C:\Users\aliba\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.4.0\docker-java-transport-httpclient5-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-transport\3.4.0\docker-java-transport-3.4.0.jar;C:\Users\aliba\.m2\repository\net\java\dev\jna\jna\5.13.0\jna-5.13.0.jar;C:\Users\aliba\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-lang3\3.15.0\commons-lang3-3.15.0.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-compress\1.26.2\commons-compress-1.26.2.jar;C:\Users\aliba\.m2\repository\commons-codec\commons-codec\1.17.0\commons-codec-1.17.0.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.2.1\httpclient5-5.2.1.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2\httpcore5-5.2.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2\httpcore5-h2-5.2.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi-ooxml\5.4.1\poi-ooxml-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi\5.4.1\poi-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\aliba\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi-ooxml-lite\5.4.1\poi-ooxml-lite-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\xmlbeans\xmlbeans\5.3.0\xmlbeans-5.3.0.jar;C:\Users\aliba\.m2\repository\commons-io\commons-io\2.18.0\commons-io-2.18.0.jar;C:\Users\aliba\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;C:\Users\aliba\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.version" value="25"/>
+    <property name="webdriver.chrome.driver" value="/Users/salma_khaled/.cache/selenium/chromedriver/mac-arm64/148.0.7778.167/chromedriver"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/salma_khaled/iot-frontend/iot-selenium/target/test-classes:/Users/salma_khaled/iot-frontend/iot-selenium/target/classes:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-java/4.27.0/selenium-java-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-api/4.27.0/selenium-api-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.27.0/selenium-chrome-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.27.0/selenium-chromium-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-json/4.27.0/selenium-json-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.27.0/selenium-manager-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v129/4.27.0/selenium-devtools-v129-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v130/4.27.0/selenium-devtools-v130-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v131/4.27.0/selenium-devtools-v131-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.27.0/selenium-devtools-v85-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.27.0/selenium-edge-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.27.0/selenium-firefox-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-http/4.27.0/selenium-http-4.27.0.jar:/Users/salma_khaled/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.27.0/selenium-ie-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.27.0/selenium-remote-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/com/google/guava/guava/33.3.1-jre/guava-33.3.1-jre.jar:/Users/salma_khaled/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/salma_khaled/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/salma_khaled/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/salma_khaled/.m2/repository/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.jar:/Users/salma_khaled/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/semconv/opentelemetry-semconv/1.25.0-alpha/opentelemetry-semconv-1.25.0-alpha.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-api/1.44.1/opentelemetry-api-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-context/1.44.1/opentelemetry-context-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.44.1/opentelemetry-exporter-logging-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.44.1/opentelemetry-sdk-common-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.44.1/opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.44.1/opentelemetry-sdk-extension-autoconfigure-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-api-incubator/1.44.1-alpha/opentelemetry-api-incubator-1.44.1-alpha.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.44.1/opentelemetry-sdk-trace-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.44.1/opentelemetry-sdk-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.44.1/opentelemetry-sdk-metrics-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.44.1/opentelemetry-sdk-logs-1.44.1.jar:/Users/salma_khaled/.m2/repository/net/bytebuddy/byte-buddy/1.15.10/byte-buddy-1.15.10.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-os/4.27.0/selenium-os-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-exec/1.4.0/commons-exec-1.4.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.27.0/selenium-safari-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-support/4.27.0/selenium-support-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/testng/testng/7.11.0/testng-7.11.0.jar:/Users/salma_khaled/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/salma_khaled/.m2/repository/org/jcommander/jcommander/1.83/jcommander-1.83.jar:/Users/salma_khaled/.m2/repository/org/webjars/jquery/3.7.1/jquery-3.7.1.jar:/Users/salma_khaled/.m2/repository/io/github/bonigarcia/webdrivermanager/5.9.2/webdrivermanager-5.9.2.jar:/Users/salma_khaled/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/Users/salma_khaled/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java/3.4.0/docker-java-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-core/3.4.0/docker-java-core-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-api/3.4.0/docker-java-api-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.10.3/jackson-annotations-2.10.3.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.3/jackson-databind-2.10.3.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.3/jackson-core-2.10.3.jar:/Users/salma_khaled/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.30/jcl-over-slf4j-1.7.30.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-transport-httpclient5/3.4.0/docker-java-transport-httpclient5-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-transport/3.4.0/docker-java-transport-3.4.0.jar:/Users/salma_khaled/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/Users/salma_khaled/.m2/repository/org/brotli/dec/0.1.2/dec-0.1.2.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-lang3/3.15.0/commons-lang3-3.15.0.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.jar:/Users/salma_khaled/.m2/repository/commons-codec/commons-codec/1.17.0/commons-codec-1.17.0.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.2/httpcore5-5.2.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.2/httpcore5-h2-5.2.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi-ooxml/5.4.1/poi-ooxml-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi/5.4.1/poi-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/salma_khaled/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi-ooxml-lite/5.4.1/poi-ooxml-lite-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/xmlbeans/xmlbeans/5.3.0/xmlbeans-5.3.0.jar:/Users/salma_khaled/.m2/repository/commons-io/commons-io/2.18.0/commons-io-2.18.0.jar:/Users/salma_khaled/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/salma_khaled/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="user.timezone" value="Africa/Cairo"/>
-    <property name="os.name" value="Windows 10"/>
-    <property name="java.vm.specification.version" value="21"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="25"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="user.country" value="US"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\aliba\AppData\Local\Temp\surefire6488468079275038265\surefirebooter-20260504035104610_3.jar C:\Users\aliba\AppData\Local\Temp\surefire6488468079275038265 2026-05-04T03-51-04_472-jvmRun1 surefire-20260504035104610_1tmp surefire_0-20260504035104610_2tmp"/>
+    <property name="user.country" value="EG"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/salma_khaled/iot-frontend/iot-selenium/target/surefire/surefirebooter-20260517135438440_3.jar /Users/salma_khaled/iot-frontend/iot-selenium/target/surefire 2026-05-17T13-54-38_385-jvmRun1 surefire-20260517135438440_1tmp surefire_0-20260517135438440_2tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\aliba\Desktop\Frontend\iot-selenium\target\test-classes;C:\Users\aliba\Desktop\Frontend\iot-selenium\target\classes;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-java\4.27.0\selenium-java-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-api\4.27.0\selenium-api-4.27.0.jar;C:\Users\aliba\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.27.0\selenium-chrome-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.27.0\selenium-chromium-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-json\4.27.0\selenium-json-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.27.0\selenium-manager-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v129\4.27.0\selenium-devtools-v129-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v130\4.27.0\selenium-devtools-v130-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v131\4.27.0\selenium-devtools-v131-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.27.0\selenium-devtools-v85-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.27.0\selenium-edge-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.27.0\selenium-firefox-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-http\4.27.0\selenium-http-4.27.0.jar;C:\Users\aliba\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.27.0\selenium-ie-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.27.0\selenium-remote-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\com\google\guava\guava\33.3.1-jre\guava-33.3.1-jre.jar;C:\Users\aliba\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\aliba\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\aliba\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\aliba\.m2\repository\org\checkerframework\checker-qual\3.43.0\checker-qual-3.43.0.jar;C:\Users\aliba\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-api\1.44.1\opentelemetry-api-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-context\1.44.1\opentelemetry-context-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.44.1\opentelemetry-exporter-logging-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.44.1\opentelemetry-sdk-common-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.44.1\opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.44.1\opentelemetry-sdk-extension-autoconfigure-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.44.1-alpha\opentelemetry-api-incubator-1.44.1-alpha.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.44.1\opentelemetry-sdk-trace-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.44.1\opentelemetry-sdk-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.44.1\opentelemetry-sdk-metrics-1.44.1.jar;C:\Users\aliba\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.44.1\opentelemetry-sdk-logs-1.44.1.jar;C:\Users\aliba\.m2\repository\net\bytebuddy\byte-buddy\1.15.10\byte-buddy-1.15.10.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-os\4.27.0\selenium-os-4.27.0.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.27.0\selenium-safari-driver-4.27.0.jar;C:\Users\aliba\.m2\repository\org\seleniumhq\selenium\selenium-support\4.27.0\selenium-support-4.27.0.jar;C:\Users\aliba\.m2\repository\org\testng\testng\7.11.0\testng-7.11.0.jar;C:\Users\aliba\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\aliba\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\aliba\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\aliba\.m2\repository\io\github\bonigarcia\webdrivermanager\5.9.2\webdrivermanager-5.9.2.jar;C:\Users\aliba\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\aliba\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java\3.4.0\docker-java-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-core\3.4.0\docker-java-core-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-api\3.4.0\docker-java-api-3.4.0.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.3\jackson-annotations-2.10.3.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.3\jackson-databind-2.10.3.jar;C:\Users\aliba\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.3\jackson-core-2.10.3.jar;C:\Users\aliba\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.4.0\docker-java-transport-httpclient5-3.4.0.jar;C:\Users\aliba\.m2\repository\com\github\docker-java\docker-java-transport\3.4.0\docker-java-transport-3.4.0.jar;C:\Users\aliba\.m2\repository\net\java\dev\jna\jna\5.13.0\jna-5.13.0.jar;C:\Users\aliba\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-lang3\3.15.0\commons-lang3-3.15.0.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-compress\1.26.2\commons-compress-1.26.2.jar;C:\Users\aliba\.m2\repository\commons-codec\commons-codec\1.17.0\commons-codec-1.17.0.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.2.1\httpclient5-5.2.1.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2\httpcore5-5.2.jar;C:\Users\aliba\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2\httpcore5-h2-5.2.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi-ooxml\5.4.1\poi-ooxml-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi\5.4.1\poi-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\aliba\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\aliba\.m2\repository\org\apache\poi\poi-ooxml-lite\5.4.1\poi-ooxml-lite-5.4.1.jar;C:\Users\aliba\.m2\repository\org\apache\xmlbeans\xmlbeans\5.3.0\xmlbeans-5.3.0.jar;C:\Users\aliba\.m2\repository\commons-io\commons-io\2.18.0\commons-io-2.18.0.jar;C:\Users\aliba\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;C:\Users\aliba\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\aliba\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;"/>
+    <property name="surefire.test.class.path" value="/Users/salma_khaled/iot-frontend/iot-selenium/target/test-classes:/Users/salma_khaled/iot-frontend/iot-selenium/target/classes:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-java/4.27.0/selenium-java-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-api/4.27.0/selenium-api-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.27.0/selenium-chrome-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.27.0/selenium-chromium-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-json/4.27.0/selenium-json-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.27.0/selenium-manager-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v129/4.27.0/selenium-devtools-v129-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v130/4.27.0/selenium-devtools-v130-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v131/4.27.0/selenium-devtools-v131-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.27.0/selenium-devtools-v85-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.27.0/selenium-edge-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.27.0/selenium-firefox-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-http/4.27.0/selenium-http-4.27.0.jar:/Users/salma_khaled/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.27.0/selenium-ie-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.27.0/selenium-remote-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/com/google/guava/guava/33.3.1-jre/guava-33.3.1-jre.jar:/Users/salma_khaled/.m2/repository/com/google/guava/failureaccess/1.0.2/failureaccess-1.0.2.jar:/Users/salma_khaled/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/salma_khaled/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/salma_khaled/.m2/repository/org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.jar:/Users/salma_khaled/.m2/repository/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/semconv/opentelemetry-semconv/1.25.0-alpha/opentelemetry-semconv-1.25.0-alpha.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-api/1.44.1/opentelemetry-api-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-context/1.44.1/opentelemetry-context-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.44.1/opentelemetry-exporter-logging-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.44.1/opentelemetry-sdk-common-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.44.1/opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.44.1/opentelemetry-sdk-extension-autoconfigure-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-api-incubator/1.44.1-alpha/opentelemetry-api-incubator-1.44.1-alpha.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.44.1/opentelemetry-sdk-trace-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.44.1/opentelemetry-sdk-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.44.1/opentelemetry-sdk-metrics-1.44.1.jar:/Users/salma_khaled/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.44.1/opentelemetry-sdk-logs-1.44.1.jar:/Users/salma_khaled/.m2/repository/net/bytebuddy/byte-buddy/1.15.10/byte-buddy-1.15.10.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-os/4.27.0/selenium-os-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-exec/1.4.0/commons-exec-1.4.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.27.0/selenium-safari-driver-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/seleniumhq/selenium/selenium-support/4.27.0/selenium-support-4.27.0.jar:/Users/salma_khaled/.m2/repository/org/testng/testng/7.11.0/testng-7.11.0.jar:/Users/salma_khaled/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/salma_khaled/.m2/repository/org/jcommander/jcommander/1.83/jcommander-1.83.jar:/Users/salma_khaled/.m2/repository/org/webjars/jquery/3.7.1/jquery-3.7.1.jar:/Users/salma_khaled/.m2/repository/io/github/bonigarcia/webdrivermanager/5.9.2/webdrivermanager-5.9.2.jar:/Users/salma_khaled/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/Users/salma_khaled/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java/3.4.0/docker-java-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-core/3.4.0/docker-java-core-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-api/3.4.0/docker-java-api-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.10.3/jackson-annotations-2.10.3.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.3/jackson-databind-2.10.3.jar:/Users/salma_khaled/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.3/jackson-core-2.10.3.jar:/Users/salma_khaled/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.30/jcl-over-slf4j-1.7.30.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-transport-httpclient5/3.4.0/docker-java-transport-httpclient5-3.4.0.jar:/Users/salma_khaled/.m2/repository/com/github/docker-java/docker-java-transport/3.4.0/docker-java-transport-3.4.0.jar:/Users/salma_khaled/.m2/repository/net/java/dev/jna/jna/5.13.0/jna-5.13.0.jar:/Users/salma_khaled/.m2/repository/org/brotli/dec/0.1.2/dec-0.1.2.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-lang3/3.15.0/commons-lang3-3.15.0.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-compress/1.26.2/commons-compress-1.26.2.jar:/Users/salma_khaled/.m2/repository/commons-codec/commons-codec/1.17.0/commons-codec-1.17.0.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/client5/httpclient5/5.2.1/httpclient5-5.2.1.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/core5/httpcore5/5.2/httpcore5-5.2.jar:/Users/salma_khaled/.m2/repository/org/apache/httpcomponents/core5/httpcore5-h2/5.2/httpcore5-h2-5.2.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi-ooxml/5.4.1/poi-ooxml-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi/5.4.1/poi-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar:/Users/salma_khaled/.m2/repository/com/zaxxer/SparseBitSet/1.3/SparseBitSet-1.3.jar:/Users/salma_khaled/.m2/repository/org/apache/poi/poi-ooxml-lite/5.4.1/poi-ooxml-lite-5.4.1.jar:/Users/salma_khaled/.m2/repository/org/apache/xmlbeans/xmlbeans/5.3.0/xmlbeans-5.3.0.jar:/Users/salma_khaled/.m2/repository/commons-io/commons-io/2.18.0/commons-io-2.18.0.jar:/Users/salma_khaled/.m2/repository/com/github/virtuald/curvesapi/1.08/curvesapi-1.08.jar:/Users/salma_khaled/.m2/repository/org/apache/logging/log4j/log4j-api/2.24.3/log4j-api-2.24.3.jar:/Users/salma_khaled/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\aliba"/>
+    <property name="user.home" value="/Users/salma_khaled"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2025-10-21"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk-21"/>
-    <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\aliba\Desktop\Frontend\iot-selenium"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/25.0.2/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/salma_khaled/iot-frontend/iot-selenium"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\aliba\AppData\Local\Temp\surefire6488468079275038265\surefirebooter-20260504035104610_3.jar"/>
-    <property name="user.script" value=""/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/salma_khaled/iot-frontend/iot-selenium/target/surefire/surefirebooter-20260517135438440_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="21.0.9+7-LTS-338"/>
-    <property name="user.name" value="aliba"/>
-    <property name="stdout.encoding" value="Cp1252"/>
-    <property name="path.separator" value=";"/>
-    <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="25.0.2"/>
+    <property name="user.name" value="salma_khaled"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="26.3.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="C:\Users\aliba\.m2\repository"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\aliba\AppData\Local\Temp\"/>
-    <property name="java.version" value="21.0.9"/>
-    <property name="user.dir" value="C:\Users\aliba\Desktop\Frontend\iot-selenium"/>
-    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/salma_khaled/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/hz/ycr0gs7j4v15cmhvkhrt_p600000gn/T/"/>
+    <property name="java.version" value="25.0.2"/>
+    <property name="user.dir" value="/Users/salma_khaled/iot-frontend/iot-selenium"/>
+    <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="sun.os.patch.level" value=""/>
-    <property name="native.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-21\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\aliba\Desktop\Frontend\.venv\Scripts;c:\Users\aliba\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\aliba\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Users\aliba\AppData\Local\Programs\Microsoft VS Code;C:\Program Files\PlasticSCM5\server;C:\Program Files\PlasticSCM5\client;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Java\jdk-21\bin;C:\Program Files\Apache\Maven\bin;C:\Program Files (x86)\Terraform;C:\Program Files\Git\cmd;C:\Users\aliba\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\aliba\AppData\Local\Programs\Python\Python313\;C:\Users\aliba\.local\bin;C:\Program Files\Go\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\aliba\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\aliba\AppData\Local\Programs\Python\Python313\;C:\Users\aliba\AppData\Local\Microsoft\WindowsApps;C:\Users\aliba\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aliba\AppData\Roaming\npm;C:\Users\aliba\AppData\Local\GitHubDesktop\bin;C:\ProgramData\aliba\GitHubDesktop\bin;C:\Program Files\Apache\Maven\bin;C:\Program Files\Java\jdk-21\bin;C:\Program Files (x86)\Terraform;C:\Users\aliba\.local\bin;F:\OllamaApp;C:\Users\aliba\go\bin;C:\Program Files\Go\bin;C:\Users\aliba\AppData\Local\Microsoft\WinGet\Packages\Anthropic.ClaudeCode_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\aliba\AppData\Local\Microsoft\WinGet\Packages\Kubernetes.kubectl_Microsoft.Winget.Source_8wekyb3d8bbwe;E:\Intellij\IntelliJ IDEA 2026.1\bin;E:\Flutter SDK\flutter\bin;c:\Users\aliba\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;."/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/salma_khaled/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="stderr.encoding" value="Cp1252"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="21.0.9+7-LTS-338"/>
-    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
-    <property name="java.class.version" value="65.0"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.0.2"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="shouldRegisterSuccessfully[{Test Case Name=Selenium Registration Success, Status=Ready, &quot;REG-&quot; &amp; TEXT(ROW()-2, &quot;00&quot;)=SEL-SIGNUP-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /signup.&#10;2. Enter a unique email and valid name/password data.&#10;3. Submit the form., Test Data Used=emailPrefix=signup.selenium; emailDomain=example.com; firstName=Alice; lastName=Brown; password=Signup123!; expectedGreetingName=Alice, Expected Results=Should create the account, sign in automatically, and show the dashboard greeting for Alice., Actual Results=-, Endpoint=http://localhost:4200/signup -&gt; /home, Assignee=Automation, Approver=QA, Notes=Used by SignupTest., API Contract Link=-}](1)" classname="com.iot.selenium.tests.SignupTest" time="1.815">
-    <system-out><![CDATA[2026-05-04T00:51:05.400948400Z main ERROR Log4j API could not find a logging provider.
+  <testcase name="testSignup[[Ljava.lang.Object;@263bbfeb](1)" classname="com.iot.selenium.tests.SignupTest" time="2.418">
+    <system-out><![CDATA[2026-05-17T10:54:38.873147Z main ERROR Log4j API could not find a logging provider.
+TC-S01 | Selenium Valid Registration — all fields valid
 ]]></system-out>
     <system-err><![CDATA[SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-May 04, 2026 3:51:07 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:07 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:54:43 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:43 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="shouldLoginSuccessfully[{Test Case Name=Selenium Login Success, Status=Ready, Test Case ID=SEL-LOGIN-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /login.&#10;2. Enter valid credentials.&#10;3. Submit the form., Test Data Used=email=faridakhaled05@gmail.com; password=Farida123!; expectedGreetingName=Farida, Expected Results=Should navigate to the dashboard and show the greeting for Farida., Actual Results=-, Endpoint=http://localhost:4200/login -&gt; /home, Assignee=Automation, Approver=QA, Notes=Used by LoginTest and DashboardTest., API Contract Link=-}](1)" classname="com.iot.selenium.tests.SigninTest" time="1.024">
-    <system-err><![CDATA[May 04, 2026 3:51:10 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:10 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  <testcase name="testSignup[[Ljava.lang.Object;@3b4d50b](2)" classname="com.iot.selenium.tests.SignupTest" time="1.388">
+    <system-out><![CDATA[TC-S02 | Selenium Registration — password at exact minimum (8 chars)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:47 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:47 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="shouldShowLoginErrorForInvalidCredentials[{Test Case Name=Selenium Login Failure, Status=Ready, Test Case ID=SEL-LOGIN-02, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Negative, Steps to Reproduce=1. Open /login.&#10;2. Enter an invalid password.&#10;3. Submit the form., Test Data Used=email=john@example.com; password=WrongPassword123!; expectedError=Invalid email or password., Expected Results=Should remain on the login page and show the invalid-credentials message., Actual Results=-, Endpoint=http://localhost:4200/login, Assignee=Automation, Approver=QA, Notes=Used by LoginTest negative coverage., API Contract Link=-}](1)" classname="com.iot.selenium.tests.SigninTest" time="0.745">
-    <system-err><![CDATA[May 04, 2026 3:51:13 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:13 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  <testcase name="testSignup[[Ljava.lang.Object;@7b4a0aef](3)" classname="com.iot.selenium.tests.SignupTest" time="0.888">
+    <system-out><![CDATA[TC-S03 | Selenium Registration — empty email
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:49 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:49 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="shouldDisplayDashboardGreetingAndProfileShortcut[{Test Case Name=Selenium Login Success, Status=Ready, Test Case ID=SEL-LOGIN-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Open /login.&#10;2. Enter valid credentials.&#10;3. Submit the form., Test Data Used=email=faridakhaled05@gmail.com; password=Farida123!; expectedGreetingName=Farida, Expected Results=Should navigate to the dashboard and show the greeting for Farida., Actual Results=-, Endpoint=http://localhost:4200/login -&gt; /home, Assignee=Automation, Approver=QA, Notes=Used by LoginTest and DashboardTest., API Contract Link=-}](1)" classname="com.iot.selenium.tests.DashboardTest" time="1.26">
-    <system-err><![CDATA[May 04, 2026 3:51:15 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:15 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  <testcase name="testSignup[[Ljava.lang.Object;@6801b414](4)" classname="com.iot.selenium.tests.SignupTest" time="0.889">
+    <system-out><![CDATA[TC-S04 | Selenium Registration — empty firstName
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:51 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:51 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="shouldDisplayProfileDetails[{Test Case Name=Selenium Profile Smoke, Status=Ready, Test Case ID=SEL-PROFILE-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Log in with valid credentials.&#10;2. Open the profile page.&#10;3. Verify the displayed user details., Test Data Used=email=john@example.com; password=Password123!; expectedFirstName=John; expectedLastName=Doe; expectedEmail=john@example.com; expectedGreetingName=John, Expected Results=Should display the cached profile information and allow navigation back to the dashboard., Actual Results=-, Endpoint=http://localhost:4200/profile, Assignee=Automation, Approver=QA, Notes=Used by UserProfileTest., API Contract Link=-}](1)" classname="com.iot.selenium.tests.UserProfileTest" time="1.194">
-    <system-err><![CDATA[May 04, 2026 3:51:18 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:18 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  <testcase name="testSignup[[Ljava.lang.Object;@124dac75](5)" classname="com.iot.selenium.tests.SignupTest" time="0.87">
+    <system-out><![CDATA[TC-S05 | Selenium Registration — empty lastName
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:53 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:53 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="shouldReturnToDashboardFromProfile[{Test Case Name=Selenium Profile Smoke, Status=Ready, Test Case ID=SEL-PROFILE-01, Feature (Ticket #)=#selenium, Scope=Frontend, Level=System, Technique=E2E, Type=Positive, Steps to Reproduce=1. Log in with valid credentials.&#10;2. Open the profile page.&#10;3. Verify the displayed user details., Test Data Used=email=john@example.com; password=Password123!; expectedFirstName=John; expectedLastName=Doe; expectedEmail=john@example.com; expectedGreetingName=John, Expected Results=Should display the cached profile information and allow navigation back to the dashboard., Actual Results=-, Endpoint=http://localhost:4200/profile, Assignee=Automation, Approver=QA, Notes=Used by UserProfileTest., API Contract Link=-}](1)" classname="com.iot.selenium.tests.UserProfileTest" time="2.032">
-    <system-err><![CDATA[May 04, 2026 3:51:21 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 147
-May 04, 2026 3:51:21 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 147.0.7727.138. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  <testcase name="testSignup[[Ljava.lang.Object;@2d2b6960](6)" classname="com.iot.selenium.tests.SignupTest" time="0.371">
+    <system-out><![CDATA[TC-S06 | Selenium Registration — empty password
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:55 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:55 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@1a950fdd](7)" classname="com.iot.selenium.tests.SignupTest" time="0.798">
+    <system-out><![CDATA[TC-S07 | Selenium Registration — all fields empty
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:56 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:56 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@7f2c57fe](8)" classname="com.iot.selenium.tests.SignupTest" time="0.873">
+    <system-out><![CDATA[TC-S08 | Selenium Registration — malformed email
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:58 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:58 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@52f8a6f4](9)" classname="com.iot.selenium.tests.SignupTest" time="16.112">
+    <system-out><![CDATA[TC-S09 | Selenium Registration — duplicate email
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:54:59 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:54:59 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@32a8ca06](10)" classname="com.iot.selenium.tests.SignupTest" time="1.061">
+    <system-out><![CDATA[TC-S10 | Selenium Registration — password 7 chars (one below minimum)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:16 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:16 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@3df77dfa](11)" classname="com.iot.selenium.tests.SignupTest" time="0.858">
+    <system-out><![CDATA[TC-S11 | Selenium Registration — password missing special character
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:18 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:18 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@c6a692e](12)" classname="com.iot.selenium.tests.SignupTest" time="0.868">
+    <system-out><![CDATA[TC-S12 | Selenium Registration — confirm password does not match password
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:20 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:20 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@37986daf](13)" classname="com.iot.selenium.tests.SignupTest" time="1.384">
+    <system-out><![CDATA[TC-S13 | Selenium Registration — password at exact maximum (64 chars)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:22 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:22 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignup[[Ljava.lang.Object;@3221588e](14)" classname="com.iot.selenium.tests.SignupTest" time="0.884">
+    <system-out><![CDATA[TC-S14 | Selenium Registration — password 65 chars (one above maximum)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:24 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:24 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@56f72909](1)" classname="com.iot.selenium.tests.SigninTest" time="1.236">
+    <system-out><![CDATA[TC-L01 | Selenium Valid Login — correct credentials
+]]></system-out>
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:55:26 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:26 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@7747cc1b](2)" classname="com.iot.selenium.tests.SigninTest" time="1.237">
+    <system-out><![CDATA[TC-L02 | Selenium Login — password at exact minimum length (8 chars)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:28 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:28 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@3aab42d6](3)" classname="com.iot.selenium.tests.SigninTest" time="16.013">
+    <system-out><![CDATA[TC-L03 | Selenium Login — wrong password
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:30 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:30 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@234ce7ff](4)" classname="com.iot.selenium.tests.SigninTest" time="0.754">
+    <system-out><![CDATA[TC-L04 | Selenium Login — empty email field
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:47 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:47 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@27a6384b](5)" classname="com.iot.selenium.tests.SigninTest" time="1.248">
+    <system-out><![CDATA[TC-L05 | Selenium Login — empty password field
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:49 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:49 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@11ca8f71](6)" classname="com.iot.selenium.tests.SigninTest" time="0.691">
+    <system-out><![CDATA[TC-L06 | Selenium Login — both fields empty
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:51 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:51 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@2e2cd42c](7)" classname="com.iot.selenium.tests.SigninTest" time="0.737">
+    <system-out><![CDATA[TC-L07 | Selenium Login — malformed email (missing @)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:52 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@48188d23](8)" classname="com.iot.selenium.tests.SigninTest" time="0.724">
+    <system-out><![CDATA[TC-L08 | Selenium Login — whitespace-only email
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:54 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:54 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@10d97b64](9)" classname="com.iot.selenium.tests.SigninTest" time="15.963">
+    <system-out><![CDATA[TC-L09 | Selenium Login — password 7 (1 char below minimum)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:55:56 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:55:56 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@5b8599c7](10)" classname="com.iot.selenium.tests.SigninTest" time="16.084">
+    <system-out><![CDATA[TC-L10 | Selenium Login — unregistered email
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:12 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:12 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@344769b9](11)" classname="com.iot.selenium.tests.SigninTest" time="1.763">
+    <system-out><![CDATA[TC-L11 | Selenium Login —password at exact maximum
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:30 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:30 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSignin[[Ljava.lang.Object;@981d9d2](12)" classname="com.iot.selenium.tests.SigninTest" time="0.745">
+    <system-out><![CDATA[TC-L12 | Selenium Login — password 65 chars (one above maximum)
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:32 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:32 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@48dc9950](1)" classname="com.iot.selenium.tests.UserProfileTest" time="1.296">
+    <system-out><![CDATA[TC-P01 | Selenium Profile — displays correct user name after login
+]]></system-out>
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:56:34 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:34 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@25af1dbf](2)" classname="com.iot.selenium.tests.UserProfileTest" time="1.311">
+    <system-out><![CDATA[TC-P02 | Selenium Profile — displays correct email after login
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:36 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:36 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@2d5b549b](3)" classname="com.iot.selenium.tests.UserProfileTest" time="1.329">
+    <system-out><![CDATA[TC-P03 | Selenium Profile — back button returns to dashboard
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:38 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:38 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@120661d2](4)" classname="com.iot.selenium.tests.UserProfileTest" time="1.806">
+    <system-out><![CDATA[TC-P04 | Selenium Profile — avatar click on dashboard navigates to profile
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:41 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:41 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@322399e6](5)" classname="com.iot.selenium.tests.UserProfileTest" time="0.561">
+    <system-out><![CDATA[TC-P05 | Selenium Profile — unauthenticated direct navigation redirects to login
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:43 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:43 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@50ac63b2](1)" classname="com.iot.selenium.tests.LogoutTest" time="1.824">
+    <system-out><![CDATA[TC-LO06
+]]></system-out>
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:56:45 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:45 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@497cf31a](2)" classname="com.iot.selenium.tests.LogoutTest" time="1.805">
+    <system-out><![CDATA[TC-LO07
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:47 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:47 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testAuthGuardAfterLogout" classname="com.iot.selenium.tests.LogoutTest" time="0.604">
+    <system-out><![CDATA[TC-LO07
+]]></system-out>
+    <system-err><![CDATA[May 17, 2026 1:56:50 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:50 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@7725470b](1)" classname="com.iot.selenium.tests.SettingsTest" time="2.156">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:56:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:56:52 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@39240aa3](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.676"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@62284954](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.672"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@4781bb01](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.658"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@1d0fae45](5)" classname="com.iot.selenium.tests.SettingsTest" time="1.159"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@18be7f57](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.205"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@43076326](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.215"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@45da40ad](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.652"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@538c90bf](9)" classname="com.iot.selenium.tests.SettingsTest" time="1.155"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@70721c2d](10)" classname="com.iot.selenium.tests.SettingsTest" time="0.174"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@99e03a9](11)" classname="com.iot.selenium.tests.SettingsTest" time="0.204"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@3fcc58f8](12)" classname="com.iot.selenium.tests.SettingsTest" time="0.643"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@7d91e9c9](13)" classname="com.iot.selenium.tests.SettingsTest" time="0.649"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@54cb2cee](14)" classname="com.iot.selenium.tests.SettingsTest" time="0.206"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@6f2d0d25](15)" classname="com.iot.selenium.tests.SettingsTest" time="0.259"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@12300573](16)" classname="com.iot.selenium.tests.SettingsTest" time="0.68"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@64b6d6dd](17)" classname="com.iot.selenium.tests.SettingsTest" time="0.641"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@38300447](18)" classname="com.iot.selenium.tests.SettingsTest" time="0.234"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@427faf19](19)" classname="com.iot.selenium.tests.SettingsTest" time="0.206"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@1ff359b7](20)" classname="com.iot.selenium.tests.SettingsTest" time="0.683"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@286e2b71](21)" classname="com.iot.selenium.tests.SettingsTest" time="0.657"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@2d95c3ef](22)" classname="com.iot.selenium.tests.SettingsTest" time="0.4"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@4d2d0eda](23)" classname="com.iot.selenium.tests.SettingsTest" time="0.217"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@6ab36cee](24)" classname="com.iot.selenium.tests.SettingsTest" time="0.644"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@7a56c3c7](25)" classname="com.iot.selenium.tests.SettingsTest" time="0.66"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@32c503d3](26)" classname="com.iot.selenium.tests.SettingsTest" time="0.184"/>
+  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@5623354e](27)" classname="com.iot.selenium.tests.SettingsTest" time="0.205"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@758f755a](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.81">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testContradiction[[Ljava.lang.Object;@5977f3d6](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.332"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@e75a138](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.337"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@55db4eea](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.78"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@5b2728db](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.348"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@3810d15d](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.359"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@5ceb9fae](7)" classname="com.iot.selenium.tests.SettingsTest" time="1.269"/>
+  <testcase name="testContradiction[[Ljava.lang.Object;@6ac3ceda](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.32"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@24d815da](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.181">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testInitialState[[Ljava.lang.Object;@6232025](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.123"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@2ae7ee25](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.059"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@5ace491](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.069"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@bf0e435](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.06"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@74948d11](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.055"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@2e1bbf2a](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.068"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@14344b44](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.061"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@3a8a823c](9)" classname="com.iot.selenium.tests.SettingsTest" time="0.07"/>
+  <testcase name="testMultiUserIsolation[[Ljava.lang.Object;@38ec1c34](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.578">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testNavigation[[Ljava.lang.Object;@7c0fd22d](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.078">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testNavigation[[Ljava.lang.Object;@a674645](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.059"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@cc6baae](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.072"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@29866f6d](4)" classname="com.iot.selenium.tests.SettingsTest" time="1.256"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@2269b05b](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.599"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@30e6c577](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.13"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@ce2077](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.174"/>
+  <testcase name="testNavigation[[Ljava.lang.Object;@622a4589](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.135"/>
+  <testcase name="testNewUserEmptyState[[Ljava.lang.Object;@71498a88](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.86">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testPersistence[[Ljava.lang.Object;@2d25a125](1)" classname="com.iot.selenium.tests.SettingsTest" time="4.438">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testPersistence[[Ljava.lang.Object;@1bdbf918](2)" classname="com.iot.selenium.tests.SettingsTest" time="1.879"/>
+  <testcase name="testPersistence[[Ljava.lang.Object;@1e7e67d3](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.805"/>
+  <testcase name="testSaveFlow[[Ljava.lang.Object;@53ba7b9c](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.67">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testSaveFlow[[Ljava.lang.Object;@7f95dc2](2)" classname="com.iot.selenium.tests.SettingsTest" time="4.642"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@74967bf2](1)" classname="com.iot.selenium.tests.SettingsTest" time="0.141">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@63ccc72c](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.174"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@1172a648](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.742"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@3fad151c](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.196"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@46014193](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.176"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@ed1bc80](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.209"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@79f05331](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.158"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@3d3bd9e3](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.254"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@551f927f](9)" classname="com.iot.selenium.tests.SettingsTest" time="0.369"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@7b7030b7](10)" classname="com.iot.selenium.tests.SettingsTest" time="0.085"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@2b7c980](11)" classname="com.iot.selenium.tests.SettingsTest" time="0.639"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@1aa11ace](12)" classname="com.iot.selenium.tests.SettingsTest" time="0.689"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@620ede3a](13)" classname="com.iot.selenium.tests.SettingsTest" time="0.724"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@53d917df](14)" classname="com.iot.selenium.tests.SettingsTest" time="0.255"/>
+  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@2aae170c](15)" classname="com.iot.selenium.tests.SettingsTest" time="1.358"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@44e8d9dc](1)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.939">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+May 17, 2026 1:57:38 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:57:38 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@78c7e153](2)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.765"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@7e377c78](3)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.277"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@57f35caf](4)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.257"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@54ee31ff](5)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.754"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@18505e39](6)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.725"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@d90ac77](7)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.213"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@59a630d4](8)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.259"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@306e9bf0](9)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.263"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@d66534c](10)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.627"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@3cb3a3f6](11)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.106"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@29b8acf3](12)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.827"/>
+  <testcase name="testDataAfterSeed" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.506">
+    <system-err><![CDATA[May 17, 2026 1:57:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:57:52 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testPanelOpenClose" classname="com.iot.selenium.tests.AlertsTest" time="6.992">
+    <system-err><![CDATA[May 17, 2026 1:57:55 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 148
+May 17, 2026 1:57:55 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 148.0.7778.168. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testEmptyNotifications" classname="com.iot.selenium.tests.AlertsTest" time="0.954">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testSeededNotifications" classname="com.iot.selenium.tests.AlertsTest" time="6.657">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testJumpToSensorModal" classname="com.iot.selenium.tests.AlertsTest" time="0.0">
+    <skipped message="[TC-AN08] No air-quality alert card in panel after seeding"/>
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
+]]></system-err>
+  </testcase>
+  <testcase name="testDeleteFromModal" classname="com.iot.selenium.tests.AlertsTest" time="0.0">
+    <skipped message="Method com.iot.selenium.tests.AlertsTest.testDeleteFromModal() on instance com.iot.selenium.tests.AlertsTest@7494f96a depends on not successfully finished methods &#10;[com.iot.selenium.tests.AlertsTest.testJumpToSensorModal() on instance com.iot.selenium.tests.AlertsTest@7494f96a]"/>
+  </testcase>
+  <testcase name="testPanelOnSettingsRoute" classname="com.iot.selenium.tests.AlertsTest" time="0.624">
+    <system-err><![CDATA[ERROR POIXMLDocumentPart Skipped invalid entry /xl/sharedStrings.xml
 ]]></system-err>
   </testcase>
 </testsuite>

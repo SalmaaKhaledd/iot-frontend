@@ -18,7 +18,7 @@ The goal of this project is to keep Selenium tests clean, data-driven, and separ
 - Excel-driven test data via Apache POI
 - WebDriver setup and teardown through WebDriverManager
 - A BasePage with explicit waits and an Angular-aware wait helper
-- Config-driven browser, base URL, and implicit wait settings
+- Config-driven browser and base URL
 
 ## Project layout
 
@@ -220,8 +220,9 @@ Update `src/test/resources/config.properties` if needed:
 ```properties
 browser=chrome
 baseUrl=http://localhost:4200
-implicitWait=10
 ```
+
+Element waits use explicit `WebDriverWait` in page objects (no implicit wait in `BaseTest`).
 
 Supported browsers:
 

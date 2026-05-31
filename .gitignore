@@ -44,6 +44,4 @@ __screenshots__/
 Thumbs.db
 .cursor/
 HANDOFF_DRAFT.md
-HANDOFF.md
-angular.json
-iot-selenium/target/*
+docs/sprint1.md
