@@ -52,6 +52,7 @@ pipeline {
                         printf '%s' "\$DB_PASS" > "\$WORKSPACE/iot-devops/secrets/db_password.txt"
                         printf '%s' "\$JWT_SECRET" > "\$WORKSPACE/iot-devops/secrets/jwt_secret.txt"
                         SECRETS_PATH="\${HOST_WORKSPACE_ROOT}/\${JOB_NAME}/iot-devops/secrets" \
+                        JWT_SECRET="\$JWT_SECRET" \
                         docker-compose -f iot-devops/docker-compose.yml up -d --pull always
                     """
                 }
