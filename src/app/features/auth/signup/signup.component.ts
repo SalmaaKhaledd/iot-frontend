@@ -237,7 +237,10 @@ export class SignupComponent implements OnDestroy {
           this.authService.saveUser(toUserFromAuthResponse(response));
           return [true];
         }),
-        finalize(() => this.isLoading.set(false)),
+        finalize(() => {
+          this.isLoading = false;
+          this.changeDetectorRef.markForCheck();
+        })
       )
       .subscribe({
         next: () => {
