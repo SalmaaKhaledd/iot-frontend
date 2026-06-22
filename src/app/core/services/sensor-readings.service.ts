@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 import type {
   AirPollutionSensorReading,
   PaginatedResponse,
-  StreetLightSensorReading,
+  StreetLightSensorReading, 
   TrafficSensorReading,
   TrafficQueryParams,
 } from '../models/sensor-reading.models';
