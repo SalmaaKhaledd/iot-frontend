@@ -6,14 +6,14 @@ import { environment } from '../../../environments/environment';
 
 export interface ApiAlert {
   id: string;
-  sensorType: string;
+  sensorType: string; 
   location: string;
   metric: string;
   triggeredValue: number;
   thresholdValue: number;
   alertType: 'ABOVE' | 'BELOW';
   triggeredAt: string; //timestamp
-  readingId: string | null; // not in backend response
+  readingId: string | null; 
 }
 
 @Injectable({ providedIn: 'root' })
