@@ -398,11 +398,35 @@ export class TrafficDashboard {
     this.updateCharts();
   }
 
+  // Caps line-chart point count for readability. Buckets consecutive
+  // readings and averages each bucket — rather than dropping every Nth
+  // point, which can silently hide a real spike that happens to land on a
+  // skipped index. Metric cards and the donut chart never call this; they
+  // aggregate off the full chartReadings set so the numbers stay accurate.
+  private readonly MAX_CHART_POINTS = 40;
+
+  private downsample(sorted: TrafficSensorReading[]): TrafficSensorReading[] {
+    if (sorted.length <= this.MAX_CHART_POINTS) return sorted;
+
+    const bucketSize = Math.ceil(sorted.length / this.MAX_CHART_POINTS);
+    const result: TrafficSensorReading[] = [];
+
+    for (let i = 0; i < sorted.length; i += bucketSize) {
+      const bucket = sorted.slice(i, i + bucketSize);
+      const avgSpeed = bucket.reduce((sum, x) => sum + x.avgSpeed, 0) / bucket.length;
+      const avgDensity = bucket.reduce((sum, x) => sum + x.trafficDensity, 0) / bucket.length;
+      const mid = bucket[Math.floor(bucket.length / 2)];
+      result.push({ ...mid, avgSpeed, trafficDensity: Math.round(avgDensity) });
+    }
+
+    return result;
+  }
+
   private updateCharts(): void {
     const r = this.chartReadings();
     if (!r.length) return;
 
-    const sorted = [...r].reverse();
+    const sorted = this.downsample([...r].reverse());
     const labels  = sorted.map(x => {
       const d = new Date(x.timestamp);
       return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
@@ -446,7 +470,7 @@ export class TrafficDashboard {
     const handle = this.alertTimers.get(id);
     if (handle !== undefined) { clearTimeout(handle); this.alertTimers.delete(id); }
     this.activeAlerts.update(alerts => alerts.filter(a => a.id !== id));
-  }
+  } 
 
   // Called by the manual X button — deletes from backend
   dismissAlert(id: string): void {
@@ -464,8 +488,7 @@ export class TrafficDashboard {
   }
 
   alertSeverityClass(alert: ApiAlert): string {
-    return alert.metric === 'TRAFFIC_DENSITY' && alert.alertType === 'ABOVE'
-      ? 'banner-danger' : 'banner-warning';
+    return alert.metric === 'TRAFFIC_DENSITY' && alert.alertType === 'ABOVE' ? 'banner-danger' : 'banner-warning';
   }
 
   // ── Filter methods ───────────────────────────────────────────────────────
@@ -483,10 +506,11 @@ export class TrafficDashboard {
       hasError = true;
     }
 
-    if ((this.filterForm.fromDate && this.filterForm.toDate) &&
-        (this.filterForm.fromDate.toDateString() === this.filterForm.toDate.toDateString()) &&
-        (this.filterForm.fromTime && this.filterForm.toTime)) {
-      if (this.toMinutes(this.filterForm.toTime) <= this.toMinutes(this.filterForm.fromTime)) {
+    if (this.filterForm.fromDate && this.filterForm.toDate &&
+        this.filterForm.fromDate.toDateString() === this.filterForm.toDate.toDateString()) {
+      const fromMinutes = this.filterForm.fromTime ? this.toMinutes(this.filterForm.fromTime) : 0;
+      const toMinutes = this.filterForm.toTime ? this.toMinutes(this.filterForm.toTime) : 23 * 60 + 59;
+      if (toMinutes <= fromMinutes) {
         this.timeRangeError.set('Invalid time range.');
         hasError = true;
       }
@@ -502,13 +526,11 @@ export class TrafficDashboard {
 
     if (this.filterForm.location) params.location = this.filterForm.location;
     if (this.filterForm.congestionLevel) params.congestionLevel = this.filterForm.congestionLevel as TrafficQueryParams['congestionLevel'];
-    if (this.filterForm.fromDate && this.filterForm.fromTime) {
-      const d = this.filterForm.fromDate;
-      params.timestampStart = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T${this.filterForm.fromTime}:00`;
+    if (this.filterForm.fromDate) {
+      params.timestampStart = this.resolveTimestamp(this.filterForm.fromDate, this.filterForm.fromTime, 'start');
     }
-    if (this.filterForm.toDate && this.filterForm.toTime) {
-      const d = this.filterForm.toDate;
-      params.timestampEnd = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T${this.filterForm.toTime}:59`;
+    if (this.filterForm.toDate) {
+      params.timestampEnd = this.resolveTimestamp(this.filterForm.toDate, this.filterForm.toTime, 'end');
     }
     if (this.filterForm.minDensity !== null) params.minDensity = this.filterForm.minDensity;
     if (this.filterForm.maxDensity !== null) params.maxDensity = this.filterForm.maxDensity;
@@ -532,6 +554,17 @@ export class TrafficDashboard {
   private toMinutes(time: string): number {
     const [h, m] = time.split(':').map(Number);
     return h * 60 + m;
+  }
+
+  // Resolves a date + optional time-of-day into a timestamp string for the
+  // backend. If no time was entered: "start" defaults to 00:00:00, "end"
+  // defaults to 23:59:59 — so a date-only filter still covers the full day.
+  private resolveTimestamp(date: Date, time: string, bound: 'start' | 'end'): string {
+    const datePart = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    const timePart = time
+      ? `${time}:${bound === 'start' ? '00' : '59'}`
+      : (bound === 'start' ? '00:00:00' : '23:59:59');
+    return `${datePart}T${timePart}`;
   }
 
   onDensityChange(): void {

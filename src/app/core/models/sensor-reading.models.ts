@@ -55,4 +55,4 @@ export interface TrafficQueryParams {
   congestionLevel?: 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
   timestampStart?: string;
   timestampEnd?: string;
-}
+} 
