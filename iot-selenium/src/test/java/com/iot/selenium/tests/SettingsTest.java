@@ -178,9 +178,9 @@ public class SettingsTest extends BaseTest {
         String name = rd.get("Test Case Name");
 
         if ("Negative".equals(rd.get("Test Type"))) {
-            driver.get("http://localhost:4200");
+            driver.get(baseUrl);
             settingsPage.clearLocalStorage();
-            driver.get("http://localhost:4200/settings");
+            driver.get(baseUrl + "/settings");
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(d -> d.getCurrentUrl().contains("/login"));
             Assert.assertTrue(
