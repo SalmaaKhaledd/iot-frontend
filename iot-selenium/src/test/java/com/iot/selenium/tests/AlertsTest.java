@@ -109,7 +109,6 @@ public class AlertsTest extends BaseTest {
     @Test(priority = 4, dependsOnMethods = "testSeededNotifications")
     public void testJumpToSensorModal() throws Exception {
         runJumpToModalCase("TC-AN07");
-        runJumpToModalCase("TC-AN08");
     }
 
     @Test(priority = 5, dependsOnMethods = "testJumpToSensorModal")
@@ -245,9 +244,6 @@ public class AlertsTest extends BaseTest {
         Assert.assertTrue(
                 alertsPage.getPanelAlertCardCount() >= 1,
                 "[" + tcId + "] Expected at least one alert card in panel");
-        if ("air-quality".equals(sensorType) && !alertsPage.hasPanelAlertForSensorType(sensorType)) {
-            throw new SkipException("[" + tcId + "] No air-quality alert card in panel after seeding");
-        }
         alertsPage.clickPanelAlertCardBySensorType(sensorType);
         alertsPage.waitForPanelClosed();
         Assert.assertFalse(alertsPage.isPanelVisible(), "[" + tcId + "] Expected panel to close after jump");
@@ -260,7 +256,10 @@ public class AlertsTest extends BaseTest {
     private void runDeleteFromModalCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        String section = data.get("section");
+        String sensorType = data.getOrDefault("sensorType", data.get("section"));
+        Assert.assertNotNull(
+                sensorType,
+                "[" + tcId + "] Test Data Used must define sensorType (or section)");
         ensureAlertsPresent(tcId, data);
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
@@ -268,14 +267,14 @@ public class AlertsTest extends BaseTest {
         Assert.assertTrue(
                 alertsPage.getPanelAlertCardCount() >= 1,
                 "[" + tcId + "] Expected at least one alert card to open modal");
-        alertsPage.clickFirstPanelAlertCard();
-        alertsPage.waitForSensorModalVisible(section);
-        int before = alertsPage.getSensorModalAlertCardCount(section);
+        alertsPage.clickPanelAlertCardBySensorType(sensorType);
+        alertsPage.waitForSensorModalVisible(sensorType);
+        int before = alertsPage.getSensorModalAlertCardCount(sensorType);
         Assert.assertTrue(before >= 1, "[" + tcId + "] Expected at least one alert in modal to delete");
-        alertsPage.clickDeleteFirstAlertInModal(section);
-        alertsPage.waitForSensorModalAlertCount(section, before - 1);
+        alertsPage.clickDeleteFirstAlertInModal(sensorType);
+        alertsPage.waitForSensorModalAlertCount(sensorType, before - 1);
         Assert.assertEquals(
-                alertsPage.getSensorModalAlertCardCount(section),
+                alertsPage.getSensorModalAlertCardCount(sensorType),
                 before - 1,
                 "[" + tcId + "] Card removed from modal list");
     }

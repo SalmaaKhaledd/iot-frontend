@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.iot.selenium.tests.AlertsTest
--------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 61.10 s -- in com.iot.selenium.tests.AlertsTest

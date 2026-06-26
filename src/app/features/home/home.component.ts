@@ -28,6 +28,8 @@ import { StreetLightCardComponent } from './components/street-light-card/street-
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  readonly streetLightsNavCardTestId = 'street-lights-nav-card';
+
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);

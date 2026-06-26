@@ -73,10 +73,7 @@ public class TrafficDashboardPage extends BasePage {
         SensorDashboardPage.flushSensors(bearerToken);
     }
 
-    /**
-     * Navigates directly to the traffic dashboard URL. Requires an authenticated session;
-     * otherwise the app redirects to login. Prefer {@link #openFromHome()} after {@code login()}.
-     */
+
     public TrafficDashboardPage open() {
         driver.get(baseUrl + trafficDashboardPath);
         waitForUrl(trafficDashboardPath, explicitWaitSeconds);
@@ -100,10 +97,7 @@ public class TrafficDashboardPage extends BasePage {
         return driver.findElement(TRAFFIC_NAV_CARD).getText().trim();
     }
 
-    /**
-     * Opens the traffic dashboard from the home page via the Traffic nav card (real user flow).
-     * Call after {@code login()} when the browser is already on {@code /home}.
-     */
+
     public TrafficDashboardPage openFromHome() {
         dismissAlertToastsIfPresent();
         click(TRAFFIC_NAV_CARD);
@@ -118,7 +112,6 @@ public class TrafficDashboardPage extends BasePage {
         return this;
     }
 
-    /** Returns to {@code /home} via back button when on the traffic dashboard, otherwise direct navigation. */
     public DashboardPage navigateToHome() {
         dismissAlertToastsIfPresent();
         String url = driver.getCurrentUrl();
@@ -166,8 +159,13 @@ public class TrafficDashboardPage extends BasePage {
     }
 
     public boolean isTableVisible() {
-        List<WebElement> elements = driver.findElements(TRAFFIC_TABLE);
-        return !elements.isEmpty() && elements.get(0).isDisplayed();
+        try {
+            List<WebElement> tables = driver.findElements(TRAFFIC_TABLE);
+            return !tables.isEmpty() && tables.get(0).isDisplayed();
+        } catch (StaleElementReferenceException e) {
+            List<WebElement> tables = driver.findElements(TRAFFIC_TABLE);
+            return !tables.isEmpty() && tables.get(0).isDisplayed();
+        }
     }
 
     public int getRowCount() {
@@ -184,16 +182,12 @@ public class TrafficDashboardPage extends BasePage {
         return !elements.isEmpty() && elements.get(0).isDisplayed();
     }
 
-    // --- Step 1: loading, error, pagination ---
+
 
     public boolean isLoadingVisible() {
         return isElementDisplayed(LOADING_STATE);
     }
 
-    /**
-     * Waits up to {@code timeoutSeconds} for the loading spinner. Returns false if load finishes
-     * before the spinner appears (common on fast runs). Does not retain element references.
-     */
     public boolean waitForLoadingIfPresent(int timeoutSeconds) {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
@@ -210,10 +204,6 @@ public class TrafficDashboardPage extends BasePage {
         return this;
     }
 
-    /**
-     * Waits until the loading spinner is gone and Angular is stable.
-     * Use after apply filters, page changes, or page-size changes.
-     */
     public TrafficDashboardPage waitForResultsReady() {
         waitForLoadingToFinish();
         waitForAngular();
@@ -272,8 +262,6 @@ public class TrafficDashboardPage extends BasePage {
         return isButtonEnabled(LAST_PAGE);
     }
 
-    // --- Step 3: traffic dashboard alert banners (not topbar toasts) ---
-
     public boolean isAlertBannerStripVisible() {
         return isElementDisplayed(ALERT_BANNER_STRIP);
     }
@@ -327,11 +315,7 @@ public class TrafficDashboardPage extends BasePage {
         return this;
     }
 
-    /**
-     * Dismisses every visible traffic alert banner via its close button.
-     * Stops when no close button is visible or after {@code maxAttempts} clicks.
-     * Re-queries the DOM each click because banners are removed asynchronously.
-     */
+
     public TrafficDashboardPage dismissAllAlertBanners() {
         final int maxAttempts = 10;
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
@@ -359,11 +343,6 @@ public class TrafficDashboardPage extends BasePage {
         return false;
     }
 
-    // --- Step 4: date/time pickers ---
-
-    /**
-     * @param isoDate date in {@code yyyy-MM-dd} form (matches {@code data-testid="day-..."} on calendar cells)
-     */
     public TrafficDashboardPage setFromDate(String isoDate) {
         selectDateOnly(FROM_DATETIME_HOST, isoDate);
         return this;
@@ -509,22 +488,6 @@ public class TrafficDashboardPage extends BasePage {
             }
         }
         return true;
-    }
-
-    /** Opens the dashboard without dismissing topbar alert toasts (for traffic alert-banner tests). */
-    public TrafficDashboardPage openWithoutToastDismiss() {
-        driver.get(baseUrl + trafficDashboardPath);
-        waitForUrl(trafficDashboardPath, explicitWaitSeconds);
-        waitForVisible(PAGE_ROOT);
-        waitForAngular();
-        return this;
-    }
-
-    /** Waits for page root without closing topbar toasts (preserves traffic alert banners). */
-    public TrafficDashboardPage waitForLoadWithoutDismissingToasts() {
-        waitForVisible(PAGE_ROOT);
-        waitForAngular();
-        return this;
     }
 
     public String getFirstRowText() {

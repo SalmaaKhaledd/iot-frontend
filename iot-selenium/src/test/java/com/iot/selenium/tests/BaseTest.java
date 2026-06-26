@@ -32,7 +32,6 @@ public abstract class BaseTest {
     protected WebDriver driver;
     protected ConfigReader configReader;
     protected String baseUrl;
-    /** Cached JWT from one API login per JVM run (shared across all test classes). */
     protected String authToken;
     private static String sharedAuthToken;
     private static String sharedAuthUserJson;

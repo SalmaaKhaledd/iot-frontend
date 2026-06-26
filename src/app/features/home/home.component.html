@@ -29,7 +29,12 @@
           <p class="muted small">Track pollution levels and air health</p>
         </div>
 
-        <div class="card" (click)="scrollToSensor('street-light-sensor')" data-testid="street-light-nav-card">
+        <div
+          class="card street-lights-nav-card"
+          (click)="scrollToSensor('street-light-sensor')"
+          [attr.data-testid]="streetLightsNavCardTestId"
+          id="street-lights-nav-card"
+        >
           <div class="card-header">
             <div class="icon-wrap yellow">
               <mat-icon>lightbulb</mat-icon>

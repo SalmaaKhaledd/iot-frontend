@@ -9,14 +9,19 @@ import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.AlertsPage;
 import com.iot.selenium.pages.TrafficDashboardPage;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import java.util.Arrays;
@@ -82,6 +87,29 @@ public class TrafficDashboardTest extends BaseTest {
                 .orElseThrow(() -> new IllegalStateException("Row not found for tc_id: " + tcId));
     }
 
+    private Object[][] rowsByTestType(String testType) {
+        return Arrays.stream(rowsForSheet(SHEET_NAME))
+                .map(this::rowData)
+                .filter(rd -> testType.equals(rd.get("test_type")))
+                .map(rd -> new Object[] { rd })
+                .toArray(Object[][]::new);
+    }
+
+
+
+    @DataProvider(name = "sortingData")
+    public Object[][] sortingData() {
+        return rowsByTestType("sort");
+    }
+
+    @DataProvider(name = "paginationData")
+    public Object[][] paginationData() {
+        return rowsByTestType("pagination");
+    }
+
+    @Story("F6 - Entry Point")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verifies the Traffic nav card exists on /home, navigates to /traffic-dashboard on click, and that unauthenticated users are redirected to /login. TC-F6-05 and TC-F6-06 are intentionally skipped due to BUG 86c9y6abu — the Air Quality and Street Lights nav cards are missing data-testid attributes.")
     @Test(priority = 1)
     public void testEntryPoint() throws Exception {
         runTrafficCardVisibleCase("TC-F6-01");
@@ -92,6 +120,9 @@ public class TrafficDashboardTest extends BaseTest {
         runUnauthenticatedRedirectCase("TC-F6-04");
     }
 
+    @Story("F7 - Dashboard Navigation")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verifies the traffic dashboard page loads correctly, the table and filter panel are visible, all six column headers are present, the back button returns to /home, the loading state resolves, and unauthenticated users are redirected to /login.")
     @Test(priority = 2)
     public void testDashboardNavigation() throws Exception {
         seedForF7();
@@ -106,42 +137,61 @@ public class TrafficDashboardTest extends BaseTest {
         runDashboardUnauthenticatedCase("TC-F7-02");
     }
 
-    @Test(priority = 3)
-    public void testFilters() throws Exception {
+    @DataProvider(name = "filtersData")
+    public Object[][] filtersData() {
+      return Arrays.stream(rowsForSheet(SHEET_NAME))
+        .map(this::rowData)
+        .filter(rd -> "filter_location".equals(rd.get("test_type"))
+          || "filter_congestion".equals(rd.get("test_type")))
+        .map(rd -> new Object[] { rd })
+        .toArray(Object[][]::new);
+    }
+
+    @Story("F8 - Filters")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verifies location and congestion filters correctly filter the traffic readings table or show the empty state. Fully data-driven — adding a new filter test case requires only adding an Excel row with the correct test_type, filter_type, filter_value, and expected_value columns filled in.")
+    @Test(dataProvider = "filtersData", priority = 3)
+    public void testFilters(Object[] row) throws Exception {
+        Map<String, String> rd = rowData(row);
+        String tcId = rd.get("tc_id");
         seedForF7();
-        runFilterByRingRoadCase("TC-F8-01");
-        runFilterByOctoberBridgeCase("TC-F8-02");
-        runFilterBySalahSalemCase("TC-F8-03");
-        runFilterByLowCongestionCase("TC-F8-04");
-        runFilterByModerateCongestionCase("TC-F8-05");
-        runFilterByHighCongestionCase("TC-F8-06");
-        runFilterBySevereCongestionCase("TC-F8-07");
+        runFilterCase(tcId, rd);
     }
 
-    @Test(priority = 4)
-    public void testSorting() throws Exception {
-        seedForSorting();
-        runSortMostRecentCase("TC-F8-08");
-        runSortOldestFirstCase("TC-F8-09");
-        runSortDensityLowHighCase("TC-F8-10");
-        runSortDensityHighLowCase("TC-F8-11");
-        runSortSpeedLowHighCase("TC-F8-12");
-        runSortSpeedHighLowCase("TC-F8-13");
-        runSortOrderCase("TC-F8-24");
+    @Story("F8 - Sorting")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verifies all sort options produce a non-empty table. TC-F8-24 additionally asserts correct timestamp-descending order. Fully data-driven for standard sort cases — sort value comes from the sort_value Excel column.")
+    @Test(dataProvider = "sortingData", priority = 4)
+    public void testSorting(Object[] row) throws Exception {
+        Map<String, String> rd = rowData(row);
+        String tcId = rd.get("tc_id");
+        if ("TC-F8-24".equals(tcId)) {
+            seedForSorting();
+            runSortOrderCase(tcId, rd);
+        } else {
+            if ("TC-F8-08".equals(tcId)) {
+                seedForSorting();
+            }
+            runSortCase(tcId, rd);
+        }
     }
 
-    @Test(priority = 5)
-    public void testPagination() throws Exception {
-        seedForPagination();
-        runNextPageCase("TC-F8-14");
-        runPrevPageCase("TC-F8-15");
-        runFirstPageCase("TC-F8-16");
-        runLastPageCase("TC-F8-17");
-        runPageSizeFiveCase("TC-F8-18");
-        runPageSizeTenCase("TC-F8-19");
-        runResetFiltersCase("TC-F8-20");
+    @Story("F8 - Pagination")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verifies next, previous, first, last page navigation and page size selection. Page size value comes from the page_size Excel column.")
+    @Test(dataProvider = "paginationData", priority = 5)
+    public void testPagination(Object[] row) throws Exception {
+        Map<String, String> rd = rowData(row);
+        String tcId = rd.get("tc_id");
+        if ("TC-F8-14".equals(tcId)) {
+            seedForPagination();
+        }
+        runPaginationCase(tcId, rd);
     }
 
+    @Story("F8 - Filter Edge Cases")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verifies that a restrictive filter combination produces the empty state, that applying filters triggers a data reload, and that the filter panel correctly collapses and expands via the toggle button.")
     @Test(priority = 6)
     public void testFilterEdgeCases() throws Exception {
         seedForF7();
@@ -150,17 +200,22 @@ public class TrafficDashboardTest extends BaseTest {
         runFilterPanelToggleCase("TC-F8-23");
     }
 
+    @Story("F9 - Alert Banners")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verifies that threshold-triggered alert banners appear on the dashboard, can be manually dismissed, and disappear when no alerts exist. Banners are triggered by setting TRAFFIC_DENSITY threshold to 1 so any generated reading exceeds it. Note: TC-F9-03 (auto-dismiss timer) was removed after the frontend was updated to show toasts on /home only — banners on this page are now permanent until manually closed.")
     @Test(priority = 7)
     public void testAlertBanners() throws Exception {
         seedForF9();
         runAlertBannerVisibleCase("TC-F9-01");
         runAlertBannerDismissCase("TC-F9-02");
-        runAlertBannerAutoDismissCase("TC-F9-03");
         runNoAlertBannersCase("TC-F9-04");
         runMultipleAlertBannersCase("TC-F9-05");
     }
 
     // TC-F10-05 (chart update on filter) excluded — not reliably testable via Selenium
+    @Story("F10 - Analytics")
+    @Severity(SeverityLevel.MINOR)
+    @Description("Verifies the analytics panel header is visible, the panel collapses and expands on header click, metric cards display non-empty values, and all three Chart.js canvas elements (speedChart, densityChart, donutChart) exist in the DOM. TC-F10-05 is excluded as Chart.js renders to canvas and Selenium cannot inspect pixel-level chart data.")
     @Test(priority = 8)
     public void testAnalytics() throws Exception {
         seedForF7();
@@ -217,7 +272,7 @@ public class TrafficDashboardTest extends BaseTest {
         for (int i = 0; i < 3; i++) {
             TrafficDashboardPage.generateSensors(authToken);
         }
-        trafficDashboardPage.openWithoutToastDismiss().waitForResultsReady();
+        trafficDashboardPage.open().waitForResultsReady();
         long deadline = System.currentTimeMillis() + ALERT_POLL_TIMEOUT_MS;
         while (System.currentTimeMillis() < deadline) {
             if (trafficDashboardPage.isAlertBannerVisible()) {
@@ -225,7 +280,7 @@ public class TrafficDashboardTest extends BaseTest {
             }
             Thread.sleep(ALERT_POLL_INTERVAL_MS);
             driver.navigate().refresh();
-            trafficDashboardPage.waitForLoadWithoutDismissingToasts().waitForResultsReady();
+            trafficDashboardPage.waitForLoad().waitForResultsReady();
         }
     }
 
@@ -405,272 +460,46 @@ public class TrafficDashboardTest extends BaseTest {
                 "[" + tcId + "] First table row should contain a valid Cairo location, got: " + rowText);
     }
 
-    @Step("TC-F8-01: Filter by Cairo Ring Road location")
-    private void runFilterByRingRoadCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
+    @Step("Filter test: {tcId}")
+    private void runFilterCase(String tcId, Map<String, String> rd) {
         Map<String, String> data = structuredData(rd);
         trafficDashboardPage.open().waitForLoad().waitForResultsReady();
         if (trafficDashboardPage.isAlertBannerStripVisible()) {
             trafficDashboardPage.dismissAllAlertBanners();
         }
         trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectLocation(data.getOrDefault("location", "CAIRO_RING_ROAD"));
+        String filterType = data.getOrDefault("filter_type", "");
+        String filterValue = data.getOrDefault("filter_value", "");
+        if ("location".equals(filterType)) {
+            trafficDashboardPage.selectLocation(filterValue);
+        } else if ("congestion".equals(filterType)) {
+            trafficDashboardPage.selectCongestion(filterValue);
+        }
         trafficDashboardPage.clickApplyFilters().waitForResultsReady();
         Assert.assertTrue(
                 trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying location filter");
+                "[" + tcId + "] Table or empty state should be visible after filter");
         if (trafficDashboardPage.isTableVisible()) {
             Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_location", "CAIRO_RING_ROAD")),
-                    "[" + tcId + "] Filtered results should contain CAIRO_RING_ROAD");
+                    driver.getPageSource().contains(data.getOrDefault("expected_value", "")),
+                    "[" + tcId + "] Page source should contain: "
+                            + data.getOrDefault("expected_value", ""));
         }
     }
 
-    @Step("TC-F8-02: Filter by Cairo October Bridge location")
-    private void runFilterByOctoberBridgeCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
+    @Step("Sort test: {tcId}")
+    private void runSortCase(String tcId, Map<String, String> rd) {
         Map<String, String> data = structuredData(rd);
         trafficDashboardPage.open().waitForLoad().waitForResultsReady();
         if (trafficDashboardPage.isAlertBannerStripVisible()) {
             trafficDashboardPage.dismissAllAlertBanners();
         }
         trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectLocation(data.getOrDefault("location", "OCTOBER_BRIDGE"));
+        trafficDashboardPage.selectSort(data.getOrDefault("sort_value", "timestamp:desc"));
         trafficDashboardPage.clickApplyFilters().waitForResultsReady();
         Assert.assertTrue(
                 trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying location filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_location", "CAIRO_OCTOBER_BRIDGE")),
-                    "[" + tcId + "] Filtered results should contain CAIRO_OCTOBER_BRIDGE");
-        }
-    }
-
-    @Step("TC-F8-03: Filter by Cairo Salah Salem Road location")
-    private void runFilterBySalahSalemCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectLocation(data.getOrDefault("location", "SALAH_SALEM"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying location filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_location", "CAIRO_SALAH_SALEM_ROAD")),
-                    "[" + tcId + "] Filtered results should contain CAIRO_SALAH_SALEM_ROAD");
-        }
-    }
-
-    @Step("TC-F8-04: Filter by low congestion level")
-    private void runFilterByLowCongestionCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectCongestion(data.getOrDefault("congestion", "LOW"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying congestion filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_congestion", "LOW")),
-                    "[" + tcId + "] Filtered results should contain LOW");
-        }
-    }
-
-    @Step("TC-F8-05: Filter by moderate congestion level")
-    private void runFilterByModerateCongestionCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectCongestion(data.getOrDefault("congestion", "MODERATE"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying congestion filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_congestion", "MODERATE")),
-                    "[" + tcId + "] Filtered results should contain MODERATE");
-        }
-    }
-
-    @Step("TC-F8-06: Filter by high congestion level")
-    private void runFilterByHighCongestionCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectCongestion(data.getOrDefault("congestion", "HIGH"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying congestion filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_congestion", "HIGH")),
-                    "[" + tcId + "] Filtered results should contain HIGH");
-        }
-    }
-
-    @Step("TC-F8-07: Filter by severe congestion level")
-    private void runFilterBySevereCongestionCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectCongestion(data.getOrDefault("congestion", "SEVERE"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying congestion filter");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    driver.getPageSource().contains(data.getOrDefault("expected_congestion", "SEVERE")),
-                    "[" + tcId + "] Filtered results should contain SEVERE");
-        }
-    }
-
-    @Step("TC-F8-08: Sort by most recent first")
-    private void runSortMostRecentCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "timestamp:desc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    trafficDashboardPage.getRowCount() > 0,
-                    "[" + tcId + "] Sorted table should have at least one row");
-        }
-    }
-
-    @Step("TC-F8-09: Sort by oldest first")
-    private void runSortOldestFirstCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "timestamp:asc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    trafficDashboardPage.getRowCount() > 0,
-                    "[" + tcId + "] Sorted table should have at least one row");
-        }
-    }
-
-    @Step("TC-F8-10: Sort by density low to high")
-    private void runSortDensityLowHighCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "trafficDensity:asc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    trafficDashboardPage.getRowCount() > 0,
-                    "[" + tcId + "] Sorted table should have at least one row");
-        }
-    }
-
-    @Step("TC-F8-11: Sort by density high to low")
-    private void runSortDensityHighLowCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "trafficDensity:desc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    trafficDashboardPage.getRowCount() > 0,
-                    "[" + tcId + "] Sorted table should have at least one row");
-        }
-    }
-
-    @Step("TC-F8-12: Sort by speed low to high")
-    private void runSortSpeedLowHighCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "avgSpeed:asc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
-        if (trafficDashboardPage.isTableVisible()) {
-            Assert.assertTrue(
-                    trafficDashboardPage.getRowCount() > 0,
-                    "[" + tcId + "] Sorted table should have at least one row");
-        }
-    }
-
-    @Step("TC-F8-13: Sort by speed high to low")
-    private void runSortSpeedHighLowCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "avgSpeed:desc"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isTableVisible() || trafficDashboardPage.isEmptyStateVisible(),
-                "[" + tcId + "] Table or empty state should be visible after applying sort");
+                "[" + tcId + "] Table or empty state should be visible after sort");
         if (trafficDashboardPage.isTableVisible()) {
             Assert.assertTrue(
                     trafficDashboardPage.getRowCount() > 0,
@@ -679,15 +508,15 @@ public class TrafficDashboardTest extends BaseTest {
     }
 
     @Step("TC-F8-24: Rows sorted by timestamp descending are in correct order")
-    private void runSortOrderCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
+    private void runSortOrderCase(String tcId, Map<String, String> rd) {
         Map<String, String> data = structuredData(rd);
         trafficDashboardPage.open().waitForLoad().waitForResultsReady();
         if (trafficDashboardPage.isAlertBannerStripVisible()) {
             trafficDashboardPage.dismissAllAlertBanners();
         }
         trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.selectSort(data.getOrDefault("sort", "timestamp:desc"));
+        String sortValue = data.getOrDefault("sort_value", data.getOrDefault("sort", "timestamp:desc"));
+        trafficDashboardPage.selectSort(sortValue);
         trafficDashboardPage.clickApplyFilters().waitForResultsReady();
         Assert.assertTrue(
                 trafficDashboardPage.getRowCount() >= 2,
@@ -706,125 +535,75 @@ public class TrafficDashboardTest extends BaseTest {
                         + first + " vs " + second);
     }
 
-    @Step("TC-F8-14: Next page navigation shows rows and enables previous page")
-    private void runNextPageCase(String tcId) {
-        rowByTcId(tcId);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.isNextPageEnabled(),
-                "[" + tcId + "] Next page button should be enabled");
-        trafficDashboardPage.clickNextPage();
-        Assert.assertTrue(
-                trafficDashboardPage.getRowCount() > 0,
-                "[" + tcId + "] Next page should display at least one row");
-        Assert.assertTrue(
-                trafficDashboardPage.isPrevPageEnabled(),
-                "[" + tcId + "] Previous page button should be enabled after navigating forward");
-    }
-
-    @Step("TC-F8-15: Previous page returns to first page")
-    private void runPrevPageCase(String tcId) {
-        rowByTcId(tcId);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.clickNextPage();
-        trafficDashboardPage.clickPrevPage();
-        Assert.assertFalse(
-                trafficDashboardPage.isPrevPageEnabled(),
-                "[" + tcId + "] Previous page button should be disabled on first page");
-        Assert.assertTrue(
-                trafficDashboardPage.getRowCount() > 0,
-                "[" + tcId + "] First page should display at least one row");
-    }
-
-    @Step("TC-F8-16: First page button returns to first page")
-    private void runFirstPageCase(String tcId) {
-        rowByTcId(tcId);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.clickNextPage();
-        trafficDashboardPage.clickFirstPage();
-        Assert.assertFalse(
-                trafficDashboardPage.isPrevPageEnabled(),
-                "[" + tcId + "] Previous page button should be disabled on first page");
-        Assert.assertFalse(
-                trafficDashboardPage.isFirstPageEnabled(),
-                "[" + tcId + "] First page button should be disabled on first page");
-    }
-
-    @Step("TC-F8-17: Last page button navigates to last page")
-    private void runLastPageCase(String tcId) {
-        rowByTcId(tcId);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        trafficDashboardPage.clickLastPage();
-        Assert.assertFalse(
-                trafficDashboardPage.isNextPageEnabled(),
-                "[" + tcId + "] Next page button should be disabled on last page");
-        Assert.assertFalse(
-                trafficDashboardPage.isLastPageEnabled(),
-                "[" + tcId + "] Last page button should be disabled on last page");
-    }
-
-    @Step("TC-F8-18: Page size five shows five rows")
-    private void runPageSizeFiveCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
+    @Step("Pagination test: {tcId}")
+    private void runPaginationCase(String tcId, Map<String, String> rd) {
         Map<String, String> data = structuredData(rd);
         trafficDashboardPage.open().waitForLoad().waitForResultsReady();
         if (trafficDashboardPage.isAlertBannerStripVisible()) {
             trafficDashboardPage.dismissAllAlertBanners();
         }
-        int expectedSize = Integer.parseInt(data.getOrDefault("page_size", "5"));
-        trafficDashboardPage.selectPageSize(data.getOrDefault("page_size", "5")).waitForResultsReady();
-        Assert.assertEquals(
-                trafficDashboardPage.getRowCount(),
-                expectedSize,
-                "[" + tcId + "] Page size 5 should show exactly 5 rows");
-    }
-
-    @Step("TC-F8-19: Page size ten shows ten rows")
-    private void runPageSizeTenCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        int expectedSize = Integer.parseInt(data.getOrDefault("page_size", "10"));
-        trafficDashboardPage.selectPageSize(data.getOrDefault("page_size", "10")).waitForResultsReady();
-        Assert.assertEquals(
-                trafficDashboardPage.getRowCount(),
-                expectedSize,
-                "[" + tcId + "] Page size 10 should show exactly 10 rows");
-    }
-
-    @Step("TC-F8-20: Reset filters restores full results table")
-    private void runResetFiltersCase(String tcId) {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.open().waitForLoad().waitForResultsReady();
-        if (trafficDashboardPage.isAlertBannerStripVisible()) {
-            trafficDashboardPage.dismissAllAlertBanners();
-        }
-        trafficDashboardPage.selectLocation(data.getOrDefault("location", "CAIRO_RING_ROAD"));
-        trafficDashboardPage.clickApplyFilters().waitForResultsReady();
         trafficDashboardPage.clickResetFilters().waitForResultsReady();
-        Assert.assertTrue(
-                trafficDashboardPage.getRowCount() > 0,
-                "[" + tcId + "] Reset filters should restore at least one row");
+        switch (tcId) {
+            case "TC-F8-14" -> {
+                Assert.assertTrue(
+                        trafficDashboardPage.isNextPageEnabled(),
+                        "[" + tcId + "] Next page should be enabled");
+                trafficDashboardPage.clickNextPage();
+                Assert.assertTrue(
+                        trafficDashboardPage.getRowCount() > 0,
+                        "[" + tcId + "] Next page should show rows");
+                Assert.assertTrue(
+                        trafficDashboardPage.isPrevPageEnabled(),
+                        "[" + tcId + "] Prev page should be enabled after going forward");
+            }
+            case "TC-F8-15" -> {
+                trafficDashboardPage.clickNextPage();
+                trafficDashboardPage.clickPrevPage();
+                Assert.assertFalse(
+                        trafficDashboardPage.isPrevPageEnabled(),
+                        "[" + tcId + "] Prev page should be disabled on first page");
+                Assert.assertTrue(
+                        trafficDashboardPage.getRowCount() > 0,
+                        "[" + tcId + "] First page should show rows");
+            }
+            case "TC-F8-16" -> {
+                trafficDashboardPage.clickNextPage();
+                trafficDashboardPage.clickFirstPage();
+                Assert.assertFalse(
+                        trafficDashboardPage.isPrevPageEnabled(),
+                        "[" + tcId + "] Prev should be disabled on first page");
+                Assert.assertFalse(
+                        trafficDashboardPage.isFirstPageEnabled(),
+                        "[" + tcId + "] First page button should be disabled on first page");
+            }
+            case "TC-F8-17" -> {
+                trafficDashboardPage.clickLastPage();
+                Assert.assertFalse(
+                        trafficDashboardPage.isNextPageEnabled(),
+                        "[" + tcId + "] Next should be disabled on last page");
+                Assert.assertFalse(
+                        trafficDashboardPage.isLastPageEnabled(),
+                        "[" + tcId + "] Last page button should be disabled on last page");
+            }
+            case "TC-F8-18", "TC-F8-19" -> {
+                int expectedSize = Integer.parseInt(data.getOrDefault("page_size", "5"));
+                trafficDashboardPage.selectPageSize(data.getOrDefault("page_size", "5"))
+                        .waitForResultsReady();
+                Assert.assertEquals(
+                        trafficDashboardPage.getRowCount(),
+                        expectedSize,
+                        "[" + tcId + "] Page size should show " + expectedSize + " rows");
+            }
+            case "TC-F8-20" -> {
+                trafficDashboardPage.selectLocation(data.getOrDefault("location", "CAIRO_RING_ROAD"));
+                trafficDashboardPage.clickApplyFilters().waitForResultsReady();
+                trafficDashboardPage.clickResetFilters().waitForResultsReady();
+                Assert.assertTrue(
+                        trafficDashboardPage.getRowCount() > 0,
+                        "[" + tcId + "] Reset should restore rows");
+            }
+            default -> throw new IllegalStateException("Unhandled pagination tc_id: " + tcId);
+        }
     }
 
     @Step("TC-F8-21: Restrictive filters show empty state or matching table")
@@ -909,18 +688,6 @@ public class TrafficDashboardTest extends BaseTest {
                 "[" + tcId + "] Manual dismiss should remove at least one alert banner");
     }
 
-    @Step("TC-F9-03: Alert banner auto-dismisses after five seconds")
-    private void runAlertBannerAutoDismissCase(String tcId) throws Exception {
-        Map<String, String> rd = rowByTcId(tcId);
-        Map<String, String> data = structuredData(rd);
-        trafficDashboardPage.waitForAlertBanner();
-        long waitMs = Long.parseLong(data.getOrDefault("wait_ms", "7000"));
-        Thread.sleep(waitMs);
-        Assert.assertFalse(
-                trafficDashboardPage.isAlertBannerVisible(),
-                "[" + tcId + "] Alert banner should auto-dismiss without clicking close");
-    }
-
     @Step("TC-F9-04: No alert banners when alerts are flushed")
     private void runNoAlertBannersCase(String tcId) throws Exception {
         rowByTcId(tcId);
@@ -937,7 +704,7 @@ public class TrafficDashboardTest extends BaseTest {
         for (int i = 0; i < 3; i++) {
             TrafficDashboardPage.generateSensors(authToken);
         }
-        trafficDashboardPage.openWithoutToastDismiss().waitForResultsReady();
+        trafficDashboardPage.open().waitForResultsReady();
         boolean multipleBannersVisible = false;
         long deadline = System.currentTimeMillis() + 3_000L;
         while (System.currentTimeMillis() < deadline) {
