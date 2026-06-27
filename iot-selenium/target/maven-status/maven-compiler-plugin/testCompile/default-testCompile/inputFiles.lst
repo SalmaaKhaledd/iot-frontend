@@ -1,4 +1,5 @@
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\config\ConfigReader.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\AirQualityDashboardPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\AlertsPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\BasePage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\DashboardPage.java
@@ -6,8 +7,10 @@ C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\seleniu
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\SettingsPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\SigninPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\SignupPage.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\StreetLightDashboardPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\TrafficDashboardPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\UserProfilePage.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\AirQualityDashboardTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\AlertsTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\BaseTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\ConfigurationTest.java
@@ -16,6 +19,7 @@ C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\seleniu
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\SettingsTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\SigninTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\SignupTest.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\StreetLightDashboardTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\SuiteAuthBootstrap.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\TrafficDashboardTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\UserProfileTest.java

@@ -49,6 +49,16 @@
             <class name="com.iot.selenium.tests.TrafficDashboardTest" />
         </classes>
     </test>
+    <test name="Street Light Dashboard Tests">
+        <classes>
+           <class name="com.iot.selenium.tests.StreetLightDashboardTest" />
+        </classes>
+    </test>
+    <test name="Air Quality Dashboard Tests">
+        <classes>
+           <class name="com.iot.selenium.tests.AirQualityDashboardTest" />
+        </classes>
+    </test>
     <test name="Logout Tests">
         <classes>
             <class name="com.iot.selenium.tests.LogoutTest" />
