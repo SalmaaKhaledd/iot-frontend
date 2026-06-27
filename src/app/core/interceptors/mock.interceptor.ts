@@ -552,11 +552,122 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       status: 200,
       body: {
         content,
-        pageNo: safePage,
-        pageSize: size,
         totalElements,
         totalPages,
-        last: safePage >= totalPages - 1,
+        number: safePage,
+        size,
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/air-pollution$/.test(path)) {
+    const content: Array<{
+      id: string;
+      location: string;
+      timestamp: string;
+      pm2_5: number;
+      pm10: number;
+      co: number;
+      no2: number;
+      so2: number;
+      ozone: number;
+      pollutionLevel: 'GOOD' | 'MODERATE' | 'UNHEALTHY' | 'VERY_UNHEALTHY' | 'HAZARDOUS';
+    }> = [
+      { id: '1', location: 'CAIRO_NASR_CITY',   timestamp: '2026-06-27T10:47:01', pm2_5: 12.5, pm10: 25.0, co: 0.5, no2: 0.04, so2: 0.02, ozone: 0.08, pollutionLevel: 'MODERATE' },
+      { id: '2', location: 'CAIRO_MAADI',       timestamp: '2026-06-27T10:46:01', pm2_5: 12.5, pm10: 25.0, co: 0.5, no2: 0.04, so2: 0.02, ozone: 0.08, pollutionLevel: 'MODERATE' },
+      { id: '3', location: 'CAIRO_HELIOPOLIS',  timestamp: '2026-06-27T10:45:01', pm2_5: 12.5, pm10: 25.0, co: 0.5, no2: 0.04, so2: 0.02, ozone: 0.08, pollutionLevel: 'MODERATE' },
+    ];
+
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        content,
+        totalElements: 3,
+        totalPages: 1,
+        number: 0,
+        size: 5,
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/street-lights$/.test(path)) {
+    const content: Array<{
+      id: string;
+      location: string;
+      timestamp: string;
+      brightnessLevel: number;
+      powerConsumption: number;
+      status: 'ON' | 'OFF';
+    }> = [
+      { id: '1', location: 'CAIRO_ZAMALEK',    timestamp: '2026-06-27T10:47:01', brightnessLevel: 85, powerConsumption: 120.5, status: 'ON' },
+      { id: '2', location: 'CAIRO_DOWNTOWN',   timestamp: '2026-06-27T10:46:01', brightnessLevel: 85, powerConsumption: 120.5, status: 'ON' },
+      { id: '3', location: 'CAIRO_NEW_CAIRO',  timestamp: '2026-06-27T10:45:01', brightnessLevel: 85, powerConsumption: 120.5, status: 'ON' },
+    ];
+
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        content,
+        totalElements: 3,
+        totalPages: 1,
+        number: 0,
+        size: 5,
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/air-pollution\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgCo: 0.5,
+        avgOzone: 0.08,
+        alertsTriggered: 2,
+        pollutionLevelDistribution: { GOOD: 1, MODERATE: 2 },
+        dailyAverages: [
+          { date: '2026-06-25', avgCo: 0.48, avgOzone: 0.07 },
+          { date: '2026-06-26', avgCo: 0.51, avgOzone: 0.08 },
+          { date: '2026-06-27', avgCo: 0.53, avgOzone: 0.09 },
+        ],
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/street-lights\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgBrightness: 85,
+        avgPowerConsumption: 120.5,
+        alertsTriggered: 1,
+        statusDistribution: { ON: 2, OFF: 1 },
+        dailyAverages: [
+          { date: '2026-06-25', avgBrightness: 83, avgPowerConsumption: 118.0 },
+          { date: '2026-06-26', avgBrightness: 85, avgPowerConsumption: 120.5 },
+          { date: '2026-06-27', avgBrightness: 87, avgPowerConsumption: 122.0 },
+        ],
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/traffic\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgTrafficDensity: 65,
+        avgSpeed: 45,
+        alertsTriggered: 3,
+        congestionLevelDistribution: { LOW: 1, MODERATE: 2 },
+        dailyAverages: [
+          { date: '2026-06-25', avgTrafficDensity: 60, avgSpeed: 47 },
+          { date: '2026-06-26', avgTrafficDensity: 65, avgSpeed: 45 },
+          { date: '2026-06-27', avgTrafficDensity: 70, avgSpeed: 43 },
+        ],
       },
     })).pipe(delay(300));
   }

@@ -145,8 +145,8 @@ export class AirQualitySensorCardComponent {
         })
       )
       .subscribe({
-        next: (readings) => {
-          const items = readings.map((reading) => this.toAirSensorItem(reading));
+        next: (response) => {
+          const items = response.content.map((reading) => this.toAirSensorItem(reading));
           this.readingHistory.set(items);
           this.selectedReadingIndex.set(0);
           this.isLoading.set(false);

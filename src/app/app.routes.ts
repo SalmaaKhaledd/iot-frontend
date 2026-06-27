@@ -47,7 +47,21 @@ export const routes: Routes = [
     path: 'traffic-dashboard',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/traffic-dashboard/traffic-dashboard').then((m) => m.TrafficDashboard),
+      import('./features/traffic-dashboard/traffic-dashboard-page.component').then(
+        (m) => m.TrafficDashboardPageComponent,
+      ),
+  },
+  {
+    path: 'air-quality-dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/air-quality/air-quality-page.component').then((m) => m.AirQualityPageComponent),
+  },
+  {
+    path: 'street-light-dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/street-light/street-light-page.component').then((m) => m.StreetLightPageComponent),
   },
   {
     path: '**',

@@ -36,7 +36,13 @@ describe('AirQualitySensorCardComponent', () => {
       }
     ];
 
-    mockSensorService.getAirPollutionReadings.mockReturnValue(of(mockReadings));
+    mockSensorService.getAirPollutionReadings.mockReturnValue(of({
+      content: mockReadings,
+      totalElements: mockReadings.length,
+      totalPages: 1,
+      number: 0,
+      size: mockReadings.length,
+    }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ airQualityReadingInterval: 60 } as any));
 
