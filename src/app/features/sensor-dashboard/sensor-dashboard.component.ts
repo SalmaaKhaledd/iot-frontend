@@ -774,7 +774,9 @@ export class SensorDashboard implements OnInit, OnDestroy {
     const stats = this.statsData();
     if (!stats) return '—';
     const value = (stats as unknown as Record<string, unknown>)[key];
-    return value === null || value === undefined ? '—' : String(value);
+    if (value === null || value === undefined) return '—';
+    if (typeof value === 'number') return String(Number(value.toFixed(2)));
+    return String(value);
   }
 
   // ── Table cell rendering ─────────────────────────────────────────────────────
