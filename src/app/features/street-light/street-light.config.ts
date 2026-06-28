@@ -21,8 +21,11 @@ export const streetLightConfig: SensorDashboardConfig = {
 
   sortOptions: [
     { label: 'Most recent first', value: 'timestamp:desc' },
-    { label: 'Highest power consumption first', value: 'powerConsumption:desc' },
-    { label: 'Lowest brightness first', value: 'brightnessLevel:asc' },
+    { label: 'Oldest first', value: 'timestamp:asc' },
+    { label: 'Brightness (high to low)', value: 'brightnessLevel:desc' },
+    { label: 'Brightness (low to high)', value: 'brightnessLevel:asc' },
+    { label: 'Power (high to low)', value: 'powerConsumption:desc' },
+    { label: 'Power (low to high)', value: 'powerConsumption:asc' },
   ],
 
   extraFilterConfig: [

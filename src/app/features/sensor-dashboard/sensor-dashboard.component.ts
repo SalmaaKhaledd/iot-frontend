@@ -3,14 +3,16 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
   Input,
   OnDestroy,
   OnInit,
+  afterNextRender,
   computed,
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
@@ -91,6 +93,7 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
     DateTimePicker,
   ],
   styleUrls: ['./sensor-dashboard.component.scss'],
+  providers: [DecimalPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="dashboard-page" [attr.data-testid]="config.testIds?.page ?? 'sensor-dashboard-page'">
@@ -474,6 +477,8 @@ export class SensorDashboard implements OnInit, OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly elRef = inject(ElementRef);
+  private readonly decimalPipe = inject(DecimalPipe);
+  private readonly injector = inject(Injector);
   private readonly refresh$ = new Subject<void>();
   private readonly alertTimers = new Map<string, ReturnType<typeof setTimeout>>();
 
@@ -539,18 +544,11 @@ export class SensorDashboard implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Reset defaults now that the config input is available.
-    this.filterValues.set(this.emptyFilterState());
-
-    // Default analytics range: last 7 days, so the charts populate on first load
-    // instead of showing the "select a date range" prompt. Pre-populating the
-    // shared date pickers makes the active range visible. This is set once on
-    // init only — changing location or other filters never resets it, and an
-    // explicit user date selection (Apply) takes over from here.
-    const defaultTo = new Date();
-    const defaultFrom = new Date();
-    defaultFrom.setDate(defaultFrom.getDate() - 7);
-    this.filterValues.update((fv) => ({ ...fv, fromDate: defaultFrom, toDate: defaultTo }));
+    // Seed defaults now that the config input is available. The default analytics
+    // range (last 7 days) makes the charts populate on first load and keeps the
+    // date pickers visibly reflecting the active range. The readings table stays
+    // unfiltered (filtersApplied=false) until the user explicitly applies.
+    this.filterValues.set(this.initialFilterState());
 
     merge(timer(0, 60000), this.refresh$)
       .pipe(
@@ -676,12 +674,14 @@ export class SensorDashboard implements OnInit, OnDestroy {
 
   resetFilters(): void {
     this.filtersApplied = false;
-    this.filterValues.set(this.emptyFilterState());
+    // Re-seed the default 7-day analytics range so the charts behave exactly as
+    // they do on first load instead of going blank after a reset.
+    this.filterValues.set(this.initialFilterState());
     this.dateError.set(null);
-    this.statsData.set(null);
     this.statsError.set(null);
     this.currentPage.set(0);
     this.refresh$.next();
+    this.fetchStats();
   }
 
   retry(): void {
@@ -760,7 +760,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
           this.statsData.set(stats);
           this.statsLoading.set(false);
           // Defer so the @if-rendered canvases exist in the DOM before drawing.
-          setTimeout(() => this.renderCharts(), 0);
+          this.scheduleChartRender();
         },
         error: () => {
           this.statsError.set('Failed to load analytics. Please try again.');
@@ -775,7 +775,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
     if (!stats) return '—';
     const value = (stats as unknown as Record<string, unknown>)[key];
     if (value === null || value === undefined) return '—';
-    if (typeof value === 'number') return String(Number(value.toFixed(2)));
+    if (typeof value === 'number') return this.formatNumber(value);
     return String(value);
   }
 
@@ -783,7 +783,13 @@ export class SensorDashboard implements OnInit, OnDestroy {
   formatCell(reading: SensorReading, col: ColumnDef): string {
     const value = (reading as unknown as Record<string, unknown>)[col.key];
     if (value === null || value === undefined) return '—';
-    return col.unit ? `${value} ${col.unit}` : String(value);
+    const display = typeof value === 'number' ? this.formatNumber(value) : String(value);
+    return col.unit ? `${display} ${col.unit}` : display;
+  }
+
+  /** Formats a number for display: thousands separators, up to 2 decimals. */
+  private formatNumber(value: number): string {
+    return this.decimalPipe.transform(value, '1.0-2') ?? String(value);
   }
 
   // ── Alerts ───────────────────────────────────────────────────────────────────
@@ -829,7 +835,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
     this.isAnalyticsExpanded.set(expanded);
     if (expanded && this.statsData()) {
       // Canvases are (re)created by the @if when expanding — rebuild charts.
-      setTimeout(() => this.renderCharts(), 0);
+      this.scheduleChartRender();
     } else if (!expanded) {
       // Collapsing removes the canvases from the DOM; drop the stale instances.
       this.destroyCharts();
@@ -837,6 +843,15 @@ export class SensorDashboard implements OnInit, OnDestroy {
   }
 
   // ── Charts ───────────────────────────────────────────────────────────────────
+  /**
+   * Schedules a chart rebuild after the next render, so the `@if`-controlled
+   * canvases are guaranteed to exist in the DOM. Uses Angular's render hook
+   * instead of a setTimeout(0) macrotask, which is fragile and untracked.
+   */
+  private scheduleChartRender(): void {
+    afterNextRender(() => this.renderCharts(), { injector: this.injector });
+  }
+
   /** Rebuilds all configured charts from the current stats response. */
   private renderCharts(): void {
     this.destroyCharts();
@@ -1175,6 +1190,18 @@ export class SensorDashboard implements OnInit, OnDestroy {
       sortBy: this.config?.sortOptions?.[0]?.value ?? 'timestamp:desc',
       extra,
     };
+  }
+
+  /**
+   * Empty filter state seeded with the default analytics range (last 7 days), so
+   * the charts populate on first load and after a reset. The readings table stays
+   * unfiltered because `filtersApplied` remains false until the user applies.
+   */
+  private initialFilterState(): FilterState {
+    const toDate = new Date();
+    const fromDate = new Date();
+    fromDate.setDate(fromDate.getDate() - 7);
+    return { ...this.emptyFilterState(), fromDate, toDate };
   }
 
   private toYmd(date: Date | null): string | undefined {

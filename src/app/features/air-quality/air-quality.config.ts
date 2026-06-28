@@ -25,8 +25,11 @@ export const airQualityConfig: SensorDashboardConfig = {
 
   sortOptions: [
     { label: 'Most recent first', value: 'timestamp:desc' },
-    { label: 'Highest CO first', value: 'co:desc' },
-    { label: 'Highest ozone first', value: 'ozone:desc' },
+    { label: 'Oldest first', value: 'timestamp:asc' },
+    { label: 'CO (high to low)', value: 'co:desc' },
+    { label: 'CO (low to high)', value: 'co:asc' },
+    { label: 'Ozone (high to low)', value: 'ozone:desc' },
+    { label: 'Ozone (low to high)', value: 'ozone:asc' },
   ],
 
   extraFilterConfig: [
