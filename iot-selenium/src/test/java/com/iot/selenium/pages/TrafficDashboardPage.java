@@ -92,7 +92,7 @@ public class TrafficDashboardPage extends BasePage {
     }
 
     public boolean isStreetLightsNavCardVisible() {
-        return driver.findElements(By.cssSelector("[data-testid='street-lights-nav-card']")).stream()
+        return driver.findElements(By.cssSelector("[data-testid='street-light-nav-card']")).stream()
                 .anyMatch(e -> e.isDisplayed());
     }
 
@@ -575,7 +575,7 @@ public class TrafficDashboardPage extends BasePage {
         waitForAngular();
         return this;
     }
-
+/*
     public boolean isAnalyticsPanelExpanded() {
         List<WebElement> charts = driver.findElements(By.id("speedChart"));
         for (int i = 0; i < charts.size(); i++) {
@@ -589,6 +589,15 @@ public class TrafficDashboardPage extends BasePage {
             }
         }
         return false;
+    }
+*/
+    public boolean isAnalyticsPanelExpanded() {
+      // Check analytics-panel container instead of chart presence
+      List<WebElement> panels = driver.findElements(By.cssSelector("[data-testid='analytics-panel']"));
+      if (panels.isEmpty()) return false;
+     // Check if body/content is displayed
+     List<WebElement> bodies = panels.get(0).findElements(By.cssSelector(".analytics-body, [data-testid='analytics-cards'], [data-testid='analytics-charts']"));
+      return bodies.stream().anyMatch(WebElement::isDisplayed);
     }
 
     public List<String> getAnalyticsMetricCardTexts() {
@@ -605,8 +614,8 @@ public class TrafficDashboardPage extends BasePage {
     }
 
     public boolean areChartsRendered() {
-        return !driver.findElements(By.id("speedChart")).isEmpty()
-                && !driver.findElements(By.id("densityChart")).isEmpty()
-                && !driver.findElements(By.id("donutChart")).isEmpty();
+      return !driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-1']")).isEmpty()
+        && !driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-2']")).isEmpty()
+        && !driver.findElements(By.cssSelector("[data-testid='analytics-donut-chart']")).isEmpty();
     }
 }

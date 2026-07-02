@@ -4,38 +4,14 @@
   <listeners>
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
   </listeners>
-  <test thread-count="5" name="Signup Tests(failed)" verbose="0">
-    <classes>
-      <class name="com.iot.selenium.tests.SignupTest">
-        <methods>
-          <include name="initWait"/>
-          <include name="tearDown"/>
-          <include name="testSignup" invocation-numbers="0 1 12"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- com.iot.selenium.tests.SignupTest -->
-    </classes>
-  </test> <!-- Signup Tests(failed) -->
-  <test thread-count="5" name="User Profile Tests(failed)" verbose="0">
-    <classes>
-      <class name="com.iot.selenium.tests.UserProfileTest">
-        <methods>
-          <include name="initWait"/>
-          <include name="tearDown"/>
-          <include name="testUserProfile" invocation-numbers="3"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- com.iot.selenium.tests.UserProfileTest -->
-    </classes>
-  </test> <!-- User Profile Tests(failed) -->
   <test thread-count="5" name="Alerts &amp; Notifications Tests(failed)" verbose="0">
     <classes>
       <class name="com.iot.selenium.tests.AlertsTest">
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
-          <include name="testEmptyNotifications"/>
           <include name="testJumpToSensorModal"/>
+          <include name="testEmptyNotifications"/>
           <include name="testDeleteFromModal"/>
           <include name="testPanelOpenClose"/>
           <include name="tearDownClass"/>
@@ -45,18 +21,21 @@
       </class> <!-- com.iot.selenium.tests.AlertsTest -->
     </classes>
   </test> <!-- Alerts & Notifications Tests(failed) -->
-  <test thread-count="5" name="Traffic Dashboard Tests(failed)" verbose="0">
+  <test thread-count="5" name="Sensor Dashboard Tests(failed)" verbose="0">
     <classes>
-      <class name="com.iot.selenium.tests.TrafficDashboardTest">
+      <class name="com.iot.selenium.tests.SensorDashboardTest">
         <methods>
-          <include name="testAnalytics"/>
-          <include name="testEntryPoint"/>
-          <include name="seedBeforeClass"/>
           <include name="tearDownClass"/>
-          <include name="setUp"/>
           <include name="tearDown"/>
+          <include name="testHistoryDropdown"/>
+          <include name="testAlertsModal"/>
+          <include name="testRefresh"/>
+          <include name="testEmptyState"/>
+          <include name="testDataAfterSeed"/>
+          <include name="setUp"/>
+          <include name="seedSensorsBeforeClass"/>
         </methods>
-      </class> <!-- com.iot.selenium.tests.TrafficDashboardTest -->
+      </class> <!-- com.iot.selenium.tests.SensorDashboardTest -->
     </classes>
-  </test> <!-- Traffic Dashboard Tests(failed) -->
+  </test> <!-- Sensor Dashboard Tests(failed) -->
 </suite> <!-- Failed suite [IoT Selenium Suite] -->

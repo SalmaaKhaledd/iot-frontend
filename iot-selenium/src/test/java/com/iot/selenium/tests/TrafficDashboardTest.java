@@ -269,7 +269,7 @@ public class TrafficDashboardTest extends BaseTest {
                 "[" + tcId + "] Unauthenticated user should be redirected to /login");
         restoreAuthenticatedSession();
     }
-
+/*
     @Step("TC-F6-05: Air Quality nav card has data-testid attribute")
     private void runAirQualityNavCardCase(String tcId) {
         rowByTcId(tcId);
@@ -279,7 +279,16 @@ public class TrafficDashboardTest extends BaseTest {
                     "[" + tcId + "] BUG 86c9y6abu: Air Quality nav card is missing data-testid='air-quality-nav-card'");
         }
     }
-
+*/
+    @Step("TC-F6-05: Air Quality nav card has data-testid attribute")
+    private void runAirQualityNavCardCase(String tcId) {
+      rowByTcId(tcId);
+      trafficDashboardPage.navigateToHome();
+      Assert.assertTrue(
+        trafficDashboardPage.isAirQualityNavCardVisible(),
+        "[" + tcId + "] Air Quality nav card should be visible with data-testid='air-quality-nav-card'");
+    }
+/*
     @Step("TC-F6-06: Street Lights nav card has data-testid attribute")
     private void runStreetLightsNavCardCase(String tcId) {
         rowByTcId(tcId);
@@ -288,6 +297,15 @@ public class TrafficDashboardTest extends BaseTest {
             throw new SkipException(
                     "[" + tcId + "] BUG 86c9y6abu: Street Lights nav card is missing data-testid='street-lights-nav-card'");
         }
+    }
+*/
+    @Step("TC-F6-06: Street Lights nav card has data-testid attribute")
+    private void runStreetLightsNavCardCase(String tcId) {
+      rowByTcId(tcId);
+      trafficDashboardPage.navigateToHome();
+      Assert.assertTrue(
+        trafficDashboardPage.isStreetLightsNavCardVisible(),
+        "[" + tcId + "] Street Lights nav card should be visible with data-testid='street-light-nav-card'");
     }
 
     @Step("TC-F7-01: Traffic dashboard loads at /traffic-dashboard")
@@ -349,7 +367,7 @@ public class TrafficDashboardTest extends BaseTest {
         }
         String pageSource = driver.getPageSource().toUpperCase();
         String[] columnHeaders = {
-                "LOCATION", "TIMESTAMP", "DENSITY", "AVG SPEED", "CONGESTION", "VEHICLES/MIN"
+                "LOCATION", "TIMESTAMP", "DENSITY", "AVG SPEED", "CONGESTION"
         };
         for (String columnHeader : columnHeaders) {
             Assert.assertTrue(

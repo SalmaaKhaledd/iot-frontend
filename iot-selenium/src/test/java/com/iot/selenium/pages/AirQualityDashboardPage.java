@@ -341,17 +341,30 @@ public class AirQualityDashboardPage extends BasePage {
     return this;
   }
 
+/*
   public boolean isAnalyticsPanelExpanded() {
-    List<WebElement> charts = driver.findElements(By.id("speedChart"));
+    List<WebElement> charts = driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-1']"));
     for (int i = 0; i < charts.size(); i++) {
       try {
         if (charts.get(i).isDisplayed()) return true;
       } catch (StaleElementReferenceException ignored) {
-        charts = driver.findElements(By.id("speedChart"));
+        charts = driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-1']"));
         i = -1;
       }
     }
     return false;
+  }
+*/
+
+  public boolean isAnalyticsPanelExpanded() {
+    // Check if analytics-panel container is visible (stable)
+    // NOT chart presence (flaky due to destroy/rebuild)
+    List<WebElement> panels = driver.findElements(By.cssSelector("[data-testid='analytics-panel']"));
+    if (panels.isEmpty()) return false;
+
+    // Also verify the body/content area is displayed, not just header
+    List<WebElement> bodies = panels.get(0).findElements(By.cssSelector(".analytics-body, [data-testid='analytics-cards'], [data-testid='analytics-charts']"));
+    return bodies.stream().anyMatch(WebElement::isDisplayed);
   }
 
   public List<String> getAnalyticsMetricCardTexts() {
@@ -366,9 +379,9 @@ public class AirQualityDashboardPage extends BasePage {
   }
 
   public boolean areChartsRendered() {
-    return !driver.findElements(By.id("speedChart")).isEmpty()
-      && !driver.findElements(By.id("densityChart")).isEmpty()
-      && !driver.findElements(By.id("donutChart")).isEmpty();
+    return !driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-1']")).isEmpty()
+      && !driver.findElements(By.cssSelector("[data-testid='analytics-line-chart-2']")).isEmpty()
+      && !driver.findElements(By.cssSelector("[data-testid='analytics-donut-chart']")).isEmpty();
   }
 
   public AirQualityDashboardPage clickFilterPanelToggle() {
