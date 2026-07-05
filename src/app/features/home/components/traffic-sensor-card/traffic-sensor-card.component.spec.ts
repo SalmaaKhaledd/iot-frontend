@@ -35,11 +35,10 @@ describe('TrafficSensorCardComponent', () => {
 
     mockSensorService.getTrafficReadings.mockReturnValue(of({
       content: mockReadings,
-      pageNo: 0,
-      pageSize: 20,
       totalElements: 1,
       totalPages: 1,
-      last: true
+      number: 0,
+      size: 20
     }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ trafficReadingInterval: 60 } as any));

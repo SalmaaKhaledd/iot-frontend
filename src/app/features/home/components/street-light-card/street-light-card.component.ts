@@ -86,8 +86,8 @@ export class StreetLightCardComponent {
         })
       )
       .subscribe({
-        next: (readings) => {
-          const items = readings.map((reading) => this.toStreetLightItem(reading));
+        next: (response) => {
+          const items = response.content.map((reading) => this.toStreetLightItem(reading));
           this.readingHistory.set(items);
           this.selectedReadingIndex.set(0);
           this.isLoading.set(false);

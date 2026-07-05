@@ -19,7 +19,7 @@
           <p class="muted small">Monitor road congestion and traffic flow</p>
         </div>
 
-        <div class="card" (click)="scrollToSensor('air-quality-sensor')" data-testid="air-quality-nav-card">
+        <div class="card" (click)="goToDashboard('air-quality')" data-testid="air-quality-nav-card">
           <div class="card-header">
             <div class="icon-wrap green">
               <mat-icon>air</mat-icon>
@@ -29,7 +29,7 @@
           <p class="muted small">Track pollution levels and air health</p>
         </div>
 
-        <div class="card" (click)="scrollToSensor('street-light-sensor')" data-testid="street-light-nav-card">
+        <div class="card" (click)="goToDashboard('street-light')" data-testid="street-light-nav-card">
           <div class="card-header">
             <div class="icon-wrap yellow">
               <mat-icon>lightbulb</mat-icon>

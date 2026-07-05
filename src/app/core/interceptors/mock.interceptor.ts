@@ -552,11 +552,188 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       status: 200,
       body: {
         content,
-        pageNo: safePage,
-        pageSize: size,
         totalElements,
         totalPages,
-        last: safePage >= totalPages - 1,
+        number: safePage,
+        size,
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/air-pollution$/.test(path)) {
+    const allReadings: Array<{
+      id: string;
+      location: string;
+      timestamp: string;
+      pm2_5: number;
+      pm10: number;
+      co: number;
+      no2: number;
+      so2: number;
+      ozone: number;
+      pollutionLevel: 'GOOD' | 'MODERATE' | 'UNHEALTHY' | 'VERY_UNHEALTHY' | 'HAZARDOUS';
+    }> = [
+      { id: '1', location: 'CAIRO_NASR_CITY',   timestamp: '2026-06-27T10:47:01', pm2_5: 12.5, pm10: 25.0, co: 0.5, no2: 0.04, so2: 0.02, ozone: 0.08, pollutionLevel: 'MODERATE' },
+      { id: '2', location: 'CAIRO_MAADI',       timestamp: '2026-06-27T10:46:01', pm2_5: 8.1,  pm10: 18.0, co: 0.3, no2: 0.02, so2: 0.01, ozone: 0.05, pollutionLevel: 'GOOD' },
+      { id: '3', location: 'CAIRO_HELIOPOLIS',  timestamp: '2026-06-27T10:45:01', pm2_5: 38.0, pm10: 70.0, co: 1.2, no2: 0.09, so2: 0.06, ozone: 0.14, pollutionLevel: 'UNHEALTHY' },
+      { id: '4', location: 'CAIRO_NASR_CITY',   timestamp: '2026-06-27T10:44:01', pm2_5: 55.0, pm10: 110.0, co: 2.0, no2: 0.13, so2: 0.09, ozone: 0.18, pollutionLevel: 'VERY_UNHEALTHY' },
+      { id: '5', location: 'CAIRO_MAADI',       timestamp: '2026-06-27T10:43:01', pm2_5: 90.0, pm10: 180.0, co: 3.4, no2: 0.20, so2: 0.15, ozone: 0.24, pollutionLevel: 'HAZARDOUS' },
+      { id: '6', location: 'CAIRO_HELIOPOLIS',  timestamp: '2026-06-27T10:42:01', pm2_5: 10.2, pm10: 22.0, co: 0.4, no2: 0.03, so2: 0.02, ozone: 0.06, pollutionLevel: 'GOOD' },
+      { id: '7', location: 'CAIRO_NASR_CITY',   timestamp: '2026-06-27T10:41:01', pm2_5: 20.0, pm10: 42.0, co: 0.8, no2: 0.06, so2: 0.04, ozone: 0.10, pollutionLevel: 'MODERATE' },
+      { id: '8', location: 'CAIRO_MAADI',       timestamp: '2026-06-27T10:40:01', pm2_5: 45.0, pm10: 88.0, co: 1.6, no2: 0.11, so2: 0.07, ozone: 0.16, pollutionLevel: 'UNHEALTHY' },
+    ];
+
+    const p = req.params;
+    const page     = Number(p.get('page') ?? '0');
+    const size     = Number(p.get('size') ?? '20');
+    const sortBy   = p.get('sortBy')  ?? 'timestamp';
+    const sortDir  = p.get('sortDir') ?? 'desc';
+    const location       = p.get('location')       ?? '';
+    const pollutionLevel = p.get('pollutionLevel') ?? '';
+    const tsStart  = p.get('timestampStart') ?? '';
+    const tsEnd    = p.get('timestampEnd')   ?? '';
+
+    let filtered = allReadings.filter(r => {
+      if (location       && !r.location.includes(location))  return false;
+      if (pollutionLevel && r.pollutionLevel !== pollutionLevel) return false;
+      if (tsStart && r.timestamp < tsStart)                  return false;
+      if (tsEnd   && r.timestamp > tsEnd)                    return false;
+      return true;
+    });
+
+    filtered.sort((a, b) => {
+      let aVal: number | string;
+      let bVal: number | string;
+      if (sortBy === 'co')         { aVal = a.co;        bVal = b.co; }
+      else if (sortBy === 'ozone') { aVal = a.ozone;     bVal = b.ozone; }
+      else                         { aVal = a.timestamp; bVal = b.timestamp; }
+      if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    const totalElements = filtered.length;
+    const totalPages    = Math.max(1, Math.ceil(totalElements / size));
+    const safePage      = Math.min(page, totalPages - 1);
+    const content       = filtered.slice(safePage * size, safePage * size + size);
+
+    return of(new HttpResponse({
+      status: 200,
+      body: { content, totalElements, totalPages, number: safePage, size },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/street-lights$/.test(path)) {
+    const allReadings: Array<{
+      id: string;
+      location: string;
+      timestamp: string;
+      brightnessLevel: number;
+      powerConsumption: number;
+      status: 'ON' | 'OFF';
+    }> = [
+      { id: '1', location: 'CAIRO_ZAMALEK',    timestamp: '2026-06-27T10:47:01', brightnessLevel: 85, powerConsumption: 120.5, status: 'ON' },
+      { id: '2', location: 'CAIRO_DOWNTOWN',   timestamp: '2026-06-27T10:46:01', brightnessLevel: 0,  powerConsumption: 5.0,   status: 'OFF' },
+      { id: '3', location: 'CAIRO_NEW_CAIRO',  timestamp: '2026-06-27T10:45:01', brightnessLevel: 60, powerConsumption: 95.0,  status: 'ON' },
+      { id: '4', location: 'CAIRO_ZAMALEK',    timestamp: '2026-06-27T10:44:01', brightnessLevel: 0,  powerConsumption: 4.5,   status: 'OFF' },
+      { id: '5', location: 'CAIRO_DOWNTOWN',   timestamp: '2026-06-27T10:43:01', brightnessLevel: 100, powerConsumption: 150.0, status: 'ON' },
+      { id: '6', location: 'CAIRO_NEW_CAIRO',  timestamp: '2026-06-27T10:42:01', brightnessLevel: 40, powerConsumption: 70.0,  status: 'ON' },
+      { id: '7', location: 'CAIRO_ZAMALEK',    timestamp: '2026-06-27T10:41:01', brightnessLevel: 0,  powerConsumption: 5.5,   status: 'OFF' },
+      { id: '8', location: 'CAIRO_DOWNTOWN',   timestamp: '2026-06-27T10:40:01', brightnessLevel: 75, powerConsumption: 110.0, status: 'ON' },
+    ];
+
+    const p = req.params;
+    const page     = Number(p.get('page') ?? '0');
+    const size     = Number(p.get('size') ?? '20');
+    const sortBy   = p.get('sortBy')  ?? 'timestamp';
+    const sortDir  = p.get('sortDir') ?? 'desc';
+    const location = p.get('location') ?? '';
+    const status   = p.get('status')   ?? '';
+    const tsStart  = p.get('timestampStart') ?? '';
+    const tsEnd    = p.get('timestampEnd')   ?? '';
+
+    let filtered = allReadings.filter(r => {
+      if (location && !r.location.includes(location)) return false;
+      if (status   && r.status !== status)            return false;
+      if (tsStart && r.timestamp < tsStart)           return false;
+      if (tsEnd   && r.timestamp > tsEnd)             return false;
+      return true;
+    });
+
+    filtered.sort((a, b) => {
+      let aVal: number | string;
+      let bVal: number | string;
+      if (sortBy === 'powerConsumption')   { aVal = a.powerConsumption; bVal = b.powerConsumption; }
+      else if (sortBy === 'brightnessLevel') { aVal = a.brightnessLevel; bVal = b.brightnessLevel; }
+      else                                 { aVal = a.timestamp;       bVal = b.timestamp; }
+      if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    const totalElements = filtered.length;
+    const totalPages    = Math.max(1, Math.ceil(totalElements / size));
+    const safePage      = Math.min(page, totalPages - 1);
+    const content       = filtered.slice(safePage * size, safePage * size + size);
+
+    return of(new HttpResponse({
+      status: 200,
+      body: { content, totalElements, totalPages, number: safePage, size },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/air-pollution\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgCo: 0.5,
+        avgOzone: 0.08,
+        alertsTriggered: 2,
+        pollutionLevelDistribution: { GOOD: 1, MODERATE: 2 },
+        dailyAverages: [
+          { date: '2026-06-25', avgCo: 0.48, avgOzone: 0.07 },
+          { date: '2026-06-26', avgCo: 0.51, avgOzone: 0.08 },
+          { date: '2026-06-27', avgCo: 0.53, avgOzone: 0.09 },
+        ],
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/street-lights\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgBrightness: 85,
+        avgPowerConsumption: 120.5,
+        alertsTriggered: 1,
+        statusDistribution: { ON: 2, OFF: 1 },
+        dailyAverages: [
+          { date: '2026-06-25', avgBrightness: 83, avgPowerConsumption: 118.0 },
+          { date: '2026-06-26', avgBrightness: 85, avgPowerConsumption: 120.5 },
+          { date: '2026-06-27', avgBrightness: 87, avgPowerConsumption: 122.0 },
+        ],
+      },
+    })).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && /\/api\/sensors\/traffic\/stats$/.test(path)) {
+    return of(new HttpResponse({
+      status: 200,
+      body: {
+        avgTrafficDensity: 65,
+        avgSpeed: 45,
+        alertsTriggered: 3,
+        congestionLevelDistribution: { LOW: 1, MODERATE: 2 },
+        dailyAverages: [
+          { date: '2026-06-25', avgTrafficDensity: 60, avgSpeed: 47 },
+          { date: '2026-06-26', avgTrafficDensity: 65, avgSpeed: 45 },
+          { date: '2026-06-27', avgTrafficDensity: 70, avgSpeed: 43 },
+        ],
       },
     })).pipe(delay(300));
   }

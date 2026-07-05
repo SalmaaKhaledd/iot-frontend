@@ -32,7 +32,13 @@ describe('StreetLightCardComponent', () => {
       }
     ];
 
-    mockSensorService.getStreetLightReadings.mockReturnValue(of(mockReadings));
+    mockSensorService.getStreetLightReadings.mockReturnValue(of({
+      content: mockReadings,
+      totalElements: mockReadings.length,
+      totalPages: 1,
+      number: 0,
+      size: mockReadings.length,
+    }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ streetLightReadingInterval: 60 } as any));
 

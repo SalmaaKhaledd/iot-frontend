@@ -754,12 +754,16 @@ body[data-theme='light'] .analytics-card-value {
 }
 
 .analytics-chart-panel {
-  background: var(--t-card-inner);
-  border-radius: 8px;
-  padding: 1rem;
+  // One step up the dark-blue scale so cards lift off the panel background.
+  background: var(--t-metric-bg);
+  border: 1px solid var(--t-chip-border);
+  border-radius: 12px;
+  padding: 1.1rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  // Faint colour-matched glow driven per-card by the chart colour.
+  box-shadow: 0 4px 18px var(--chart-glow, transparent);
 }
 
 .analytics-chart-label {
@@ -772,6 +776,15 @@ body[data-theme='light'] .analytics-card-value {
   position: relative;
   height: 160px;
   canvas { width: 100% !important; height: 100% !important; }
+}
+
+.analytics-chart-empty {
+  height: 160px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--t-text-muted);
+  font-size: 0.85rem;
 }
 
 .analytics-charts-row {
@@ -802,10 +815,39 @@ body[data-theme='light'] .analytics-card-value {
   flex-shrink: 0;
 }
 
+// ─── Analytics charts section ─────────────────────────────
+// Heading with icon + full-width divider, set apart from the stat cards above.
+.analytics-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--t-card-border);
+}
+
+.analytics-section-icon {
+  font-size: 1.15rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--sensorix-teal);
+}
+
+.analytics-section-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+}
+
 // ─── Responsive ───────────────────────────────────────────
 @media (max-width: 1200px) {
   .filter-row-1 {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .analytics-charts-row {
+    grid-template-columns: 1fr;
   }
 }
 
