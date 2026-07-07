@@ -9,13 +9,13 @@
       <class name="com.iot.selenium.tests.AlertsTest">
         <methods>
           <include name="setUp"/>
-          <include name="tearDown"/>
           <include name="testJumpToSensorModal"/>
+          <include name="tearDown"/>
           <include name="testEmptyNotifications"/>
           <include name="testDeleteFromModal"/>
           <include name="testPanelOpenClose"/>
-          <include name="tearDownClass"/>
           <include name="testSeededNotifications"/>
+          <include name="tearDownClass"/>
           <include name="seedAlertsBeforeClass"/>
         </methods>
       </class> <!-- com.iot.selenium.tests.AlertsTest -->
@@ -29,8 +29,8 @@
           <include name="tearDown"/>
           <include name="testHistoryDropdown"/>
           <include name="testAlertsModal"/>
-          <include name="testRefresh"/>
           <include name="testEmptyState"/>
+          <include name="testRefresh"/>
           <include name="testDataAfterSeed"/>
           <include name="setUp"/>
           <include name="seedSensorsBeforeClass"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="665.217" tests="156" errors="0" skipped="3" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="289.925" tests="74" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="webdriver.chrome.driver" value="C:\Users\yamen\.cache\selenium\chromedriver\win64\149.0.7827.155\chromedriver.exe"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\yamen\AppData\Local\Temp\surefire3434582828870057449\surefirebooter-20260629002653235_3.jar C:\Users\yamen\AppData\Local\Temp\surefire3434582828870057449 2026-06-29T00-26-52_894-jvmRun1 surefire-20260629002653235_1tmp surefire_0-20260629002653235_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\yamen\AppData\Local\Temp\surefire9021789547097641011\surefirebooter-20260707213243130_3.jar C:\Users\yamen\AppData\Local\Temp\surefire9021789547097641011 2026-07-07T21-32-42_933-jvmRun1 surefire-20260707213243130_1tmp surefire_0-20260707213243130_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\yamen\Downloads\iot-frontend\iot-selenium\target\test-classes;C:\Users\yamen\Downloads\iot-frontend\iot-selenium\target\classes;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-java\4.27.0\selenium-java-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-api\4.27.0\selenium-api-4.27.0.jar;C:\Users\yamen\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.27.0\selenium-chrome-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.27.0\selenium-chromium-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-json\4.27.0\selenium-json-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.27.0\selenium-manager-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v129\4.27.0\selenium-devtools-v129-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v130\4.27.0\selenium-devtools-v130-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v131\4.27.0\selenium-devtools-v131-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v85\4.27.0\selenium-devtools-v85-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.27.0\selenium-edge-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.27.0\selenium-firefox-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-http\4.27.0\selenium-http-4.27.0.jar;C:\Users\yamen\.m2\repository\dev\failsafe\failsafe\3.3.2\failsafe-3.3.2.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.27.0\selenium-ie-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.27.0\selenium-remote-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\com\google\guava\guava\33.3.1-jre\guava-33.3.1-jre.jar;C:\Users\yamen\.m2\repository\com\google\guava\failureaccess\1.0.2\failureaccess-1.0.2.jar;C:\Users\yamen\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\yamen\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\yamen\.m2\repository\org\checkerframework\checker-qual\3.43.0\checker-qual-3.43.0.jar;C:\Users\yamen\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\semconv\opentelemetry-semconv\1.25.0-alpha\opentelemetry-semconv-1.25.0-alpha.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-api\1.44.1\opentelemetry-api-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-context\1.44.1\opentelemetry-context-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.44.1\opentelemetry-exporter-logging-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.44.1\opentelemetry-sdk-common-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.44.1\opentelemetry-sdk-extension-autoconfigure-spi-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.44.1\opentelemetry-sdk-extension-autoconfigure-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-api-incubator\1.44.1-alpha\opentelemetry-api-incubator-1.44.1-alpha.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.44.1\opentelemetry-sdk-trace-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.44.1\opentelemetry-sdk-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.44.1\opentelemetry-sdk-metrics-1.44.1.jar;C:\Users\yamen\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.44.1\opentelemetry-sdk-logs-1.44.1.jar;C:\Users\yamen\.m2\repository\net\bytebuddy\byte-buddy\1.15.10\byte-buddy-1.15.10.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-os\4.27.0\selenium-os-4.27.0.jar;C:\Users\yamen\.m2\repository\org\apache\commons\commons-exec\1.4.0\commons-exec-1.4.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.27.0\selenium-safari-driver-4.27.0.jar;C:\Users\yamen\.m2\repository\org\seleniumhq\selenium\selenium-support\4.27.0\selenium-support-4.27.0.jar;C:\Users\yamen\.m2\repository\org\testng\testng\7.11.0\testng-7.11.0.jar;C:\Users\yamen\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\yamen\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\yamen\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\yamen\.m2\repository\io\github\bonigarcia\webdrivermanager\5.9.2\webdrivermanager-5.9.2.jar;C:\Users\yamen\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar;C:\Users\yamen\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar;C:\Users\yamen\.m2\repository\com\github\docker-java\docker-java\3.4.0\docker-java-3.4.0.jar;C:\Users\yamen\.m2\repository\com\github\docker-java\docker-java-core\3.4.0\docker-java-core-3.4.0.jar;C:\Users\yamen\.m2\repository\com\github\docker-java\docker-java-api\3.4.0\docker-java-api-3.4.0.jar;C:\Users\yamen\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.10.3\jackson-annotations-2.10.3.jar;C:\Users\yamen\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.10.3\jackson-databind-2.10.3.jar;C:\Users\yamen\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.3\jackson-core-2.10.3.jar;C:\Users\yamen\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\yamen\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.4.0\docker-java-transport-httpclient5-3.4.0.jar;C:\Users\yamen\.m2\repository\com\github\docker-java\docker-java-transport\3.4.0\docker-java-transport-3.4.0.jar;C:\Users\yamen\.m2\repository\net\java\dev\jna\jna\5.13.0\jna-5.13.0.jar;C:\Users\yamen\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\yamen\.m2\repository\org\apache\commons\commons-lang3\3.15.0\commons-lang3-3.15.0.jar;C:\Users\yamen\.m2\repository\org\apache\commons\commons-compress\1.26.2\commons-compress-1.26.2.jar;C:\Users\yamen\.m2\repository\commons-codec\commons-codec\1.17.0\commons-codec-1.17.0.jar;C:\Users\yamen\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.2.1\httpclient5-5.2.1.jar;C:\Users\yamen\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.2\httpcore5-5.2.jar;C:\Users\yamen\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.2\httpcore5-h2-5.2.jar;C:\Users\yamen\.m2\repository\org\apache\poi\poi-ooxml\5.4.1\poi-ooxml-5.4.1.jar;C:\Users\yamen\.m2\repository\org\apache\poi\poi\5.4.1\poi-5.4.1.jar;C:\Users\yamen\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\yamen\.m2\repository\com\zaxxer\SparseBitSet\1.3\SparseBitSet-1.3.jar;C:\Users\yamen\.m2\repository\org\apache\poi\poi-ooxml-lite\5.4.1\poi-ooxml-lite-5.4.1.jar;C:\Users\yamen\.m2\repository\org\apache\xmlbeans\xmlbeans\5.3.0\xmlbeans-5.3.0.jar;C:\Users\yamen\.m2\repository\commons-io\commons-io\2.18.0\commons-io-2.18.0.jar;C:\Users\yamen\.m2\repository\com\github\virtuald\curvesapi\1.08\curvesapi-1.08.jar;C:\Users\yamen\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\yamen\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar;C:\Users\yamen\.m2\repository\io\qameta\allure\allure-testng\2.29.0\allure-testng-2.29.0.jar;C:\Users\yamen\.m2\repository\io\qameta\allure\allure-java-commons\2.29.0\allure-java-commons-2.29.0.jar;C:\Users\yamen\.m2\repository\io\qameta\allure\allure-model\2.29.0\allure-model-2.29.0.jar;C:\Users\yamen\.m2\repository\io\qameta\allure\allure-test-filter\2.29.0\allure-test-filter-2.29.0.jar;"/>
     <property name="allure.results.directory" value="C:\Users\yamen\Downloads\iot-frontend\iot-selenium\target/allure-results"/>
@@ -32,7 +32,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\yamen\AppData\Local\Temp\surefire3434582828870057449\surefirebooter-20260629002653235_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\yamen\AppData\Local\Temp\surefire9021789547097641011\surefirebooter-20260707213243130_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.19+10"/>
@@ -60,484 +60,396 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testSignup[[Ljava.lang.Object;@45e931a9](1)" classname="com.iot.selenium.tests.SignupTest" time="2.457">
-    <system-out><![CDATA[2026-06-28T21:26:58.382267Z main ERROR Log4j API could not find a logging provider.
+  <testcase name="testSignup[[Ljava.lang.Object;@6508e82](1)" classname="com.iot.selenium.tests.SignupTest" time="2.075">
+    <system-out><![CDATA[2026-07-07T18:32:45.993248600Z main ERROR Log4j API could not find a logging provider.
 TC-S01 | Selenium Valid Registration — all fields valid
 ]]></system-out>
     <system-err><![CDATA[SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-Jun 29, 2026 12:27:06 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+Jul 07, 2026 9:32:49 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:06 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:32:49 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@4cb42a5a](2)" classname="com.iot.selenium.tests.SignupTest" time="1.839">
+  <testcase name="testSignup[[Ljava.lang.Object;@6e13e2fc](2)" classname="com.iot.selenium.tests.SignupTest" time="1.966">
     <system-out><![CDATA[TC-S02 | Selenium Registration — password at exact minimum (8 chars)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:10 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:32:53 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:10 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:32:53 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@50d507ab](3)" classname="com.iot.selenium.tests.SignupTest" time="1.38">
+  <testcase name="testSignup[[Ljava.lang.Object;@5f571d96](3)" classname="com.iot.selenium.tests.SignupTest" time="1.61">
     <system-out><![CDATA[TC-S03 | Selenium Registration — empty email
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:14 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:32:55 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:14 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:32:55 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@26ae9861](4)" classname="com.iot.selenium.tests.SignupTest" time="1.744">
+  <testcase name="testSignup[[Ljava.lang.Object;@7bfa2d74](4)" classname="com.iot.selenium.tests.SignupTest" time="1.737">
     <system-out><![CDATA[TC-S04 | Selenium Registration — empty firstName
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:17 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:32:58 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:17 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:32:58 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@4cc1f8d3](5)" classname="com.iot.selenium.tests.SignupTest" time="1.306">
+  <testcase name="testSignup[[Ljava.lang.Object;@1881ef74](5)" classname="com.iot.selenium.tests.SignupTest" time="1.484">
     <system-out><![CDATA[TC-S05 | Selenium Registration — empty lastName
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:20 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:01 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:20 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:01 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@113886b1](6)" classname="com.iot.selenium.tests.SignupTest" time="1.647">
+  <testcase name="testSignup[[Ljava.lang.Object;@7aadd290](6)" classname="com.iot.selenium.tests.SignupTest" time="1.592">
     <system-out><![CDATA[TC-S06 | Selenium Registration — empty password
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:23 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:23 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:03 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@4b68d2a6](7)" classname="com.iot.selenium.tests.SignupTest" time="1.845">
+  <testcase name="testSignup[[Ljava.lang.Object;@3fc0a2c](7)" classname="com.iot.selenium.tests.SignupTest" time="1.407">
     <system-out><![CDATA[TC-S07 | Selenium Registration — all fields empty
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:26 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:06 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:26 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:06 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@5172cce4](8)" classname="com.iot.selenium.tests.SignupTest" time="1.494">
+  <testcase name="testSignup[[Ljava.lang.Object;@53e7dfc4](8)" classname="com.iot.selenium.tests.SignupTest" time="1.418">
     <system-out><![CDATA[TC-S08 | Selenium Registration — malformed email
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:29 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:08 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:29 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:08 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@6f54a7be](9)" classname="com.iot.selenium.tests.SignupTest" time="17.086">
+  <testcase name="testSignup[[Ljava.lang.Object;@2165828d](9)" classname="com.iot.selenium.tests.SignupTest" time="16.422">
     <system-out><![CDATA[TC-S09 | Selenium Registration — duplicate email
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:32 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:10 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:32 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:10 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@44808c29](10)" classname="com.iot.selenium.tests.SignupTest" time="1.902">
+  <testcase name="testSignup[[Ljava.lang.Object;@27bd53d5](10)" classname="com.iot.selenium.tests.SignupTest" time="1.538">
     <system-out><![CDATA[TC-S10 | Selenium Registration — password 7 chars (one below minimum)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:51 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:28 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:51 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:28 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@7e0a7b9e](11)" classname="com.iot.selenium.tests.SignupTest" time="1.928">
+  <testcase name="testSignup[[Ljava.lang.Object;@4aa8504f](11)" classname="com.iot.selenium.tests.SignupTest" time="1.125">
     <system-out><![CDATA[TC-S11 | Selenium Registration — password missing special character
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:54 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:30 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:54 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:30 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@4664b741](12)" classname="com.iot.selenium.tests.SignupTest" time="1.813">
+  <testcase name="testSignup[[Ljava.lang.Object;@5390bdee](12)" classname="com.iot.selenium.tests.SignupTest" time="1.968">
     <system-out><![CDATA[TC-S12 | Selenium Registration — confirm password does not match password
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:27:58 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:32 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:27:58 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:32 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@49443539](13)" classname="com.iot.selenium.tests.SignupTest" time="2.199">
+  <testcase name="testSignup[[Ljava.lang.Object;@99c24c](13)" classname="com.iot.selenium.tests.SignupTest" time="2.039">
     <system-out><![CDATA[TC-S13 | Selenium Registration — password at exact maximum (64 chars)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:01 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:35 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:01 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:35 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignup[[Ljava.lang.Object;@b2b3a40](14)" classname="com.iot.selenium.tests.SignupTest" time="1.566">
+  <testcase name="testSignup[[Ljava.lang.Object;@1f022bcf](14)" classname="com.iot.selenium.tests.SignupTest" time="1.627">
     <system-out><![CDATA[TC-S14 | Selenium Registration — password 65 chars (one above maximum)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:04 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:38 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:04 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:38 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@30decae](1)" classname="com.iot.selenium.tests.SigninTest" time="1.841">
+  <testcase name="testSignin[[Ljava.lang.Object;@7d7fc466](1)" classname="com.iot.selenium.tests.SigninTest" time="1.694">
     <system-out><![CDATA[TC-L01 | Selenium Valid Login — correct credentials
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:08 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:41 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:08 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:41 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@98e0718](2)" classname="com.iot.selenium.tests.SigninTest" time="1.92">
+  <testcase name="testSignin[[Ljava.lang.Object;@21ec86e6](2)" classname="com.iot.selenium.tests.SigninTest" time="1.766">
     <system-out><![CDATA[TC-L02 | Selenium Login — password at exact minimum length (8 chars)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:11 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:44 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:11 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:44 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@49ffcd07](3)" classname="com.iot.selenium.tests.SigninTest" time="16.817">
+  <testcase name="testSignin[[Ljava.lang.Object;@5c2463d8](3)" classname="com.iot.selenium.tests.SigninTest" time="15.964">
     <system-out><![CDATA[TC-L03 | Selenium Login — wrong password
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:15 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:33:46 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:15 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:33:46 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@176ba277](4)" classname="com.iot.selenium.tests.SigninTest" time="1.445">
+  <testcase name="testSignin[[Ljava.lang.Object;@29dee1de](4)" classname="com.iot.selenium.tests.SigninTest" time="1.219">
     <system-out><![CDATA[TC-L04 | Selenium Login — empty email field
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:33 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:33 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:03 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@388555bd](5)" classname="com.iot.selenium.tests.SigninTest" time="1.523">
+  <testcase name="testSignin[[Ljava.lang.Object;@33c109d2](5)" classname="com.iot.selenium.tests.SigninTest" time="1.185">
     <system-out><![CDATA[TC-L05 | Selenium Login — empty password field
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:36 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:05 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:36 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:05 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@3f34edfc](6)" classname="com.iot.selenium.tests.SigninTest" time="1.311">
+  <testcase name="testSignin[[Ljava.lang.Object;@bf0e435](6)" classname="com.iot.selenium.tests.SigninTest" time="1.223">
     <system-out><![CDATA[TC-L06 | Selenium Login — both fields empty
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:39 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:08 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:39 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:08 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@a6ca9bb](7)" classname="com.iot.selenium.tests.SigninTest" time="1.568">
+  <testcase name="testSignin[[Ljava.lang.Object;@467c77b2](7)" classname="com.iot.selenium.tests.SigninTest" time="1.185">
     <system-out><![CDATA[TC-L07 | Selenium Login — malformed email (missing @)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:41 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:10 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:41 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:10 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@243dc57b](8)" classname="com.iot.selenium.tests.SigninTest" time="1.337">
+  <testcase name="testSignin[[Ljava.lang.Object;@34d4aea7](8)" classname="com.iot.selenium.tests.SigninTest" time="1.22">
     <system-out><![CDATA[TC-L08 | Selenium Login — whitespace-only email
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:44 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:12 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:44 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:12 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@7764db24](9)" classname="com.iot.selenium.tests.SigninTest" time="17.031">
+  <testcase name="testSignin[[Ljava.lang.Object;@3f12af2f](9)" classname="com.iot.selenium.tests.SigninTest" time="16.166">
     <system-out><![CDATA[TC-L09 | Selenium Login — password 7 (1 char below minimum)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:28:47 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:14 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:28:47 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:14 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@69b74dc2](10)" classname="com.iot.selenium.tests.SigninTest" time="17.112">
+  <testcase name="testSignin[[Ljava.lang.Object;@7a447c5d](10)" classname="com.iot.selenium.tests.SigninTest" time="16.262">
     <system-out><![CDATA[TC-L10 | Selenium Login — unregistered email
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:06 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:31 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:06 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:31 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@59b0d24d](11)" classname="com.iot.selenium.tests.SigninTest" time="1.754">
+  <testcase name="testSignin[[Ljava.lang.Object;@1050f49](11)" classname="com.iot.selenium.tests.SigninTest" time="1.694">
     <system-out><![CDATA[TC-L11 | Selenium Login —password at exact maximum
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:24 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:48 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:24 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:48 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSignin[[Ljava.lang.Object;@14017887](12)" classname="com.iot.selenium.tests.SigninTest" time="1.473">
+  <testcase name="testSignin[[Ljava.lang.Object;@5275b8c2](12)" classname="com.iot.selenium.tests.SigninTest" time="1.323">
     <system-out><![CDATA[TC-L12 | Selenium Login — password 65 chars (one above maximum)
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:27 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:51 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:27 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:51 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="primeSharedApiAuth" classname="com.iot.selenium.tests.SuiteAuthBootstrap" time="0.119"/>
-  <testcase name="testUserProfile[[Ljava.lang.Object;@1aff6f46](1)" classname="com.iot.selenium.tests.UserProfileTest" time="0.902">
-    <system-out><![CDATA[TC-P01 | Selenium Profile — displays correct user name after login
-]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:31 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:31 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testUserProfile[[Ljava.lang.Object;@72a4b564](2)" classname="com.iot.selenium.tests.UserProfileTest" time="0.9">
-    <system-out><![CDATA[TC-P02 | Selenium Profile — displays correct email after login
-]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:33 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:33 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testUserProfile[[Ljava.lang.Object;@7b0ad09a](3)" classname="com.iot.selenium.tests.UserProfileTest" time="1.534">
-    <system-out><![CDATA[TC-P03 | Selenium Profile — back button returns to dashboard
-]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:36 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:36 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testUserProfile[[Ljava.lang.Object;@5e14f405](4)" classname="com.iot.selenium.tests.UserProfileTest" time="1.703">
-    <system-out><![CDATA[TC-P04 | Selenium Profile — avatar click on dashboard navigates to profile
-]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:39 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:39 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testUserProfile[[Ljava.lang.Object;@16c35bf9](5)" classname="com.iot.selenium.tests.UserProfileTest" time="0.885">
-    <system-out><![CDATA[TC-P05 | Selenium Profile — unauthenticated direct navigation redirects to login
-]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:29:42 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:42 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testPanelOpenClose" classname="com.iot.selenium.tests.AlertsTest" time="12.671">
-    <system-err><![CDATA[Jun 29, 2026 12:29:44 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:29:44 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testEmptyNotifications" classname="com.iot.selenium.tests.AlertsTest" time="1.069"/>
-  <testcase name="testSeededNotifications" classname="com.iot.selenium.tests.AlertsTest" time="18.719"/>
-  <testcase name="testJumpToSensorModal" classname="com.iot.selenium.tests.AlertsTest" time="0.0">
-    <skipped message="[TC-AN08] No air-quality alert card in panel after seeding"/>
-  </testcase>
-  <testcase name="testDeleteFromModal" classname="com.iot.selenium.tests.AlertsTest" time="0.0">
-    <skipped message="Method com.iot.selenium.tests.AlertsTest.testDeleteFromModal() on instance com.iot.selenium.tests.AlertsTest@45a9cf78 depends on not successfully finished methods &#10;[com.iot.selenium.tests.AlertsTest.testJumpToSensorModal() on instance com.iot.selenium.tests.AlertsTest@45a9cf78]"/>
-  </testcase>
-  <testcase name="testPanelOnSettingsRoute" classname="com.iot.selenium.tests.AlertsTest" time="0.434"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@601e3c8a](1)" classname="com.iot.selenium.tests.SettingsTest" time="2.441">
-    <system-err><![CDATA[Jun 29, 2026 12:30:39 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:30:39 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@4ceb78cc](2)" classname="com.iot.selenium.tests.SettingsTest" time="1.547"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@47716014](3)" classname="com.iot.selenium.tests.SettingsTest" time="2.036"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@7b116131](4)" classname="com.iot.selenium.tests.SettingsTest" time="1.832"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@550f9818](5)" classname="com.iot.selenium.tests.SettingsTest" time="1.808"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@60c9f8ef](6)" classname="com.iot.selenium.tests.SettingsTest" time="1.381"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@263059cd](7)" classname="com.iot.selenium.tests.SettingsTest" time="1.41"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@27d02a85](8)" classname="com.iot.selenium.tests.SettingsTest" time="1.753"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@2c0e24c7](9)" classname="com.iot.selenium.tests.SettingsTest" time="1.594"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@6f10b857](10)" classname="com.iot.selenium.tests.SettingsTest" time="1.532"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@4c77eb54](11)" classname="com.iot.selenium.tests.SettingsTest" time="1.665"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@48cfefdb](12)" classname="com.iot.selenium.tests.SettingsTest" time="2.016"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@1c645e05](13)" classname="com.iot.selenium.tests.SettingsTest" time="1.876"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@1f4cd72a](14)" classname="com.iot.selenium.tests.SettingsTest" time="1.399"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@71322f51](15)" classname="com.iot.selenium.tests.SettingsTest" time="1.275"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@22f07a00](16)" classname="com.iot.selenium.tests.SettingsTest" time="1.994"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@674d6166](17)" classname="com.iot.selenium.tests.SettingsTest" time="1.804"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@73a2e8ce](18)" classname="com.iot.selenium.tests.SettingsTest" time="1.588"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@2e923046](19)" classname="com.iot.selenium.tests.SettingsTest" time="2.041"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@10a2f485](20)" classname="com.iot.selenium.tests.SettingsTest" time="2.001"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@5364367c](21)" classname="com.iot.selenium.tests.SettingsTest" time="2.007"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@5a2266a3](22)" classname="com.iot.selenium.tests.SettingsTest" time="1.509"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@1ae721d6](23)" classname="com.iot.selenium.tests.SettingsTest" time="1.533"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@2d2c00d6](24)" classname="com.iot.selenium.tests.SettingsTest" time="1.796"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@742218ee](25)" classname="com.iot.selenium.tests.SettingsTest" time="1.646"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@4e4afcf](26)" classname="com.iot.selenium.tests.SettingsTest" time="1.819"/>
-  <testcase name="testBoundaryValidation[[Ljava.lang.Object;@6de7643c](27)" classname="com.iot.selenium.tests.SettingsTest" time="1.636"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@37b55045](1)" classname="com.iot.selenium.tests.SettingsTest" time="2.437"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@2e465cf2](2)" classname="com.iot.selenium.tests.SettingsTest" time="2.074"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@5121f908](3)" classname="com.iot.selenium.tests.SettingsTest" time="2.046"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@4e6ddf37](4)" classname="com.iot.selenium.tests.SettingsTest" time="3.318"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@f915ab3](5)" classname="com.iot.selenium.tests.SettingsTest" time="2.242"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@6c299dcd](6)" classname="com.iot.selenium.tests.SettingsTest" time="2.473"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@63a81935](7)" classname="com.iot.selenium.tests.SettingsTest" time="2.646"/>
-  <testcase name="testContradiction[[Ljava.lang.Object;@388d1c34](8)" classname="com.iot.selenium.tests.SettingsTest" time="2.677"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@74e78fa2](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.43"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@448f3fac](2)" classname="com.iot.selenium.tests.SettingsTest" time="1.16"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@5993b8e](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.732"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@7493650f](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.74"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@2808eac4](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.764"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@54d16074](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.751"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@78307780](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.745"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@4c36ca6c](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.807"/>
-  <testcase name="testInitialState[[Ljava.lang.Object;@5dd564fd](9)" classname="com.iot.selenium.tests.SettingsTest" time="0.774"/>
-  <testcase name="testMultiUserIsolation[[Ljava.lang.Object;@2812849a](1)" classname="com.iot.selenium.tests.SettingsTest" time="3.535"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@2ba2045](1)" classname="com.iot.selenium.tests.SettingsTest" time="81.336"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@6c14839d](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.753"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@21814915](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.601"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@5786d4d1](4)" classname="com.iot.selenium.tests.SettingsTest" time="1.076"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@685eeb68](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.634"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@2971bebd](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.892"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@6159bd81](7)" classname="com.iot.selenium.tests.SettingsTest" time="1.008"/>
-  <testcase name="testNavigation[[Ljava.lang.Object;@47f32a0f](8)" classname="com.iot.selenium.tests.SettingsTest" time="1.125"/>
-  <testcase name="testNewUserEmptyState[[Ljava.lang.Object;@6becf62](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.518"/>
-  <testcase name="testPersistence[[Ljava.lang.Object;@430c061e](1)" classname="com.iot.selenium.tests.SettingsTest" time="6.295"/>
-  <testcase name="testPersistence[[Ljava.lang.Object;@16626abb](2)" classname="com.iot.selenium.tests.SettingsTest" time="3.494"/>
-  <testcase name="testPersistence[[Ljava.lang.Object;@50430cb2](3)" classname="com.iot.selenium.tests.SettingsTest" time="2.098"/>
-  <testcase name="testSaveFlow[[Ljava.lang.Object;@409c3a22](1)" classname="com.iot.selenium.tests.SettingsTest" time="2.043"/>
-  <testcase name="testSaveFlow[[Ljava.lang.Object;@7f3ca861](2)" classname="com.iot.selenium.tests.SettingsTest" time="5.979"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@5d2ef8eb](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.061"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@26b5fc93](2)" classname="com.iot.selenium.tests.SettingsTest" time="1.188"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@1792984](3)" classname="com.iot.selenium.tests.SettingsTest" time="1.262"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@66114e32](4)" classname="com.iot.selenium.tests.SettingsTest" time="1.148"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@580901ca](5)" classname="com.iot.selenium.tests.SettingsTest" time="1.128"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@3c26d6dd](6)" classname="com.iot.selenium.tests.SettingsTest" time="1.581"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@2963bd14](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.979"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@52d121eb](8)" classname="com.iot.selenium.tests.SettingsTest" time="1.306"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@228ea248](9)" classname="com.iot.selenium.tests.SettingsTest" time="1.522"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@291b76aa](10)" classname="com.iot.selenium.tests.SettingsTest" time="0.744"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@531944f1](11)" classname="com.iot.selenium.tests.SettingsTest" time="0.964"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@3f401f3f](12)" classname="com.iot.selenium.tests.SettingsTest" time="2.42"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@53978574](13)" classname="com.iot.selenium.tests.SettingsTest" time="2.326"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@43246511](14)" classname="com.iot.selenium.tests.SettingsTest" time="1.95"/>
-  <testcase name="testToggleAddRemove[[Ljava.lang.Object;@7ac67219](15)" classname="com.iot.selenium.tests.SettingsTest" time="2.267"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@6995e06d](1)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.77">
-    <system-err><![CDATA[Jun 29, 2026 12:34:18 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:34:18 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@76f9e4b0](2)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.586"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@2cc5427c](3)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.962"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@3cb67d62](4)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.991"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@31ab24a4](5)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.295"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@49e4bc67](6)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.551"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@3aeae7a9](7)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.612"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@39e0e020](8)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.829"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@4daf253a](9)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.944"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@8ba637c](10)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.889"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@a35ac46](11)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.713"/>
-  <testcase name="testConfiguration[[Ljava.lang.Object;@cb924df](12)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.401"/>
-  <testcase name="testDataAfterSeed" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.099">
-    <system-err><![CDATA[Jun 29, 2026 12:34:41 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:34:41 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testEmptyState" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.037"/>
-  <testcase name="testRefresh" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.12"/>
-  <testcase name="testAlertsModal" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.031"/>
-  <testcase name="testHistoryDropdown" classname="com.iot.selenium.tests.SensorDashboardTest" time="0.0">
-    <skipped message="[TC-SD19] Need at least 2 history readings; got 1"/>
-  </testcase>
-  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.TrafficDashboardTest" time="2.788">
-    <system-err><![CDATA[Jun 29, 2026 12:34:47 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:34:47 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testDashboardNavigation" classname="com.iot.selenium.tests.TrafficDashboardTest" time="9.869"/>
-  <testcase name="testFilters" classname="com.iot.selenium.tests.TrafficDashboardTest" time="11.688"/>
-  <testcase name="testSorting" classname="com.iot.selenium.tests.TrafficDashboardTest" time="10.891"/>
-  <testcase name="testPagination" classname="com.iot.selenium.tests.TrafficDashboardTest" time="8.735"/>
-  <testcase name="testFilterEdgeCases" classname="com.iot.selenium.tests.TrafficDashboardTest" time="4.506"/>
-  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.TrafficDashboardTest" time="9.583"/>
-  <testcase name="testAnalytics" classname="com.iot.selenium.tests.TrafficDashboardTest" time="2.822"/>
-  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="2.015">
-    <system-err><![CDATA[Jun 29, 2026 12:35:50 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:35:50 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testDashboardNavigation" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="8.967"/>
-  <testcase name="testFilters" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="9.163"/>
-  <testcase name="testSorting" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="10.058"/>
-  <testcase name="testPagination" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="9.148"/>
-  <testcase name="testFilterEdgeCases" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="3.986"/>
-  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="9.485"/>
-  <testcase name="testAnalytics" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="2.603"/>
-  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="1.964">
-    <system-err><![CDATA[Jun 29, 2026 12:36:47 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
-WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:36:47 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-]]></system-err>
-  </testcase>
-  <testcase name="testDashboardNavigation" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="9.145"/>
-  <testcase name="testFilters" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="13.529"/>
-  <testcase name="testSorting" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="11.757"/>
-  <testcase name="testPagination" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="10.607"/>
-  <testcase name="testFilterEdgeCases" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="4.632"/>
-  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="9.263"/>
-  <testcase name="testAnalytics" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="2.764"/>
-  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@50fcc8a6](1)" classname="com.iot.selenium.tests.LogoutTest" time="1.372">
+  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@d7e5d99](1)" classname="com.iot.selenium.tests.LogoutTest" time="1.438">
     <system-out><![CDATA[TC-LO06
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:37:53 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:53 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:37:53 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:53 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@5adbf1f6](2)" classname="com.iot.selenium.tests.LogoutTest" time="1.403">
+  <testcase name="testSuccessfulLogout[[Ljava.lang.Object;@5614c340](2)" classname="com.iot.selenium.tests.LogoutTest" time="1.519">
     <system-out><![CDATA[TC-LO07
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:37:55 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:56 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:37:55 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:56 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
-  <testcase name="testAuthGuardAfterLogout" classname="com.iot.selenium.tests.LogoutTest" time="0.87">
+  <testcase name="testAuthGuardAfterLogout" classname="com.iot.selenium.tests.LogoutTest" time="1.192">
     <system-out><![CDATA[TC-LO07
 ]]></system-out>
-    <system-err><![CDATA[Jun 29, 2026 12:37:58 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+    <system-err><![CDATA[Jul 07, 2026 9:34:58 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find CDP implementation matching 149
-Jun 29, 2026 12:37:58 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
-WARNING: Unable to find version of CDP to use for 149.0.7827.197. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Jul 07, 2026 9:34:58 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
 ]]></system-err>
   </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@5739cbc8](1)" classname="com.iot.selenium.tests.UserProfileTest" time="1.396">
+    <system-out><![CDATA[TC-P01 | Selenium Profile — displays correct user name after login
+]]></system-out>
+    <system-err><![CDATA[Jul 07, 2026 9:35:00 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:00 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@3046057a](2)" classname="com.iot.selenium.tests.UserProfileTest" time="0.879">
+    <system-out><![CDATA[TC-P02 | Selenium Profile — displays correct email after login
+]]></system-out>
+    <system-err><![CDATA[Jul 07, 2026 9:35:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:03 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@4fb7a903](3)" classname="com.iot.selenium.tests.UserProfileTest" time="2.018">
+    <system-out><![CDATA[TC-P03 | Selenium Profile — back button returns to dashboard
+]]></system-out>
+    <system-err><![CDATA[Jul 07, 2026 9:35:04 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:04 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@2aa17940](4)" classname="com.iot.selenium.tests.UserProfileTest" time="1.784">
+    <system-out><![CDATA[TC-P04 | Selenium Profile — avatar click on dashboard navigates to profile
+]]></system-out>
+    <system-err><![CDATA[Jul 07, 2026 9:35:07 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:07 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testUserProfile[[Ljava.lang.Object;@1c90bdbd](5)" classname="com.iot.selenium.tests.UserProfileTest" time="0.889">
+    <system-out><![CDATA[TC-P05 | Selenium Profile — unauthenticated direct navigation redirects to login
+]]></system-out>
+    <system-err><![CDATA[Jul 07, 2026 9:35:10 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:10 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testInitialState[[Ljava.lang.Object;@30649df5](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.556">
+    <system-err><![CDATA[Jul 07, 2026 9:35:12 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:12 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testInitialState[[Ljava.lang.Object;@5d182ffa](2)" classname="com.iot.selenium.tests.SettingsTest" time="0.848"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@3f5673d0](3)" classname="com.iot.selenium.tests.SettingsTest" time="0.678"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@2cfc75cb](4)" classname="com.iot.selenium.tests.SettingsTest" time="0.724"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@648c8c22](5)" classname="com.iot.selenium.tests.SettingsTest" time="0.569"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@855628e](6)" classname="com.iot.selenium.tests.SettingsTest" time="0.622"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@288aaeaf](7)" classname="com.iot.selenium.tests.SettingsTest" time="0.616"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@60cb502a](8)" classname="com.iot.selenium.tests.SettingsTest" time="0.661"/>
+  <testcase name="testInitialState[[Ljava.lang.Object;@6f3c094f](9)" classname="com.iot.selenium.tests.SettingsTest" time="0.579"/>
+  <testcase name="testSaveFlow[[Ljava.lang.Object;@1b1e93a9](1)" classname="com.iot.selenium.tests.SettingsTest" time="1.446"/>
+  <testcase name="testSaveFlow[[Ljava.lang.Object;@7aaaf394](2)" classname="com.iot.selenium.tests.SettingsTest" time="5.347"/>
+  <testcase name="testPersistence[[Ljava.lang.Object;@195cc8bb](1)" classname="com.iot.selenium.tests.SettingsTest" time="5.046"/>
+  <testcase name="testPersistence[[Ljava.lang.Object;@5741b80a](2)" classname="com.iot.selenium.tests.SettingsTest" time="2.266"/>
+  <testcase name="testPersistence[[Ljava.lang.Object;@334e5403](3)" classname="com.iot.selenium.tests.SettingsTest" time="1.825"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@22f9d577](1)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.095">
+    <system-err><![CDATA[Jul 07, 2026 9:35:38 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:35:38 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@22c15ebc](2)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.173"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@7f62a6a](3)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.741"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@1d8aab12](4)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.645"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@29bbbcd7](5)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.567"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@2628b479](6)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.357"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@3f655756](7)" classname="com.iot.selenium.tests.ConfigurationTest" time="1.349"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@132d4bae](8)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.054"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@796b7d6c](9)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.011"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@37e3802a](10)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.67"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@6a820abf](11)" classname="com.iot.selenium.tests.ConfigurationTest" time="0.503"/>
+  <testcase name="testConfiguration[[Ljava.lang.Object;@7b1e2dad](12)" classname="com.iot.selenium.tests.ConfigurationTest" time="2.513"/>
+  <testcase name="testDataAfterSeed" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.679">
+    <system-err><![CDATA[Jul 07, 2026 9:36:00 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:36:00 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testEmptyState" classname="com.iot.selenium.tests.SensorDashboardTest" time="1.422"/>
+  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.TrafficDashboardTest" time="2.812">
+    <system-err><![CDATA[Jul 07, 2026 9:36:05 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:36:05 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testFilters" classname="com.iot.selenium.tests.TrafficDashboardTest" time="8.858"/>
+  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.TrafficDashboardTest" time="8.979"/>
+  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="3.237">
+    <system-err><![CDATA[Jul 07, 2026 9:36:27 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:36:27 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testFilters" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="10.022"/>
+  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.AirQualityDashboardTest" time="9.289"/>
+  <testcase name="testEntryPoint" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="3.582">
+    <system-err><![CDATA[Jul 07, 2026 9:36:51 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:36:51 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testFilters" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="5.904"/>
+  <testcase name="testAlertBanners" classname="com.iot.selenium.tests.StreetLightDashboardTest" time="9.295"/>
+  <testcase name="testPanelOpenClose" classname="com.iot.selenium.tests.AlertsTest" time="11.863">
+    <system-err><![CDATA[Jul 07, 2026 9:37:11 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 149
+Jul 07, 2026 9:37:11 PM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 149.0.7827.201. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.27.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="testEmptyNotifications" classname="com.iot.selenium.tests.AlertsTest" time="1.129"/>
+  <testcase name="testSeededNotifications" classname="com.iot.selenium.tests.AlertsTest" time="6.971"/>
 </testsuite>

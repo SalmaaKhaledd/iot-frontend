@@ -354,7 +354,7 @@ public class AirQualityDashboardPage extends BasePage {
     }
     return false;
   }
-*/
+
 
   public boolean isAnalyticsPanelExpanded() {
     // Check if analytics-panel container is visible (stable)
@@ -365,6 +365,34 @@ public class AirQualityDashboardPage extends BasePage {
     // Also verify the body/content area is displayed, not just header
     List<WebElement> bodies = panels.get(0).findElements(By.cssSelector(".analytics-body, [data-testid='analytics-cards'], [data-testid='analytics-charts']"));
     return bodies.stream().anyMatch(WebElement::isDisplayed);
+  }
+*/
+
+  public boolean isAnalyticsPanelExpanded() {
+    try {
+      // Wait up to 2 seconds for the panel to achieve the desired state
+      // If any body element is displayed, return true.
+      // If none are displayed, return false (forces retry if we are waiting for it to be true)
+      // A stale element means Angular is re-rendering. Return null to tell WebDriverWait to try again.
+      return Boolean.TRUE.equals(new WebDriverWait(driver, Duration.ofSeconds(2)).until(d -> {
+        try {
+          List<WebElement> panels = d.findElements(By.cssSelector("[data-testid='analytics-panel']"));
+          if (panels.isEmpty()) return false;
+
+          List<WebElement> bodies = panels.get(0).findElements(By.cssSelector(".analytics-body, [data-testid='analytics-cards'], [data-testid='analytics-charts']"));
+          // If any body element is displayed, return true.
+          // If none are displayed, return false (forces retry if we are waiting for it to be true)
+          boolean isDisplayed = bodies.stream().anyMatch(WebElement::isDisplayed);
+          return isDisplayed ? true : null;
+        } catch (StaleElementReferenceException e) {
+          // A stale element means Angular is re-rendering. Return null to tell WebDriverWait to try again.
+          return null;
+        }
+      }));
+    } catch (org.openqa.selenium.TimeoutException e) {
+      // If it times out, the panel is genuinely collapsed
+      return false;
+    }
   }
 
   public List<String> getAnalyticsMetricCardTexts() {

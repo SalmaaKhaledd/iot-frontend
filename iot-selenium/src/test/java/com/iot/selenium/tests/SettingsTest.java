@@ -597,7 +597,7 @@ public class SettingsTest extends BaseTest {
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(d -> settingsPage.isSaveButtonDisabled());
     }
-
+/*
     private void ensureAuthenticatedForSettings() {
         settingsPage.dismissValidationAlertIfPresent();
         String url = driver.getCurrentUrl();
@@ -610,6 +610,22 @@ public class SettingsTest extends BaseTest {
             clearSharedAuth();
             restoreAuthenticatedSession();
         }
+    }
+*/
+    private void ensureAuthenticatedForSettings() {
+      settingsPage.dismissValidationAlertIfPresent();
+      String url = driver.getCurrentUrl();
+      if (url != null && url.contains("/login")) {
+        clearSharedAuth();
+      }
+      restoreAuthenticatedSession();
+      url = driver.getCurrentUrl();
+      if (url != null && url.contains("/login")) {
+        clearSharedAuth();
+        restoreAuthenticatedSession();
+        // ADD THIS LINE: Force navigation to home so the token is processed
+        driver.get(baseUrl + "/home");
+      }
     }
 
     private String placeholderFor(String metric) {
