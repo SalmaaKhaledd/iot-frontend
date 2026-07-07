@@ -588,7 +588,9 @@ export class SensorDashboard implements OnInit, OnDestroy {
       });
 
     this.alertsService.alerts$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((alerts) => {
-      const mine = alerts.filter((a) => a.sensorType === ALERT_SENSOR_TYPE[this.config.sensorType]);
+      const mine = alerts.filter(
+        (a) => a.sensorType === ALERT_SENSOR_TYPE[this.config.sensorType] && a.readAt == null,
+      );
       mine.forEach((alert) => {
         if (!this.alertTimers.has(alert.id)) {
           const handle = setTimeout(() => this.hideBanner(alert.id), 5000);
