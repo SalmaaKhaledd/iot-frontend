@@ -69,6 +69,36 @@ function sessionUserFromRequest(req: HttpRequest<unknown>): User | null {
   return withoutPassword;
 }
 
+interface MockIntervalSettings {
+  id: string;
+  userId: string;
+  trafficInterval: number;
+  airPollutionInterval: number;
+  streetLightInterval: number;
+}
+
+const mockIntervalSettings = new Map<string, MockIntervalSettings>();
+
+function defaultIntervalSettings(userId: string): MockIntervalSettings {
+  return {
+    id: `interval-${userId}`,
+    userId,
+    trafficInterval: 5,
+    airPollutionInterval: 5,
+    streetLightInterval: 5,
+  };
+}
+
+function intervalSettingsFor(userId: string): MockIntervalSettings {
+  const existing = mockIntervalSettings.get(userId);
+  if (existing) {
+    return existing;
+  }
+  const created = defaultIntervalSettings(userId);
+  mockIntervalSettings.set(userId, created);
+  return created;
+}
+
 // In-memory alert store — DELETE mutates this so subsequent GET reflects dismissals
 let mockAlerts = [
   {
@@ -318,6 +348,75 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
           email: sessionUser.email,
           profilePicture: sessionUser.profilePicture,
         },
+      }),
+    ).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'GET' && path.endsWith('/api/intervals')) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    return of(
+      new HttpResponse({
+        status: 200,
+        body: intervalSettingsFor(sessionUser.id),
+      }),
+    ).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
+  if (req.method === 'PUT' && path.endsWith('/api/intervals')) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    const requestBody = req.body as
+      | {
+          trafficInterval?: number;
+          airPollutionInterval?: number;
+          streetLightInterval?: number;
+        }
+      | null;
+
+    const saved: MockIntervalSettings = {
+      id: `interval-${sessionUser.id}`,
+      userId: sessionUser.id,
+      trafficInterval: Number(requestBody?.trafficInterval ?? 5),
+      airPollutionInterval: Number(requestBody?.airPollutionInterval ?? 5),
+      streetLightInterval: Number(requestBody?.streetLightInterval ?? 5),
+    };
+    mockIntervalSettings.set(sessionUser.id, saved);
+
+    return of(
+      new HttpResponse({
+        status: 200,
+        body: saved,
       }),
     ).pipe(delay(300));
   }
@@ -809,12 +908,19 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
+    const content = [...mockAlerts];
     return of(
       new HttpResponse({
         status: 200,
         // Spread into a new array so mutations to mockAlerts don't affect
         // already-emitted responses
-        body: [...mockAlerts],
+        body: {
+          content,
+          totalElements: content.length,
+          totalPages: 1,
+          number: 0,
+          size: 20,
+        },
       }),
     ).pipe(delay(300));
   }

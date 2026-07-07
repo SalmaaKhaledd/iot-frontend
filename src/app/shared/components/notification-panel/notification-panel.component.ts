@@ -163,7 +163,7 @@ export class NotificationPanelComponent {
         message: message,
         report: report,
         time: this.formatDate(apiAlert.triggeredAt || new Date().toISOString()),
-        isRead: false
+        isRead: apiAlert.readAt != null,
       };
     } catch (e) {
       console.error("Error mapping alert", e, apiAlert);
@@ -211,6 +211,7 @@ export class NotificationPanelComponent {
 
   navigateToAlert(alert: NotificationAlert): void {
     this.markAsRead(alert.id);
+    this.alertsService.markAsRead(alert.id);
     this.jumpToAlert.emit({type: alert.type, alertId: alert.id});
     this.close();
   }

@@ -106,16 +106,16 @@ export class LoginComponent {
             this.authService.saveUser(toUserFromProfileResponse(profileResponse));
           }
 
+          // Navigate immediately after auth — do not block on intervals load.
+          // With useMock, an unmocked /intervals call hits the real backend, gets
+          // 401 for the mock JWT, and the auth interceptor logs the user back out.
+          void this.router.navigate(['/home']);
+
           this.settingsService
             .loadSensorConfig()
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
-              next: () => {
-                void this.router.navigate(['/home']);
-              },
-              error: () => {
-                void this.router.navigate(['/home']);
-              },
+              error: (err: unknown) => console.error('Failed to load sensor config after login', err),
             });
         },
         error: (error: unknown) => {

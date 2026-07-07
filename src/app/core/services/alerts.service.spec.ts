@@ -43,9 +43,15 @@ describe('AlertsService', () => {
       expect(alerts).toEqual(mockAlerts);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/alerts`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/alerts?size=100`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockAlerts);
+    req.flush({
+      content: mockAlerts,
+      totalElements: mockAlerts.length,
+      totalPages: 1,
+      number: 0,
+      size: 20,
+    });
   });
 
   it('should delete an alert and emit on alertDeleted$', () => {

@@ -804,10 +804,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
 
   dismissAlert(id: string): void {
     this.hideBanner(id);
-    this.alertsService
-      .deleteAlert(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({ error: (err) => console.error('Failed to dismiss alert', err) });
+    this.alertsService.markAsRead(id);
   }
 
   alertBannerMessage(alert: ApiAlert): string {
