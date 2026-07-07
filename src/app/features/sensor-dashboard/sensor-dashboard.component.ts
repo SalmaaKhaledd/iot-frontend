@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  HostListener,
   Injector,
   Input,
   OnDestroy,
@@ -48,6 +49,8 @@ import type {
   SensorDashboardConfig,
   SensorType,
 } from './sensor-dashboard.config';
+
+type ExpandedChartKind = 'line1' | 'line2' | 'donut';
 
 // Register Chart.js building blocks once for the whole app. The generic
 // dashboard is the only chart consumer after the traffic migration.
@@ -413,7 +416,21 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
                         class="analytics-chart-panel"
                         [style.--chart-glow]="glow(config.charts.metric1.color)"
                       >
-                        <span class="analytics-chart-label">{{ config.charts.metric1.label }}</span>
+                        <div class="analytics-chart-label-row">
+                          <span class="analytics-chart-label">{{ config.charts.metric1.label }}</span>
+                          @if (hasDailyData()) {
+                            <button
+                              type="button"
+                              class="analytics-chart-expand-btn"
+                              (click)="openChartDetail('line1', $event)"
+                              aria-label="Expand {{ config.charts.metric1.label }} chart"
+                              data-testid="analytics-line-chart-1-expand"
+                            >
+                              <mat-icon>open_in_full</mat-icon>
+                              <span>Expand</span>
+                            </button>
+                          }
+                        </div>
                         @if (hasDailyData()) {
                           <div class="analytics-chart-wrap">
                             <canvas id="sensorLineChart1" data-testid="analytics-line-chart-1"></canvas>
@@ -430,7 +447,21 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
                         class="analytics-chart-panel"
                         [style.--chart-glow]="glow(config.charts.metric2.color)"
                       >
-                        <span class="analytics-chart-label">{{ config.charts.metric2.label }}</span>
+                        <div class="analytics-chart-label-row">
+                          <span class="analytics-chart-label">{{ config.charts.metric2.label }}</span>
+                          @if (hasDailyData()) {
+                            <button
+                              type="button"
+                              class="analytics-chart-expand-btn"
+                              (click)="openChartDetail('line2', $event)"
+                              aria-label="Expand {{ config.charts.metric2.label }} chart"
+                              data-testid="analytics-line-chart-2-expand"
+                            >
+                              <mat-icon>open_in_full</mat-icon>
+                              <span>Expand</span>
+                            </button>
+                          }
+                        </div>
                         @if (hasDailyData()) {
                           <div class="analytics-chart-wrap">
                             <canvas id="sensorLineChart2" data-testid="analytics-line-chart-2"></canvas>
@@ -447,7 +478,21 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
                         class="analytics-chart-panel"
                         [style.--chart-glow]="glow(firstDistributionColor())"
                       >
-                        <span class="analytics-chart-label">{{ config.charts.distributionChart.label }}</span>
+                        <div class="analytics-chart-label-row">
+                          <span class="analytics-chart-label">{{ config.charts.distributionChart.label }}</span>
+                          @if (distributionHasData()) {
+                            <button
+                              type="button"
+                              class="analytics-chart-expand-btn"
+                              (click)="openChartDetail('donut', $event)"
+                              aria-label="Expand {{ config.charts.distributionChart.label }} chart"
+                              data-testid="analytics-donut-chart-expand"
+                            >
+                              <mat-icon>open_in_full</mat-icon>
+                              <span>Expand</span>
+                            </button>
+                          }
+                        </div>
                         @if (distributionHasData()) {
                           <div class="analytics-chart-wrap">
                             <canvas id="sensorDonutChart" data-testid="analytics-donut-chart"></canvas>
@@ -467,6 +512,46 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
         </div>
       </div>
     </div>
+
+    @if (expandedChart()) {
+      <div
+        class="chart-expand-overlay"
+        (click)="closeChartDetail()"
+        data-testid="analytics-chart-detail-modal"
+      >
+        <div
+          class="chart-expand-dialog"
+          [style.--chart-glow]="expandedChartGlow()"
+          (click)="$event.stopPropagation()"
+          role="dialog"
+          aria-modal="true"
+          [attr.aria-label]="expandedChartTitle()"
+        >
+          <div class="chart-expand-header">
+            <div>
+              <h2 class="chart-expand-title" data-testid="analytics-chart-detail-title">
+                {{ expandedChartTitle() }}
+              </h2>
+              <p class="chart-expand-subtitle">Detailed view for the selected analytics period</p>
+            </div>
+            <button
+              type="button"
+              class="chart-expand-close"
+              (click)="closeChartDetail()"
+              aria-label="Close chart detail"
+              data-testid="analytics-chart-detail-close"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="chart-expand-body">
+            <div class="chart-expand-canvas-wrap" data-testid="analytics-chart-detail-canvas-wrap">
+              <canvas id="sensorExpandedChart" data-testid="analytics-chart-detail-canvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
   `,
 })
 export class SensorDashboard implements OnInit, OnDestroy {
@@ -493,10 +578,12 @@ export class SensorDashboard implements OnInit, OnDestroy {
   private lineChart1: Chart | null = null;
   private lineChart2: Chart | null = null;
   private donutChart: Chart | null = null;
+  private expandedChartInstance: Chart | null = null;
 
   // ── UI state ───────────────────────────────────────────────────────────────
   readonly isFilterExpanded = signal<boolean>(true);
   readonly isAnalyticsExpanded = signal<boolean>(true);
+  readonly expandedChart = signal<ExpandedChartKind | null>(null);
 
   // ── Table / pagination state ────────────────────────────────────────────────
   readonly readings = signal<SensorReading[]>([]);
@@ -525,6 +612,25 @@ export class SensorDashboard implements OnInit, OnDestroy {
   );
   readonly pageSizeStr = computed(() => String(this.pageSize()));
 
+  readonly expandedChartTitle = computed(() => {
+    const kind = this.expandedChart();
+    const charts = this.config?.charts;
+    if (!kind || !charts) return '';
+    if (kind === 'line1') return charts.metric1?.label ?? '';
+    if (kind === 'line2') return charts.metric2?.label ?? '';
+    return charts.distributionChart?.label ?? '';
+  });
+
+  readonly expandedChartGlow = computed(() => {
+    const kind = this.expandedChart();
+    const charts = this.config?.charts;
+    if (!kind || !charts) return 'transparent';
+    if (kind === 'line1' && charts.metric1) return this.glow(charts.metric1.color);
+    if (kind === 'line2' && charts.metric2) return this.glow(charts.metric2.color);
+    if (kind === 'donut') return this.glow(this.firstDistributionColor());
+    return 'transparent';
+  });
+
   readonly pageSizeOptions = [
     { label: '5', value: '5' },
     { label: '10', value: '10' },
@@ -537,6 +643,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyCharts();
+    this.destroyExpandedChart();
     for (const handle of this.alertTimers.values()) {
       clearTimeout(handle);
     }
@@ -763,6 +870,9 @@ export class SensorDashboard implements OnInit, OnDestroy {
           this.statsLoading.set(false);
           // Defer so the @if-rendered canvases exist in the DOM before drawing.
           this.scheduleChartRender();
+          if (this.expandedChart()) {
+            this.scheduleExpandedChartRender();
+          }
         },
         error: () => {
           this.statsError.set('Failed to load analytics. Please try again.');
@@ -838,6 +948,34 @@ export class SensorDashboard implements OnInit, OnDestroy {
     } else if (!expanded) {
       // Collapsing removes the canvases from the DOM; drop the stale instances.
       this.destroyCharts();
+      this.closeChartDetail();
+    }
+  }
+
+  openChartDetail(chart: ExpandedChartKind, event?: Event): void {
+    event?.stopPropagation();
+
+    const stats = this.statsData();
+    const charts = this.config.charts;
+    if (!stats || !charts) return;
+
+    if (chart === 'line1' && (!charts.metric1 || !this.hasDailyData())) return;
+    if (chart === 'line2' && (!charts.metric2 || !this.hasDailyData())) return;
+    if (chart === 'donut' && (!charts.distributionChart || !this.distributionHasData())) return;
+
+    this.expandedChart.set(chart);
+    this.scheduleExpandedChartRender();
+  }
+
+  closeChartDetail(): void {
+    this.expandedChart.set(null);
+    this.destroyExpandedChart();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.expandedChart()) {
+      this.closeChartDetail();
     }
   }
 
@@ -849,6 +987,10 @@ export class SensorDashboard implements OnInit, OnDestroy {
    */
   private scheduleChartRender(): void {
     afterNextRender(() => this.renderCharts(), { injector: this.injector });
+  }
+
+  private scheduleExpandedChartRender(): void {
+    afterNextRender(() => this.renderExpandedChart(), { injector: this.injector });
   }
 
   /** Rebuilds all configured charts from the current stats response. */
@@ -872,6 +1014,38 @@ export class SensorDashboard implements OnInit, OnDestroy {
     }
   }
 
+  private renderExpandedChart(): void {
+    this.destroyExpandedChart();
+
+    const kind = this.expandedChart();
+    const stats = this.statsData();
+    const charts = this.config.charts;
+    if (!kind || !stats || !charts) return;
+
+    if (kind === 'line1' && charts.metric1) {
+      this.expandedChartInstance = this.buildLineChart(
+        'sensorExpandedChart',
+        charts.metric1,
+        this.dailyAverages(stats),
+        true,
+      );
+    } else if (kind === 'line2' && charts.metric2) {
+      this.expandedChartInstance = this.buildLineChart(
+        'sensorExpandedChart',
+        charts.metric2,
+        this.dailyAverages(stats),
+        true,
+      );
+    } else if (kind === 'donut' && charts.distributionChart) {
+      this.expandedChartInstance = this.buildDonutChart(
+        'sensorExpandedChart',
+        charts.distributionChart,
+        stats,
+        true,
+      );
+    }
+  }
+
   private destroyCharts(): void {
     this.lineChart1?.destroy();
     this.lineChart2?.destroy();
@@ -879,6 +1053,11 @@ export class SensorDashboard implements OnInit, OnDestroy {
     this.lineChart1 = null;
     this.lineChart2 = null;
     this.donutChart = null;
+  }
+
+  private destroyExpandedChart(): void {
+    this.expandedChartInstance?.destroy();
+    this.expandedChartInstance = null;
   }
 
   private canvas(id: string): HTMLCanvasElement | null {
@@ -889,6 +1068,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
     canvasId: string,
     metric: LineChartMetric,
     daily: Array<Record<string, unknown>>,
+    expanded = false,
   ): Chart | null {
     const canvas = this.canvas(canvasId);
     if (!canvas) return null;
@@ -919,23 +1099,42 @@ export class SensorDashboard implements OnInit, OnDestroy {
             pointBackgroundColor: metric.color,
             fill: true,
             tension: 0.4,
-            borderWidth: 2,
-            pointRadius: 3,
-            pointHoverRadius: 5,
+            borderWidth: expanded ? 2.5 : 2,
+            pointRadius: expanded ? 4 : 3,
+            pointHoverRadius: expanded ? 7 : 5,
           },
         ],
       },
       options: {
         ...base,
+        plugins: {
+          ...base.plugins,
+          legend: expanded
+            ? {
+                display: true,
+                position: 'bottom' as const,
+                labels: {
+                  color: this.chartTextColor(),
+                  font: { family: this.chartFont(), size: 12 },
+                },
+              }
+            : base.plugins.legend,
+        },
         scales: {
-          x: base.scales.x,
+          x: {
+            ...base.scales.x,
+            ticks: {
+              ...base.scales.x.ticks,
+              maxTicksLimit: expanded ? 12 : 7,
+            },
+          },
           y: {
             ...base.scales.y,
             beginAtZero: true,
             title: { display: false },
             ticks: {
               ...base.scales.y.ticks,
-              maxTicksLimit: 5,
+              maxTicksLimit: expanded ? 8 : 5,
               callback: (value: string | number) => this.formatAxisValue(Number(value)),
             },
           },
@@ -956,6 +1155,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
     canvasId: string,
     cfg: DistributionChartConfig,
     stats: SensorStats,
+    expanded = false,
   ): Chart | null {
     const canvas = this.canvas(canvasId);
     if (!canvas) return null;
@@ -985,13 +1185,16 @@ export class SensorDashboard implements OnInit, OnDestroy {
             // Transparent borders so segments don't get harsh white outlines.
             borderColor: 'transparent',
             borderWidth: 0,
-            hoverOffset: 6,
+            hoverOffset: expanded ? 8 : 6,
           },
         ],
       },
       options: {
-        ...base,
-        cutout: '70%',
+        responsive: base.responsive,
+        maintainAspectRatio: base.maintainAspectRatio,
+        animation: base.animation,
+        color: base.color,
+        cutout: expanded ? '62%' : '70%',
         plugins: {
           ...base.plugins,
           legend: {
@@ -999,26 +1202,26 @@ export class SensorDashboard implements OnInit, OnDestroy {
             labels: {
               usePointStyle: true,
               pointStyle: 'circle' as const,
-              boxWidth: 8,
-              padding: 12,
-              font: { family: this.chartFont(), size: 11 },
+              boxWidth: expanded ? 10 : 8,
+              padding: expanded ? 16 : 12,
+              font: { family: this.chartFont(), size: expanded ? 13 : 11 },
               color: this.chartTextColor(),
             },
           },
         },
       },
-      plugins: [this.donutCenterTextPlugin()],
+      plugins: [this.donutCenterTextPlugin(expanded)],
     });
   }
 
   /** Inline Chart.js plugin: renders the total count in the donut's center hole. */
-  private donutCenterTextPlugin(): Plugin<'doughnut'> {
+  private donutCenterTextPlugin(expanded = false): Plugin<'doughnut'> {
     const font = this.chartFont();
     // Both the number and the "total" label use the same themed light colour.
     const numberColor = this.chartTextColor();
     const labelColor = this.chartTextColor();
     return {
-      id: 'donutCenterText',
+      id: expanded ? 'donutCenterTextExpanded' : 'donutCenterText',
       afterDatasetsDraw: (chart) => {
         const area = chart.chartArea;
         if (!area) return;
@@ -1033,11 +1236,11 @@ export class SensorDashboard implements OnInit, OnDestroy {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = numberColor;
-        ctx.font = `700 22px ${font}`;
-        ctx.fillText(String(total), cx, cy - 8);
+        ctx.font = `700 ${expanded ? 28 : 22}px ${font}`;
+        ctx.fillText(String(total), cx, cy - (expanded ? 10 : 8));
         ctx.fillStyle = labelColor;
-        ctx.font = `400 11px ${font}`;
-        ctx.fillText('total', cx, cy + 12);
+        ctx.font = `400 ${expanded ? 13 : 11}px ${font}`;
+        ctx.fillText('total', cx, cy + (expanded ? 14 : 12));
         ctx.restore();
       },
     };
