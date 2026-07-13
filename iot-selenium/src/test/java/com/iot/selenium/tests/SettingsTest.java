@@ -614,17 +614,30 @@ public class SettingsTest extends BaseTest {
 */
     private void ensureAuthenticatedForSettings() {
       settingsPage.dismissValidationAlertIfPresent();
+
+      // 1. Navigate to the base URL FIRST.
+      // LocalStorage is origin-tied; you must be on the domain to inject tokens.
+      if (!driver.getCurrentUrl().startsWith(baseUrl)) {
+        driver.get(baseUrl);
+      }
+
       String url = driver.getCurrentUrl();
       if (url != null && url.contains("/login")) {
         clearSharedAuth();
       }
+
+      // 2. Now inject the session token
       restoreAuthenticatedSession();
-      url = driver.getCurrentUrl();
-      if (url != null && url.contains("/login")) {
-        clearSharedAuth();
-        restoreAuthenticatedSession();
-        // ADD THIS LINE: Force navigation to home so the token is processed
-        driver.get(baseUrl + "/home");
+
+      // 3. Force navigation to home so the frontend processes the new token
+      driver.get(baseUrl + "/home");
+
+      // 4. Failsafe check to ensure the token was accepted
+      try {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+          .until(d -> d.getCurrentUrl().contains("/home"));
+      } catch (org.openqa.selenium.TimeoutException e) {
+        throw new IllegalStateException("Authentication injection failed: The frontend rejected the session and redirected to /login.");
       }
     }
 

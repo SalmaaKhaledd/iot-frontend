@@ -1,6 +1,7 @@
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\config\ConfigReader.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\AirQualityDashboardPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\AlertsPage.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\BaseDashboardDataPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\BasePage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\DashboardPage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\SensorDashboardPage.java
@@ -12,6 +13,7 @@ C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\seleniu
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\pages\UserProfilePage.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\AirQualityDashboardTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\AlertsTest.java
+C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\BaseDashboardDataTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\BaseTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\ConfigurationTest.java
 C:\Users\yamen\Downloads\iot-frontend\iot-selenium\src\test\java\com\iot\selenium\tests\LogoutTest.java

@@ -2,1517 +2,1517 @@
 <testng-results ignored="27" total="101" passed="74" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-07-07T21:32:46 EEST" name="SanityCheck" finished-at="2026-07-07T21:37:33 EEST" duration-ms="287488">
+  <suite started-at="2026-07-13T17:47:35 EEST" name="SanityCheck" finished-at="2026-07-13T17:52:26 EEST" duration-ms="291729">
     <groups>
     </groups>
-    <test started-at="2026-07-07T21:32:46 EEST" name="SanityCriticalPaths" finished-at="2026-07-07T21:37:33 EEST" duration-ms="287488">
+    <test started-at="2026-07-13T17:47:35 EEST" name="SanityCriticalPaths" finished-at="2026-07-13T17:52:26 EEST" duration-ms="291729">
       <class name="com.iot.selenium.tests.TrafficDashboardTest">
-        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:04 EEST" name="seedBeforeClass" finished-at="2026-07-07T21:36:05 EEST" duration-ms="1294" status="PASS">
+        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:54 EEST" name="seedBeforeClass" finished-at="2026-07-13T17:50:56 EEST" duration-ms="1346" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seedBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:05 EEST" name="setUp" finished-at="2026-07-07T21:36:05 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:56 EEST" name="setUp" finished-at="2026-07-13T17:50:56 EEST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:05 EEST" name="testEntryPoint" finished-at="2026-07-07T21:36:08 EEST" duration-ms="2795" status="PASS">
+        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:56 EEST" name="testEntryPoint" finished-at="2026-07-13T17:50:58 EEST" duration-ms="2279" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEntryPoint -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:08 EEST" name="tearDown" finished-at="2026-07-07T21:36:08 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:58 EEST" name="tearDown" finished-at="2026-07-13T17:50:58 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:08 EEST" name="setUp" finished-at="2026-07-07T21:36:08 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:58 EEST" name="setUp" finished-at="2026-07-13T17:50:58 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:08 EEST" name="testFilters" finished-at="2026-07-07T21:36:17 EEST" duration-ms="8856" status="PASS">
+        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:50:58 EEST" name="testFilters" finished-at="2026-07-13T17:51:07 EEST" duration-ms="8693" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testFilters -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:17 EEST" name="tearDown" finished-at="2026-07-07T21:36:17 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:51:07 EEST" name="tearDown" finished-at="2026-07-13T17:51:07 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:17 EEST" name="setUp" finished-at="2026-07-07T21:36:17 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:51:07 EEST" name="setUp" finished-at="2026-07-13T17:51:07 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:17 EEST" name="testAlertBanners" finished-at="2026-07-07T21:36:26 EEST" duration-ms="8976" status="PASS">
+        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:51:07 EEST" name="testAlertBanners" finished-at="2026-07-13T17:51:16 EEST" duration-ms="8836" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAlertBanners -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:26 EEST" name="tearDown" finished-at="2026-07-07T21:36:26 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:51:16 EEST" name="tearDown" finished-at="2026-07-13T17:51:16 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@6c2be147]" started-at="2026-07-07T21:36:26 EEST" name="tearDownClass" finished-at="2026-07-07T21:36:26 EEST" duration-ms="250" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.TrafficDashboardTest@65bd19bf]" started-at="2026-07-13T17:51:16 EEST" name="tearDownClass" finished-at="2026-07-13T17:51:16 EEST" duration-ms="245" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.TrafficDashboardTest -->
       <class name="com.iot.selenium.tests.UserProfileTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:00 EEST" name="setUp" finished-at="2026-07-07T21:35:00 EEST" duration-ms="761" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:53 EEST" name="setUp" finished-at="2026-07-13T17:49:53 EEST" duration-ms="799" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:00 EEST" name="initWait" finished-at="2026-07-07T21:35:00 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:53 EEST" name="initWait" finished-at="2026-07-13T17:49:53 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:00 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-07T21:35:02 EEST" duration-ms="1386" status="PASS">
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:53 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-13T17:49:55 EEST" duration-ms="1408" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5739cbc8]]>
+                <![CDATA[[Ljava.lang.Object;@6dbdfa38]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:02 EEST" name="tearDown" finished-at="2026-07-07T21:35:02 EEST" duration-ms="179" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:55 EEST" name="tearDown" finished-at="2026-07-13T17:49:55 EEST" duration-ms="188" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:02 EEST" name="setUp" finished-at="2026-07-07T21:35:03 EEST" duration-ms="741" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:55 EEST" name="setUp" finished-at="2026-07-13T17:49:56 EEST" duration-ms="795" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:03 EEST" name="initWait" finished-at="2026-07-07T21:35:03 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:56 EEST" name="initWait" finished-at="2026-07-13T17:49:56 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:03 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-07T21:35:04 EEST" duration-ms="875" status="PASS">
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:56 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-13T17:49:57 EEST" duration-ms="814" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@3046057a]]>
+                <![CDATA[[Ljava.lang.Object;@55f77306]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:04 EEST" name="tearDown" finished-at="2026-07-07T21:35:04 EEST" duration-ms="235" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:57 EEST" name="tearDown" finished-at="2026-07-13T17:49:57 EEST" duration-ms="197" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:04 EEST" name="setUp" finished-at="2026-07-07T21:35:04 EEST" duration-ms="736" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:57 EEST" name="setUp" finished-at="2026-07-13T17:49:58 EEST" duration-ms="820" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:05 EEST" name="initWait" finished-at="2026-07-07T21:35:05 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:58 EEST" name="initWait" finished-at="2026-07-13T17:49:58 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:05 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-07T21:35:07 EEST" duration-ms="2019" status="PASS">
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:58 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-13T17:49:59 EEST" duration-ms="1424" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@4fb7a903]]>
+                <![CDATA[[Ljava.lang.Object;@3fef9832]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:07 EEST" name="tearDown" finished-at="2026-07-07T21:35:07 EEST" duration-ms="198" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:59 EEST" name="tearDown" finished-at="2026-07-13T17:49:59 EEST" duration-ms="181" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:07 EEST" name="setUp" finished-at="2026-07-07T21:35:07 EEST" duration-ms="751" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:49:59 EEST" name="setUp" finished-at="2026-07-13T17:50:00 EEST" duration-ms="727" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:07 EEST" name="initWait" finished-at="2026-07-07T21:35:07 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:00 EEST" name="initWait" finished-at="2026-07-13T17:50:00 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:07 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-07T21:35:09 EEST" duration-ms="1754" status="PASS">
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:00 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-13T17:50:02 EEST" duration-ms="2136" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@2aa17940]]>
+                <![CDATA[[Ljava.lang.Object;@529e1192]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:09 EEST" name="tearDown" finished-at="2026-07-07T21:35:10 EEST" duration-ms="278" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:02 EEST" name="tearDown" finished-at="2026-07-13T17:50:02 EEST" duration-ms="182" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:10 EEST" name="setUp" finished-at="2026-07-07T21:35:10 EEST" duration-ms="781" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:02 EEST" name="setUp" finished-at="2026-07-13T17:50:03 EEST" duration-ms="781" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:10 EEST" name="initWait" finished-at="2026-07-07T21:35:10 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:03 EEST" name="initWait" finished-at="2026-07-13T17:50:03 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:10 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-07T21:35:11 EEST" duration-ms="881" status="PASS">
+        <test-method signature="testUserProfile([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:03 EEST" name="testUserProfile" data-provider="sheetData" finished-at="2026-07-13T17:50:04 EEST" duration-ms="984" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1c90bdbd]]>
+                <![CDATA[[Ljava.lang.Object;@36bc3c49]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUserProfile -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@d960561]" started-at="2026-07-07T21:35:11 EEST" name="tearDown" finished-at="2026-07-07T21:35:11 EEST" duration-ms="173" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.UserProfileTest@7ac5b4c]" started-at="2026-07-13T17:50:04 EEST" name="tearDown" finished-at="2026-07-13T17:50:04 EEST" duration-ms="173" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.iot.selenium.tests.UserProfileTest -->
       <class name="com.iot.selenium.tests.SignupTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:47 EEST" name="setUp" finished-at="2026-07-07T21:32:49 EEST" duration-ms="1878" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:36 EEST" name="setUp" finished-at="2026-07-13T17:47:40 EEST" duration-ms="3474" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:50 EEST" name="initWait" finished-at="2026-07-07T21:32:50 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:40 EEST" name="initWait" finished-at="2026-07-13T17:47:40 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:50 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:32:52 EEST" duration-ms="2064" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:40 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:42 EEST" duration-ms="1716" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@6508e82]]>
+                <![CDATA[[Ljava.lang.Object;@4f7da3a2]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:52 EEST" name="tearDown" finished-at="2026-07-07T21:32:52 EEST" duration-ms="199" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:42 EEST" name="tearDown" finished-at="2026-07-13T17:47:42 EEST" duration-ms="259" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:52 EEST" name="setUp" finished-at="2026-07-07T21:32:53 EEST" duration-ms="717" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:42 EEST" name="setUp" finished-at="2026-07-13T17:47:43 EEST" duration-ms="787" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:53 EEST" name="initWait" finished-at="2026-07-07T21:32:53 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:43 EEST" name="initWait" finished-at="2026-07-13T17:47:43 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:53 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:32:55 EEST" duration-ms="1963" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:43 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:45 EEST" duration-ms="2198" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@6e13e2fc]]>
+                <![CDATA[[Ljava.lang.Object;@2bc21edd]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:55 EEST" name="tearDown" finished-at="2026-07-07T21:32:55 EEST" duration-ms="204" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:45 EEST" name="tearDown" finished-at="2026-07-13T17:47:45 EEST" duration-ms="263" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:55 EEST" name="setUp" finished-at="2026-07-07T21:32:55 EEST" duration-ms="701" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:45 EEST" name="setUp" finished-at="2026-07-13T17:47:46 EEST" duration-ms="858" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:55 EEST" name="initWait" finished-at="2026-07-07T21:32:55 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:46 EEST" name="initWait" finished-at="2026-07-13T17:47:46 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:55 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:32:57 EEST" duration-ms="1611" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:46 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:48 EEST" duration-ms="1566" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5f571d96]]>
+                <![CDATA[[Ljava.lang.Object;@1142843c]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:57 EEST" name="tearDown" finished-at="2026-07-07T21:32:57 EEST" duration-ms="187" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:48 EEST" name="tearDown" finished-at="2026-07-13T17:47:48 EEST" duration-ms="197" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:57 EEST" name="setUp" finished-at="2026-07-07T21:32:58 EEST" duration-ms="763" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:48 EEST" name="setUp" finished-at="2026-07-13T17:47:49 EEST" duration-ms="1065" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:58 EEST" name="initWait" finished-at="2026-07-07T21:32:58 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:49 EEST" name="initWait" finished-at="2026-07-13T17:47:49 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:32:58 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:00 EEST" duration-ms="1735" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:49 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:50 EEST" duration-ms="1543" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7bfa2d74]]>
+                <![CDATA[[Ljava.lang.Object;@7ab17cf]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:00 EEST" name="tearDown" finished-at="2026-07-07T21:33:00 EEST" duration-ms="173" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:50 EEST" name="tearDown" finished-at="2026-07-13T17:47:51 EEST" duration-ms="184" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:00 EEST" name="setUp" finished-at="2026-07-07T21:33:01 EEST" duration-ms="734" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:51 EEST" name="setUp" finished-at="2026-07-13T17:47:51 EEST" duration-ms="677" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:01 EEST" name="initWait" finished-at="2026-07-07T21:33:01 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:51 EEST" name="initWait" finished-at="2026-07-13T17:47:51 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:01 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:02 EEST" duration-ms="1484" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:51 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:53 EEST" duration-ms="1756" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1881ef74]]>
+                <![CDATA[[Ljava.lang.Object;@651a399]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:02 EEST" name="tearDown" finished-at="2026-07-07T21:33:02 EEST" duration-ms="200" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:53 EEST" name="tearDown" finished-at="2026-07-13T17:47:53 EEST" duration-ms="192" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:02 EEST" name="setUp" finished-at="2026-07-07T21:33:03 EEST" duration-ms="696" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:53 EEST" name="setUp" finished-at="2026-07-13T17:47:54 EEST" duration-ms="707" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:03 EEST" name="initWait" finished-at="2026-07-07T21:33:03 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:54 EEST" name="initWait" finished-at="2026-07-13T17:47:54 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:03 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:05 EEST" duration-ms="1591" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:54 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:56 EEST" duration-ms="2235" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7aadd290]]>
+                <![CDATA[[Ljava.lang.Object;@7a8316fa]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:05 EEST" name="tearDown" finished-at="2026-07-07T21:33:05 EEST" duration-ms="181" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:56 EEST" name="tearDown" finished-at="2026-07-13T17:47:56 EEST" duration-ms="172" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:05 EEST" name="setUp" finished-at="2026-07-07T21:33:06 EEST" duration-ms="821" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:56 EEST" name="setUp" finished-at="2026-07-13T17:47:57 EEST" duration-ms="804" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:06 EEST" name="initWait" finished-at="2026-07-07T21:33:06 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:57 EEST" name="initWait" finished-at="2026-07-13T17:47:57 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:06 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:07 EEST" duration-ms="1405" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:57 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:47:59 EEST" duration-ms="1528" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@3fc0a2c]]>
+                <![CDATA[[Ljava.lang.Object;@6e6c723b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:07 EEST" name="tearDown" finished-at="2026-07-07T21:33:07 EEST" duration-ms="168" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:59 EEST" name="tearDown" finished-at="2026-07-13T17:47:59 EEST" duration-ms="163" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:07 EEST" name="setUp" finished-at="2026-07-07T21:33:08 EEST" duration-ms="761" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:47:59 EEST" name="setUp" finished-at="2026-07-13T17:48:00 EEST" duration-ms="734" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:08 EEST" name="initWait" finished-at="2026-07-07T21:33:08 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:00 EEST" name="initWait" finished-at="2026-07-13T17:48:00 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:08 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:10 EEST" duration-ms="1417" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:00 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:01 EEST" duration-ms="1442" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@53e7dfc4]]>
+                <![CDATA[[Ljava.lang.Object;@35e7cdb2]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:10 EEST" name="tearDown" finished-at="2026-07-07T21:33:10 EEST" duration-ms="178" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:01 EEST" name="tearDown" finished-at="2026-07-13T17:48:01 EEST" duration-ms="173" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:10 EEST" name="setUp" finished-at="2026-07-07T21:33:10 EEST" duration-ms="712" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:01 EEST" name="setUp" finished-at="2026-07-13T17:48:02 EEST" duration-ms="738" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:10 EEST" name="initWait" finished-at="2026-07-07T21:33:10 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:02 EEST" name="initWait" finished-at="2026-07-13T17:48:02 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:10 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:27 EEST" duration-ms="16423" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:02 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:18 EEST" duration-ms="16535" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@2165828d]]>
+                <![CDATA[[Ljava.lang.Object;@186f7553]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:27 EEST" name="tearDown" finished-at="2026-07-07T21:33:27 EEST" duration-ms="217" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:18 EEST" name="tearDown" finished-at="2026-07-13T17:48:19 EEST" duration-ms="202" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:27 EEST" name="setUp" finished-at="2026-07-07T21:33:28 EEST" duration-ms="756" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:19 EEST" name="setUp" finished-at="2026-07-13T17:48:19 EEST" duration-ms="738" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:28 EEST" name="initWait" finished-at="2026-07-07T21:33:28 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:19 EEST" name="initWait" finished-at="2026-07-13T17:48:19 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:28 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:29 EEST" duration-ms="1538" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:19 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:21 EEST" duration-ms="1506" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@27bd53d5]]>
+                <![CDATA[[Ljava.lang.Object;@47620803]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:29 EEST" name="tearDown" finished-at="2026-07-07T21:33:30 EEST" duration-ms="182" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:21 EEST" name="tearDown" finished-at="2026-07-13T17:48:21 EEST" duration-ms="197" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:30 EEST" name="setUp" finished-at="2026-07-07T21:33:30 EEST" duration-ms="675" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:21 EEST" name="setUp" finished-at="2026-07-13T17:48:22 EEST" duration-ms="803" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:30 EEST" name="initWait" finished-at="2026-07-07T21:33:30 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:22 EEST" name="initWait" finished-at="2026-07-13T17:48:22 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:30 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:31 EEST" duration-ms="1123" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:22 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:24 EEST" duration-ms="1645" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@4aa8504f]]>
+                <![CDATA[[Ljava.lang.Object;@69a61267]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:31 EEST" name="tearDown" finished-at="2026-07-07T21:33:32 EEST" duration-ms="201" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:24 EEST" name="tearDown" finished-at="2026-07-13T17:48:24 EEST" duration-ms="174" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:32 EEST" name="setUp" finished-at="2026-07-07T21:33:32 EEST" duration-ms="753" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:24 EEST" name="setUp" finished-at="2026-07-13T17:48:25 EEST" duration-ms="730" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:32 EEST" name="initWait" finished-at="2026-07-07T21:33:32 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:25 EEST" name="initWait" finished-at="2026-07-13T17:48:25 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:32 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:34 EEST" duration-ms="1969" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:25 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:26 EEST" duration-ms="1468" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5390bdee]]>
+                <![CDATA[[Ljava.lang.Object;@6654e105]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:34 EEST" name="tearDown" finished-at="2026-07-07T21:33:35 EEST" duration-ms="210" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:26 EEST" name="tearDown" finished-at="2026-07-13T17:48:26 EEST" duration-ms="166" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:35 EEST" name="setUp" finished-at="2026-07-07T21:33:35 EEST" duration-ms="808" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:26 EEST" name="setUp" finished-at="2026-07-13T17:48:27 EEST" duration-ms="739" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:35 EEST" name="initWait" finished-at="2026-07-07T21:33:35 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:27 EEST" name="initWait" finished-at="2026-07-13T17:48:27 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:35 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:37 EEST" duration-ms="2037" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:27 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:29 EEST" duration-ms="2055" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@99c24c]]>
+                <![CDATA[[Ljava.lang.Object;@348523f2]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:37 EEST" name="tearDown" finished-at="2026-07-07T21:33:38 EEST" duration-ms="188" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:29 EEST" name="tearDown" finished-at="2026-07-13T17:48:29 EEST" duration-ms="184" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:38 EEST" name="setUp" finished-at="2026-07-07T21:33:38 EEST" duration-ms="668" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:29 EEST" name="setUp" finished-at="2026-07-13T17:48:30 EEST" duration-ms="786" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:38 EEST" name="initWait" finished-at="2026-07-07T21:33:38 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:30 EEST" name="initWait" finished-at="2026-07-13T17:48:30 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:38 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-07T21:33:40 EEST" duration-ms="1626" status="PASS">
+        <test-method signature="testSignup([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:30 EEST" name="testSignup" data-provider="sheetData" finished-at="2026-07-13T17:48:32 EEST" duration-ms="1719" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1f022bcf]]>
+                <![CDATA[[Ljava.lang.Object;@3f4b9792]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignup -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@46ff1aad]" started-at="2026-07-07T21:33:40 EEST" name="tearDown" finished-at="2026-07-07T21:33:40 EEST" duration-ms="179" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SignupTest@16f7f59f]" started-at="2026-07-13T17:48:32 EEST" name="tearDown" finished-at="2026-07-13T17:48:32 EEST" duration-ms="170" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.iot.selenium.tests.SignupTest -->
       <class name="com.iot.selenium.tests.ConfigurationTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:37 EEST" name="setUp" finished-at="2026-07-07T21:35:38 EEST" duration-ms="738" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:31 EEST" name="setUp" finished-at="2026-07-13T17:50:32 EEST" duration-ms="1309" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:38 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:40 EEST" duration-ms="2097" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:32 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:34 EEST" duration-ms="1988" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@22f9d577]]>
+                <![CDATA[[Ljava.lang.Object;@32241504]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:40 EEST" name="tearDown" finished-at="2026-07-07T21:35:40 EEST" duration-ms="30" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:34 EEST" name="tearDown" finished-at="2026-07-13T17:50:34 EEST" duration-ms="26" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:40 EEST" name="setUp" finished-at="2026-07-07T21:35:40 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:34 EEST" name="setUp" finished-at="2026-07-13T17:50:34 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:40 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:42 EEST" duration-ms="2158" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:34 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:36 EEST" duration-ms="1653" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@22c15ebc]]>
+                <![CDATA[[Ljava.lang.Object;@1cc1ddad]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:42 EEST" name="tearDown" finished-at="2026-07-07T21:35:42 EEST" duration-ms="33" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:36 EEST" name="tearDown" finished-at="2026-07-13T17:50:36 EEST" duration-ms="31" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:42 EEST" name="setUp" finished-at="2026-07-07T21:35:42 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:36 EEST" name="setUp" finished-at="2026-07-13T17:50:36 EEST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:42 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:44 EEST" duration-ms="1726" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:36 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:38 EEST" duration-ms="2109" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7f62a6a]]>
+                <![CDATA[[Ljava.lang.Object;@68fbb22]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:44 EEST" name="tearDown" finished-at="2026-07-07T21:35:44 EEST" duration-ms="37" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:38 EEST" name="tearDown" finished-at="2026-07-13T17:50:38 EEST" duration-ms="47" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:44 EEST" name="setUp" finished-at="2026-07-07T21:35:44 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:38 EEST" name="setUp" finished-at="2026-07-13T17:50:38 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:44 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:46 EEST" duration-ms="1630" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:38 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:39 EEST" duration-ms="1570" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1d8aab12]]>
+                <![CDATA[[Ljava.lang.Object;@56984e92]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:46 EEST" name="tearDown" finished-at="2026-07-07T21:35:46 EEST" duration-ms="40" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:39 EEST" name="tearDown" finished-at="2026-07-13T17:50:39 EEST" duration-ms="30" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:46 EEST" name="setUp" finished-at="2026-07-07T21:35:46 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:39 EEST" name="setUp" finished-at="2026-07-13T17:50:39 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:46 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:48 EEST" duration-ms="2566" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:39 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:41 EEST" duration-ms="1495" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@29bbbcd7]]>
+                <![CDATA[[Ljava.lang.Object;@331725ab]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:48 EEST" name="tearDown" finished-at="2026-07-07T21:35:48 EEST" duration-ms="50" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:41 EEST" name="tearDown" finished-at="2026-07-13T17:50:41 EEST" duration-ms="36" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:48 EEST" name="setUp" finished-at="2026-07-07T21:35:48 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:41 EEST" name="setUp" finished-at="2026-07-13T17:50:41 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:48 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:50 EEST" duration-ms="1355" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:41 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:42 EEST" duration-ms="1496" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@2628b479]]>
+                <![CDATA[[Ljava.lang.Object;@40eeb885]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:50 EEST" name="tearDown" finished-at="2026-07-07T21:35:50 EEST" duration-ms="23" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:43 EEST" name="tearDown" finished-at="2026-07-13T17:50:43 EEST" duration-ms="20" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:50 EEST" name="setUp" finished-at="2026-07-07T21:35:50 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:43 EEST" name="setUp" finished-at="2026-07-13T17:50:43 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:50 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:51 EEST" duration-ms="1333" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:43 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:44 EEST" duration-ms="1790" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@3f655756]]>
+                <![CDATA[[Ljava.lang.Object;@7581aece]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:51 EEST" name="tearDown" finished-at="2026-07-07T21:35:51 EEST" duration-ms="36" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:44 EEST" name="tearDown" finished-at="2026-07-13T17:50:44 EEST" duration-ms="29" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:51 EEST" name="setUp" finished-at="2026-07-07T21:35:51 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:44 EEST" name="setUp" finished-at="2026-07-13T17:50:44 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:51 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:53 EEST" duration-ms="2039" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:44 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:45 EEST" duration-ms="1108" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@132d4bae]]>
+                <![CDATA[[Ljava.lang.Object;@31b3999]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:53 EEST" name="tearDown" finished-at="2026-07-07T21:35:53 EEST" duration-ms="31" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:45 EEST" name="tearDown" finished-at="2026-07-13T17:50:46 EEST" duration-ms="44" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:53 EEST" name="setUp" finished-at="2026-07-07T21:35:53 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:46 EEST" name="setUp" finished-at="2026-07-13T17:50:46 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:53 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:55 EEST" duration-ms="2009" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:46 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:47 EEST" duration-ms="1141" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@796b7d6c]]>
+                <![CDATA[[Ljava.lang.Object;@bef3ffc]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:55 EEST" name="tearDown" finished-at="2026-07-07T21:35:55 EEST" duration-ms="34" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="tearDown" finished-at="2026-07-13T17:50:47 EEST" duration-ms="35" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:55 EEST" name="setUp" finished-at="2026-07-07T21:35:55 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="setUp" finished-at="2026-07-13T17:50:47 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:55 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:56 EEST" duration-ms="656" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:47 EEST" duration-ms="766" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@37e3802a]]>
+                <![CDATA[[Ljava.lang.Object;@43f3ee3]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="tearDown" finished-at="2026-07-07T21:35:56 EEST" duration-ms="21" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="tearDown" finished-at="2026-07-13T17:50:47 EEST" duration-ms="17" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="setUp" finished-at="2026-07-07T21:35:56 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="setUp" finished-at="2026-07-13T17:50:47 EEST" duration-ms="5" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:56 EEST" duration-ms="502" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:47 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:48 EEST" duration-ms="493" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@6a820abf]]>
+                <![CDATA[[Ljava.lang.Object;@47763ec6]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="tearDown" finished-at="2026-07-07T21:35:56 EEST" duration-ms="27" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:48 EEST" name="tearDown" finished-at="2026-07-13T17:50:48 EEST" duration-ms="19" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="setUp" finished-at="2026-07-07T21:35:56 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:48 EEST" name="setUp" finished-at="2026-07-13T17:50:48 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:56 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-07T21:35:59 EEST" duration-ms="2511" status="PASS">
+        <test-method signature="testConfiguration([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:48 EEST" name="testConfiguration" data-provider="sheetData" finished-at="2026-07-13T17:50:50 EEST" duration-ms="1888" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7b1e2dad]]>
+                <![CDATA[[Ljava.lang.Object;@10089762]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testConfiguration -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:59 EEST" name="tearDown" finished-at="2026-07-07T21:35:59 EEST" duration-ms="33" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:50 EEST" name="tearDown" finished-at="2026-07-13T17:50:50 EEST" duration-ms="50" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@39a9becc]" started-at="2026-07-07T21:35:59 EEST" name="tearDownClass" finished-at="2026-07-07T21:35:59 EEST" duration-ms="236" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.ConfigurationTest@55d8c2c4]" started-at="2026-07-13T17:50:50 EEST" name="tearDownClass" finished-at="2026-07-13T17:50:50 EEST" duration-ms="211" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.ConfigurationTest -->
       <class name="com.iot.selenium.tests.LogoutTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:53 EEST" name="setUp" finished-at="2026-07-07T21:34:53 EEST" duration-ms="752" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:45 EEST" name="setUp" finished-at="2026-07-13T17:49:46 EEST" duration-ms="722" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:53 EEST" name="initWait" finished-at="2026-07-07T21:34:53 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:46 EEST" name="initWait" finished-at="2026-07-13T17:49:46 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSuccessfulLogout([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:53 EEST" name="testSuccessfulLogout" data-provider="sheetData" finished-at="2026-07-07T21:34:55 EEST" duration-ms="1435" status="PASS">
+        <test-method signature="testSuccessfulLogout([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:46 EEST" name="testSuccessfulLogout" data-provider="sheetData" finished-at="2026-07-13T17:49:48 EEST" duration-ms="1532" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@d7e5d99]]>
+                <![CDATA[[Ljava.lang.Object;@4df0eb55]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSuccessfulLogout -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:55 EEST" name="tearDown" finished-at="2026-07-07T21:34:55 EEST" duration-ms="184" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:48 EEST" name="tearDown" finished-at="2026-07-13T17:49:48 EEST" duration-ms="205" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:55 EEST" name="setUp" finished-at="2026-07-07T21:34:56 EEST" duration-ms="713" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:48 EEST" name="setUp" finished-at="2026-07-13T17:49:49 EEST" duration-ms="664" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:56 EEST" name="initWait" finished-at="2026-07-07T21:34:56 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:49 EEST" name="initWait" finished-at="2026-07-13T17:49:49 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSuccessfulLogout([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:56 EEST" name="testSuccessfulLogout" data-provider="sheetData" finished-at="2026-07-07T21:34:57 EEST" duration-ms="1520" status="PASS">
+        <test-method signature="testSuccessfulLogout([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:49 EEST" name="testSuccessfulLogout" data-provider="sheetData" finished-at="2026-07-13T17:49:50 EEST" duration-ms="1530" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5614c340]]>
+                <![CDATA[[Ljava.lang.Object;@31dbe419]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSuccessfulLogout -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:57 EEST" name="tearDown" finished-at="2026-07-07T21:34:57 EEST" duration-ms="186" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:50 EEST" name="tearDown" finished-at="2026-07-13T17:49:50 EEST" duration-ms="192" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:57 EEST" name="setUp" finished-at="2026-07-07T21:34:58 EEST" duration-ms="662" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:50 EEST" name="setUp" finished-at="2026-07-13T17:49:51 EEST" duration-ms="750" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:58 EEST" name="initWait" finished-at="2026-07-07T21:34:58 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:51 EEST" name="initWait" finished-at="2026-07-13T17:49:51 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testAuthGuardAfterLogout()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:58 EEST" name="testAuthGuardAfterLogout" finished-at="2026-07-07T21:34:59 EEST" depends-on-methods="com.iot.selenium.tests.LogoutTest.testSuccessfulLogout" duration-ms="1192" status="PASS">
+        <test-method signature="testAuthGuardAfterLogout()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:51 EEST" name="testAuthGuardAfterLogout" finished-at="2026-07-13T17:49:52 EEST" depends-on-methods="com.iot.selenium.tests.LogoutTest.testSuccessfulLogout" duration-ms="1195" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAuthGuardAfterLogout -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@548f4f60]" started-at="2026-07-07T21:34:59 EEST" name="tearDown" finished-at="2026-07-07T21:34:59 EEST" duration-ms="166" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.LogoutTest@700b9e6b]" started-at="2026-07-13T17:49:52 EEST" name="tearDown" finished-at="2026-07-13T17:49:52 EEST" duration-ms="179" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.iot.selenium.tests.LogoutTest -->
       <class name="com.iot.selenium.tests.StreetLightDashboardTest">
-        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:50 EEST" name="seedBeforeClass" finished-at="2026-07-07T21:36:51 EEST" duration-ms="1168" status="PASS">
+        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:41 EEST" name="seedBeforeClass" finished-at="2026-07-13T17:51:43 EEST" duration-ms="1326" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seedBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:51 EEST" name="setUp" finished-at="2026-07-07T21:36:51 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:43 EEST" name="setUp" finished-at="2026-07-13T17:51:43 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:51 EEST" name="testEntryPoint" finished-at="2026-07-07T21:36:55 EEST" duration-ms="3580" status="PASS">
+        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:43 EEST" name="testEntryPoint" finished-at="2026-07-13T17:51:46 EEST" duration-ms="3638" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEntryPoint -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:55 EEST" name="tearDown" finished-at="2026-07-07T21:36:55 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:46 EEST" name="tearDown" finished-at="2026-07-13T17:51:46 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:55 EEST" name="setUp" finished-at="2026-07-07T21:36:55 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:46 EEST" name="setUp" finished-at="2026-07-13T17:51:46 EEST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:36:55 EEST" name="testFilters" finished-at="2026-07-07T21:37:01 EEST" duration-ms="5904" status="PASS">
+        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:46 EEST" name="testFilters" finished-at="2026-07-13T17:51:53 EEST" duration-ms="6730" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testFilters -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:37:01 EEST" name="tearDown" finished-at="2026-07-07T21:37:01 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:53 EEST" name="tearDown" finished-at="2026-07-13T17:51:53 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:37:01 EEST" name="setUp" finished-at="2026-07-07T21:37:01 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:53 EEST" name="setUp" finished-at="2026-07-13T17:51:53 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:37:01 EEST" name="testAlertBanners" finished-at="2026-07-07T21:37:10 EEST" duration-ms="9293" status="PASS">
+        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:51:53 EEST" name="testAlertBanners" finished-at="2026-07-13T17:52:03 EEST" duration-ms="9975" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAlertBanners -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:37:10 EEST" name="tearDown" finished-at="2026-07-07T21:37:10 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:52:03 EEST" name="tearDown" finished-at="2026-07-13T17:52:03 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@21bd6fd1]" started-at="2026-07-07T21:37:10 EEST" name="tearDownClass" finished-at="2026-07-07T21:37:10 EEST" duration-ms="276" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.StreetLightDashboardTest@7d7ceca8]" started-at="2026-07-13T17:52:03 EEST" name="tearDownClass" finished-at="2026-07-13T17:52:03 EEST" duration-ms="292" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.StreetLightDashboardTest -->
       <class name="com.iot.selenium.tests.SensorDashboardTest">
-        <test-method is-config="true" signature="seedSensorsBeforeClass()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:35:59 EEST" name="seedSensorsBeforeClass" finished-at="2026-07-07T21:36:01 EEST" duration-ms="1383" status="PASS">
+        <test-method is-config="true" signature="seedSensorsBeforeClass()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:50 EEST" name="seedSensorsBeforeClass" finished-at="2026-07-13T17:50:52 EEST" duration-ms="1491" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seedSensorsBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:01 EEST" name="setUp" finished-at="2026-07-07T21:36:01 EEST" duration-ms="3" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:52 EEST" name="setUp" finished-at="2026-07-13T17:50:52 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testDataAfterSeed()[pri:1, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:01 EEST" name="testDataAfterSeed" finished-at="2026-07-07T21:36:02 EEST" duration-ms="1678" status="PASS">
+        <test-method signature="testDataAfterSeed()[pri:1, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:52 EEST" name="testDataAfterSeed" finished-at="2026-07-13T17:50:53 EEST" duration-ms="1638" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testDataAfterSeed -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:02 EEST" name="tearDown" finished-at="2026-07-07T21:36:02 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:53 EEST" name="tearDown" finished-at="2026-07-13T17:50:53 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:02 EEST" name="setUp" finished-at="2026-07-07T21:36:02 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:53 EEST" name="setUp" finished-at="2026-07-13T17:50:53 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testEmptyState()[pri:2, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:02 EEST" name="testEmptyState" finished-at="2026-07-07T21:36:04 EEST" depends-on-methods="com.iot.selenium.tests.SensorDashboardTest.testDataAfterSeed" duration-ms="1421" status="PASS">
+        <test-method signature="testEmptyState()[pri:2, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:53 EEST" name="testEmptyState" finished-at="2026-07-13T17:50:54 EEST" depends-on-methods="com.iot.selenium.tests.SensorDashboardTest.testDataAfterSeed" duration-ms="906" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEmptyState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:04 EEST" name="tearDown" finished-at="2026-07-07T21:36:04 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:54 EEST" name="tearDown" finished-at="2026-07-13T17:50:54 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@177302d6]" started-at="2026-07-07T21:36:04 EEST" name="tearDownClass" finished-at="2026-07-07T21:36:04 EEST" duration-ms="202" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.SensorDashboardTest@798cf6d2]" started-at="2026-07-13T17:50:54 EEST" name="tearDownClass" finished-at="2026-07-13T17:50:54 EEST" duration-ms="211" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.SensorDashboardTest -->
       <class name="com.iot.selenium.tests.AirQualityDashboardTest">
-        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:26 EEST" name="seedBeforeClass" finished-at="2026-07-07T21:36:27 EEST" duration-ms="1333" status="PASS">
+        <test-method is-config="true" signature="seedBeforeClass()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:16 EEST" name="seedBeforeClass" finished-at="2026-07-13T17:51:17 EEST" duration-ms="1401" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seedBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:27 EEST" name="setUp" finished-at="2026-07-07T21:36:27 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:17 EEST" name="setUp" finished-at="2026-07-13T17:51:17 EEST" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:27 EEST" name="testEntryPoint" finished-at="2026-07-07T21:36:31 EEST" duration-ms="3235" status="PASS">
+        <test-method signature="testEntryPoint()[pri:1, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:17 EEST" name="testEntryPoint" finished-at="2026-07-13T17:51:21 EEST" duration-ms="3619" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEntryPoint -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:31 EEST" name="tearDown" finished-at="2026-07-07T21:36:31 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:21 EEST" name="tearDown" finished-at="2026-07-13T17:51:21 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:31 EEST" name="setUp" finished-at="2026-07-07T21:36:31 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:21 EEST" name="setUp" finished-at="2026-07-13T17:51:21 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:31 EEST" name="testFilters" finished-at="2026-07-07T21:36:41 EEST" duration-ms="10022" status="PASS">
+        <test-method signature="testFilters()[pri:3, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:21 EEST" name="testFilters" finished-at="2026-07-13T17:51:31 EEST" duration-ms="10149" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testFilters -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:41 EEST" name="tearDown" finished-at="2026-07-07T21:36:41 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:31 EEST" name="tearDown" finished-at="2026-07-13T17:51:31 EEST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:41 EEST" name="setUp" finished-at="2026-07-07T21:36:41 EEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:31 EEST" name="setUp" finished-at="2026-07-13T17:51:31 EEST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:41 EEST" name="testAlertBanners" finished-at="2026-07-07T21:36:50 EEST" duration-ms="9287" status="PASS">
+        <test-method signature="testAlertBanners()[pri:7, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:31 EEST" name="testAlertBanners" finished-at="2026-07-13T17:51:41 EEST" duration-ms="9849" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAlertBanners -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:50 EEST" name="tearDown" finished-at="2026-07-07T21:36:50 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:41 EEST" name="tearDown" finished-at="2026-07-13T17:51:41 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@dddcd91]" started-at="2026-07-07T21:36:50 EEST" name="tearDownClass" finished-at="2026-07-07T21:36:50 EEST" duration-ms="256" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.AirQualityDashboardTest@74697863]" started-at="2026-07-13T17:51:41 EEST" name="tearDownClass" finished-at="2026-07-13T17:51:41 EEST" duration-ms="250" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.AirQualityDashboardTest -->
       <class name="com.iot.selenium.tests.SigninTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:40 EEST" name="setUp" finished-at="2026-07-07T21:33:41 EEST" duration-ms="822" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:32 EEST" name="setUp" finished-at="2026-07-13T17:48:33 EEST" duration-ms="774" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:41 EEST" name="initWait" finished-at="2026-07-07T21:33:41 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:33 EEST" name="initWait" finished-at="2026-07-13T17:48:33 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:41 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:33:43 EEST" duration-ms="1676" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:33 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:48:35 EEST" duration-ms="1756" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7d7fc466]]>
+                <![CDATA[[Ljava.lang.Object;@7af45006]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:43 EEST" name="tearDown" finished-at="2026-07-07T21:33:43 EEST" duration-ms="179" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:35 EEST" name="tearDown" finished-at="2026-07-13T17:48:35 EEST" duration-ms="175" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:43 EEST" name="setUp" finished-at="2026-07-07T21:33:44 EEST" duration-ms="686" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:35 EEST" name="setUp" finished-at="2026-07-13T17:48:35 EEST" duration-ms="709" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:44 EEST" name="initWait" finished-at="2026-07-07T21:33:44 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:35 EEST" name="initWait" finished-at="2026-07-13T17:48:35 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:44 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:33:45 EEST" duration-ms="1747" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:35 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:48:37 EEST" duration-ms="1752" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@21ec86e6]]>
+                <![CDATA[[Ljava.lang.Object;@12a065c5]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:45 EEST" name="tearDown" finished-at="2026-07-07T21:33:46 EEST" duration-ms="190" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:37 EEST" name="tearDown" finished-at="2026-07-13T17:48:37 EEST" duration-ms="189" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:46 EEST" name="setUp" finished-at="2026-07-07T21:33:46 EEST" duration-ms="716" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:37 EEST" name="setUp" finished-at="2026-07-13T17:48:38 EEST" duration-ms="771" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:46 EEST" name="initWait" finished-at="2026-07-07T21:33:46 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:38 EEST" name="initWait" finished-at="2026-07-13T17:48:38 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:33:46 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:02 EEST" duration-ms="16022" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:38 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:48:55 EEST" duration-ms="16340" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5c2463d8]]>
+                <![CDATA[[Ljava.lang.Object;@31829b82]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:02 EEST" name="tearDown" finished-at="2026-07-07T21:34:03 EEST" duration-ms="211" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:55 EEST" name="tearDown" finished-at="2026-07-13T17:48:55 EEST" duration-ms="203" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:03 EEST" name="setUp" finished-at="2026-07-07T21:34:03 EEST" duration-ms="672" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:55 EEST" name="setUp" finished-at="2026-07-13T17:48:55 EEST" duration-ms="683" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:03 EEST" name="initWait" finished-at="2026-07-07T21:34:03 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:55 EEST" name="initWait" finished-at="2026-07-13T17:48:55 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:03 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:04 EEST" duration-ms="1217" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:55 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:48:56 EEST" duration-ms="801" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@29dee1de]]>
+                <![CDATA[[Ljava.lang.Object;@3bf1a4c]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:04 EEST" name="tearDown" finished-at="2026-07-07T21:34:05 EEST" duration-ms="321" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:56 EEST" name="tearDown" finished-at="2026-07-13T17:48:56 EEST" duration-ms="171" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:05 EEST" name="setUp" finished-at="2026-07-07T21:34:06 EEST" duration-ms="722" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:56 EEST" name="setUp" finished-at="2026-07-13T17:48:57 EEST" duration-ms="862" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:06 EEST" name="initWait" finished-at="2026-07-07T21:34:06 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:57 EEST" name="initWait" finished-at="2026-07-13T17:48:57 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:06 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:07 EEST" duration-ms="1185" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:57 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:48:58 EEST" duration-ms="1182" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@33c109d2]]>
+                <![CDATA[[Ljava.lang.Object;@569e8e11]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:07 EEST" name="tearDown" finished-at="2026-07-07T21:34:07 EEST" duration-ms="224" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:58 EEST" name="tearDown" finished-at="2026-07-13T17:48:59 EEST" duration-ms="210" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:07 EEST" name="setUp" finished-at="2026-07-07T21:34:08 EEST" duration-ms="695" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:48:59 EEST" name="setUp" finished-at="2026-07-13T17:49:00 EEST" duration-ms="846" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:08 EEST" name="initWait" finished-at="2026-07-07T21:34:08 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="4" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:00 EEST" name="initWait" finished-at="2026-07-13T17:49:00 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="4" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:08 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:09 EEST" duration-ms="1223" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:00 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:01 EEST" duration-ms="1221" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@bf0e435]]>
+                <![CDATA[[Ljava.lang.Object;@4a52c13c]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:09 EEST" name="tearDown" finished-at="2026-07-07T21:34:09 EEST" duration-ms="209" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:01 EEST" name="tearDown" finished-at="2026-07-13T17:49:01 EEST" duration-ms="170" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:09 EEST" name="setUp" finished-at="2026-07-07T21:34:10 EEST" duration-ms="784" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:01 EEST" name="setUp" finished-at="2026-07-13T17:49:02 EEST" duration-ms="788" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:10 EEST" name="initWait" finished-at="2026-07-07T21:34:10 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:02 EEST" name="initWait" finished-at="2026-07-13T17:49:02 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:10 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:11 EEST" duration-ms="1184" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:02 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:03 EEST" duration-ms="1269" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@467c77b2]]>
+                <![CDATA[[Ljava.lang.Object;@3f8c695d]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:11 EEST" name="tearDown" finished-at="2026-07-07T21:34:11 EEST" duration-ms="193" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:03 EEST" name="tearDown" finished-at="2026-07-13T17:49:03 EEST" duration-ms="182" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:11 EEST" name="setUp" finished-at="2026-07-07T21:34:12 EEST" duration-ms="711" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:03 EEST" name="setUp" finished-at="2026-07-13T17:49:04 EEST" duration-ms="773" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:12 EEST" name="initWait" finished-at="2026-07-07T21:34:12 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:04 EEST" name="initWait" finished-at="2026-07-13T17:49:04 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:12 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:13 EEST" duration-ms="1219" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:04 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:05 EEST" duration-ms="1212" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@34d4aea7]]>
+                <![CDATA[[Ljava.lang.Object;@2031cad2]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:13 EEST" name="tearDown" finished-at="2026-07-07T21:34:13 EEST" duration-ms="172" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:05 EEST" name="tearDown" finished-at="2026-07-13T17:49:05 EEST" duration-ms="168" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:13 EEST" name="setUp" finished-at="2026-07-07T21:34:14 EEST" duration-ms="736" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:05 EEST" name="setUp" finished-at="2026-07-13T17:49:06 EEST" duration-ms="759" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:14 EEST" name="initWait" finished-at="2026-07-07T21:34:14 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:06 EEST" name="initWait" finished-at="2026-07-13T17:49:06 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:14 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:30 EEST" duration-ms="16153" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:06 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:22 EEST" duration-ms="16266" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@3f12af2f]]>
+                <![CDATA[[Ljava.lang.Object;@41c96a67]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:30 EEST" name="tearDown" finished-at="2026-07-07T21:34:30 EEST" duration-ms="218" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:22 EEST" name="tearDown" finished-at="2026-07-13T17:49:23 EEST" duration-ms="220" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:30 EEST" name="setUp" finished-at="2026-07-07T21:34:31 EEST" duration-ms="689" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:23 EEST" name="setUp" finished-at="2026-07-13T17:49:23 EEST" duration-ms="805" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:31 EEST" name="initWait" finished-at="2026-07-07T21:34:31 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:23 EEST" name="initWait" finished-at="2026-07-13T17:49:23 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:31 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:47 EEST" duration-ms="16262" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:23 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:40 EEST" duration-ms="16262" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7a447c5d]]>
+                <![CDATA[[Ljava.lang.Object;@63112b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:47 EEST" name="tearDown" finished-at="2026-07-07T21:34:48 EEST" duration-ms="200" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:40 EEST" name="tearDown" finished-at="2026-07-13T17:49:40 EEST" duration-ms="206" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:48 EEST" name="setUp" finished-at="2026-07-07T21:34:48 EEST" duration-ms="759" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:40 EEST" name="setUp" finished-at="2026-07-13T17:49:41 EEST" duration-ms="767" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:48 EEST" name="initWait" finished-at="2026-07-07T21:34:48 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:41 EEST" name="initWait" finished-at="2026-07-13T17:49:41 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:48 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:50 EEST" duration-ms="1694" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:41 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:43 EEST" duration-ms="2038" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1050f49]]>
+                <![CDATA[[Ljava.lang.Object;@74d76660]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:50 EEST" name="tearDown" finished-at="2026-07-07T21:34:50 EEST" duration-ms="175" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:43 EEST" name="tearDown" finished-at="2026-07-13T17:49:43 EEST" duration-ms="181" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:50 EEST" name="setUp" finished-at="2026-07-07T21:34:51 EEST" duration-ms="689" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:43 EEST" name="setUp" finished-at="2026-07-13T17:49:44 EEST" duration-ms="814" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:51 EEST" name="initWait" finished-at="2026-07-07T21:34:51 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="initWait()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:44 EEST" name="initWait" finished-at="2026-07-13T17:49:44 EEST" depends-on-methods="com.iot.selenium.tests.BaseTest.setUp" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initWait -->
-        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:51 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-07T21:34:52 EEST" duration-ms="1322" status="PASS">
+        <test-method signature="testSignin([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:44 EEST" name="testSignin" data-provider="sheetData" finished-at="2026-07-13T17:49:45 EEST" duration-ms="1360" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5275b8c2]]>
+                <![CDATA[[Ljava.lang.Object;@29c947d0]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSignin -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@563ab6d5]" started-at="2026-07-07T21:34:52 EEST" name="tearDown" finished-at="2026-07-07T21:34:52 EEST" duration-ms="187" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SigninTest@489110c2]" started-at="2026-07-13T17:49:45 EEST" name="tearDown" finished-at="2026-07-13T17:49:45 EEST" duration-ms="197" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.iot.selenium.tests.SigninTest -->
       <class name="com.iot.selenium.tests.AlertsTest">
-        <test-method is-config="true" signature="seedAlertsBeforeClass()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:10 EEST" name="seedAlertsBeforeClass" finished-at="2026-07-07T21:37:13 EEST" duration-ms="2478" status="PASS">
+        <test-method is-config="true" signature="seedAlertsBeforeClass()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:03 EEST" name="seedAlertsBeforeClass" finished-at="2026-07-13T17:52:05 EEST" duration-ms="2178" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seedAlertsBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:13 EEST" name="setUp" finished-at="2026-07-07T21:37:13 EEST" duration-ms="4" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:05 EEST" name="setUp" finished-at="2026-07-13T17:52:05 EEST" duration-ms="3" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testPanelOpenClose()[pri:1, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:13 EEST" name="testPanelOpenClose" finished-at="2026-07-07T21:37:25 EEST" duration-ms="11846" status="PASS">
+        <test-method signature="testPanelOpenClose()[pri:1, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:05 EEST" name="testPanelOpenClose" finished-at="2026-07-13T17:52:18 EEST" duration-ms="12424" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testPanelOpenClose -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:25 EEST" name="tearDown" finished-at="2026-07-07T21:37:25 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="tearDown" finished-at="2026-07-13T17:52:18 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:25 EEST" name="setUp" finished-at="2026-07-07T21:37:25 EEST" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="setUp" finished-at="2026-07-13T17:52:18 EEST" duration-ms="2" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testEmptyNotifications()[pri:2, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:25 EEST" name="testEmptyNotifications" finished-at="2026-07-07T21:37:26 EEST" depends-on-methods="com.iot.selenium.tests.AlertsTest.testPanelOpenClose" duration-ms="1126" status="PASS">
+        <test-method signature="testEmptyNotifications()[pri:2, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="testEmptyNotifications" finished-at="2026-07-13T17:52:18 EEST" depends-on-methods="com.iot.selenium.tests.AlertsTest.testPanelOpenClose" duration-ms="605" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEmptyNotifications -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:26 EEST" name="tearDown" finished-at="2026-07-07T21:37:26 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="tearDown" finished-at="2026-07-13T17:52:18 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:26 EEST" name="setUp" finished-at="2026-07-07T21:37:26 EEST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="setUp" finished-at="2026-07-13T17:52:18 EEST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testSeededNotifications()[pri:3, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:26 EEST" name="testSeededNotifications" finished-at="2026-07-07T21:37:33 EEST" depends-on-methods="com.iot.selenium.tests.AlertsTest.testEmptyNotifications" duration-ms="6969" status="PASS">
+        <test-method signature="testSeededNotifications()[pri:3, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:18 EEST" name="testSeededNotifications" finished-at="2026-07-13T17:52:26 EEST" depends-on-methods="com.iot.selenium.tests.AlertsTest.testEmptyNotifications" duration-ms="7645" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSeededNotifications -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:33 EEST" name="tearDown" finished-at="2026-07-07T21:37:33 EEST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:26 EEST" name="tearDown" finished-at="2026-07-13T17:52:26 EEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.AlertsTest@79e9c14]" started-at="2026-07-07T21:37:33 EEST" name="tearDownClass" finished-at="2026-07-07T21:37:33 EEST" duration-ms="257" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.AlertsTest@2bba35ef]" started-at="2026-07-13T17:52:26 EEST" name="tearDownClass" finished-at="2026-07-13T17:52:26 EEST" duration-ms="230" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
       </class> <!-- com.iot.selenium.tests.AlertsTest -->
       <class name="com.iot.selenium.tests.SettingsTest">
-        <test-method is-config="true" signature="authBeforeClass()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:11 EEST" name="authBeforeClass" finished-at="2026-07-07T21:35:13 EEST" duration-ms="1350" status="PASS">
+        <test-method is-config="true" signature="authBeforeClass()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:04 EEST" name="authBeforeClass" finished-at="2026-07-13T17:50:06 EEST" duration-ms="1461" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- authBeforeClass -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:13 EEST" name="setUp" finished-at="2026-07-07T21:35:13 EEST" duration-ms="98" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:06 EEST" name="setUp" finished-at="2026-07-13T17:50:06 EEST" duration-ms="71" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:13 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:15 EEST" duration-ms="1555" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:06 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:07 EEST" duration-ms="1540" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@30649df5]]>
+                <![CDATA[[Ljava.lang.Object;@351bfccc]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:15 EEST" name="tearDown" finished-at="2026-07-07T21:35:15 EEST" duration-ms="13" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:07 EEST" name="tearDown" finished-at="2026-07-13T17:50:07 EEST" duration-ms="9" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:15 EEST" name="setUp" finished-at="2026-07-07T21:35:15 EEST" duration-ms="9" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:07 EEST" name="setUp" finished-at="2026-07-13T17:50:07 EEST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:15 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:16 EEST" duration-ms="848" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:07 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:08 EEST" duration-ms="893" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5d182ffa]]>
+                <![CDATA[[Ljava.lang.Object;@7930de44]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="tearDown" finished-at="2026-07-07T21:35:16 EEST" duration-ms="11" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:08 EEST" name="tearDown" finished-at="2026-07-13T17:50:08 EEST" duration-ms="26" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="setUp" finished-at="2026-07-07T21:35:16 EEST" duration-ms="9" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:08 EEST" name="setUp" finished-at="2026-07-13T17:50:08 EEST" duration-ms="8" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:16 EEST" duration-ms="658" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:08 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:09 EEST" duration-ms="634" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@3f5673d0]]>
+                <![CDATA[[Ljava.lang.Object;@3bea06d0]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="tearDown" finished-at="2026-07-07T21:35:16 EEST" duration-ms="17" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:09 EEST" name="tearDown" finished-at="2026-07-13T17:50:09 EEST" duration-ms="10" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="setUp" finished-at="2026-07-07T21:35:16 EEST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:09 EEST" name="setUp" finished-at="2026-07-13T17:50:09 EEST" duration-ms="6" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:16 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:17 EEST" duration-ms="724" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:09 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:10 EEST" duration-ms="685" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@2cfc75cb]]>
+                <![CDATA[[Ljava.lang.Object;@155770e0]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:17 EEST" name="tearDown" finished-at="2026-07-07T21:35:17 EEST" duration-ms="11" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="tearDown" finished-at="2026-07-13T17:50:10 EEST" duration-ms="11" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:17 EEST" name="setUp" finished-at="2026-07-07T21:35:17 EEST" duration-ms="6" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="setUp" finished-at="2026-07-13T17:50:10 EEST" duration-ms="9" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:17 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:18 EEST" duration-ms="555" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:10 EEST" duration-ms="625" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@648c8c22]]>
+                <![CDATA[[Ljava.lang.Object;@52b2aa6e]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="tearDown" finished-at="2026-07-07T21:35:18 EEST" duration-ms="13" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="tearDown" finished-at="2026-07-13T17:50:10 EEST" duration-ms="9" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="setUp" finished-at="2026-07-07T21:35:18 EEST" duration-ms="9" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="setUp" finished-at="2026-07-13T17:50:10 EEST" duration-ms="27" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:18 EEST" duration-ms="620" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:10 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:11 EEST" duration-ms="734" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@855628e]]>
+                <![CDATA[[Ljava.lang.Object;@15c24b0c]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="tearDown" finished-at="2026-07-07T21:35:18 EEST" duration-ms="13" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:11 EEST" name="tearDown" finished-at="2026-07-13T17:50:11 EEST" duration-ms="11" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="setUp" finished-at="2026-07-07T21:35:18 EEST" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:11 EEST" name="setUp" finished-at="2026-07-13T17:50:11 EEST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:18 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:19 EEST" duration-ms="614" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:11 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:12 EEST" duration-ms="746" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@288aaeaf]]>
+                <![CDATA[[Ljava.lang.Object;@50a0404b]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:19 EEST" name="tearDown" finished-at="2026-07-07T21:35:19 EEST" duration-ms="12" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:12 EEST" name="tearDown" finished-at="2026-07-13T17:50:12 EEST" duration-ms="28" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:19 EEST" name="setUp" finished-at="2026-07-07T21:35:19 EEST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:12 EEST" name="setUp" finished-at="2026-07-13T17:50:12 EEST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:19 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:20 EEST" duration-ms="662" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:12 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:13 EEST" duration-ms="744" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@60cb502a]]>
+                <![CDATA[[Ljava.lang.Object;@781f1e38]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="tearDown" finished-at="2026-07-07T21:35:20 EEST" duration-ms="12" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:13 EEST" name="tearDown" finished-at="2026-07-13T17:50:13 EEST" duration-ms="15" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="setUp" finished-at="2026-07-07T21:35:20 EEST" duration-ms="29" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:13 EEST" name="setUp" finished-at="2026-07-13T17:50:13 EEST" duration-ms="13" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-07T21:35:20 EEST" duration-ms="578" status="PASS">
+        <test-method signature="testInitialState([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:13 EEST" name="testInitialState" data-provider="initialStateData" finished-at="2026-07-13T17:50:14 EEST" duration-ms="885" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@6f3c094f]]>
+                <![CDATA[[Ljava.lang.Object;@3bb8d847]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testInitialState -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="tearDown" finished-at="2026-07-07T21:35:20 EEST" duration-ms="11" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:14 EEST" name="tearDown" finished-at="2026-07-13T17:50:14 EEST" duration-ms="13" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="setUp" finished-at="2026-07-07T21:35:20 EEST" duration-ms="11" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:14 EEST" name="setUp" finished-at="2026-07-13T17:50:14 EEST" duration-ms="12" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testSaveFlow([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:20 EEST" name="testSaveFlow" data-provider="saveFlowData" finished-at="2026-07-07T21:35:22 EEST" duration-ms="1444" status="PASS">
+        <test-method signature="testSaveFlow([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:14 EEST" name="testSaveFlow" data-provider="saveFlowData" finished-at="2026-07-13T17:50:15 EEST" duration-ms="1606" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@1b1e93a9]]>
+                <![CDATA[[Ljava.lang.Object;@55fc6954]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSaveFlow -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:22 EEST" name="tearDown" finished-at="2026-07-07T21:35:22 EEST" duration-ms="27" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:15 EEST" name="tearDown" finished-at="2026-07-13T17:50:16 EEST" duration-ms="88" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:22 EEST" name="setUp" finished-at="2026-07-07T21:35:22 EEST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:16 EEST" name="setUp" finished-at="2026-07-13T17:50:16 EEST" duration-ms="23" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testSaveFlow([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:22 EEST" name="testSaveFlow" data-provider="saveFlowData" finished-at="2026-07-07T21:35:27 EEST" duration-ms="5332" status="PASS">
+        <test-method signature="testSaveFlow([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:16 EEST" name="testSaveFlow" data-provider="saveFlowData" finished-at="2026-07-13T17:50:21 EEST" duration-ms="5670" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@7aaaf394]]>
+                <![CDATA[[Ljava.lang.Object;@3ecfc685]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSaveFlow -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:27 EEST" name="tearDown" finished-at="2026-07-07T21:35:27 EEST" duration-ms="28" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:21 EEST" name="tearDown" finished-at="2026-07-13T17:50:21 EEST" duration-ms="45" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:27 EEST" name="setUp" finished-at="2026-07-07T21:35:27 EEST" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:21 EEST" name="setUp" finished-at="2026-07-13T17:50:21 EEST" duration-ms="10" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:27 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-07T21:35:32 EEST" duration-ms="5043" status="PASS">
+        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:21 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-13T17:50:27 EEST" duration-ms="5594" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@195cc8bb]]>
+                <![CDATA[[Ljava.lang.Object;@643ba7ba]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testPersistence -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:32 EEST" name="tearDown" finished-at="2026-07-07T21:35:32 EEST" duration-ms="10" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:27 EEST" name="tearDown" finished-at="2026-07-13T17:50:27 EEST" duration-ms="10" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:32 EEST" name="setUp" finished-at="2026-07-07T21:35:32 EEST" duration-ms="8" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:27 EEST" name="setUp" finished-at="2026-07-13T17:50:27 EEST" duration-ms="7" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:32 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-07T21:35:35 EEST" duration-ms="2264" status="PASS">
+        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:27 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-13T17:50:29 EEST" duration-ms="1722" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@5741b80a]]>
+                <![CDATA[[Ljava.lang.Object;@51b8d7f1]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testPersistence -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:35 EEST" name="tearDown" finished-at="2026-07-07T21:35:35 EEST" duration-ms="32" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:29 EEST" name="tearDown" finished-at="2026-07-13T17:50:29 EEST" duration-ms="32" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:35 EEST" name="setUp" finished-at="2026-07-07T21:35:35 EEST" duration-ms="7" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:29 EEST" name="setUp" finished-at="2026-07-13T17:50:29 EEST" duration-ms="8" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:35 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-07T21:35:37 EEST" duration-ms="1822" status="PASS">
+        <test-method signature="testPersistence([Ljava.lang.Object;)[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:29 EEST" name="testPersistence" data-provider="persistenceData" finished-at="2026-07-13T17:50:30 EEST" duration-ms="1445" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[Ljava.lang.Object;@334e5403]]>
+                <![CDATA[[Ljava.lang.Object;@43ae3c30]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testPersistence -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:37 EEST" name="tearDown" finished-at="2026-07-07T21:35:37 EEST" duration-ms="27" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:30 EEST" name="tearDown" finished-at="2026-07-13T17:50:30 EEST" duration-ms="48" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.SettingsTest@3aa63b53]" started-at="2026-07-07T21:35:37 EEST" name="tearDownClass" finished-at="2026-07-07T21:35:37 EEST" duration-ms="347" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.iot.selenium.tests.SettingsTest@150fc7a7]" started-at="2026-07-13T17:50:30 EEST" name="tearDownClass" finished-at="2026-07-13T17:50:31 EEST" duration-ms="256" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->

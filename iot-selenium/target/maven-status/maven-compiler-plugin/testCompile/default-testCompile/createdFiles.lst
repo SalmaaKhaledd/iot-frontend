@@ -1,7 +1,10 @@
 com\iot\selenium\pages\TrafficDashboardPage.class
+com\iot\selenium\pages\StreetLightDashboardPage.class
 com\iot\selenium\tests\ConfigurationTest.class
+com\iot\selenium\tests\StreetLightDashboardTest.class
 com\iot\selenium\tests\SigninTest.class
 com\iot\selenium\pages\DashboardPage.class
+com\iot\selenium\tests\AirQualityDashboardTest.class
 com\iot\selenium\pages\AlertsPage.class
 com\iot\selenium\utils\ExcelReader.class
 com\iot\selenium\config\ConfigReader.class
@@ -11,13 +14,16 @@ com\iot\selenium\tests\SettingsTest.class
 com\iot\selenium\tests\SignupTest.class
 com\iot\selenium\tests\TrafficDashboardTest.class
 com\iot\selenium\tests\BaseTest.class
+com\iot\selenium\pages\AirQualityDashboardPage.class
 com\iot\selenium\pages\SettingsPage.class
 com\iot\selenium\pages\SensorDashboardPage.class
 com\iot\selenium\pages\BasePage.class
+com\iot\selenium\tests\BaseDashboardDataTest.class
 com\iot\selenium\tests\LogoutTest.class
 com\iot\selenium\tests\BaseTest$AuthSetup.class
 com\iot\selenium\tests\UserProfileTest.class
 com\iot\selenium\pages\SignupPage.class
+com\iot\selenium\pages\BaseDashboardDataPage.class
 com\iot\selenium\pages\UserProfilePage.class
 com\iot\selenium\pages\SensorDashboardPage$ApiAuthSession.class
 com\iot\selenium\pages\SigninPage.class
