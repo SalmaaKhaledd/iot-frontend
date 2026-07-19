@@ -1,12 +1,12 @@
 apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
-  name: frontend-push
+  name: frontend-pull-request
 
   annotations:
     pipelinesascode.tekton.dev/max-keep-runs: "5"
-    pipelinesascode.tekton.dev/on-event: "[push]"
-    pipelinesascode.tekton.dev/on-target-branch: "[refs/heads/main]"
+    pipelinesascode.tekton.dev/on-event: "[pull_request]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
     pipelinesascode.tekton.dev/task: git-clone
 
 spec:
@@ -24,7 +24,7 @@ spec:
       value: "{{ revision }}"
 
     - name: deploy
-      value: "true"
+      value: "false"
 
   workspaces:
     - name: source
@@ -40,7 +40,3 @@ spec:
     - name: basic-auth
       secret:
         secretName: "{{ git_auth_secret }}"
-
-    - name: dockerconfig
-      secret:
-        secretName: dockerhub-credentials
