@@ -15,6 +15,20 @@ spec:
       type: string
       default: "false"
 
+    # Shared, non-secret SonarQube Cloud configuration.
+    - name: sonar-organization
+      type: string
+      default: "dxcelerators"
+
+    - name: sonar-project-key
+      type: string
+      default: "dxcelerators_iot-frontend"
+
+    # Leave empty for sonarcloud.io (EU). Use "us" for sonarqube.us.
+    - name: sonar-region
+      type: string
+      default: ""
+
   workspaces:
     - name: source
 
@@ -24,7 +38,7 @@ spec:
       optional: true
 
   tasks:
-    # Clone the exact triggering commit
+    # Clone the exact commit that triggered the PipelineRun.
     - name: fetch-repository
       taskRef:
         name: git-clone
@@ -36,6 +50,11 @@ spec:
         - name: revision
           value: $(params.revision)
 
+        # A large positive depth avoids a one-commit shallow clone while
+        # remaining compatible with the catalog git-clone Task.
+        - name: depth
+          value: "1000"
+
       workspaces:
         - name: output
           workspace: source
@@ -43,7 +62,7 @@ spec:
         - name: basic-auth
           workspace: basic-auth
 
-    # Install dependencies and run Angular tests
+    # Install locked dependencies, run Angular tests, and create LCOV coverage.
     - name: test-frontend
       runAfter:
         - fetch-repository
@@ -72,16 +91,122 @@ spec:
               set -eu
 
               npm ci
-              npm test -- --watch=false
+              npm test -- \
+                --watch=false \
+                --progress=false \
+                --coverage \
+                --coverage-reporters=lcov
 
       workspaces:
         - name: source
           workspace: source
 
-    # Calculate 4.1 -> 4.2 -> ... -> 4.9 -> 5.0
-    - name: calculate-version
+    # Free-plan setup: analyze and gate main-branch deployments.
+    # The task is skipped in the test-only PR PipelineRun.
+    - name: sonar-analysis
       runAfter:
         - test-frontend
+
+      when:
+        - input: $(params.deploy)
+          operator: in
+          values:
+            - "true"
+
+      params:
+        - name: organization
+          value: $(params.sonar-organization)
+
+        - name: project-key
+          value: $(params.sonar-project-key)
+
+        - name: region
+          value: $(params.sonar-region)
+
+        - name: revision
+          value: $(params.revision)
+
+      taskSpec:
+        params:
+          - name: organization
+            type: string
+
+          - name: project-key
+            type: string
+
+          - name: region
+            type: string
+
+          - name: revision
+            type: string
+
+        workspaces:
+          - name: source
+
+        steps:
+          - name: analyze-and-check-gate
+            # Debian/glibc avoids the scanner runtime issue seen on Alpine.
+            image: docker.io/library/node:22-bookworm-slim
+            workingDir: $(workspaces.source.path)
+
+            env:
+              - name: HOME
+                value: $(workspaces.source.path)
+
+              - name: NPM_CONFIG_CACHE
+                value: $(workspaces.source.path)/.npm
+
+              - name: SONAR_BINARY_CACHE
+                value: $(workspaces.source.path)/.sonar/cache
+
+              - name: SONAR_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: sonarcloud-credentials
+                    key: SONAR_TOKEN
+
+            script: |
+              #!/bin/bash
+              set -euo pipefail
+
+              LCOV_PATH="$(find coverage -type f -name lcov.info -print -quit 2>/dev/null || true)"
+
+              if [ -z "$LCOV_PATH" ]; then
+                echo "No lcov.info file was generated under coverage/."
+                echo "Ensure @vitest/coverage-v8 is committed as a devDependency."
+                exit 1
+              fi
+
+              REGION_ARGUMENT=()
+
+              if [ -n "$(params.region)" ]; then
+                REGION_ARGUMENT+=("-Dsonar.region=$(params.region)")
+              fi
+
+              echo "Using coverage report: $LCOV_PATH"
+
+              npx --yes @sonar/scan@4.3.5 \
+                "-Dsonar.organization=$(params.organization)" \
+                "-Dsonar.projectKey=$(params.project-key)" \
+                "-Dsonar.scm.revision=$(params.revision)" \
+                "-Dsonar.sourceEncoding=UTF-8" \
+                "-Dsonar.sources=src" \
+                "-Dsonar.tests=src" \
+                "-Dsonar.test.inclusions=src/**/*.spec.ts" \
+                "-Dsonar.exclusions=src/**/*.spec.ts" \
+                "-Dsonar.javascript.lcov.reportPaths=${LCOV_PATH}" \
+                "-Dsonar.qualitygate.wait=true" \
+                "-Dsonar.qualitygate.timeout=300" \
+                "${REGION_ARGUMENT[@]}"
+
+      workspaces:
+        - name: source
+          workspace: source
+
+    # Calculate 4.1 -> 4.2 -> ... -> 4.9 -> 5.0.
+    - name: calculate-version
+      runAfter:
+        - sonar-analysis
 
       when:
         - input: $(params.deploy)
@@ -179,7 +304,7 @@ spec:
               echo "Commit image:    $COMMIT_IMAGE"
               echo "Latest image:    $LATEST_IMAGE"
 
-    # Build once and push the immutable image
+    # Build once and push the immutable image.
     - name: build-and-push
       runAfter:
         - calculate-version
@@ -222,7 +347,7 @@ spec:
         - name: dockerconfig
           workspace: dockerconfig
 
-    # Publish version, commit and latest aliases
+    # Point version, commit, and latest aliases at the same built digest.
     - name: publish-additional-tags
       runAfter:
         - build-and-push
@@ -262,7 +387,6 @@ spec:
 
         workspaces:
           - name: dockerconfig
-            optional: true
 
         steps:
           - name: copy-tags
@@ -306,7 +430,7 @@ spec:
         - name: dockerconfig
           workspace: dockerconfig
 
-    # Deploy and restore the previous image if rollout fails
+    # Deploy the immutable tag and restore the previous image on failure.
     - name: deploy-frontend
       runAfter:
         - publish-additional-tags
@@ -349,26 +473,23 @@ spec:
 
               NEW_IMAGE="$(params.image)"
 
+              rollback() {
+                echo "Restoring previous image: $OLD_IMAGE"
+                oc set image deployment/frontend frontend="$OLD_IMAGE" || true
+                oc scale deployment/frontend --replicas=1 || true
+                oc rollout status deployment/frontend --timeout=300s || true
+              }
+
               echo "Deploying frontend $(params.version)"
               echo "Old image: $OLD_IMAGE"
               echo "New image: $NEW_IMAGE"
 
-              oc set image deployment/frontend \
-                frontend="$NEW_IMAGE"
-
+              oc set image deployment/frontend frontend="$NEW_IMAGE"
               oc scale deployment/frontend --replicas=1
 
               if ! oc rollout status deployment/frontend --timeout=300s; then
-                echo "Rollout failed. Restoring $OLD_IMAGE"
-
-                oc set image deployment/frontend \
-                  frontend="$OLD_IMAGE" || true
-
-                oc scale deployment/frontend --replicas=1 || true
-
-                oc rollout status deployment/frontend \
-                  --timeout=300s || true
-
+                echo "Frontend rollout failed."
+                rollback
                 exit 1
               fi
 
@@ -379,9 +500,11 @@ spec:
                 echo "Deployment image verification failed."
                 echo "Expected: $NEW_IMAGE"
                 echo "Actual:   $DEPLOYED_IMAGE"
+                rollback
                 exit 1
               fi
 
               echo "Frontend deployment succeeded."
+              echo "Deployed image: $DEPLOYED_IMAGE"
               oc get deployment frontend
               oc get pods -l app=frontend
