@@ -19,8 +19,6 @@ import org.testng.annotations.Test;
 
 public class AlertsTest extends BaseTest {
     private static final String SHEET_NAME = "Alerts & Notifications";
-    private static final String TRAFFIC_DENSITY_PLACEHOLDER = "Enter a value between 0 to 500";
-    private static final String ABOVE_CONDITION_LABEL = "Above";
     private static final long ALERT_POLL_TIMEOUT_MS = 20_000L;
     private static final long ALERT_POLL_INTERVAL_MS = 2_000L;
 
@@ -32,11 +30,14 @@ public class AlertsTest extends BaseTest {
     private ConfigReader configReader;
 
     @BeforeClass(alwaysRun = true)
-    public void seedAlertsBeforeClass() throws Exception {
+    public void seedAlertsBeforeClass() {
         configReader = new ConfigReader();
-
-        AlertsPage.flushSettingsPublic();
-        AlertsPage.flushAlertsPublic();
+        try {
+            AlertsPage.flushSettingsPublic();
+            AlertsPage.flushAlertsPublic();
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to flush alert/settings data before class", e);
+        }
 
         super.setUp();
         driverInitialized = true;
@@ -44,8 +45,15 @@ public class AlertsTest extends BaseTest {
         sensorDashboardPage = new SensorDashboardPage(driver);
         settingsPage = new SettingsPage(driver);
 
-        login(configReader.getLoginEmail(), configReader.getLoginPassword());
-        runFullAlertSeedingSequence();
+        restoreAuthenticatedSession();
+        authToken = getSharedAuthToken();
+        try {
+            runFullAlertSeedingSequence();
+        } catch (SkipException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to seed alerts before class", e);
+        }
     }
 
     @BeforeMethod(alwaysRun = true)
@@ -115,18 +123,6 @@ public class AlertsTest extends BaseTest {
     }
 
     private void runFullAlertSeedingSequence() throws Exception {
-        settingsPage.navigateToSettings();
-        settingsPage.clickThresholdsTab();
-        settingsPage.waitForDefaultThresholdState(TRAFFIC_DENSITY_PLACEHOLDER);
-        settingsPage.enterThresholdValue(TRAFFIC_DENSITY_PLACEHOLDER, "1");
-        ensureTrafficDensityAboveCondition();
-        settingsPage.clickSaveChanges();
-        if (settingsPage.isValidationAlertPresent()) {
-            throw new IllegalStateException(
-                    "Traffic Density threshold save blocked by browser alert: "
-                            + settingsPage.getValidationAlertText());
-        }
-
         refreshAlertsFromSensors();
     }
 
@@ -135,14 +131,19 @@ public class AlertsTest extends BaseTest {
     }
 
     private void refreshAlertsFromSensors() throws Exception {
-        AlertsPage.generateSensorsPublic();
+        if (authToken == null || authToken.isBlank()) {
+            authToken = getSharedAuthToken();
+        }
+        AlertsPage.seedTrafficDensityAboveThreshold(authToken);
+        for (int i = 0; i < 3; i++) {
+            AlertsPage.generateSensorsPublic();
+        }
 
         alertsPage.navigateToHome();
         sensorDashboardPage.waitForSectionDataDisplayed("traffic");
         sensorDashboardPage.clickRefresh("traffic");
         sensorDashboardPage.waitForSectionDataDisplayed("traffic");
 
-        authToken = alertsPage.getAuthTokenFromLocalStorage();
         List<String> alertIds = AlertsPage.pollAlertIdsUntilMinCount(
                 authToken, 1, ALERT_POLL_TIMEOUT_MS, ALERT_POLL_INTERVAL_MS);
         if (alertIds.isEmpty()) {
@@ -151,24 +152,9 @@ public class AlertsTest extends BaseTest {
         }
     }
 
-    private void ensureTrafficDensityAboveCondition() {
-        if (ABOVE_CONDITION_LABEL.equals(settingsPage.getConditionButtonText(TRAFFIC_DENSITY_PLACEHOLDER))) {
-            return;
-        }
-        settingsPage.clickConditionButton(TRAFFIC_DENSITY_PLACEHOLDER);
-        if (!ABOVE_CONDITION_LABEL.equals(settingsPage.getConditionButtonText(TRAFFIC_DENSITY_PLACEHOLDER))) {
-            throw new IllegalStateException(
-                    "Expected Traffic Density alertType ABOVE (button label '"
-                            + ABOVE_CONDITION_LABEL
-                            + "') but got: "
-                            + settingsPage.getConditionButtonText(TRAFFIC_DENSITY_PLACEHOLDER));
-        }
-    }
-
     private void runPanelOpenCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -182,7 +168,6 @@ public class AlertsTest extends BaseTest {
     private void runPanelCloseCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -194,7 +179,6 @@ public class AlertsTest extends BaseTest {
     private void runEmptyStateCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -214,7 +198,6 @@ public class AlertsTest extends BaseTest {
     private void runBadgeHiddenCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         boolean expectedVisible = Boolean.parseBoolean(data.get("expectedBadgeVisible"));
         Assert.assertEquals(
@@ -227,7 +210,6 @@ public class AlertsTest extends BaseTest {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         boolean expectedVisible = Boolean.parseBoolean(data.get("expectedBadgeVisible"));
         if (expectedVisible) {
@@ -245,7 +227,6 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         int minCards = Integer.parseInt(data.get("minAlertCards"));
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -258,7 +239,6 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         String sensorType = data.get("sensorType");
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -282,7 +262,6 @@ public class AlertsTest extends BaseTest {
         Map<String, String> data = structuredData(rd);
         String section = data.get("section");
         ensureAlertsPresent(tcId, data);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateToHome();
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -304,7 +283,6 @@ public class AlertsTest extends BaseTest {
     private void runPanelOnRouteCase(String tcId) throws Exception {
         Map<String, String> rd = rowByTcId(tcId);
         Map<String, String> data = structuredData(rd);
-        loginIfNeeded(configReader.getLoginEmail(), configReader.getLoginPassword());
         alertsPage.navigateTo(data.get("route"));
         alertsPage.clickNotificationsBell();
         alertsPage.waitForPanelVisible();
@@ -360,18 +338,4 @@ public class AlertsTest extends BaseTest {
                 .orElseThrow(() -> new IllegalStateException("Row not found for tc_id: " + tcId));
     }
 
-    private void loginIfNeeded(String email, String password) throws Exception {
-        if (configReader == null) {
-            configReader = new ConfigReader();
-        }
-        String url = driver.getCurrentUrl();
-        String loginPath = configReader.getLoginPath();
-        boolean notAuthenticated = url == null
-                || url.contains("data:")
-                || url.contains(loginPath);
-        if (notAuthenticated) {
-            login(email, password);
-        }
-        authToken = alertsPage.getAuthTokenFromLocalStorage();
-    }
 }

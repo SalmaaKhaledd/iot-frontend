@@ -191,16 +191,6 @@ public class ConfigurationTest extends BaseTest {
                 .until(d -> !settingsPage.getConfigurationIntervalValue("traffic").isBlank());
     }
 
-    private void loginIfNeeded(String email, String password) throws Exception {
-        String url = driver.getCurrentUrl();
-        boolean notAuthenticated = url == null
-                || url.contains("data:")
-                || url.contains("/login");
-        if (notAuthenticated) {
-            login(email, password);
-        }
-    }
-
     private void assertIntervalValue(String tcId, String field, String expected) {
         String actual = settingsPage.getConfigurationIntervalValue(field);
         Assert.assertEquals(

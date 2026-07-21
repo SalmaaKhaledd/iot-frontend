@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Settings Tests</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>74/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>73/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Sun May 17 13:56:51 EEST 2026</td>
+<td>Started on:</td><td>Mon Jul 13 16:55:29 EEST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>45 seconds (45538 ms)</td>
+<tr><td>Total time:</td><td>108 seconds (108811 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,76 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@32b2f9a4</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.iot.selenium.pages.SettingsPage$$Lambda$1178/0x0000026181497920@345183da (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.19&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.101, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\yamen\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61795}, goog:processID: 17252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61795/devtoo..., se:cdpVersion: 150.0.7871.101, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 952ca15c2145666d7ae3793b0eb365b7
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.iot.selenium.pages.SettingsPage.navigateToSettings(SettingsPage.java:57)
+	at com.iot.selenium.tests.SettingsTest.flushAndOpen(SettingsTest.java:596)
+	at com.iot.selenium.tests.SettingsTest.testNavigation(SettingsTest.java:203)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 31 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1060597748", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1060597748'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.iot.selenium.pages.SettingsPage$$Lambda$1178/0x0000026181497920@345183da (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.19&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.101, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\yamen\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:61795}, goog:processID: 17252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:61795/devtoo..., se:cdpVersion: 150.0.7871.101, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 952ca15c2145666d7ae3793b0eb365b7
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.iot.selenium.pages.SettingsPage.navigateToSettings(SettingsPage.java:57)
+	at com.iot.selenium.tests.SettingsTest.flushAndOpen(SettingsTest.java:596)
+	at com.iot.selenium.tests.SettingsTest.testNavigation(SettingsTest.java:203)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>10</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -76,375 +146,370 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testSaveFlow()'><b>testSaveFlow</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@53ba7b9c</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNewUserEmptyState()'><b>testNewUserEmptyState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@71498a88</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2d95c3ef</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@758f755a</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testMultiUserIsolation()'><b>testMultiUserIsolation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@38ec1c34</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3d4bc978</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5623354e</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@538c90bf</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7b10e088</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2269b05b</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@dffbf7a</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2d25a125</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7915c71d</td>
 <td></td>
-<td>4</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@620ede3a</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5fc7c9af</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7725470b</td>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2133814d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7c3341c9</td>
 <td></td>
 <td>2</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@bf0e435</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5ace491</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3810d15d</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1ff359b7</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1d0fae45</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@722dd1df</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testSaveFlow()'><b>testSaveFlow</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7f95dc2</td>
+<td title='com.iot.selenium.tests.SettingsTest.testSaveFlow()'><b>testSaveFlow</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5b69d144</td>
 <td></td>
-<td>4</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>5</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2aae170c</td>
-<td></td>
-<td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7d91e9c9</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@45da40ad</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@99e03a9</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5b2728db</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@79f05331</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@29866f6d</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@363476ca</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2e1bbf2a</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@70721c2d</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@286e2b71</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7a56c3c7</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1aa11ace</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@74948d11</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@24d815da</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4781bb01</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@a674645</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1e7e67d3</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5ceb9fae</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@71d0e9a</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2b7c980</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4f0ee1eb</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@cc6baae</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@62284954</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6f2d0d25</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@55db4eea</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3d3bd9e3</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@427faf19</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@12300573</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7b7030b7</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@64b6d6dd</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4d2d0eda</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@18be7f57</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@ce2077</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@32c503d3</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@39240aa3</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@ed1bc80</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@63ccc72c</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@74967bf2</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1172a648</td>
-<td></td>
-<td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
-<tr>
-<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1bdbf918</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@107b30e0</td>
 <td></td>
 <td>1</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@e75a138</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1ffdb733</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3fcc58f8</td>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@491301a2</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@38300447</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@402a5b2b</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2ae7ee25</td>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@42f74394</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@43076326</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7bd7012d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@68996709</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1cdc22c</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6ab36cee</td>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6d5edd8e</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3a8a823c</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@24edca5e</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@136cef7c</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@694d4f27</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@46014193</td>
+<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3262562c</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4c954f7d</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5977f3d6</td>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@67b36249</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3b7db502</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@53d917df</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@68496278</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testMultiUserIsolation()'><b>testMultiUserIsolation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3befad01</td>
+<td></td>
+<td>3</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@159e840a</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@30e6c577</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@faeef3a</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6ac3ceda</td>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4fa285ad</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@ff5bc04</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@622a4589</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5ceafd4b</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@54cb2cee</td>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@67f1d863</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6232025</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4d0a2f87</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7c0fd22d</td>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@a1100b7</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@72192655</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@519f665e</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@14344b44</td>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@66bf08d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@7ce45766</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2303c7cc</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@3fad151c</td>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@18b33763</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@79337388</td>
+<td></td>
+<td>2</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5e9fb3b7</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 <tr>
-<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@551f927f</td>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@dd9d3f9</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@ae11512</td>
 <td></td>
 <td>0</td>
-<td>com.iot.selenium.tests.SettingsTest@1e66f1f5</td></tr>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@568a79d1</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5a9529a</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6db0d7d1</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testContradiction()'><b>testContradiction</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@55715640</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@33006891</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5c806f1d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNewUserEmptyState()'><b>testNewUserEmptyState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@68c7a7fc</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@35165d14</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@2f7bfd32</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@67b166a0</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@6c65578d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1847e32d</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4eb45bfd</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@415efec4</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5b4319b8</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testBoundaryValidation()'><b>testBoundaryValidation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@62c229bb</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@59343f6a</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@230a7a05</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testPersistence()'><b>testPersistence</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@4244fae2</td>
+<td></td>
+<td>5</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testInitialState()'><b>testInitialState</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@74db90d7</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@244f95d2</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@5ca7fab9</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testSaveFlow()'><b>testSaveFlow</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@1e55c5f7</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testToggleAddRemove()'><b>testToggleAddRemove</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@75aa61c7</td>
+<td></td>
+<td>1</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
+<tr>
+<td title='com.iot.selenium.tests.SettingsTest.testNavigation()'><b>testNavigation</b><br>Test class: com.iot.selenium.tests.SettingsTest<br>Parameters: [Ljava.lang.Object;@75b12f19</td>
+<td></td>
+<td>0</td>
+<td>com.iot.selenium.tests.SettingsTest@3b57dba4</td></tr>
 </table><p>
 </body>
 </html>
