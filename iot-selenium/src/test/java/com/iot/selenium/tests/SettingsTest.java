@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.iot.selenium.config.ConfigReader;
+import com.iot.selenium.pages.AlertsPage;
 import com.iot.selenium.pages.SettingsPage;
 import com.iot.selenium.pages.UserProfilePage;
 
@@ -11,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -30,6 +33,15 @@ public class SettingsTest extends BaseTest {
 
     private SettingsPage settingsPage;
 
+    @BeforeClass(alwaysRun = true)
+    public void authBeforeClass() throws Exception {
+        super.setUp();
+        driverInitialized = true;
+        settingsPage = new SettingsPage(driver);
+        restoreAuthenticatedSession();
+        AlertsPage.flushAlertsPublic();
+    }
+
     @BeforeMethod(alwaysRun = true)
     @Override
     public void setUp() {
@@ -37,7 +49,16 @@ public class SettingsTest extends BaseTest {
             super.setUp();
             driverInitialized = true;
         }
+        if (configReader == null) {
+            configReader = new ConfigReader();
+            baseUrl = configReader.getBaseUrl();
+        }
         settingsPage = new SettingsPage(driver);
+        settingsPage.dismissValidationAlertIfPresent();
+        String url = driver.getCurrentUrl();
+        if (url != null && url.contains("/login")) {
+            ensureAuthenticatedForSettings();
+        }
     }
 
     @AfterMethod(alwaysRun = true)
@@ -45,6 +66,7 @@ public class SettingsTest extends BaseTest {
     public void tearDown() {
         try {
             if (driver != null && settingsPage != null) {
+                settingsPage.dismissValidationAlertIfPresent();
                 settingsPage.flushSettings();
             }
         } catch (Exception ignored) {
@@ -156,22 +178,20 @@ public class SettingsTest extends BaseTest {
         String name = rd.get("Test Case Name");
 
         if ("Negative".equals(rd.get("Test Type"))) {
-            driver.get("http://localhost:4200");
+            driver.get(baseUrl);
             settingsPage.clearLocalStorage();
-            driver.get("http://localhost:4200/settings");
+            driver.get(baseUrl + "/settings");
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(d -> d.getCurrentUrl().contains("/login"));
             Assert.assertTrue(
                     driver.getCurrentUrl().contains("/login"),
                     "[" + tcId + "] Expected redirect to /login");
+            ensureAuthenticatedForSettings();
             return;
         }
 
         if (name.contains("topbar")) {
-            String currentUrl = driver.getCurrentUrl();
-            if (currentUrl == null || currentUrl.contains("data:") || currentUrl.contains("/login")) {
-                login(data.get("email"), data.get("password"));
-            }
+            restoreAuthenticatedSession();
             driver.get(baseUrl + "/home");
             settingsPage.clickTopbarSettings();
             Assert.assertTrue(
@@ -569,21 +589,56 @@ public class SettingsTest extends BaseTest {
     }
 
     private void flushAndOpen(Map<String, String> rd, Map<String, String> data) throws Exception {
+        settingsPage.dismissValidationAlertIfPresent();
+        AlertsPage.flushAlertsPublic();
         settingsPage.flushSettings();
-        loginIfNeeded(data.get("email"), data.get("password"));
+        ensureAuthenticatedForSettings();
         settingsPage.navigateToSettings();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(d -> settingsPage.isSaveButtonDisabled());
     }
-
-    private void loginIfNeeded(String email, String password) throws Exception {
+/*
+    private void ensureAuthenticatedForSettings() {
+        settingsPage.dismissValidationAlertIfPresent();
         String url = driver.getCurrentUrl();
-        boolean notAuthenticated = url == null
-                || url.contains("data:")
-                || url.contains("/login");
-        if (notAuthenticated) {
-            login(email, password);
+        if (url != null && url.contains("/login")) {
+            clearSharedAuth();
         }
+        restoreAuthenticatedSession();
+        url = driver.getCurrentUrl();
+        if (url != null && url.contains("/login")) {
+            clearSharedAuth();
+            restoreAuthenticatedSession();
+        }
+    }
+*/
+    private void ensureAuthenticatedForSettings() {
+      settingsPage.dismissValidationAlertIfPresent();
+
+      // 1. Navigate to the base URL FIRST.
+      // LocalStorage is origin-tied; you must be on the domain to inject tokens.
+      if (!driver.getCurrentUrl().startsWith(baseUrl)) {
+        driver.get(baseUrl);
+      }
+
+      String url = driver.getCurrentUrl();
+      if (url != null && url.contains("/login")) {
+        clearSharedAuth();
+      }
+
+      // 2. Now inject the session token
+      restoreAuthenticatedSession();
+
+      // 3. Force navigation to home so the frontend processes the new token
+      driver.get(baseUrl + "/home");
+
+      // 4. Failsafe check to ensure the token was accepted
+      try {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+          .until(d -> d.getCurrentUrl().contains("/home"));
+      } catch (org.openqa.selenium.TimeoutException e) {
+        throw new IllegalStateException("Authentication injection failed: The frontend rejected the session and redirected to /login.");
+      }
     }
 
     private String placeholderFor(String metric) {

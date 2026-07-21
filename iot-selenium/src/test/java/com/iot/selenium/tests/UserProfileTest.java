@@ -45,28 +45,28 @@ public class UserProfileTest extends BaseTest {
         String expectedEmail = data.getOrDefault("expectedEmail", "");
 
         if (testCaseName.contains("displays correct user name")) {
-            login(email, password);
+            loginIfNeeded(email, password);
             String actual = new UserProfilePage(driver).open(baseUrl).waitForLoad().getFullName();
             Assert.assertEquals(
                     actual,
                     expectedName,
                     "[" + tcId + "] Expected name: '" + expectedName + "' but got: '" + actual + "'");
         } else if (testCaseName.contains("displays correct email")) {
-            login(email, password);
+            loginIfNeeded(email, password);
             String actual = new UserProfilePage(driver).open(baseUrl).waitForLoad().getEmail();
             Assert.assertEquals(
                     actual,
                     expectedEmail,
                     "[" + tcId + "] Expected email: '" + expectedEmail + "' but got: '" + actual + "'");
         } else if (testCaseName.contains("back button")) {
-            login(email, password);
+            loginIfNeeded(email, password);
             new UserProfilePage(driver).open(baseUrl).waitForLoad().clickBack();
             wait.until(ExpectedConditions.urlContains("/home"));
             Assert.assertTrue(
                     driver.getCurrentUrl().contains("/home"),
                     "[" + tcId + "] Expected /home after back but got: " + driver.getCurrentUrl());
         } else if (testCaseName.contains("avatar click")) {
-            login(email, password);
+            loginIfNeeded(email, password);
             new DashboardPage(driver).waitForLoad().clickAvatar();
             wait.until(ExpectedConditions.urlContains("/profile"));
             Assert.assertTrue(

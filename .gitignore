@@ -45,3 +45,4 @@ Thumbs.db
 .cursor/
 HANDOFF_DRAFT.md
 docs/sprint1.md
+iot-selenium/target/

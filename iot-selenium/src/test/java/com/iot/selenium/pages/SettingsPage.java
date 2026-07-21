@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SettingsPage extends BasePage {
     private final String baseUrl;
     private final String apiBaseUrl;
-
+    //use placeholder strings as identifiers
     private static final By PAGE_HEADING = By.cssSelector(".settings-page .page-header h1");
     private static final By BACK_BUTTON = By.cssSelector(".settings-page button.back-button");
     private static final By UNSAVED_BADGE = By.cssSelector(".settings-page span.unsaved-badge");
@@ -45,9 +45,21 @@ public class SettingsPage extends BasePage {
     }
 
     public void navigateToSettings() {
-        driver.get(baseUrl + "/settings");
-        waitForUrl("/settings", 15);
+        String current = driver.getCurrentUrl();
+        if (current != null && current.contains("/settings")) {
+            waitForAngular();
+            return;
+        }
+        driver.get(baseUrl + "/home");
+        waitForUrl("/home", 15);
         waitForAngular();
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(d -> {
+                    String url = d.getCurrentUrl();
+                    return url != null && !url.contains("/login");
+                });
+        clickTopbarSettings();
+        waitForVisible(PAGE_HEADING);
     }
 
     public void clickBackToHome() {
@@ -105,6 +117,13 @@ public class SettingsPage extends BasePage {
         try {
             driver.switchTo().alert().dismiss();
         } catch (NoAlertPresentException ignored) {
+        }
+    }
+
+    /** Clears a leftover native validation alert so WebDriver can read the URL again. */
+    public void dismissValidationAlertIfPresent() {
+        while (isValidationAlertPresent()) {
+            dismissValidationAlert();
         }
     }
 

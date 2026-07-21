@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.iot.selenium.pages.SigninPage;
 import com.iot.selenium.pages.UserProfilePage;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,16 +36,10 @@ public class LogoutTest extends BaseTest {
     public void testSuccessfulLogout(Object[] row) {
         Map<String, String> rd = rowData(row);
         System.out.println(rd.get("tc_id"));
-        Map<String, String> data = structuredData(rd);
         String tcId = Optional.ofNullable(rd.get("tc_id")).filter(s -> !s.isBlank()).orElse("unknown");
 
-        String email = data.getOrDefault("email", "");
-        String password = data.getOrDefault("password", "");
-
-        SigninPage signinPage = new SigninPage(driver);
-        signinPage.open(baseUrl);
-        signinPage.login(email, password);
-        wait.until(ExpectedConditions.urlContains("/home"));
+        clearSharedAuth();
+        restoreAuthenticatedSession();
 
         driver.get(baseUrl + "/profile");
         wait.until(ExpectedConditions.urlContains("/profile"));
@@ -58,6 +51,8 @@ public class LogoutTest extends BaseTest {
         Assert.assertTrue(
                 driver.getCurrentUrl().contains("/login"),
                 "[" + tcId + "] Expected URL to contain '/login' but got: " + driver.getCurrentUrl());
+
+        clearSharedAuth();
     }
 
     @Test(dependsOnMethods = "testSuccessfulLogout")

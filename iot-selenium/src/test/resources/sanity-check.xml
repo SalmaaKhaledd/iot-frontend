@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SanityCheck" parallel="false" preserve-order="true">
+
+  <test name="SanityCriticalPaths">
+    <classes>
+      <class name="com.iot.selenium.tests.SignupTest">
+        <methods>
+          <include name="testSignup"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.SigninTest">
+        <methods>
+          <include name="testSignin"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.LogoutTest">
+        <methods>
+          <include name="testSuccessfulLogout"/>
+          <include name="testAuthGuardAfterLogout"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.UserProfileTest">
+        <methods>
+          <include name="testUserProfile"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.SettingsTest">
+        <methods>
+          <include name="testInitialState"/>
+          <include name="testSaveFlow"/>
+          <include name="testPersistence"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.ConfigurationTest">
+        <methods>
+          <include name="testConfiguration"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.SensorDashboardTest">
+        <methods>
+          <include name="testDataAfterSeed"/>
+          <include name="testEmptyState"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.TrafficDashboardTest">
+        <methods>
+          <include name="testEntryPoint"/>
+          <include name="testFilters"/>
+          <include name="testAlertBanners"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.AirQualityDashboardTest">
+        <methods>
+          <include name="testEntryPoint"/>
+          <include name="testFilters"/>
+          <include name="testAlertBanners"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.StreetLightDashboardTest">
+        <methods>
+          <include name="testEntryPoint"/>
+          <include name="testFilters"/>
+          <include name="testAlertBanners"/>
+        </methods>
+      </class>
+      <class name="com.iot.selenium.tests.AlertsTest">
+        <methods>
+          <include name="testPanelOpenClose"/>
+          <include name="testSeededNotifications"/>
+          <include name="testEmptyNotifications"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

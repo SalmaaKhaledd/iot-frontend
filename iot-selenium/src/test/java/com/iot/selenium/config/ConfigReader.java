@@ -35,6 +35,18 @@ public class ConfigReader {
         return properties.getProperty("homePath", "/home").trim();
     }
 
+    public String getTrafficDashboardPath() {
+        return properties.getProperty("trafficDashboardPath", "/traffic-dashboard").trim();
+    }
+
+    public String getAirQualityDashboardPath() {
+       return properties.getProperty("airQualityDashboardPath", "/air-quality-dashboard").trim();
+    }
+
+    public String getStreetLightDashboardPath() {
+      return properties.getProperty("streetLightDashboardPath", "/street-light-dashboard").trim();
+    }
+
     public String getLoginPath() {
         return properties.getProperty("loginPath", "/login").trim();
     }
