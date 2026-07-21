@@ -96,6 +96,7 @@ spec:
                 --progress=false \
                 --coverage \
                 --coverage-reporters=lcov
+              rm -rf "$NPM_CONFIG_CACHE"
 
       workspaces:
         - name: source
