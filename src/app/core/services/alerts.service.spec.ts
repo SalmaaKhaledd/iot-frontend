@@ -43,7 +43,7 @@ describe('AlertsService', () => {
       expect(alerts).toEqual(mockAlerts);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/alerts?size=100`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/alerts?page=0&size=20&sortBy=triggeredAt&sortDir=desc`);
     expect(req.request.method).toBe('GET');
     req.flush({
       content: mockAlerts,
