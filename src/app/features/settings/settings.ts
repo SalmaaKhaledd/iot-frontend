@@ -112,7 +112,7 @@ export class Settings {
             emptyDefault.originalValue = setting.thresholdValue;
           } else {
             metric.thresholds.push({
-              id: Math.random().toString(36).substring(2, 9),
+              id: crypto.randomUUID().substring(0, 7),
               condition,
               value: setting.thresholdValue,
               apiId: setting.id,
@@ -310,7 +310,7 @@ export class Settings {
     const newCondition = existingCondition === 'above' ? 'below' : 'above';
 
     metric.thresholds.push({
-      id: Math.random().toString(36).substring(2, 9),
+      id: crypto.randomUUID().substring(0, 7),
       condition: newCondition,
       value: null,
     });

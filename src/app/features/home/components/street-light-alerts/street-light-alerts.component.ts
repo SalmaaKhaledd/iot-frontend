@@ -65,7 +65,7 @@ export class StreetLightAlertsComponent {
             const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
 
             const fallbackObj = {
-              id: alert.id || Math.random().toString(),
+              id: alert.id || crypto.randomUUID(),
               lightId: alert.readingId || 'Unknown',
               location: alert.location || 'Unknown Location',
               title: title,
@@ -84,7 +84,7 @@ export class StreetLightAlertsComponent {
 
             return this.sensorReadingsService.getStreetLightReadingById(alert.readingId).pipe(
               map((reading) => ({
-                id: alert.id || Math.random().toString(),
+                id: alert.id || crypto.randomUUID(),
                 lightId: reading.id,
                 location: reading.location || alert.location,
                 title: title,

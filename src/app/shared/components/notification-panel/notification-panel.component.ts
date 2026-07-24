@@ -152,7 +152,7 @@ export class NotificationPanelComponent {
       else if (severity === 'critical') severityIcon = 'error';
 
       return {
-        id: apiAlert.id || Math.random().toString(),
+        id: apiAlert.id || crypto.randomUUID(),
         type: type,
         typeIcon: typeIcon,
         typeLabel: type.replace(/-/g, ' ').toUpperCase(),
@@ -168,7 +168,7 @@ export class NotificationPanelComponent {
     } catch (e) {
       console.error("Error mapping alert", e, apiAlert);
       return {
-        id: apiAlert?.id || Math.random().toString(),
+        id: apiAlert?.id || crypto.randomUUID(),
         type: 'traffic',
         typeIcon: 'sensors',
         typeLabel: 'UNKNOWN',

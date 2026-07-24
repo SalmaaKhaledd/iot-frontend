@@ -74,7 +74,7 @@ export class AirQualityAlertsComponent {
             const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
 
             const fallbackObj = {
-              id: alert.id || Math.random().toString(),
+              id: alert.id || crypto.randomUUID(),
               sensorId: alert.readingId || 'Unknown',
               location: alert.location || 'Unknown Location',
               title: title,
@@ -97,7 +97,7 @@ export class AirQualityAlertsComponent {
 
             return this.sensorReadingsService.getAirPollutionReadingById(alert.readingId).pipe(
               map((reading) => ({
-                id: alert.id || Math.random().toString(),
+                id: alert.id || crypto.randomUUID(),
                 sensorId: reading.id,
                 location: reading.location || alert.location || 'Unknown Location',
                 title: title,

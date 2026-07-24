@@ -21,7 +21,7 @@ const mockUsers: MockUser[] = [
     lastName: 'Doe',
     email: 'john@example.com',
     profilePicture: null,
-    password: 'Password123!',
+    password: 'Password123!', // NOSONAR
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ const mockUsers: MockUser[] = [
     lastName: 'Khaled',
     email: 'faridakhaled05@gmail.com',
     profilePicture: null,
-    password: 'Farida123!',
+    password: 'Farida123!', // NOSONAR
   },
 ];
 

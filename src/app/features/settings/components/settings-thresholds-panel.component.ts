@@ -62,7 +62,7 @@ export class SettingsThresholdsPanelComponent {
     const newCondition = existingCondition === 'above' ? 'below' : 'above';
 
     metric.thresholds.push({
-      id: Math.random().toString(36).substring(2, 9),
+      id: crypto.randomUUID().substring(0, 7),
       condition: newCondition,
       value: null,
     });
