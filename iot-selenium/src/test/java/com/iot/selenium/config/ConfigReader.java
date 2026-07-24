@@ -5,77 +5,170 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
+
     private static final String CONFIG_FILE = "config.properties";
+
     private final Properties properties = new Properties();
 
     public ConfigReader() {
-        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+        try (InputStream inputStream =
+                     getClass().getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+
             if (inputStream == null) {
-                throw new IllegalStateException("Could not find " + CONFIG_FILE + " on the test classpath.");
+                throw new IllegalStateException(
+                        "Could not find " + CONFIG_FILE + " on the test classpath."
+                );
             }
+
             properties.load(inputStream);
+
         } catch (IOException exception) {
-            throw new IllegalStateException("Failed to load " + CONFIG_FILE + ".", exception);
+            throw new IllegalStateException(
+                    "Failed to load " + CONFIG_FILE + ".",
+                    exception
+            );
         }
     }
 
     public String getBrowser() {
-        return properties.getProperty("browser", "chrome").trim();
+        return getValue(
+                "selenium.browser",
+                "SELENIUM_BROWSER",
+                "browser",
+                "chrome"
+        );
     }
 
     public String getBaseUrl() {
-        return properties.getProperty("baseUrl", "http://localhost:4200").trim();
+        return getValue(
+                "selenium.baseUrl",
+                "SELENIUM_BASE_URL",
+                "baseUrl",
+                "http://localhost:4200"
+        );
     }
 
     public String getApiBaseUrl() {
-        return properties.getProperty("apiBaseUrl", "http://localhost:8080").trim();
-    }
-
-    public String getHomePath() {
-        return properties.getProperty("homePath", "/home").trim();
-    }
-
-    public String getTrafficDashboardPath() {
-        return properties.getProperty("trafficDashboardPath", "/traffic-dashboard").trim();
-    }
-
-    public String getAirQualityDashboardPath() {
-       return properties.getProperty("airQualityDashboardPath", "/air-quality-dashboard").trim();
-    }
-
-    public String getStreetLightDashboardPath() {
-      return properties.getProperty("streetLightDashboardPath", "/street-light-dashboard").trim();
-    }
-
-    public String getLoginPath() {
-        return properties.getProperty("loginPath", "/login").trim();
-    }
-
-    public String getApiAuthLoginPath() {
-        return properties.getProperty("apiAuthLoginPath", "/api/auth/login").trim();
-    }
-
-    public String getApiSensorsGeneratePath() {
-        return properties.getProperty("apiSensorsGeneratePath", "/api/sensors/generate").trim();
-    }
-
-    public String getApiSensorsFlushPath() {
-        return properties.getProperty("apiSensorsFlushPath", "/api/sensors/flush").trim();
-    }
-
-    public String getApiAlertsPath() {
-        return properties.getProperty("apiAlertsPath", "/api/alerts").trim();
+        return getValue(
+                "selenium.apiBaseUrl",
+                "SELENIUM_API_BASE_URL",
+                "apiBaseUrl",
+                "http://localhost:8080"
+        );
     }
 
     public String getLoginEmail() {
-        return properties.getProperty("loginEmail", "").trim();
+        return getValue(
+                "selenium.loginEmail",
+                "SELENIUM_LOGIN_EMAIL",
+                "loginEmail",
+                ""
+        );
     }
 
     public String getLoginPassword() {
-        return properties.getProperty("loginPassword", "").trim();
+        return getValue(
+                "selenium.loginPassword",
+                "SELENIUM_LOGIN_PASSWORD",
+                "loginPassword",
+                ""
+        );
+    }
+
+    public String getHomePath() {
+        return getProperty("homePath", "/home");
+    }
+
+    public String getTrafficDashboardPath() {
+        return getProperty("trafficDashboardPath", "/traffic-dashboard");
+    }
+
+    public String getAirQualityDashboardPath() {
+        return getProperty(
+                "airQualityDashboardPath",
+                "/air-quality-dashboard"
+        );
+    }
+
+    public String getStreetLightDashboardPath() {
+        return getProperty(
+                "streetLightDashboardPath",
+                "/street-light-dashboard"
+        );
+    }
+
+    public String getLoginPath() {
+        return getProperty("loginPath", "/login");
+    }
+
+    public String getApiAuthLoginPath() {
+        return getProperty("apiAuthLoginPath", "/api/auth/login");
+    }
+
+    public String getApiSensorsGeneratePath() {
+        return getProperty(
+                "apiSensorsGeneratePath",
+                "/api/sensors/generate"
+        );
+    }
+
+    public String getApiSensorsFlushPath() {
+        return getProperty(
+                "apiSensorsFlushPath",
+                "/api/sensors/flush"
+        );
+    }
+
+    public String getApiAlertsPath() {
+        return getProperty("apiAlertsPath", "/api/alerts");
     }
 
     public int getExplicitWaitSeconds() {
-        return Integer.parseInt(properties.getProperty("explicitWait", "15").trim());
+        String value = getProperty("explicitWait", "15");
+
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException exception) {
+            throw new IllegalStateException(
+                    "Invalid explicitWait value: " + value,
+                    exception
+            );
+        }
+    }
+
+    /**
+     * Precedence:
+     * 1. JVM system property
+     * 2. Environment variable
+     * 3. config.properties
+     * 4. Default value
+     */
+    private String getValue(
+            String systemPropertyName,
+            String environmentVariableName,
+            String propertyName,
+            String defaultValue
+    ) {
+        String systemProperty = System.getProperty(systemPropertyName);
+
+        if (hasValue(systemProperty)) {
+            return systemProperty.trim();
+        }
+
+        String environmentVariable = System.getenv(environmentVariableName);
+
+        if (hasValue(environmentVariable)) {
+            return environmentVariable.trim();
+        }
+
+        return getProperty(propertyName, defaultValue);
+    }
+
+    private String getProperty(String propertyName, String defaultValue) {
+        return properties.getProperty(propertyName, defaultValue).trim();
+    }
+
+    private boolean hasValue(String value) {
+        return value != null && !value.isBlank();
     }
 }

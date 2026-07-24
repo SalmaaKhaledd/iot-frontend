@@ -107,7 +107,6 @@ spec:
     - name: sonar-analysis
       runAfter:
         - test-frontend
-      onError: continue
       when:
         - input: $(params.deploy)
           operator: in
@@ -348,10 +347,246 @@ spec:
         - name: dockerconfig
           workspace: dockerconfig
 
+    # Deploy the candidate image to an internal smoke environment.
+    - name: deploy-smoke-frontend
+      runAfter:
+        - build-and-push
+
+      when:
+        - input: $(params.deploy)
+          operator: in
+          values:
+            - "true"
+
+      params:
+        - name: image
+          value: $(tasks.calculate-version.results.immutable-image)
+
+      taskSpec:
+        params:
+          - name: image
+            type: string
+
+        results:
+          - name: smoke-url
+            type: string
+
+        steps:
+          - name: deploy-smoke
+            image: quay.io/openshift/origin-cli:latest
+
+            env:
+              - name: HOME
+                value: /tmp
+
+            script: |
+              #!/bin/sh
+              set -eu
+
+              echo "Deploying candidate frontend image:"
+              echo "$(params.image)"
+
+              oc apply -f - <<EOF
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: frontend-smoke
+                labels:
+                  app: frontend-smoke
+              spec:
+                replicas: 1
+                strategy:
+                  type: Recreate
+                selector:
+                  matchLabels:
+                    app: frontend-smoke
+                template:
+                  metadata:
+                    labels:
+                      app: frontend-smoke
+                  spec:
+                    containers:
+                      - name: frontend
+                        image: $(params.image)
+                        ports:
+                          - containerPort: 8080
+                        volumeMounts:
+                          - name: frontend-nginx-config
+                            mountPath: /etc/nginx/conf.d/default.conf
+                            subPath: default.conf
+                          - name: nginx-cache
+                            mountPath: /var/cache/nginx
+                          - name: nginx-run
+                            mountPath: /var/run
+                          - name: nginx-tmp
+                            mountPath: /tmp
+                    volumes:
+                      - name: frontend-nginx-config
+                        configMap:
+                          name: frontend-nginx-config
+                      - name: nginx-cache
+                        emptyDir: {}
+                      - name: nginx-run
+                        emptyDir: {}
+                      - name: nginx-tmp
+                        emptyDir: {}
+              ---
+              apiVersion: v1
+              kind: Service
+              metadata:
+                name: frontend-smoke
+                labels:
+                  app: frontend-smoke
+              spec:
+                type: ClusterIP
+                selector:
+                  app: frontend-smoke
+                ports:
+                  - name: http
+                    port: 80
+                    targetPort: 8080
+              ---
+              apiVersion: route.openshift.io/v1
+              kind: Route
+              metadata:
+                name: frontend-smoke
+                labels:
+                  app: frontend-smoke
+              spec:
+                to:
+                  kind: Service
+                  name: frontend-smoke
+                port:
+                  targetPort: http
+                tls:
+                  termination: edge
+                  insecureEdgeTerminationPolicy: Redirect
+              EOF
+
+              if ! oc rollout status deployment/frontend-smoke --timeout=300s; then
+                echo "Frontend smoke deployment failed."
+                oc get pods -l app=frontend-smoke -o wide || true
+
+                POD_NAME="$(oc get pods -l app=frontend-smoke \
+                  -o jsonpath='{.items[0].metadata.name}' 2>/dev/null || true)"
+
+                if [ -n "$POD_NAME" ]; then
+                  oc logs "$POD_NAME" --tail=200 || true
+                  oc describe pod "$POD_NAME" || true
+                fi
+
+                exit 1
+              fi
+
+              FRONTEND_HOST="$(oc get route frontend-smoke \
+                -o jsonpath='{.spec.host}')"
+
+              if [ -z "$FRONTEND_HOST" ]; then
+                echo "Smoke Route host was not assigned."
+                exit 1
+              fi
+
+              SMOKE_URL="https://${FRONTEND_HOST}"
+              printf '%s' "$SMOKE_URL" > "$(results.smoke-url.path)"
+
+              echo "Frontend smoke environment is ready: $SMOKE_URL"
+              oc get deployment frontend-smoke
+              oc get service frontend-smoke
+              oc get route frontend-smoke
+
+    # Run the Maven/TestNG Selenium XML suite before live deployment.
+    - name: selenium-sanity-checks
+      runAfter:
+        - deploy-smoke-frontend
+
+      when:
+        - input: $(params.deploy)
+          operator: in
+          values:
+            - "true"
+
+      params:
+        - name: base-url
+          value: $(tasks.deploy-smoke-frontend.results.smoke-url)
+
+      taskSpec:
+        params:
+          - name: base-url
+            type: string
+
+        workspaces:
+          - name: source
+
+        steps:
+          - name: run-sanity
+            image: docker.io/markhobson/maven-chrome:jdk-17
+            workingDir: $(workspaces.source.path)/iot-selenium
+
+            env:
+              - name: HOME
+                value: /tmp
+
+              - name: MAVEN_OPTS
+                value: "-Dmaven.repo.local=$(workspaces.source.path)/.m2/repository"
+
+              - name: SELENIUM_BROWSER
+                value: "chrome"
+
+              - name: SELENIUM_BASE_URL
+                value: $(params.base-url)
+
+              - name: SELENIUM_API_BASE_URL
+                value: "http://iot-backend-svc:8080"
+
+              - name: SELENIUM_LOGIN_EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: selenium-credentials
+                    key: login-email
+
+              - name: SELENIUM_LOGIN_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: selenium-credentials
+                    key: login-password
+
+            script: |
+              #!/bin/sh
+              set -u
+
+              echo "Running Selenium sanity suite"
+              echo "Frontend: $SELENIUM_BASE_URL"
+              echo "Backend:  $SELENIUM_API_BASE_URL"
+
+              if [ ! -f pom.xml ]; then
+                echo "ERROR: iot-selenium/pom.xml was not found."
+                exit 1
+              fi
+
+              if [ ! -f src/test/resources/sanity-check.xml ]; then
+                echo "ERROR: sanity-check.xml was not found."
+                exit 1
+              fi
+
+              mvn -Psanity test
+              TEST_STATUS=$?
+
+              echo "Surefire XML reports:"
+              find target/surefire-reports -maxdepth 2 -type f -name '*.xml' -print 2>/dev/null || true
+
+              echo "Allure results:"
+              find target/allure-results -maxdepth 2 -type f -print 2>/dev/null || true
+
+              exit "$TEST_STATUS"
+
+      workspaces:
+        - name: source
+          workspace: source
+
     # Point version, commit, and latest aliases at the same built digest.
     - name: publish-additional-tags
       runAfter:
-        - build-and-push
+        - selenium-sanity-checks
 
       when:
         - input: $(params.deploy)
@@ -510,3 +745,33 @@ spec:
               echo "Deployed image: $DEPLOYED_IMAGE"
               oc get deployment frontend
               oc get pods -l app=frontend
+
+  finally:
+    # Always remove the temporary frontend Deployment, Service, and Route.
+    - name: cleanup-smoke-frontend
+      when:
+        - input: $(params.deploy)
+          operator: in
+          values:
+            - "true"
+
+      taskSpec:
+        steps:
+          - name: cleanup
+            image: quay.io/openshift/origin-cli:latest
+
+            env:
+              - name: HOME
+                value: /tmp
+
+            script: |
+              #!/bin/sh
+              set -eu
+
+              oc delete deployment/frontend-smoke \
+                service/frontend-smoke \
+                route/frontend-smoke \
+                --ignore-not-found=true \
+                --wait=false
+
+              echo "Frontend smoke environment cleanup requested."
