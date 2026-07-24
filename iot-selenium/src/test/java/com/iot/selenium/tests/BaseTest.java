@@ -9,6 +9,7 @@ import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.SensorDashboardPage;
 import com.iot.selenium.pages.SigninPage;
 import com.iot.selenium.utils.ExcelReader;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
@@ -24,6 +25,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 public abstract class BaseTest {
     protected static final String TEST_DATA_FILE = "testdata/frontend-testing.xlsx";
@@ -38,8 +40,14 @@ public abstract class BaseTest {
     private static String sharedAuthUserJson;
     private static final long LOGIN_RATE_LIMIT_RETRY_MS = 65_000L;
 
+    @BeforeSuite(alwaysRun = true)
+    public void requireLiveSafeSuiteForLiveDb() {
+        LiveDbGuard.requireLiveSafeSuite();
+    }
+
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
+        LiveDbGuard.requireLiveSafeSuite();
         configReader = new ConfigReader();
         baseUrl = configReader.getBaseUrl();
         driver = createDriver(configReader.getBrowser());
@@ -125,6 +133,7 @@ public abstract class BaseTest {
 
     private static void runAuthSetup(AuthSetup action) {
         try {
+            LiveDbGuard.requireLiveSafeSuite();
             action.run();
         } catch (Exception e) {
             throw new IllegalStateException("Authentication setup failed", e);

@@ -556,11 +556,14 @@ spec:
                     name: selenium-credentials
                     key: login-password
 
+              - name: SELENIUM_LIVE_DB
+                value: "true"
+
             script: |
               #!/bin/sh
               set -u
 
-              echo "Running Selenium sanity suite"
+              echo "Running live-safe Selenium sanity suite"
               echo "Frontend: $SELENIUM_BASE_URL"
               echo "Backend:  $SELENIUM_API_BASE_URL"
 
@@ -569,12 +572,12 @@ spec:
                 exit 1
               fi
 
-              if [ ! -f src/test/resources/sanity-check.xml ]; then
-                echo "ERROR: sanity-check.xml was not found."
+              if [ ! -f src/test/resources/live-sanity-check.xml ]; then
+                echo "ERROR: live-sanity-check.xml was not found."
                 exit 1
               fi
 
-              mvn -Psanity test
+              mvn -Plive-sanity test
               TEST_STATUS=$?
 
               echo "Surefire XML reports:"

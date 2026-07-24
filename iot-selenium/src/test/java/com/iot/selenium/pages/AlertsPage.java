@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.iot.selenium.config.ConfigReader;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -190,14 +191,17 @@ public class AlertsPage extends BasePage {
     }
 
     public static void flushSettingsPublic() throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE " + SETTINGS_FLUSH_PATH);
         invokePublicDelete(SETTINGS_FLUSH_PATH);
     }
 
     public static void flushAlertsPublic() throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE " + ALERTS_FLUSH_PATH);
         invokePublicDelete(ALERTS_FLUSH_PATH);
     }
 
     public static void generateSensorsPublic() throws Exception {
+        LiveDbGuard.denyOnLiveDb("POST /api/sensors/generate");
         ConfigReader config = new ConfigReader();
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -214,6 +218,7 @@ public class AlertsPage extends BasePage {
 
     /** Seeds a low TRAFFIC_DENSITY ABOVE threshold for the authenticated user (reliable vs UI save). */
     public static void seedTrafficDensityAboveThreshold(String bearerToken) throws Exception {
+        LiveDbGuard.denyOnLiveDb("PUT /api/settings");
         ConfigReader config = new ConfigReader();
         String body =
                 "[{\"type\":\"TRAFFIC\",\"metric\":\"TRAFFIC_DENSITY\",\"thresholdValue\":1,\"alertType\":\"ABOVE\"}]";
@@ -292,6 +297,7 @@ public class AlertsPage extends BasePage {
     }
 
     public static void deleteAllAlerts(String bearerToken) throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE all alerts returned by GET /api/alerts");
         for (String alertId : fetchAlertIds(bearerToken)) {
             deleteAlert(bearerToken, alertId);
         }

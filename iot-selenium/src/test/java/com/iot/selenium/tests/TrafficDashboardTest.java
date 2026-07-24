@@ -10,6 +10,7 @@ import java.util.Map;
 import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.AlertsPage;
 import com.iot.selenium.pages.TrafficDashboardPage;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
@@ -206,6 +207,7 @@ public class TrafficDashboardTest extends BaseDashboardDataTest<TrafficDashboard
 
   @Step("Seed traffic alerts and open dashboard with alert banners")
   private void seedForF9() throws Exception {
+    LiveDbGuard.denyOnLiveDb("seed traffic alert settings with PUT /api/settings");
     AlertsPage.flushAlertsPublic();
     AlertsPage.flushSettingsPublic();
     ensureAuthToken();

@@ -11,6 +11,7 @@ import java.util.Map;
 import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.AlertsPage;
 import com.iot.selenium.pages.StreetLightDashboardPage;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
@@ -202,6 +203,7 @@ public class StreetLightDashboardTest extends BaseDashboardDataTest<StreetLightD
 
   @Step("Seed street light alerts and open dashboard with alert banners")
   private void seedForF12() throws Exception {
+    LiveDbGuard.denyOnLiveDb("seed street light alert settings with PUT /api/settings");
     AlertsPage.flushAlertsPublic();
     AlertsPage.flushSettingsPublic();
     ensureAuthToken();

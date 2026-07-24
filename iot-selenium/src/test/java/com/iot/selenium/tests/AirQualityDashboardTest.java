@@ -10,6 +10,7 @@ import java.util.Map;
 import com.iot.selenium.config.ConfigReader;
 import com.iot.selenium.pages.AlertsPage;
 import com.iot.selenium.pages.AirQualityDashboardPage;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
@@ -205,6 +206,7 @@ public class AirQualityDashboardTest extends BaseDashboardDataTest<AirQualityDas
 
   @Step("Seed air quality alerts and open dashboard with alert banners")
   private void seedForF15() throws Exception {
+    LiveDbGuard.denyOnLiveDb("seed air quality alert settings with PUT /api/settings");
     AlertsPage.flushAlertsPublic();
     AlertsPage.flushSettingsPublic();
     ensureAuthToken();

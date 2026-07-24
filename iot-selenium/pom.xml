@@ -124,5 +124,26 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>live-sanity</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.2</version>
+            <configuration>
+              <suiteXmlFiles>
+                <suiteXmlFile>src/test/resources/live-sanity-check.xml</suiteXmlFile>
+              </suiteXmlFiles>
+              <systemPropertyVariables>
+                <selenium.liveSuite>true</selenium.liveSuite>
+                <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>

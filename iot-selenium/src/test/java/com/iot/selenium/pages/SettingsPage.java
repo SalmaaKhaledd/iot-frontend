@@ -5,9 +5,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.iot.selenium.config.ConfigReader;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,6 +23,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SettingsPage extends BasePage {
+    private static final Pattern ID_PATTERN = Pattern.compile("\"id\"\\s*:\\s*\"([^\"]+)\"");
+
     private final String baseUrl;
     private final String apiBaseUrl;
     //use placeholder strings as identifiers
@@ -218,6 +224,7 @@ public class SettingsPage extends BasePage {
     }
 
     public void saveIntervalsViaApi(int traffic, int airPollution, int streetLight) throws Exception {
+        LiveDbGuard.denyOnLiveDb("PUT /api/intervals");
         String token = (String) ((JavascriptExecutor) driver).executeScript(
                 "return window.localStorage.getItem('iot_auth_token');");
         if (token == null || token.isBlank()) {
@@ -371,6 +378,7 @@ public class SettingsPage extends BasePage {
     }
 
     public void flushSettings() throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE /api/settings/flush");
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiBaseUrl + "/api/settings/flush"))
@@ -380,6 +388,7 @@ public class SettingsPage extends BasePage {
     }
 
     public void registerUser(String email, String firstName, String lastName, String password) throws Exception {
+        LiveDbGuard.denyOnLiveDb("POST /api/auth/register");
         String body = String.format(
                 "{\"email\":\"%s\",\"firstName\":\"%s\",\"lastName\":\"%s\",\"password\":\"%s\"}",
                 email,
@@ -396,6 +405,7 @@ public class SettingsPage extends BasePage {
     }
 
     public void tryRegisterUser(String email, String firstName, String lastName, String password) throws Exception {
+        LiveDbGuard.denyOnLiveDb("POST /api/auth/register");
         String body = String.format(
                 "{\"email\":\"%s\",\"firstName\":\"%s\",\"lastName\":\"%s\",\"password\":\"%s\"}",
                 email,
@@ -416,6 +426,7 @@ public class SettingsPage extends BasePage {
     }
 
     public void deleteUser(String email) throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE /api/user/delete");
         String body = String.format("{\"email\":\"%s\"}", email);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -424,6 +435,44 @@ public class SettingsPage extends BasePage {
                 .method("DELETE", HttpRequest.BodyPublishers.ofString(body))
                 .build();
         client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    public static List<String> fetchSettingIds(String bearerToken) throws Exception {
+        ConfigReader config = new ConfigReader();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(config.getApiBaseUrl() + "/api/settings"))
+                .header("Authorization", "Bearer " + bearerToken)
+                .GET()
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() != 200) {
+            throw new IllegalStateException(
+                    "GET /api/settings failed with status " + response.statusCode() + ": " + response.body());
+        }
+
+        List<String> ids = new ArrayList<>();
+        Matcher matcher = ID_PATTERN.matcher(response.body());
+        while (matcher.find()) {
+            ids.add(matcher.group(1));
+        }
+        return ids;
+    }
+
+    public static void deleteSetting(String bearerToken, String settingId) throws Exception {
+        ConfigReader config = new ConfigReader();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(config.getApiBaseUrl() + "/api/settings/" + settingId))
+                .header("Authorization", "Bearer " + bearerToken)
+                .DELETE()
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() < 200 || response.statusCode() >= 300) {
+            throw new IllegalStateException(
+                    "DELETE /api/settings/" + settingId
+                            + " failed with status " + response.statusCode() + ": " + response.body());
+        }
     }
 
     private void clickTab(By tabLabel) {

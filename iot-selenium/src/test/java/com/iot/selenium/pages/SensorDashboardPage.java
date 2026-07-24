@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.iot.selenium.config.ConfigReader;
+import com.iot.selenium.utils.LiveDbGuard;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -89,12 +90,14 @@ public class SensorDashboardPage extends BasePage {
     }
 
     public static void generateSensors(String bearerToken) throws Exception {
+        LiveDbGuard.denyOnLiveDb("POST /api/sensors/generate");
         ConfigReader config = new ConfigReader();
         invokeSensorApi("POST", config.getApiBaseUrl(), config.getApiSensorsGeneratePath(), bearerToken);
     }
 
     /** Clears all sensor readings via per-type flush endpoints (no unified {@code /api/sensors/flush} on backend). */
     public static void flushSensors(String bearerToken) throws Exception {
+        LiveDbGuard.denyOnLiveDb("DELETE /api/sensors/*/flush");
         ConfigReader config = new ConfigReader();
         String apiBaseUrl = config.getApiBaseUrl();
         invokeSensorApi("DELETE", apiBaseUrl, "/api/sensors/traffic/flush", bearerToken);
