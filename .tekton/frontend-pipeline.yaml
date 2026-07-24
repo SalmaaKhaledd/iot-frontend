@@ -148,7 +148,13 @@ spec:
             # Debian/glibc avoids the scanner runtime issue seen on Alpine.
             image: docker.io/library/node:22-bookworm-slim
             workingDir: $(workspaces.source.path)
-
+            computeResources:
+              requests:
+                memory: 1Gi
+                cpu: 500m
+              limits:
+                memory: 2Gi
+                cpu: "1"
             env:
               - name: HOME
                 value: $(workspaces.source.path)
