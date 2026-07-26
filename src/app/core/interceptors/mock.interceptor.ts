@@ -77,6 +77,19 @@ interface MockIntervalSettings {
   streetLightInterval: number;
 }
 
+interface MockAlert {
+  id: string;
+  sensorType: 'TRAFFIC' | 'AIR_POLLUTION' | 'STREET_LIGHT';
+  location: string;
+  metric: string;
+  triggeredValue: number;
+  thresholdValue: number;
+  alertType: 'ABOVE' | 'BELOW';
+  triggeredAt: string;
+  readingId?: string | null;
+  readAt?: string | null;
+}
+
 const mockIntervalSettings = new Map<string, MockIntervalSettings>();
 
 function defaultIntervalSettings(userId: string): MockIntervalSettings {
@@ -100,7 +113,7 @@ function intervalSettingsFor(userId: string): MockIntervalSettings {
 }
 
 // In-memory alert store — DELETE mutates this so subsequent GET reflects dismissals
-let mockAlerts = [
+let mockAlerts: MockAlert[] = [
   {
     id: 'alert-1',
     sensorType: 'TRAFFIC',
@@ -838,6 +851,53 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // TODO: remove when backend is ready
+  if (req.method === 'PATCH' && /\/api\/alerts\/(?!flush)[^/]+\/read$/.test(path)) {
+    const sessionUser = sessionUserFromRequest(req);
+    if (!sessionUser) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 401,
+            statusText: 'Unauthorized',
+            error: {
+              status: 401,
+              error: 'Unauthorized',
+              message: 'Access denied. Invalid or missing token.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    const pathSegments = path.split('/');
+    const alertId = pathSegments[pathSegments.length - 2];
+    const alert = mockAlerts.find((candidate) => candidate.id === alertId);
+
+    if (!alert) {
+      return throwError(
+        () =>
+          new HttpErrorResponse({
+            status: 404,
+            statusText: 'Not Found',
+            error: {
+              status: 404,
+              error: 'Not Found',
+              message: 'Alert not found.',
+            },
+          }),
+      ).pipe(delay(300));
+    }
+
+    alert.readAt ??= new Date().toISOString();
+
+    return of(
+      new HttpResponse({
+        status: 200,
+        body: { message: 'Alert marked as read.' },
+      }),
+    ).pipe(delay(300));
+  }
+
+  // TODO: remove when backend is ready
   // DELETE must be checked before GET to avoid the /alerts$ regex accidentally
   // matching a path that still has an id segment on it.
   // Negative lookahead excludes /api/alerts/flush so flush is not treated as a dismiss.
@@ -908,7 +968,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       ).pipe(delay(300));
     }
 
-    const content = [...mockAlerts];
+    const content = mockAlerts.map((alert) => ({ ...alert }));
     return of(
       new HttpResponse({
         status: 200,
