@@ -43,6 +43,7 @@ describe('NotificationPanelComponent', () => {
 
     mockAlertsService = {
       getAlerts: vi.fn().mockReturnValue(of(mockApiAlerts)),
+      markAsRead: vi.fn().mockReturnValue(of(undefined)),
       alerts$: alertsSubject.asObservable(),
       alertDeleted$: alertDeletedSubject.asObservable()
     };
@@ -99,5 +100,26 @@ describe('NotificationPanelComponent', () => {
     alertDeletedSubject.next('alert-1');
     expect(component.alerts().length).toBe(1);
     expect(component.alerts()[0].id).toBe('alert-2');
+  });
+
+  it('marks the selected notification as read and emits jump event', () => {
+    const emitted: Array<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}> = [];
+    component.jumpToAlert.subscribe(event => emitted.push(event));
+    component.toggle();
+
+    component.navigateToAlert(component.alerts()[0]);
+
+    expect(mockAlertsService.markAsRead).toHaveBeenCalledWith('alert-1');
+    expect(emitted).toEqual([{ type: 'traffic', alertId: 'alert-1' }]);
+    expect(component.isOpen()).toBe(false);
+  });
+
+  it('updates unread count from service read state', () => {
+    alertsSubject.next([
+      { ...mockApiAlerts[0], readAt: new Date().toISOString() },
+      mockApiAlerts[1],
+    ]);
+
+    expect(component.unreadCount()).toBe(1);
   });
 });

@@ -210,15 +210,12 @@ export class NotificationPanelComponent {
   }
 
   navigateToAlert(alert: NotificationAlert): void {
-    this.markAsRead(alert.id);
-    this.alertsService.markAsRead(alert.id);
+    this.alertsService.markAsRead(alert.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        error: (err: unknown) => console.error('Failed to mark alert as read', err),
+      });
     this.jumpToAlert.emit({type: alert.type, alertId: alert.id});
     this.close();
-  }
-
-  markAsRead(alertId: string): void {
-    this.alerts.update(alerts =>
-      alerts.map(a => a.id === alertId ? { ...a, isRead: true } : a)
-    );
   }
 }
