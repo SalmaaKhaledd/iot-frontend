@@ -50,18 +50,8 @@ export class AirQualityAlertsComponent {
   readonly pageSize = 10;
   readonly totalElements = signal(0);
 
-  readonly filteredAlerts = computed(() => {
-    const filter = this.pollutionFilter();
-    return this.airQualityAlerts().filter((a: AirQualityAlert) => {
-      let matchesPollution = true;
-      if (filter === 'good') matchesPollution = a.pollutionLevel === 'Good';
-      else if (filter === 'moderate') matchesPollution = a.pollutionLevel === 'Moderate';
-      else if (filter === 'unhealthy') matchesPollution = a.pollutionLevel === 'Unhealthy';
-      else if (filter === 'very-unhealthy') matchesPollution = a.pollutionLevel === 'Very Unhealthy';
-      else if (filter === 'hazardous') matchesPollution = a.pollutionLevel === 'Hazardous';
-      return matchesPollution;
-    });
-  });
+  // Mirrors the signal since the backend handles filtering
+  readonly filteredAlerts = computed(() => this.airQualityAlerts());
 
   readonly rangeText = computed(() => {
     const total = this.totalElements();
@@ -72,12 +62,11 @@ export class AirQualityAlertsComponent {
   });
 
   constructor() {
-    toObservable(this.currentPage)
+    toObservable(computed(() => ({ page: this.currentPage(), filter: this.pollutionFilter() })))
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap((page) => {
-          // Spring Boot paginated APIs are 0-indexed, so we pass page - 1
-          return this.alertsService.getAlertsBySensor('AIR_POLLUTION', page - 1, this.pageSize);
+        switchMap(({ page, filter }) => {
+          return this.alertsService.getAlertsBySensor('AIR_POLLUTION', page - 1, this.pageSize, filter);
         }),
         switchMap((response: PaginatedResponse<ApiAlert>) => {
           this.totalElements.set(response.totalElements || 0);
