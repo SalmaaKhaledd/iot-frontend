@@ -46,8 +46,17 @@ export class TrafficAlertsComponent {
   readonly pageSize = 10;
   readonly totalElements = signal(0);
 
-  // Mirrors the signal since the backend handles filtering
-  readonly filteredAlerts = computed(() => this.trafficAlerts());
+  readonly filteredAlerts = computed(() => {
+    const filter = this.congestionFilter();
+    return this.trafficAlerts().filter((a: TrafficAlert) => {
+      let matchesCongestion = true;
+      if (filter === 'low') matchesCongestion = a.congestionLevel === 'Low';
+      else if (filter === 'moderate') matchesCongestion = a.congestionLevel === 'Moderate';
+      else if (filter === 'high') matchesCongestion = a.congestionLevel === 'High';
+      else if (filter === 'severe') matchesCongestion = a.congestionLevel === 'Severe';
+      return matchesCongestion;
+    });
+  });
 
   readonly rangeText = computed(() => {
     const total = this.totalElements();
@@ -58,11 +67,11 @@ export class TrafficAlertsComponent {
   });
 
   constructor() {
-    toObservable(computed(() => ({ page: this.currentPage(), filter: this.congestionFilter() })))
+    toObservable(this.currentPage)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap(({ page, filter }) => {
-          return this.alertsService.getAlertsBySensor('TRAFFIC', page - 1, this.pageSize, filter);
+        switchMap((page) => {
+          return this.alertsService.getAlertsBySensor('TRAFFIC', page - 1, this.pageSize);
         }),
         switchMap((response: PaginatedResponse<ApiAlert>) => {
           this.totalElements.set(response.totalElements || 0);

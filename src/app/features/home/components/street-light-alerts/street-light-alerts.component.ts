@@ -46,8 +46,13 @@ export class StreetLightAlertsComponent {
   readonly pageSize = 10;
   readonly totalElements = signal(0);
 
-  // Mirrors the signal since the backend handles filtering
-  readonly filteredAlerts = computed(() => this.streetLightAlerts());
+  readonly filteredAlerts = computed(() => {
+    const filter = this.statusFilter();
+    return this.streetLightAlerts().filter((a: StreetLightAlert) => {
+      const matchesStatus = filter === 'all' || a.status === filter;
+      return matchesStatus;
+    });
+  });
 
   readonly rangeText = computed(() => {
     const total = this.totalElements();
@@ -58,11 +63,11 @@ export class StreetLightAlertsComponent {
   });
 
   constructor() {
-    toObservable(computed(() => ({ page: this.currentPage(), filter: this.statusFilter() })))
+    toObservable(this.currentPage)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap(({ page, filter }) => {
-          return this.alertsService.getAlertsBySensor('STREET_LIGHT', page - 1, this.pageSize, filter);
+        switchMap((page) => {
+          return this.alertsService.getAlertsBySensor('STREET_LIGHT', page - 1, this.pageSize);
         }),
         switchMap((response: PaginatedResponse<ApiAlert>) => {
           this.totalElements.set(response.totalElements || 0);
