@@ -18,6 +18,7 @@ export interface AuthApiSuccessResponse {
   email: string;
   firstName: string;
   lastName: string;
+  profilePicture: string | null;
   token: string;
   message: string;
 }
@@ -38,4 +39,8 @@ export interface UpdatePasswordRequest {
 
 export interface MessageResponse {
   message: string;
+}
+
+export interface UpdateProfilePictureResponse extends MessageResponse {
+  profilePicture?: string | null;
 }

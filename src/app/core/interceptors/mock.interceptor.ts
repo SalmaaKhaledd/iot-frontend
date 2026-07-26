@@ -252,6 +252,8 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
           email: newUser.email,
           firstName: newUser.firstName,
           lastName: newUser.lastName,
+          profilePicture: null,
+          token: `${MOCK_JWT_PREFIX}${newUser.id}`,
           message: 'User registered successfully.',
         },
       }),
@@ -322,6 +324,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
       email: userWithoutPassword.email,
       firstName: userWithoutPassword.firstName,
       lastName: userWithoutPassword.lastName,
+      profilePicture: userWithoutPassword.profilePicture ?? null,
       token: `${MOCK_JWT_PREFIX}${userWithoutPassword.id}`,
       message: 'Login successful.',
     };
@@ -554,15 +557,19 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     const userIndex = mockUsers.findIndex((user) => user.id === sessionUser.id);
+    let profilePicture: string | null = null;
     if (userIndex >= 0) {
-      mockUsers[userIndex].profilePicture =
-        'uploads/profile-pictures/user_mock_1715000000.jpeg';
+      profilePicture = `https://cdn.example.test/profile-pictures/${sessionUser.id}/user_mock_1715000000.jpeg`;
+      mockUsers[userIndex].profilePicture = profilePicture;
     }
 
     return of(
       new HttpResponse({
         status: 200,
-        body: { message: 'Profile picture updated successfully.' },
+        body: {
+          message: 'Profile picture updated successfully.',
+          profilePicture,
+        },
       }),
     ).pipe(delay(300));
   }

@@ -92,7 +92,7 @@ environment.useMock === true
 | Service | File | Backend / storage |
 |---------|------|-------------------|
 | `AuthService` | `core/services/auth.service.ts` | Login, register, `getMe`, password, profile picture PATCH; **localStorage** `iot_auth_token`, `iot_user`; `currentUser` signal |
-| `ProfilePictureService` | `core/services/profile-picture.service.ts` | GET picture bytes; **localStorage** cache `iot_profile_picture_cache` (data URL keyed by user + path) |
+| `ProfilePictureService` | `core/services/profile-picture.service.ts` | Publishes the saved public profile image URL from the current user signal |
 | `SettingsService` | `core/services/settings.service.ts` | `GET/PUT /intervals`, threshold CRUD; in-memory `BehaviorSubject` cache |
 | `AlertsService` | `core/services/alerts.service.ts` | Alert list + delete; `alertDeleted$` stream |
 | `ThemeService` | `core/services/theme.service.ts` | **localStorage** `sensorix-theme`; toggles `body[data-theme]` |
@@ -105,8 +105,7 @@ environment.useMock === true
 | Form validators (`profileImageError`, password rules) | `core/validation/auth-validators.ts` |
 | API error → user message (400/401/409/429/5xx, blob errors) | `core/utils/auth-error.ts` |
 | DTO → `User` mapping | `core/utils/auth-user.mapper.ts` |
-| Profile path helpers + blob checks | `core/utils/profile-picture.ts` |
-| Profile picture localStorage cache | `core/utils/profile-picture-cache.ts` |
+| Public profile image URL helper | `core/utils/profile-picture.ts` |
 
 ### Models
 
@@ -124,11 +123,10 @@ environment.useMock === true
 | Key | Set by | Purpose |
 |-----|--------|---------|
 | `iot_auth_token` | `AuthService.saveToken` | JWT / session token |
-| `iot_user` | `AuthService.saveUser` | Serialized `User` (includes `profilePicture` **path**, not image bytes) |
-| `iot_profile_picture_cache` | `profile-picture-cache.ts` | Cached `data:image/...` for current user + picture path |
+| `iot_user` | `AuthService.saveUser` | Serialized `User` (includes public `profilePicture` URL, not image bytes) |
 | `sensorix-theme` | `ThemeService` | `light` or `dark` |
 
-Cleared on logout: token, user, and profile picture cache (`AuthService.clearSession`).
+Cleared on logout: token and user (`AuthService.clearSession`).
 
 ---
 
@@ -256,12 +254,11 @@ npx ng test --no-watch --include="**/profile*.spec.ts"
 | File | Focus |
 |------|--------|
 | `core/interceptors/auth.interceptor.spec.ts` | Bearer header, public endpoints exempt, 401 token logout vs domain 401 |
-| `core/services/auth.service.spec.ts` | Login/register/picture PATCH HTTP; localStorage; logout; `clearSession` clears picture cache |
+| `core/services/auth.service.spec.ts` | Login/register/picture PATCH HTTP; localStorage; logout; `clearSession` clears session state |
 | `core/utils/auth-error.spec.ts` | `mapAuthError` for 400/401/429 (JSON + blob bodies), network, unknown |
 | `core/utils/auth-user.mapper.spec.ts` | Auth vs profile response → `User` |
-| `core/utils/profile-picture.spec.ts` | `hasProfilePicture`, `isImageBlob`, download URL helper |
-| `core/utils/profile-picture-cache.spec.ts` | localStorage read/write/clear, `blobToDataUrl` |
-| `core/services/profile-picture.service.spec.ts` | Network load, **cache skip**, 429 `loadError`, invalidation |
+| `core/utils/profile-picture.spec.ts` | `hasProfilePicture` public URL validation |
+| `core/services/profile-picture.service.spec.ts` | Public URL propagation, legacy value ignore, invalidation |
 
 #### Services (domain)
 
@@ -330,7 +327,6 @@ flowchart TB
   subgraph storage [Browser storage]
     lsToken[iot_auth_token]
     lsUser[iot_user]
-    lsPic[iot_profile_picture_cache]
     lsTheme[sensorix-theme]
   end
 
@@ -343,7 +339,7 @@ flowchart TB
 
   AuthService --> lsToken
   AuthService --> lsUser
-  ProfilePictureService --> lsPic
+  ProfilePictureService --> lsUser
   ThemeService --> lsTheme
 ```
 
@@ -357,4 +353,4 @@ If login/signup show a generic server error and the network tab says **CORS bloc
 
 ---
 
-*Last updated to reflect profile picture caching, centralized `ProfilePictureService`, and 429 error handling.*
+*Last updated to reflect public profile picture URLs and centralized `ProfilePictureService`.*

@@ -2,7 +2,6 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 
-import { writeProfilePictureCache } from '../utils/profile-picture-cache';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -37,6 +36,7 @@ describe('AuthService', () => {
       email: 'user@example.com',
       firstName: 'User',
       lastName: 'Test',
+      profilePicture: null,
       token: 'mock-token',
       message: 'Login successful.',
     });
@@ -60,20 +60,31 @@ describe('AuthService', () => {
       email: 'new@example.com',
       firstName: 'New',
       lastName: 'User',
+      profilePicture: null,
       token: 'mock-token',
       message: 'User registered successfully.',
     });
   });
 
-  it('calls updateProfilePicture endpoint with FormData', () => {
+  it('calls updateProfilePicture endpoint with FormData and returns the public URL', () => {
     const file = new File(['dummy content'], 'profile.png', { type: 'image/png' });
-    service.updateProfilePicture(file).subscribe();
+    let response: { message: string; profilePicture?: string | null } | undefined;
+    service.updateProfilePicture(file).subscribe((value) => {
+      response = value;
+    });
 
     const req = httpMock.expectOne('http://localhost:8080/api/user/profile/picture');
     expect(req.request.method).toBe('PATCH');
     expect(req.request.body instanceof FormData).toBe(true);
     expect((req.request.body as FormData).get('file')).toBe(file);
-    req.flush({ message: 'Profile picture updated successfully.' });
+    req.flush({
+      message: 'Profile picture updated successfully.',
+      profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
+    });
+
+    expect(response?.profilePicture).toBe(
+      'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
+    );
   });
 
   it('saves and retrieves token and user from localStorage', () => {
@@ -112,8 +123,7 @@ describe('AuthService', () => {
     req.flush({ message: 'Logged out successfully.' });
   });
 
-  it('clearSession clears token, user, and profile picture cache', () => {
-    writeProfilePictureCache('1', 'uploads/pic.jpeg', 'data:image/jpeg;base64,abc');
+  it('clearSession clears token and user', () => {
     service.saveToken('abc-token');
     service.saveUser({
       id: '1',
@@ -128,6 +138,5 @@ describe('AuthService', () => {
     expect(service.getToken()).toBeNull();
     expect(service.getUser()).toBeNull();
     expect(service.currentUser()).toBeNull();
-    expect(localStorage.getItem('iot_profile_picture_cache')).toBeNull();
   });
 });

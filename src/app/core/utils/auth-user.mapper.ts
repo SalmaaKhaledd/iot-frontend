@@ -10,7 +10,7 @@ export function toUserFromAuthResponse(response: AuthApiSuccessResponse): User {
     firstName: response.firstName,
     lastName: response.lastName,
     email: response.email,
-    profilePicture: null,
+    profilePicture: response.profilePicture ?? null,
   };
 }
 
