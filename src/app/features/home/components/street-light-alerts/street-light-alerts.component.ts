@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
+import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 
 interface StreetLightAlert {
   id: string;
@@ -40,9 +41,10 @@ export class StreetLightAlertsComponent {
   readonly isFiltersOpen = signal(false);
   readonly statusFilter = signal('all');
 
-  // Pagination state
+  // Server-side Pagination state
   readonly currentPage = signal(1);
   readonly pageSize = 10;
+  readonly totalElements = signal(0);
 
   readonly filteredAlerts = computed(() => {
     const filter = this.statusFilter();
@@ -52,13 +54,8 @@ export class StreetLightAlertsComponent {
     });
   });
 
-  readonly paginatedAlerts = computed(() => {
-    const start = (this.currentPage() - 1) * this.pageSize;
-    return this.filteredAlerts().slice(start, start + this.pageSize);
-  });
-
   readonly rangeText = computed(() => {
-    const total = this.filteredAlerts().length;
+    const total = this.totalElements();
     if (total === 0) return '0 of 0';
     const start = (this.currentPage() - 1) * this.pageSize + 1;
     const end = Math.min(this.currentPage() * this.pageSize, total);
@@ -66,12 +63,17 @@ export class StreetLightAlertsComponent {
   });
 
   constructor() {
-    this.alertsService.getAlerts()
+    toObservable(this.currentPage)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((alerts: ApiAlert[]) => alerts.filter((a: ApiAlert) => a.sensorType === 'STREET_LIGHT')),
-        switchMap((alerts: ApiAlert[]) => {
+        switchMap((page) => {
+          return this.alertsService.getAlertsBySensor('STREET_LIGHT', page - 1, this.pageSize);
+        }),
+        switchMap((response: PaginatedResponse<ApiAlert>) => {
+          this.totalElements.set(response.totalElements || 0);
+          const alerts = response.content || [];
           if (alerts.length === 0) return of([]);
+
           const requests = alerts.map((alert: ApiAlert) => {
             const metricName = (alert.metric || 'Sensor').replace(/_/g, ' ');
             const isBelow = alert.alertType === 'BELOW';
@@ -148,7 +150,7 @@ export class StreetLightAlertsComponent {
   toggleFilters(): void { this.isFiltersOpen.update(v => !v); }
   
   setStatus(status: string): void { 
-    this.statusFilter.set(status);
+    this.statusFilter.set(status); 
     this.currentPage.set(1);
   }
 
@@ -168,6 +170,7 @@ export class StreetLightAlertsComponent {
     this.alertsService.deleteAlert(alertId).subscribe({
       next: () => {
         this.streetLightAlerts.update(alerts => alerts.filter(a => a.id !== alertId));
+        this.totalElements.update(total => Math.max(0, total - 1));
       },
       error: (err) => console.error('Failed to delete alert', err)
     });
@@ -178,7 +181,7 @@ export class StreetLightAlertsComponent {
   }
 
   nextPage(): void {
-    if (this.currentPage() * this.pageSize < this.filteredAlerts().length) {
+    if (this.currentPage() * this.pageSize < this.totalElements()) {
       this.currentPage.update(p => p + 1);
     }
   }

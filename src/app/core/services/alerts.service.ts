@@ -98,4 +98,10 @@ export class AlertsService {
       ),
     );
   }
+
+   public getAlertsBySensor(sensorType: string, page: number = 0, size: number = 10): Observable<PaginatedResponse<ApiAlert>> {
+    return this.http.get<PaginatedResponse<ApiAlert>>(
+      `${this.baseUrl}/alerts?sensorType=${sensorType}&page=${page}&size=${size}&sortBy=triggeredAt&sortDir=desc`
+    );
+  }
 }
