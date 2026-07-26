@@ -40,12 +40,29 @@ export class StreetLightAlertsComponent {
   readonly isFiltersOpen = signal(false);
   readonly statusFilter = signal('all');
 
+  // Pagination state
+  readonly currentPage = signal(1);
+  readonly pageSize = 10;
+
   readonly filteredAlerts = computed(() => {
     const filter = this.statusFilter();
     return this.streetLightAlerts().filter((a: StreetLightAlert) => {
       const matchesStatus = filter === 'all' || a.status === filter;
       return matchesStatus;
     });
+  });
+
+  readonly paginatedAlerts = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    return this.filteredAlerts().slice(start, start + this.pageSize);
+  });
+
+  readonly rangeText = computed(() => {
+    const total = this.filteredAlerts().length;
+    if (total === 0) return '0 of 0';
+    const start = (this.currentPage() - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage() * this.pageSize, total);
+    return `${start}-${end} of ${total}`;
   });
 
   constructor() {
@@ -129,7 +146,11 @@ export class StreetLightAlertsComponent {
   }
 
   toggleFilters(): void { this.isFiltersOpen.update(v => !v); }
-  setStatus(status: string): void { this.statusFilter.set(status); }
+  
+  setStatus(status: string): void { 
+    this.statusFilter.set(status);
+    this.currentPage.set(1);
+  }
 
   getStatusColor(status: string): string {
     switch (status) {
@@ -155,5 +176,16 @@ export class StreetLightAlertsComponent {
   onAlertHover(alert: StreetLightAlert): void {
     // Handle hover - show report tooltip
   }
-}
 
+  nextPage(): void {
+    if (this.currentPage() * this.pageSize < this.filteredAlerts().length) {
+      this.currentPage.update(p => p + 1);
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage() > 1) {
+      this.currentPage.update(p => p - 1);
+    }
+  }
+}

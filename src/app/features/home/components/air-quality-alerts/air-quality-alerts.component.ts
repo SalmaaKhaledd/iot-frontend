@@ -44,6 +44,10 @@ export class AirQualityAlertsComponent {
   readonly isFiltersOpen = signal(false);
   readonly pollutionFilter = signal('all');
 
+  // Pagination state
+  readonly currentPage = signal(1);
+  readonly pageSize = 10;
+
   readonly filteredAlerts = computed(() => {
     const filter = this.pollutionFilter();
     return this.airQualityAlerts().filter((a: AirQualityAlert) => {
@@ -55,6 +59,19 @@ export class AirQualityAlertsComponent {
       else if (filter === 'hazardous') matchesPollution = a.pollutionLevel === 'Hazardous';
       return matchesPollution;
     });
+  });
+
+  readonly paginatedAlerts = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    return this.filteredAlerts().slice(start, start + this.pageSize);
+  });
+
+  readonly rangeText = computed(() => {
+    const total = this.filteredAlerts().length;
+    if (total === 0) return '0 of 0';
+    const start = (this.currentPage() - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage() * this.pageSize, total);
+    return `${start}-${end} of ${total}`;
   });
 
   constructor() {
@@ -157,7 +174,11 @@ export class AirQualityAlertsComponent {
   }
 
   toggleFilters(): void { this.isFiltersOpen.update(v => !v); }
-  setPollution(level: string): void { this.pollutionFilter.set(level); }
+  
+  setPollution(level: string): void { 
+    this.pollutionFilter.set(level);
+    this.currentPage.set(1);
+  }
 
   getPollutionColor(level: string): string {
     switch (level) {
@@ -189,5 +210,16 @@ export class AirQualityAlertsComponent {
   onAlertHover(alert: AirQualityAlert): void {
     // Handle hover - show report tooltip
   }
-}
 
+  nextPage(): void {
+    if (this.currentPage() * this.pageSize < this.filteredAlerts().length) {
+      this.currentPage.update(p => p + 1);
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage() > 1) {
+      this.currentPage.update(p => p - 1);
+    }
+  }
+}
