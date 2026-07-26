@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, defer, Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import type { PaginatedResponse } from '../models/sensor-reading.models';
 
@@ -28,10 +28,12 @@ export class AlertsService {
 
   private readonly alertsSubject = new BehaviorSubject<ApiAlert[]>([]);
   readonly alerts$ = this.alertsSubject.asObservable();
+  private readonly locallyReadAtById = new Map<string, string>();
 
   getAlerts(): Observable<ApiAlert[]> {
     return this.http.get<PaginatedResponse<ApiAlert>>(`${this.baseUrl}/alerts?page=0&size=20&sortBy=triggeredAt&sortDir=desc`).pipe(
       map((response) => response.content),
+      map((alerts) => this.applyLocalReadState(alerts)),
       tap((alerts) => this.alertsSubject.next(alerts)),
     );
   }
@@ -42,23 +44,64 @@ export class AlertsService {
     });
   }
 
-  markAsRead(id: string): void {
-    const currentAlerts = this.alertsSubject.getValue();
-    this.alertsSubject.next(
-      currentAlerts.map((a) =>
-        a.id === id ? { ...a, readAt: a.readAt ?? new Date().toISOString() } : a,
-      ),
-    );
-    this.http.patch(`${this.baseUrl}/alerts/${id}/read`, {}).subscribe();
+  markAsRead(id: string): Observable<void> {
+    return defer(() => {
+      const currentAlerts = this.alertsSubject.getValue();
+      const currentAlert = currentAlerts.find((a) => a.id === id);
+      const previousReadAt = currentAlert?.readAt ?? null;
+      const hadLocalReadAt = this.locallyReadAtById.has(id);
+      const optimisticReadAt = previousReadAt ?? this.locallyReadAtById.get(id) ?? new Date().toISOString();
+
+      this.locallyReadAtById.set(id, optimisticReadAt);
+      this.setAlertReadAt(id, optimisticReadAt);
+
+      return this.http.patch(`${this.baseUrl}/alerts/${id}/read`, {}).pipe(
+        map(() => undefined),
+        catchError((error) => {
+          if (!previousReadAt && !hadLocalReadAt) {
+            this.locallyReadAtById.delete(id);
+            this.setAlertReadAt(id, null);
+          }
+          return throwError(() => error);
+        }),
+      );
+    });
   }
 
   deleteAlert(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/alerts/${id}`).pipe(
       tap(() => {
+        this.locallyReadAtById.delete(id);
         this.alertDeletedSource.next(id);
         const currentAlerts = this.alertsSubject.getValue();
         this.alertsSubject.next(currentAlerts.filter(a => a.id !== id));
       })
+    );
+  }
+
+  private applyLocalReadState(alerts: ApiAlert[]): ApiAlert[] {
+    return alerts.map((alert) => {
+      if (alert.readAt) {
+        this.locallyReadAtById.set(alert.id, alert.readAt);
+        return alert;
+      }
+
+      const localReadAt = this.locallyReadAtById.get(alert.id);
+      return localReadAt ? { ...alert, readAt: localReadAt } : alert;
+    });
+  }
+
+  private setAlertReadAt(id: string, readAt: string | null): void {
+    this.alertsSubject.next(
+      this.alertsSubject.getValue().map((alert) =>
+        alert.id === id ? { ...alert, readAt } : alert,
+      ),
+    );
+  }
+
+   public getAlertsBySensor(sensorType: string, page: number = 0, size: number = 10): Observable<PaginatedResponse<ApiAlert>> {
+    return this.http.get<PaginatedResponse<ApiAlert>>(
+      `${this.baseUrl}/alerts?sensorType=${sensorType}&page=${page}&size=${size}&sortBy=triggeredAt&sortDir=desc`
     );
   }
 }

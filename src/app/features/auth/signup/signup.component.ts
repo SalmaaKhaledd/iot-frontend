@@ -13,7 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { finalize, switchMap } from 'rxjs';
+import { finalize, map, of, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { RegisterRequest } from '../../../core/models/auth.models';
@@ -223,19 +223,30 @@ export class SignupComponent implements OnDestroy {
           
           // If a file was selected, upload it now
           if (this.selectedFile) {
+            const authUser = toUserFromAuthResponse(response);
             return this.authService.updateProfilePicture(this.selectedFile).pipe(
-              switchMap(() => this.authService.getMe()),
-              switchMap((profileResponse) => {
-                this.authService.saveUser(toUserFromAuthResponse(response)); // Temporary
-                this.authService.saveUser(toUserFromProfileResponse(profileResponse)); // Actual
-                return [true];
-              })
+              switchMap((uploadResponse) => {
+                if (uploadResponse.profilePicture !== undefined) {
+                  this.authService.saveUser({
+                    ...authUser,
+                    profilePicture: uploadResponse.profilePicture ?? null,
+                  });
+                  return of(true);
+                }
+
+                return this.authService.getMe().pipe(
+                  map((profileResponse) => {
+                    this.authService.saveUser(toUserFromProfileResponse(profileResponse));
+                    return true;
+                  }),
+                );
+              }),
             );
           }
           
           // Otherwise, just save the basic user and continue
           this.authService.saveUser(toUserFromAuthResponse(response));
-          return [true];
+          return of(true);
         }),
         finalize(() => {
           this.isLoading = false;

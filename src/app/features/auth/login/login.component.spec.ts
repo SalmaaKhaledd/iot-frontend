@@ -68,6 +68,7 @@ describe('LoginComponent', () => {
         email: 'user@example.com',
         firstName: 'Test',
         lastName: 'User',
+        profilePicture: null,
         token: 'token',
         message: 'ok',
       }),
@@ -78,7 +79,7 @@ describe('LoginComponent', () => {
         email: 'user@example.com',
         firstName: 'Test',
         lastName: 'User',
-        profilePicture: 'uploads/profile-pictures/user.jpeg',
+        profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
       }),
     );
     component.loginForm.patchValue({
@@ -97,7 +98,7 @@ describe('LoginComponent', () => {
     expect(authServiceSpy.getMe).toHaveBeenCalled();
     expect(authServiceSpy.saveUser).toHaveBeenCalledWith(
       expect.objectContaining({
-        profilePicture: 'uploads/profile-pictures/user.jpeg',
+        profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
       }),
     );
     expect(router.navigate).toHaveBeenCalledWith(['/home']);

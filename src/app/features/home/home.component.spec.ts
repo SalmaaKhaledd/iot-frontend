@@ -22,7 +22,7 @@ describe('HomeComponent', () => {
     firstName: 'Farida',
     lastName: 'Khaled',
     email: 'farida@example.com',
-    profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
+    profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
   };
 
   let authServiceSpy: {
@@ -65,7 +65,7 @@ describe('HomeComponent', () => {
       firstName: 'Farida',
       lastName: 'Khaled',
       email: 'farida@example.com',
-      profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
+      profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
     });
   });
 

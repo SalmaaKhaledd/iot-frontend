@@ -24,7 +24,7 @@ describe('ProfileComponent', () => {
     firstName: 'Farida',
     lastName: 'Khaled',
     email: 'farida@example.com',
-    profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
+    profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
   };
 
   let authServiceSpy: {
@@ -65,6 +65,14 @@ describe('ProfileComponent', () => {
     authServiceSpy.getUser.mockReturnValue(cachedUser);
     authServiceSpy.getMe.mockReturnValue(of(profileResponse));
     authServiceSpy.logout.mockReturnValue(of({ message: 'Logged out successfully.' }));
+    Object.defineProperty(URL, 'createObjectURL', {
+      writable: true,
+      value: vi.fn(() => 'blob:preview'),
+    });
+    Object.defineProperty(URL, 'revokeObjectURL', {
+      writable: true,
+      value: vi.fn(),
+    });
 
     await TestBed.configureTestingModule({
       imports: [ProfileComponent],
@@ -87,7 +95,7 @@ describe('ProfileComponent', () => {
       firstName: 'Farida',
       lastName: 'Khaled',
       email: 'farida@example.com',
-      profilePicture: 'uploads/profile-pictures/user_abc123_1715000000.jpeg',
+      profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
     });
     expect(authServiceSpy.saveUser).toHaveBeenCalled();
     expect(component.initials).toBe('FK');
@@ -119,5 +127,30 @@ describe('ProfileComponent', () => {
 
     expect(authServiceSpy.clearSession).toHaveBeenCalled();
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+  });
+
+  it('applies returned profile picture URL after upload without refreshing profile', () => {
+    const updatedUrl = 'https://cdn.example.com/profile-pictures/user/new-avatar.jpeg';
+    authServiceSpy.updateProfilePicture.mockReturnValue(
+      of({
+        message: 'Profile picture updated successfully.',
+        profilePicture: updatedUrl,
+      }),
+    );
+    const component = TestBed.createComponent(ProfileComponent).componentInstance;
+    const saveUserCallCount = authServiceSpy.saveUser.mock.calls.length;
+    const file = new File(['image'], 'avatar.png', { type: 'image/png' });
+    const input = document.createElement('input');
+    Object.defineProperty(input, 'files', { value: [file] });
+
+    component.onProfilePictureSelected({ target: input } as unknown as Event);
+
+    expect(authServiceSpy.updateProfilePicture).toHaveBeenCalledWith(file);
+    expect(component.user?.profilePicture).toBe(updatedUrl);
+    expect(authServiceSpy.getMe).toHaveBeenCalledTimes(1);
+    expect(authServiceSpy.saveUser).toHaveBeenCalledTimes(saveUserCallCount + 1);
+    expect(authServiceSpy.saveUser).toHaveBeenLastCalledWith(
+      expect.objectContaining({ profilePicture: updatedUrl }),
+    );
   });
 });

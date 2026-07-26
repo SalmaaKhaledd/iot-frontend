@@ -56,7 +56,7 @@ export class ProfileComponent {
   profilePictureError = '';
   /**
    * Object URL shown as an optimistic preview while the picture upload is in flight.
-   * Cleared after upload completes or fails; saved picture is loaded via GET /picture.
+   * Cleared after upload completes or fails; saved picture is the returned public URL.
    */
   pendingPreviewUrl: string | null = null;
   showPasswordModal = false;
@@ -122,12 +122,12 @@ export class ProfileComponent {
     return `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`.toUpperCase();
   }
 
-  /** Renderable `<img>` src for the saved picture (blob URL from shared loader). */
+  /** Renderable `<img>` src for the saved public picture URL. */
   get profilePictureSrc(): string {
     return this.profilePictureService.pictureUrl() || '';
   }
 
-  /** Rate-limit or other load failure from GET /picture (shown under the avatar). */
+  /** Public URL image render failure text, kept for shared avatar UI compatibility. */
   get profilePictureLoadError(): string {
     return this.profilePictureService.loadError() || '';
   }
@@ -256,8 +256,14 @@ export class ProfileComponent {
       .subscribe({
         next: (response) => {
           this.successMessage = response.message;
-          // After a successful upload, refresh the profile to get the new API path
-          this.refreshProfile();
+          if (response.profilePicture !== undefined && this.user) {
+            this.applyUser({
+              ...this.user,
+              profilePicture: response.profilePicture ?? null,
+            });
+          } else {
+            this.refreshProfile();
+          }
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
@@ -304,9 +310,7 @@ export class ProfileComponent {
       .subscribe({
         next: (profileResponse) => {
           this.refreshNotice = '';
-          const mappedUser = toUserFromProfileResponse(profileResponse);
-          this.user = mappedUser;
-          this.authService.saveUser(mappedUser);
+          this.applyUser(toUserFromProfileResponse(profileResponse));
           this.cdr.markForCheck();
         },
         error: (error: unknown) => {
@@ -324,5 +328,10 @@ export class ProfileComponent {
           this.cdr.markForCheck();
         },
       });
+  }
+
+  private applyUser(user: User): void {
+    this.user = user;
+    this.authService.saveUser(user);
   }
 }

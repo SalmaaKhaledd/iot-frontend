@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
+import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 
 interface TrafficAlert {
   id: string;
@@ -40,6 +41,11 @@ export class TrafficAlertsComponent {
   readonly isFiltersOpen = signal(false);
   readonly congestionFilter = signal('all');
 
+  // Server-side Pagination state
+  readonly currentPage = signal(1);
+  readonly pageSize = 10;
+  readonly totalElements = signal(0);
+
   readonly filteredAlerts = computed(() => {
     const filter = this.congestionFilter();
     return this.trafficAlerts().filter((a: TrafficAlert) => {
@@ -52,13 +58,26 @@ export class TrafficAlertsComponent {
     });
   });
 
+  readonly rangeText = computed(() => {
+    const total = this.totalElements();
+    if (total === 0) return '0 of 0';
+    const start = (this.currentPage() - 1) * this.pageSize + 1;
+    const end = Math.min(this.currentPage() * this.pageSize, total);
+    return `${start}-${end} of ${total}`;
+  });
+
   constructor() {
-    this.alertsService.getAlerts()
+    toObservable(this.currentPage)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        map((alerts: ApiAlert[]) => alerts.filter((a: ApiAlert) => a.sensorType === 'TRAFFIC')),
-        switchMap((alerts: ApiAlert[]) => {
+        switchMap((page) => {
+          return this.alertsService.getAlertsBySensor('TRAFFIC', page - 1, this.pageSize);
+        }),
+        switchMap((response: PaginatedResponse<ApiAlert>) => {
+          this.totalElements.set(response.totalElements || 0);
+          const alerts = response.content || [];
           if (alerts.length === 0) return of([]);
+
           const requests = alerts.map((alert: ApiAlert) => {
             const metricName = (alert.metric || 'Sensor').replace(/_/g, ' ');
             const isBelow = alert.alertType === 'BELOW';
@@ -109,7 +128,6 @@ export class TrafficAlertsComponent {
       )
       .subscribe({
         next: (alerts: TrafficAlert[]) => {
-          // Sort newest first
           alerts.sort((a: TrafficAlert, b: TrafficAlert) => new Date(b.time).getTime() - new Date(a.time).getTime());
           this.trafficAlerts.set(alerts);
         },
@@ -144,9 +162,12 @@ export class TrafficAlertsComponent {
   }
 
   toggleFilters(): void { this.isFiltersOpen.update(v => !v); }
-  setCongestion(level: string): void { this.congestionFilter.set(level); }
   
-
+  setCongestion(level: string): void { 
+    this.congestionFilter.set(level); 
+    this.currentPage.set(1);
+  }
+  
   getCongestionColor(level: string): string {
     switch (level) {
       case 'Low':
@@ -167,6 +188,7 @@ export class TrafficAlertsComponent {
     this.alertsService.deleteAlert(alertId).subscribe({
       next: () => {
         this.trafficAlerts.update(alerts => alerts.filter(a => a.id !== alertId));
+        this.totalElements.update(total => Math.max(0, total - 1));
       },
       error: (err) => console.error('Failed to delete alert', err)
     });
@@ -175,5 +197,16 @@ export class TrafficAlertsComponent {
   onAlertHover(alert: TrafficAlert): void {
     // Handle hover - show report tooltip
   }
-}
 
+  nextPage(): void {
+    if (this.currentPage() * this.pageSize < this.totalElements()) {
+      this.currentPage.update(p => p + 1);
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage() > 1) {
+      this.currentPage.update(p => p - 1);
+    }
+  }
+}

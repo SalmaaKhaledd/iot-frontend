@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
-import { clearProfilePictureCache } from '../utils/profile-picture-cache';
 import { environment } from '../../../environments/environment';
 import type { User, UserProfileResponse } from '../models/user.model';
 import type {
@@ -11,6 +10,7 @@ import type {
   MessageResponse,
   RegisterRequest,
   UpdatePasswordRequest,
+  UpdateProfilePictureResponse,
 } from '../models/auth.models';
 
 //one shared singleton instance of the AuthService
@@ -51,22 +51,13 @@ export class AuthService {
     );
   }
 
-  updateProfilePicture(file: File): Observable<MessageResponse> {
+  updateProfilePicture(file: File): Observable<UpdateProfilePictureResponse> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.patch<MessageResponse>(
+    return this.http.patch<UpdateProfilePictureResponse>(
       `${this.baseUrl}/user/profile/picture`,
       formData,
     );
-  }
-
-  /** Downloads profile picture bytes from GET /api/user/profile/picture. */
-  getProfilePicture(cacheBust = false): Observable<Blob> {
-    let url = `${this.baseUrl}/user/profile/picture`;
-    if (cacheBust) {
-      url += `?t=${Date.now()}`;
-    }
-    return this.http.get(url, { responseType: 'blob' });
   }
 
   logout(): Observable<MessageResponse> {
@@ -102,7 +93,6 @@ export class AuthService {
   clearSession(): void {
     localStorage.removeItem(this.tokenStorageKey);
     localStorage.removeItem(this.userStorageKey);
-    clearProfilePictureCache();
     this.currentUser.set(null);
   }
 }

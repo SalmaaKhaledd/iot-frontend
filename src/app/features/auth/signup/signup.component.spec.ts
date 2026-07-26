@@ -28,6 +28,14 @@ describe('SignupComponent', () => {
       updateProfilePicture: vi.fn(),
       getMe: vi.fn(),
     };
+    Object.defineProperty(URL, 'createObjectURL', {
+      writable: true,
+      value: vi.fn(() => 'blob:preview'),
+    });
+    Object.defineProperty(URL, 'revokeObjectURL', {
+      writable: true,
+      value: vi.fn(),
+    });
     await TestBed.configureTestingModule({
       imports: [SignupComponent],
       providers: [
@@ -88,6 +96,8 @@ describe('SignupComponent', () => {
         email: 'user@example.com',
         firstName: 'Jane',
         lastName: 'Doe',
+        profilePicture: null,
+        token: 'register-token',
         message: 'created',
       }),
     );
@@ -97,17 +107,23 @@ describe('SignupComponent', () => {
         email: 'user@example.com',
         firstName: 'Jane',
         lastName: 'Doe',
+        profilePicture: null,
         token: 'token',
         message: 'ok',
       }),
     );
-    authServiceSpy.updateProfilePicture.mockReturnValue(of({ message: 'uploaded' }));
+    authServiceSpy.updateProfilePicture.mockReturnValue(
+      of({
+        message: 'uploaded',
+        profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
+      }),
+    );
     authServiceSpy.getMe.mockReturnValue(of({
         userId: '1',
         email: 'user@example.com',
         firstName: 'Jane',
         lastName: 'Doe',
-        profilePicture: '/api/user/profile/picture',
+        profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
     }));
 
     const file = new File(['dummy'], 'avatar.png', { type: 'image/png' });
@@ -136,6 +152,12 @@ describe('SignupComponent', () => {
       'StrongPassword1!',
     );
     expect(authServiceSpy.updateProfilePicture).toHaveBeenCalledWith(file);
+    expect(authServiceSpy.getMe).not.toHaveBeenCalled();
+    expect(authServiceSpy.saveUser).toHaveBeenCalledWith(
+      expect.objectContaining({
+        profilePicture: 'https://cdn.example.com/profile-pictures/user/avatar.jpeg',
+      }),
+    );
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 

@@ -15,6 +15,7 @@ describe('TrafficAlertsComponent', () => {
   beforeEach(async () => {
     mockAlertsService = {
       getAlerts: vi.fn(),
+      getAlertsBySensor: vi.fn(),
       deleteAlert: vi.fn()
     };
     mockSensorService = {
@@ -45,6 +46,13 @@ describe('TrafficAlertsComponent', () => {
     };
 
     mockAlertsService.getAlerts.mockReturnValue(of(mockApiAlerts));
+    mockAlertsService.getAlertsBySensor.mockReturnValue(of({
+      content: mockApiAlerts,
+      totalElements: mockApiAlerts.length,
+      totalPages: 1,
+      number: 0,
+      size: 10,
+    }));
     mockAlertsService.deleteAlert.mockReturnValue(of(undefined));
     mockSensorService.getTrafficReadingById.mockReturnValue(of(mockReading));
 
