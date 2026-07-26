@@ -107,6 +107,7 @@ spec:
     - name: sonar-analysis
       runAfter:
         - test-frontend
+      onError: continue
       when:
         - input: $(params.deploy)
           operator: in
