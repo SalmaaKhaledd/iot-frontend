@@ -8,6 +8,7 @@ import { forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
+import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
 
 interface TrafficAlert {
   id: string;
@@ -46,32 +47,28 @@ export class TrafficAlertsComponent {
   readonly pageSize = 10;
   readonly totalElements = signal(0);
 
-  readonly filteredAlerts = computed(() => {
-    const filter = this.congestionFilter();
-    return this.trafficAlerts().filter((a: TrafficAlert) => {
-      let matchesCongestion = true;
-      if (filter === 'low') matchesCongestion = a.congestionLevel === 'Low';
-      else if (filter === 'moderate') matchesCongestion = a.congestionLevel === 'Moderate';
-      else if (filter === 'high') matchesCongestion = a.congestionLevel === 'High';
-      else if (filter === 'severe') matchesCongestion = a.congestionLevel === 'Severe';
-      return matchesCongestion;
-    });
-  });
+  readonly filteredAlerts = computed(() => this.trafficAlerts());
+  private readonly congestionLevelQuery = computed(() => enumFilter(this.congestionFilter(), {
+    low: 'LOW',
+    moderate: 'MODERATE',
+    high: 'HIGH',
+    severe: 'SEVERE',
+  } as const));
+  private readonly alertQuery = computed(() => ({
+    page: this.currentPage(),
+    congestionLevel: this.congestionLevelQuery(),
+  }));
 
   readonly rangeText = computed(() => {
-    const total = this.totalElements();
-    if (total === 0) return '0 of 0';
-    const start = (this.currentPage() - 1) * this.pageSize + 1;
-    const end = Math.min(this.currentPage() * this.pageSize, total);
-    return `${start}-${end} of ${total}`;
+    return alertRangeText(this.currentPage(), this.pageSize, this.totalElements());
   });
 
   constructor() {
-    toObservable(this.currentPage)
+    toObservable(this.alertQuery)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap((page) => {
-          return this.alertsService.getAlertsBySensor('TRAFFIC', page - 1, this.pageSize);
+        switchMap(({ page, congestionLevel }) => {
+          return this.alertsService.getAlertsBySensor('TRAFFIC', page - 1, this.pageSize, { congestionLevel });
         }),
         switchMap((response: PaginatedResponse<ApiAlert>) => {
           this.totalElements.set(response.totalElements || 0);
@@ -79,23 +76,13 @@ export class TrafficAlertsComponent {
           if (alerts.length === 0) return of([]);
 
           const requests = alerts.map((alert: ApiAlert) => {
-            const metricName = (alert.metric || 'Sensor').replace(/_/g, ' ');
-            const isBelow = alert.alertType === 'BELOW';
-            const directionStr = isBelow ? 'BELOW' : 'ABOVE';
-            const title = `${metricName} Alert`;
-            const directionVerb = isBelow ? 'dropped below' : 'exceeded';
-            const message = `${metricName} in ${alert.location || 'Unknown Location'} ${directionVerb} threshold.`;
-            const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
+            const summary = buildAlertSummary(alert);
 
             const fallbackObj = {
               id: alert.id || crypto.randomUUID(),
               sensorId: alert.readingId || 'Unknown',
               location: alert.location || 'Unknown Location',
-              title: title,
-              message: message,
-              report: report,
-              direction: directionStr as 'ABOVE' | 'BELOW',
-              time: this.formatDate(alert.triggeredAt || new Date().toISOString()),
+              ...summary,
               trafficDensity: 0,
               avgSpeed: 0,
               congestionLevel: 'Low' as any
@@ -110,11 +97,7 @@ export class TrafficAlertsComponent {
                 id: alert.id || crypto.randomUUID(),
                 sensorId: reading.id,
                 location: reading.location || alert.location,
-                title: title,
-                message: message,
-                report: report,
-                direction: directionStr as 'ABOVE' | 'BELOW',
-                time: this.formatDate(alert.triggeredAt || new Date().toISOString()),
+                ...summary,
                 trafficDensity: reading.trafficDensity || 0,
                 avgSpeed: reading.avgSpeed || 0,
                 congestionLevel: this.toTrafficLevel(reading.congestionLevel)
@@ -133,22 +116,6 @@ export class TrafficAlertsComponent {
         },
         error: (err: unknown) => console.error('Failed to load traffic alerts', err)
       });
-  }
-
-  private formatDate(isoString: string): string {
-    if (!isoString) return 'Unknown Time';
-    const date = new Date(isoString);
-    if (isNaN(date.getTime())) return 'Unknown Time';
-    
-    const day = date.getDate();
-    const month = date.toLocaleString('en-US', { month: 'short' });
-    let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
-    
-    return `${day} ${month}, ${hours}:${minutes} ${ampm}`;
   }
 
   private toTrafficLevel(level: string): 'Low' | 'Moderate' | 'High' | 'Severe' {

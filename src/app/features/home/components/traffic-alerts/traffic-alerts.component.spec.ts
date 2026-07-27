@@ -80,6 +80,21 @@ describe('TrafficAlertsComponent', () => {
     expect(component.isFiltersOpen()).toBe(true);
   });
 
+  it('reloads the first page with selected congestion level', async () => {
+    mockAlertsService.getAlertsBySensor.mockClear();
+
+    component.setCongestion('severe');
+    await fixture.whenStable();
+
+    expect(component.currentPage()).toBe(1);
+    expect(mockAlertsService.getAlertsBySensor).toHaveBeenLastCalledWith(
+      'TRAFFIC',
+      0,
+      10,
+      { congestionLevel: 'SEVERE' },
+    );
+  });
+
   it('maps congestion levels to colors', () => {
     expect(component.getCongestionColor('Low')).toBe('success');
     expect(component.getCongestionColor('Moderate')).toBe('warning');

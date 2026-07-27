@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, defer, Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -16,6 +16,13 @@ export interface ApiAlert {
   triggeredAt: string; //timestamp
   readingId: string | null;
   readAt?: string | null;
+}
+
+export interface AlertReadingFilters {
+  alertType?: ApiAlert['alertType'];
+  pollutionLevel?: 'GOOD' | 'MODERATE' | 'UNHEALTHY' | 'VERY_UNHEALTHY' | 'HAZARDOUS';
+  congestionLevel?: 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
+  status?: 'ON' | 'OFF';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -99,9 +106,25 @@ export class AlertsService {
     );
   }
 
-   public getAlertsBySensor(sensorType: string, page: number = 0, size: number = 10): Observable<PaginatedResponse<ApiAlert>> {
-    return this.http.get<PaginatedResponse<ApiAlert>>(
-      `${this.baseUrl}/alerts?sensorType=${sensorType}&page=${page}&size=${size}&sortBy=triggeredAt&sortDir=desc`
-    );
+   public getAlertsBySensor(
+    sensorType: string,
+    page: number = 0,
+    size: number = 10,
+    filters: AlertReadingFilters = {},
+  ): Observable<PaginatedResponse<ApiAlert>> {
+    let params = new HttpParams()
+      .set('sensorType', sensorType)
+      .set('page', page)
+      .set('size', size)
+      .set('sortBy', 'triggeredAt')
+      .set('sortDir', 'desc');
+
+    for (const [key, value] of Object.entries(filters)) {
+      if (value) {
+        params = params.set(key, value);
+      }
+    }
+
+    return this.http.get<PaginatedResponse<ApiAlert>>(`${this.baseUrl}/alerts`, { params });
   }
 }

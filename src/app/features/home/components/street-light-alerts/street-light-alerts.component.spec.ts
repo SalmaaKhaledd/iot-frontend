@@ -80,6 +80,21 @@ describe('StreetLightAlertsComponent', () => {
     expect(component.isFiltersOpen()).toBe(true);
   });
 
+  it('reloads the first page with selected status', async () => {
+    mockAlertsService.getAlertsBySensor.mockClear();
+
+    component.setStatus('off');
+    await fixture.whenStable();
+
+    expect(component.currentPage()).toBe(1);
+    expect(mockAlertsService.getAlertsBySensor).toHaveBeenLastCalledWith(
+      'STREET_LIGHT',
+      0,
+      10,
+      { status: 'OFF' },
+    );
+  });
+
   it('maps status values to colors', () => {
     expect(component.getStatusColor('on')).toBe('success');
     expect(component.getStatusColor('off')).toBe('inactive');

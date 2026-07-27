@@ -231,4 +231,28 @@ describe('AlertsService', () => {
 
     expect(emittedId).toBe(alertId);
   });
+
+  it('should get sensor alerts with reading-level filters', () => {
+    const mockAlerts: ApiAlert[] = [];
+
+    service.getAlertsBySensor('TRAFFIC', 2, 10, { congestionLevel: 'SEVERE' }).subscribe(alerts => {
+      expect(alerts.content).toEqual(mockAlerts);
+    });
+
+    const req = httpMock.expectOne((request) => request.url === `${environment.apiUrl}/alerts`);
+    expect(req.request.method).toBe('GET');
+    expect(req.request.params.get('sensorType')).toBe('TRAFFIC');
+    expect(req.request.params.get('page')).toBe('2');
+    expect(req.request.params.get('size')).toBe('10');
+    expect(req.request.params.get('sortBy')).toBe('triggeredAt');
+    expect(req.request.params.get('sortDir')).toBe('desc');
+    expect(req.request.params.get('congestionLevel')).toBe('SEVERE');
+    req.flush({
+      content: mockAlerts,
+      totalElements: 0,
+      totalPages: 0,
+      number: 2,
+      size: 10,
+    });
+  });
 });

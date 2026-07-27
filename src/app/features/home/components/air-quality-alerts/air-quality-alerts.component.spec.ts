@@ -84,6 +84,21 @@ describe('AirQualityAlertsComponent', () => {
     expect(component.isFiltersOpen()).toBe(true);
   });
 
+  it('reloads the first page with selected pollution level', async () => {
+    mockAlertsService.getAlertsBySensor.mockClear();
+
+    component.setPollution('hazardous');
+    await fixture.whenStable();
+
+    expect(component.currentPage()).toBe(1);
+    expect(mockAlertsService.getAlertsBySensor).toHaveBeenLastCalledWith(
+      'AIR_POLLUTION',
+      0,
+      10,
+      { pollutionLevel: 'HAZARDOUS' },
+    );
+  });
+
   it('maps pollution levels to colors', () => {
     expect(component.getPollutionColor('Good')).toBe('success');
     expect(component.getPollutionColor('Moderate')).toBe('warning');

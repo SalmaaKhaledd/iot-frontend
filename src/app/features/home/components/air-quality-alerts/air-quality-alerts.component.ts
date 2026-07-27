@@ -8,6 +8,7 @@ import { forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
+import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
 
 interface AirQualityAlert {
   id: string;
@@ -50,34 +51,30 @@ export class AirQualityAlertsComponent {
   readonly pageSize = 10;
   readonly totalElements = signal(0);
 
-  readonly filteredAlerts = computed(() => {
-    const filter = this.pollutionFilter();
-    return this.airQualityAlerts().filter((a: AirQualityAlert) => {
-      let matchesPollution = true;
-      if (filter === 'good') matchesPollution = a.pollutionLevel === 'Good';
-      else if (filter === 'moderate') matchesPollution = a.pollutionLevel === 'Moderate';
-      else if (filter === 'unhealthy') matchesPollution = a.pollutionLevel === 'Unhealthy';
-      else if (filter === 'very-unhealthy') matchesPollution = a.pollutionLevel === 'Very Unhealthy';
-      else if (filter === 'hazardous') matchesPollution = a.pollutionLevel === 'Hazardous';
-      return matchesPollution;
-    });
-  });
+  readonly filteredAlerts = computed(() => this.airQualityAlerts());
+  private readonly pollutionLevelQuery = computed(() => enumFilter(this.pollutionFilter(), {
+    good: 'GOOD',
+    moderate: 'MODERATE',
+    unhealthy: 'UNHEALTHY',
+    'very-unhealthy': 'VERY_UNHEALTHY',
+    hazardous: 'HAZARDOUS',
+  } as const));
+  private readonly alertQuery = computed(() => ({
+    page: this.currentPage(),
+    pollutionLevel: this.pollutionLevelQuery(),
+  }));
 
   readonly rangeText = computed(() => {
-    const total = this.totalElements();
-    if (total === 0) return '0 of 0';
-    const start = (this.currentPage() - 1) * this.pageSize + 1;
-    const end = Math.min(this.currentPage() * this.pageSize, total);
-    return `${start}-${end} of ${total}`;
+    return alertRangeText(this.currentPage(), this.pageSize, this.totalElements());
   });
 
   constructor() {
-    toObservable(this.currentPage)
+    toObservable(this.alertQuery)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        switchMap((page) => {
+        switchMap(({ page, pollutionLevel }) => {
           // Spring Boot paginated APIs are 0-indexed, so we pass page - 1
-          return this.alertsService.getAlertsBySensor('AIR_POLLUTION', page - 1, this.pageSize);
+          return this.alertsService.getAlertsBySensor('AIR_POLLUTION', page - 1, this.pageSize, { pollutionLevel });
         }),
         switchMap((response: PaginatedResponse<ApiAlert>) => {
           this.totalElements.set(response.totalElements || 0);
@@ -85,23 +82,13 @@ export class AirQualityAlertsComponent {
           if (alerts.length === 0) return of([]);
 
           const requests = alerts.map((alert: ApiAlert) => {
-            const metricName = (alert.metric || 'Sensor').replace(/_/g, ' ');
-            const isBelow = alert.alertType === 'BELOW';
-            const directionStr = isBelow ? 'BELOW' : 'ABOVE';
-            const title = `${metricName} Alert`;
-            const directionVerb = isBelow ? 'dropped below' : 'exceeded';
-            const message = `${metricName} in ${alert.location || 'Unknown Location'} ${directionVerb} threshold.`;
-            const report = `${metricName} reached ${alert.triggeredValue ?? 'N/A'} (Threshold: ${alert.thresholdValue ?? 'N/A'}).`;
+            const summary = buildAlertSummary(alert);
 
             const fallbackObj = {
               id: alert.id || crypto.randomUUID(),
               sensorId: alert.readingId || 'Unknown',
               location: alert.location || 'Unknown Location',
-              title: title,
-              message: message,
-              report: report,
-              direction: directionStr as 'ABOVE' | 'BELOW',
-              time: this.formatDate(alert.triggeredAt || new Date().toISOString()),
+              ...summary,
               pollutionLevel: 'Moderate' as any,
               pm2_5: 0,
               pm10: 0,
@@ -120,11 +107,7 @@ export class AirQualityAlertsComponent {
                 id: alert.id || crypto.randomUUID(),
                 sensorId: reading.id,
                 location: reading.location || alert.location || 'Unknown Location',
-                title: title,
-                message: message,
-                report: report,
-                direction: directionStr as 'ABOVE' | 'BELOW',
-                time: this.formatDate(alert.triggeredAt || new Date().toISOString()),
+                ...summary,
                 pollutionLevel: this.toPollutionLevel(reading.pollutionLevel),
                 pm2_5: reading.pm2_5 || 0,
                 pm10: reading.pm10 || 0,
@@ -158,22 +141,6 @@ export class AirQualityAlertsComponent {
       case 'HAZARDOUS': return 'Hazardous';
       default: return 'Unhealthy';
     }
-  }
-
-  private formatDate(isoString: string): string {
-    if (!isoString) return 'Unknown Time';
-    const date = new Date(isoString);
-    if (isNaN(date.getTime())) return 'Unknown Time';
-    
-    const day = date.getDate();
-    const month = date.toLocaleString('en-US', { month: 'short' });
-    let hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; 
-    
-    return `${day} ${month}, ${hours}:${minutes} ${ampm}`;
   }
 
   toggleFilters(): void { this.isFiltersOpen.update(v => !v); }
