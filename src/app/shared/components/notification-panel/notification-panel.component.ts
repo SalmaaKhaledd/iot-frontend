@@ -155,7 +155,7 @@ export class NotificationPanelComponent {
         id: apiAlert.id || crypto.randomUUID(),
         type: type,
         typeIcon: typeIcon,
-        typeLabel: type.replaceAll(/-/g, ' ').toUpperCase(),
+        typeLabel: type.replaceAll('_',  ' ').toUpperCase(),
         severity: severity,
         severityIcon: severityIcon,
         direction: directionStr as 'ABOVE' | 'BELOW',
