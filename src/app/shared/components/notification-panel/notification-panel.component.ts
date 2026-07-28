@@ -134,7 +134,7 @@ export class NotificationPanelComponent {
       const type = typeStr as 'traffic' | 'air-quality' | 'street-light';
       const severity: string = apiAlert.alertType === 'ABOVE' ? 'warning' : 'info';
       
-      const metricName = (apiAlert.metric || 'Sensor').replaceAll(/_/g, ' ');
+      const metricName = (apiAlert.metric || 'Sensor').replaceAll('_',  ' ');
       const isBelow = apiAlert.alertType === 'BELOW';
       const directionStr = isBelow ? 'BELOW' : 'ABOVE';
       const title = `${metricName} Alert`;

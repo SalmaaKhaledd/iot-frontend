@@ -1,9 +1,15 @@
 import type { SensorDashboardConfig } from '../sensor-dashboard/sensor-dashboard.config';
+import {
+  ALERTS_TRIGGERED_METRIC,
+  BACK_ROUTE,
+  BASE_SORT_OPTIONS,
+  DEFAULT_CHART_COLORS,
+} from '../sensor-dashboard/sensor-dashboard.defaults';
 
 export const airQualityConfig: SensorDashboardConfig = {
   sensorType: 'air-pollution',
   title: 'Air quality dashboard',
-  backRoute: '/home',
+  backRoute: BACK_ROUTE,
 
   columns: [
     { key: 'timestamp', label: 'Timestamp' },
@@ -24,8 +30,7 @@ export const airQualityConfig: SensorDashboardConfig = {
   ],
 
   sortOptions: [
-    { label: 'Most recent first', value: 'timestamp:desc' },
-    { label: 'Oldest first', value: 'timestamp:asc' },
+    ...BASE_SORT_OPTIONS,
     { label: 'CO (high to low)', value: 'co:desc' },
     { label: 'CO (low to high)', value: 'co:asc' },
     { label: 'Ozone (high to low)', value: 'ozone:desc' },
@@ -52,13 +57,13 @@ export const airQualityConfig: SensorDashboardConfig = {
     metrics: [
       { key: 'avgCo', label: 'Avg CO', unit: 'ppm' },
       { key: 'avgOzone', label: 'Avg ozone', unit: 'ppm' },
-      { key: 'alertsTriggered', label: 'Alerts triggered' },
+      ALERTS_TRIGGERED_METRIC,
     ],
   },
 
   charts: {
-    metric1: { key: 'avgCo', label: 'Avg CO over time', color: '#378add' },
-    metric2: { key: 'avgOzone', label: 'Avg ozone over time', color: '#1d9e75' },
+    metric1: { key: 'avgCo', label: 'Avg CO over time', color: DEFAULT_CHART_COLORS.primary },
+    metric2: { key: 'avgOzone', label: 'Avg ozone over time', color: DEFAULT_CHART_COLORS.secondary },
     distributionChart: {
       field: 'pollutionLevelDistribution',
       label: 'Pollution distribution',

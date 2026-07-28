@@ -12,4 +12,4 @@ import { streetLightConfig } from './street-light.config';
 })
 export class StreetLightPageComponent {
   protected readonly streetLightConfig = streetLightConfig;
-}
+} 

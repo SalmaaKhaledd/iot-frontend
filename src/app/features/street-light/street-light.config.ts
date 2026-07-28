@@ -1,9 +1,15 @@
 import type { SensorDashboardConfig } from '../sensor-dashboard/sensor-dashboard.config';
+import {
+  ALERTS_TRIGGERED_METRIC,
+  BACK_ROUTE,
+  BASE_SORT_OPTIONS,
+  DEFAULT_CHART_COLORS,
+} from '../sensor-dashboard/sensor-dashboard.defaults';
 
 export const streetLightConfig: SensorDashboardConfig = {
   sensorType: 'street-lights',
   title: 'Street light dashboard',
-  backRoute: '/home',
+  backRoute: BACK_ROUTE,
 
   columns: [
     { key: 'timestamp', label: 'Timestamp' },
@@ -20,8 +26,7 @@ export const streetLightConfig: SensorDashboardConfig = {
   ],
 
   sortOptions: [
-    { label: 'Most recent first', value: 'timestamp:desc' },
-    { label: 'Oldest first', value: 'timestamp:asc' },
+    ...BASE_SORT_OPTIONS,
     { label: 'Brightness (high to low)', value: 'brightnessLevel:desc' },
     { label: 'Brightness (low to high)', value: 'brightnessLevel:asc' },
     { label: 'Power (high to low)', value: 'powerConsumption:desc' },
@@ -45,13 +50,13 @@ export const streetLightConfig: SensorDashboardConfig = {
     metrics: [
       { key: 'avgBrightness', label: 'Avg brightness', unit: '%' },
       { key: 'avgPowerConsumption', label: 'Avg power', unit: 'W' },
-      { key: 'alertsTriggered', label: 'Alerts triggered' },
+      ALERTS_TRIGGERED_METRIC,
     ],
   },
 
   charts: {
-    metric1: { key: 'avgBrightness', label: 'Avg brightness over time', color: '#378add' },
-    metric2: { key: 'avgPowerConsumption', label: 'Avg power over time', color: '#1d9e75' },
+    metric1: { key: 'avgBrightness', label: 'Avg brightness over time', color: DEFAULT_CHART_COLORS.primary },
+    metric2: { key: 'avgPowerConsumption', label: 'Avg power over time', color: DEFAULT_CHART_COLORS.secondary },
     distributionChart: {
       field: 'statusDistribution',
       label: 'Status distribution',

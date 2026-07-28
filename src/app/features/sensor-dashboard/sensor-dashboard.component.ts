@@ -924,7 +924,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
   }
 
   alertBannerMessage(alert: ApiAlert): string {
-    const metric = alert.metric.replaceAll(/_/g, ' ').toLowerCase();
+    const metric = alert.metric.replaceAll('_',  ' ').toLowerCase();
     return alert.alertType === 'ABOVE'
       ? `${this.config.title}: ${metric} exceeded threshold (${alert.triggeredValue} > ${alert.thresholdValue})`
       : `${this.config.title}: ${metric} dropped below threshold (${alert.triggeredValue} < ${alert.thresholdValue})`;
@@ -1253,7 +1253,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
   /** Turns enum-style keys (e.g. VERY_UNHEALTHY) into "Very Unhealthy". */
   private humanizeLabel(key: string): string {
     return key
-      .replaceAll(/_/g, ' ')
+      .replaceAll('_',  ' ')
       .toLowerCase()
       .replace(/\b\w/g, (c) => c.toUpperCase());
   }
@@ -1375,7 +1375,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
     const g = Number.parseInt(full.slice(2, 4), 16);
     const b = Number.parseInt(full.slice(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  }
+  } 
 
   private emptyFilterState(): FilterState {
     const extra: Record<string, string | number | null> = {};

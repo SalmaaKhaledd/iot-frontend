@@ -12,4 +12,4 @@ import { trafficDashboardConfig } from './traffic-dashboard-config';
 })
 export class TrafficDashboardPageComponent {
   protected readonly trafficDashboardConfig = trafficDashboardConfig;
-}
+} 

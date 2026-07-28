@@ -9,7 +9,7 @@ export interface AlertSummary {
 }
 
 export function buildAlertSummary(alert: ApiAlert): AlertSummary {
-  const metricName = (alert.metric || 'Sensor').replaceAll(/_/g, ' ');
+  const metricName = (alert.metric || 'Sensor').replaceAll('_',  ' ');
   const isBelow = alert.alertType === 'BELOW';
   const direction = isBelow ? 'BELOW' : 'ABOVE';
   const directionVerb = isBelow ? 'dropped below' : 'exceeded';

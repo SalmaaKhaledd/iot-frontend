@@ -876,7 +876,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     const pathSegments = path.split('/');
-    const alertId = pathSegments[pathSegments.length - 2];
+    const alertId = pathSegments.at(-2);
     const alert = mockAlerts.find((candidate) => candidate.id === alertId);
 
     if (!alert) {

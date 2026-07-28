@@ -1,9 +1,15 @@
 import type { SensorDashboardConfig } from '../sensor-dashboard/sensor-dashboard.config';
+import {
+  ALERTS_TRIGGERED_METRIC,
+  BACK_ROUTE,
+  BASE_SORT_OPTIONS,
+  DEFAULT_CHART_COLORS,
+} from '../sensor-dashboard/sensor-dashboard.defaults';
 
 export const trafficDashboardConfig: SensorDashboardConfig = {
   sensorType: 'traffic',
   title: 'Traffic dashboard',
-  backRoute: '/home',
+  backRoute: BACK_ROUTE,
 
   columns: [
     { key: 'timestamp', label: 'Timestamp' },
@@ -20,8 +26,7 @@ export const trafficDashboardConfig: SensorDashboardConfig = {
   ],
 
   sortOptions: [
-    { label: 'Most recent first', value: 'timestamp:desc' },
-    { label: 'Oldest first', value: 'timestamp:asc' },
+    ...BASE_SORT_OPTIONS,
     { label: 'Density (high to low)', value: 'trafficDensity:desc' },
     { label: 'Density (low to high)', value: 'trafficDensity:asc' },
     { label: 'Speed (high to low)', value: 'avgSpeed:desc' },
@@ -48,13 +53,13 @@ export const trafficDashboardConfig: SensorDashboardConfig = {
     metrics: [
       { key: 'avgTrafficDensity', label: 'Avg density' },
       { key: 'avgSpeed', label: 'Avg speed', unit: 'km/h' },
-      { key: 'alertsTriggered', label: 'Alerts triggered' },
+      ALERTS_TRIGGERED_METRIC,
     ],
   },
 
   charts: {
-    metric1: { key: 'avgSpeed', label: 'Avg speed over time', color: '#378add' },
-    metric2: { key: 'avgTrafficDensity', label: 'Vehicle density over time', color: '#1d9e75' },
+    metric1: { key: 'avgSpeed', label: 'Avg speed over time', color: DEFAULT_CHART_COLORS.primary },
+    metric2: { key: 'avgTrafficDensity', label: 'Vehicle density over time', color: DEFAULT_CHART_COLORS.secondary },
     distributionChart: {
       field: 'congestionLevelDistribution',
       label: 'Congestion distribution',

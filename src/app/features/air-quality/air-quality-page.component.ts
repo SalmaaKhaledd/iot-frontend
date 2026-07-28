@@ -12,4 +12,4 @@ import { airQualityConfig } from './air-quality.config';
 })
 export class AirQualityPageComponent {
   protected readonly airQualityConfig = airQualityConfig;
-}
+} 

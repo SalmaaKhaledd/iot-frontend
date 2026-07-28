@@ -94,9 +94,8 @@ export class SettingsService {
 
   getSensorConfig(): Observable<SensorConfiguration> {
     if (!this.sensorConfigLoaded && !this.sensorConfigLoading) {
-      void this.loadSensorConfig().subscribe();
+      this.loadSensorConfig().subscribe();
     }
-
     return this.sensorConfigSubject.asObservable();
   }
 
