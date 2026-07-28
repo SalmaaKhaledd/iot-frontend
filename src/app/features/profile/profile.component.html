@@ -18,7 +18,7 @@
           <img
             class="avatar-image"
             [src]="pendingPreviewUrl || profilePictureSrc"
-            alt="Profile picture"
+            alt="Profile"
             (error)="onImageError()"
           />
         } @else {
@@ -97,8 +97,8 @@
   </section>
 
   @if (showPasswordModal) {
-    <div class="modal-backdrop" (click)="closePasswordModal()">
-      <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-backdrop" (click)="closePasswordModal()" (keydown.enter)="closePasswordModal()" (keydown.space)="closePasswordModal()" role="button" tabindex="0">
+      <div class="modal-card" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()" (keydown.space)="$event.stopPropagation()" role="button" tabindex="0">
         <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
           <label for="currentPassword">Current password</label>
           <div class="password-input-group">

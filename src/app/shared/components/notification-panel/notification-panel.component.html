@@ -35,6 +35,8 @@
       [class.read]="alert.isRead"
       (click)="navigateToAlert(alert); toggleReport(alert.id)"
       role="button"
+      (keydown.enter)="navigateToAlert(alert); toggleReport(alert.id)" 
+      (keydown.space)="navigateToAlert(alert); toggleReport(alert.id)"
       tabindex="0"
       [attr.aria-label]="alert.title + ' - Jump to location'"
     >

@@ -22,7 +22,7 @@
         <p class="muted">Here's what's happening in your area today</p>
       </div>
       <div class="dashboard-cards">
-        <div class="card" (click)="goToDashboard('traffic')" data-testid="traffic-nav-card">
+        <div class="card" (click)="goToDashboard('traffic')" data-testid="traffic-nav-card" (keydown.enter)="goToDashboard('traffic')" (keydown.space)="goToDashboard('traffic')" role="button" tabindex="0">
           <div class="card-header">
             <div class="icon-wrap blue">
               <mat-icon>traffic</mat-icon>
@@ -32,7 +32,7 @@
           <p class="muted small">Monitor road congestion and traffic flow</p>
         </div>
 
-        <div class="card" (click)="goToDashboard('air-quality')" data-testid="air-quality-nav-card">
+        <div class="card" (click)="goToDashboard('air-quality')" data-testid="air-quality-nav-card" (keydown.enter)="goToDashboard('air-quality')" (keydown.space)="goToDashboard('air-quality')" role="button" tabindex="0">
           <div class="card-header">
             <div class="icon-wrap green">
               <mat-icon>air</mat-icon>
@@ -42,7 +42,7 @@
           <p class="muted small">Track pollution levels and air health</p>
         </div>
 
-        <div class="card" (click)="goToDashboard('street-light')" data-testid="street-light-nav-card">
+        <div class="card" (click)="goToDashboard('street-light')" data-testid="street-light-nav-card" (keydown.enter)="goToDashboard('street-light')" (keydown.space)="goToDashboard('street-light')" role="button" tabindex="0">
           <div class="card-header">
             <div class="icon-wrap yellow">
               <mat-icon>lightbulb</mat-icon>

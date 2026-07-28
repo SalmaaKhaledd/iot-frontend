@@ -13,7 +13,7 @@
       <div class="dtp-header">
         <span class="dtp-month-label">{{ monthLabel() }}</span>
         <div class="dtp-nav">
-          <span class="dtp-today-btn" (click)="goToToday()">Today</span>
+          <span class="dtp-today-btn" (click)="goToToday()" (keydown.enter)="goToToday()" (keydown.space)="goToToday()" role="button" tabindex="0">Today</span>
           <button type="button" class="dtp-nav-btn" (click)="prevMonth()">
             <mat-icon>chevron_left</mat-icon>
           </button>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="dtp-footer">
-        <div class="dtp-toggle-row" (click)="toggleIncludeTime()">
+        <div class="dtp-toggle-row" (click)="toggleIncludeTime()" (keydown.enter)="toggleIncludeTime()" (keydown.space)="toggleIncludeTime()" role="button" tabindex="0">
           <span class="dtp-toggle-label">Include time</span>
           <div class="dtp-toggle" [class.on]="includeTime()">
             <div class="dtp-toggle-knob"></div>

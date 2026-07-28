@@ -12,7 +12,10 @@ import type { User } from '../models/user.model';
 import { STRONG_PASSWORD_PATTERN } from '../validation/auth-validation.constants';
 
 type MockUser = User & { password: string };
-const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
+
+function isValidEmail(email: string): boolean {
+  return typeof email === 'string' && email.includes('@') && email.includes('.');
+}
 
 const mockUsers: MockUser[] = [
   {
@@ -172,7 +175,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const validationMessages: string[] = [];
     if (!email) {
       validationMessages.push('email is required');
-    } else if (!EMAIL_PATTERN.test(email)) {
+    } else if (!isValidEmail(email)) {
       validationMessages.push('invalid email format');
     }
     if (!firstName) {
@@ -271,7 +274,7 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const validationMessages: string[] = [];
     if (!email) {
       validationMessages.push('email is required');
-    } else if (!EMAIL_PATTERN.test(email)) {
+    } else if (!isValidEmail(email)) {
       validationMessages.push('invalid email format');
     }
     if (!password) {

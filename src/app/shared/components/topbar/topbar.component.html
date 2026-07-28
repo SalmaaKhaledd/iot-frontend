@@ -24,7 +24,7 @@
       [attr.title]="profilePictureLoadError() || null"
     >
       @if (profilePictureUrl()) {
-      <img [src]="profilePictureUrl()" alt="Profile picture" class="avatar-image" (error)="onImageError()" />
+      <img [src]="profilePictureUrl()" alt="Profile" class="avatar-image" (error)="onImageError()" />
       } @else {
       {{ userInitials() }}
       }
