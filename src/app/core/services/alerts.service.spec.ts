@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { vi } from 'vitest';
 import { AlertsService, ApiAlert } from './alerts.service';
 import { environment } from '../../../environments/environment';
 
@@ -216,8 +217,7 @@ describe('AlertsService', () => {
 
   it('should delete an alert and emit on alertDeleted$', () => {
     const alertId = 'test-id';
-    
-    // Subscribe to the alertDeleted$ subject to verify it emits
+
     let emittedId: string | null = null;
     service.alertDeleted$.subscribe(id => {
       emittedId = id;
@@ -227,7 +227,7 @@ describe('AlertsService', () => {
 
     const req = httpMock.expectOne(`${environment.apiUrl}/alerts/${alertId}`);
     expect(req.request.method).toBe('DELETE');
-    req.flush(null); // Return empty response
+    req.flush(null);
 
     expect(emittedId).toBe(alertId);
   });
@@ -254,5 +254,35 @@ describe('AlertsService', () => {
       number: 2,
       size: 10,
     });
+  });
+
+  it('should call getAlerts when refreshAlerts is called', () => {
+    service.refreshAlerts();
+
+    const req = httpMock.expectOne(
+      `${environment.apiUrl}/alerts?page=0&size=20&sortBy=triggeredAt&sortDir=desc`
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush({
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      number: 0,
+      size: 20,
+    });
+  });
+
+  it('should handle error in refreshAlerts gracefully', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    service.refreshAlerts();
+
+    const req = httpMock.expectOne(
+      `${environment.apiUrl}/alerts?page=0&size=20&sortBy=triggeredAt&sortDir=desc`
+    );
+    req.flush('error', { status: 500, statusText: 'Server Error' });
+
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
   });
 });
