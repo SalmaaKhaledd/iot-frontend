@@ -2,11 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
+import type { AlertNavigationType } from '../../models/alert-navigation.model';
 
 export interface AlertToastData {
   title: string;
   message: string;
-  type: 'traffic' | 'air-quality' | 'street-light';
+  type: AlertNavigationType;
   severity: 'info' | 'warning' | 'critical';
   icon: string;
 }

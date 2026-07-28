@@ -14,6 +14,7 @@ import { ProfilePictureService } from '../../../core/services/profile-picture.se
 import { ThemeService } from '../../../core/services/theme.service';
 import { SensorixLogoComponent } from '../sensorix-logo/sensorix-logo.component';
 import { NotificationPanelComponent } from '../notification-panel/notification-panel.component';
+import type { AlertNavigationTarget } from '../../models/alert-navigation.model';
 
 @Component({
   selector: 'app-topbar',
@@ -29,7 +30,7 @@ export class TopbarComponent {
   private readonly router = inject(Router);
   readonly themeService = inject(ThemeService);
 
-  @Output() readonly jumpToAlert = new EventEmitter<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}>();
+  @Output() readonly jumpToAlert = new EventEmitter<AlertNavigationTarget>();
 
   /** Reactive current user shared by the auth service. */
   readonly currentUser = this.authService.currentUser;
@@ -61,7 +62,7 @@ export class TopbarComponent {
     this.router.navigate(['/profile']);
   }
 
-  onJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+  onJumpToAlert(event: AlertNavigationTarget): void {
     this.jumpToAlert.emit(event);
   }
 }

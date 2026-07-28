@@ -230,7 +230,7 @@ select {
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  width: min(1200px, calc(100vw - 2rem));
+  width: min(1080px, 90vw);
   height: min(760px, calc(100vh - 2rem));
   height: min(760px, calc(100dvh - 2rem));
   overflow: hidden;
@@ -305,7 +305,7 @@ select {
 }
 
 .alert-modal-body .alerts-header-wrap,
-.alert-modal-body .pagination-bar {
+.alert-modal-body app-pagination-bar {
   flex: 0 0 auto;
 }
 
@@ -328,60 +328,11 @@ select {
   min-height: 32px;
 }
 
-.alert-modal-body .alerts-container .pagination-bar {
-  margin: 0;
-  padding: 10px 16px;
-  border-color: var(--t-card-border);
-  border-radius: 0;
-  background: var(--t-metric-bg);
-}
-
-.alert-modal-body .alerts-container .pagination-bar .range-text {
-  color: var(--t-text-secondary);
-}
-
-.alert-modal-body .alerts-container .pagination-bar .nav-arrow {
-  border-color: var(--t-metric-border);
-  background: var(--t-chip-bg);
-  color: var(--t-text-primary);
-}
-
-.alert-modal-body .alerts-container .pagination-bar .nav-arrow:hover:not(:disabled) {
-  border-color: var(--primary-color);
-  background: var(--primary-color);
-  color: #ffffff;
-}
-
-.alert-modal-body .alerts-container .pagination-bar .nav-arrow:disabled {
-  color: var(--t-text-muted);
-}
-
 .alert-modal-body .alerts-list {
   flex: 1 1 auto;
   max-height: none;
   min-height: 0;
   border-radius: 0;
-}
-
-body[data-theme="light"] .alert-modal-body .alerts-container .pagination-bar {
-  border-color: #e2e8f0;
-  background: #f8fafc;
-}
-
-body[data-theme="light"] .alert-modal-body .alerts-container .pagination-bar .range-text {
-  color: #475569;
-}
-
-body[data-theme="light"] .alert-modal-body .alerts-container .pagination-bar .nav-arrow {
-  border-color: #cbd5e1;
-  background: #ffffff;
-  color: #0f172a;
-}
-
-body[data-theme="light"] .alert-modal-body .alerts-container .pagination-bar .nav-arrow:hover:not(:disabled) {
-  border-color: var(--primary-color);
-  background: var(--primary-color);
-  color: #ffffff;
 }
 
 body[data-theme="light"] .alert-modal-body .filter-panel {
@@ -391,7 +342,7 @@ body[data-theme="light"] .alert-modal-body .filter-panel {
 
 @media (max-width: 620px) {
   .alert-modal-shell {
-    width: calc(100vw - 0.75rem);
+    width: 94vw;
     height: calc(100vh - 0.75rem);
     height: calc(100dvh - 0.75rem);
     border-radius: 12px;

@@ -29,7 +29,7 @@ describe('AlertModalShellComponent', () => {
 
   it('emits close from the backdrop and close button', () => {
     const closeSpy = vi.fn();
-    component.closeModal.subscribe(closeSpy);
+    component.close.subscribe(closeSpy);
     fixture.detectChanges();
 
     const nativeElement = fixture.nativeElement as HTMLElement;
@@ -37,5 +37,15 @@ describe('AlertModalShellComponent', () => {
     nativeElement.querySelector<HTMLElement>('.alert-modal-close')?.click();
 
     expect(closeSpy).toHaveBeenCalledTimes(2);
+  });
+
+  it('keeps the closeModal output as a compatibility alias', () => {
+    const closeSpy = vi.fn();
+    component.closeModal.subscribe(closeSpy);
+    fixture.detectChanges();
+
+    component.requestClose();
+
+    expect(closeSpy).toHaveBeenCalledOnce();
   });
 });

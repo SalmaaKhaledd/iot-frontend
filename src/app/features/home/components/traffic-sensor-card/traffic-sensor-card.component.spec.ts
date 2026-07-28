@@ -135,4 +135,16 @@ describe('TrafficSensorCardComponent', () => {
     expect(shell?.getAttribute('aria-label')).toBe('Traffic alerts');
     expect(nativeElement.querySelector('.alert-modal-body app-traffic-alerts')).toBeTruthy();
   });
+
+  it('closes the alerts modal from the shell close button', () => {
+    component.showAlerts.set(true);
+    fixture.detectChanges();
+
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    nativeElement.querySelector<HTMLButtonElement>('.alert-modal-close')?.click();
+    fixture.detectChanges();
+
+    expect(component.showAlerts()).toBe(false);
+    expect(nativeElement.querySelector('.alert-modal-shell')).toBeNull();
+  });
 });

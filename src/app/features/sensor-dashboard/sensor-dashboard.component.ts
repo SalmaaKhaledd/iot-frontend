@@ -29,6 +29,7 @@ import { DateTimePicker } from '../../shared/components/date-time-picker/date-ti
 import { SensorReadingsService } from '../../core/services/sensor-readings.service';
 import { AlertsService, ApiAlert } from '../../core/services/alerts.service';
 import { buildIsoTimestamp, validateDateRange } from '../../shared/utils/date-filter.utils';
+import type { AlertNavigationTarget } from '../../shared/models/alert-navigation.model';
 import type {
   AirPollutionParams,
   AirPollutionSensorReading,
@@ -100,7 +101,7 @@ const ALERT_SENSOR_TYPE: Record<SensorType, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="dashboard-page" [attr.data-testid]="config.testIds?.page ?? 'sensor-dashboard-page'">
-      <app-topbar></app-topbar>
+      <app-topbar (jumpToAlert)="onJumpToAlert($event)"></app-topbar>
 
       <div class="page-container">
         <!-- Header -->
@@ -937,6 +938,12 @@ export class SensorDashboard implements OnInit, OnDestroy {
   // ── Misc ─────────────────────────────────────────────────────────────────────
   goBack(): void {
     this.router.navigate([this.config.backRoute]);
+  }
+
+  onJumpToAlert(event: AlertNavigationTarget): void {
+    this.router.navigate(['/home'], {
+      queryParams: { openAlert: event.type, alertId: event.alertId },
+    });
   }
 
   toggleFilters(): void {

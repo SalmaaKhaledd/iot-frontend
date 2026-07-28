@@ -19,6 +19,10 @@ import { TopbarComponent } from '../../shared/components/topbar/topbar.component
 import { TrafficSensorCardComponent } from './components/traffic-sensor-card/traffic-sensor-card.component';
 import { AirQualitySensorCardComponent } from './components/air-quality-sensor-card/air-quality-sensor-card.component';
 import { StreetLightCardComponent } from './components/street-light-card/street-light-card.component';
+import type {
+  AlertNavigationTarget,
+  AlertNavigationType,
+} from '../../shared/models/alert-navigation.model';
 
 @Component({
   selector: 'app-home',
@@ -65,7 +69,7 @@ export class HomeComponent {
       });
 
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      const openAlert = params['openAlert'] as 'traffic' | 'air-quality' | 'street-light' | undefined;
+      const openAlert = params['openAlert'] as AlertNavigationType | undefined;
       const alertId = params['alertId'] as string | undefined;
 
       if (openAlert && alertId) {
@@ -111,7 +115,7 @@ export class HomeComponent {
     this.router.navigate(['/settings']);
   }
 
-  handleJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+  handleJumpToAlert(event: AlertNavigationTarget): void {
     const alertType = event.type;
     // Map alert type to sensor ID
     const sensorMap: { [key: string]: string } = {
