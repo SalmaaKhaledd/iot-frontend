@@ -10,6 +10,7 @@ import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
 import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
+import { PaginationBarComponent } from '../../../../shared/components/pagination-bar/pagination-bar';
 
 interface AirQualityAlert {
   id: string;
@@ -32,7 +33,7 @@ interface AirQualityAlert {
 @Component({
   selector: 'app-air-quality-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ChipFilterComponent],
+  imports: [CommonModule, MatIconModule,ChipFilterComponent,PaginationBarComponent],
   templateUrl: './air-quality-alerts.component.html',
   styleUrl: './air-quality-alerts.component.scss',
 })

@@ -30,17 +30,14 @@
     </div>
   </div>
 
-  <div class="pagination-bar" *ngIf="totalElements() > 0">
-    <span class="range-text">{{ rangeText() }} alerts</span>
-    <div class="pagination-actions">
-      <button (click)="prevPage()" [disabled]="currentPage() === 1" class="nav-arrow" aria-label="Previous page">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      <button (click)="nextPage()" [disabled]="currentPage() * pageSize >= totalElements()" class="nav-arrow" aria-label="Next page">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </div>
-  </div>
+  <app-pagination-bar
+    [totalElements]="totalElements()"
+    [currentPage]="currentPage()"
+    [pageSize]="pageSize"
+    [rangeText]="rangeText()"
+    (prev)="prevPage()"
+    (next)="nextPage()">
+  </app-pagination-bar>
 
   <div class="alerts-list">
     <div *ngFor="let alert of filteredAlerts()" class="alert-card" [id]="'alert-' + alert.id">

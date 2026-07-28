@@ -9,7 +9,8 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
-import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
+import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter'; 
+import { PaginationBarComponent } from '../../../../shared/components/pagination-bar/pagination-bar';
 
 interface TrafficAlert {
   id: string;
@@ -28,7 +29,7 @@ interface TrafficAlert {
 @Component({
   selector: 'app-traffic-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ChipFilterComponent],
+  imports: [CommonModule, MatIconModule,ChipFilterComponent,PaginationBarComponent],
   templateUrl: './traffic-alerts.component.html',
   styleUrl: './traffic-alerts.component.scss',
 })
