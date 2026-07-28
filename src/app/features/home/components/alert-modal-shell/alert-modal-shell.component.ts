@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="alert-modal-backdrop" (click)="close.emit()"></div>
+    <div class="alert-modal-backdrop" (click)="closeModal.emit()"></div>
     <div class="alert-modal-shell" role="dialog" aria-modal="true" [attr.aria-label]="ariaLabel">
       <div class="alert-modal-topbar">
-        <button class="alert-modal-close" type="button" (click)="close.emit()" aria-label="Close alerts">
+        <button class="alert-modal-close" type="button" (click)="closeModal.emit()" aria-label="Close alerts">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -22,5 +22,5 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AlertModalShellComponent {
   @Input() ariaLabel = 'Alerts';
-  @Output() readonly close = new EventEmitter<void>();
+  @Output() readonly closeModal = new EventEmitter<void>();
 }

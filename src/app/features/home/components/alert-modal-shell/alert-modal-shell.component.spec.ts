@@ -29,7 +29,7 @@ describe('AlertModalShellComponent', () => {
 
   it('emits close from the backdrop and close button', () => {
     const closeSpy = vi.fn();
-    component.close.subscribe(closeSpy);
+    component.closeModal.subscribe(closeSpy);
     fixture.detectChanges();
 
     const nativeElement = fixture.nativeElement as HTMLElement;

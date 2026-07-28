@@ -96,7 +96,7 @@ describe('StreetLightAlertsComponent', () => {
 
     const chips = fixture.nativeElement.querySelectorAll('app-chip-filter .chip');
 
-    expect(chips.length).toBe(3);
+    expect(chips).toHaveLength(3);
     expect(chips[1].textContent?.trim()).toBe('ON');
     expect(chips[2].textContent?.trim()).toBe('OFF');
   });
