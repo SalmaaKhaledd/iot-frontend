@@ -9,7 +9,7 @@ export interface AlertSummary {
 }
 
 export function buildAlertSummary(alert: ApiAlert): AlertSummary {
-  const metricName = (alert.metric || 'Sensor').replace(/_/g, ' ');
+  const metricName = (alert.metric || 'Sensor').replaceAll(/_/g, ' ');
   const isBelow = alert.alertType === 'BELOW';
   const direction = isBelow ? 'BELOW' : 'ABOVE';
   const directionVerb = isBelow ? 'dropped below' : 'exceeded';
@@ -26,7 +26,7 @@ export function buildAlertSummary(alert: ApiAlert): AlertSummary {
 export function formatAlertDate(isoString: string): string {
   if (!isoString) return 'Unknown Time';
   const date = new Date(isoString);
-  if (Number.isNaN(date.getTime())) return 'Unknown Time';
+  if (Number.Number.isNaN(date.getTime())) return 'Unknown Time';
 
   const day = date.getDate();
   const month = date.toLocaleString('en-US', { month: 'short' });

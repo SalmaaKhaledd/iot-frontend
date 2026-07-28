@@ -12,7 +12,7 @@ import type { User } from '../models/user.model';
 import { STRONG_PASSWORD_PATTERN } from '../validation/auth-validation.constants';
 
 type MockUser = User & { password: string };
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 const mockUsers: MockUser[] = [
   {

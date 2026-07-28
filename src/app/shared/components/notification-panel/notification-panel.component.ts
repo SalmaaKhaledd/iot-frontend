@@ -109,7 +109,7 @@ export class NotificationPanelComponent {
   private formatDate(isoString: string): string {
     if (!isoString) return 'Unknown Time';
     const date = new Date(isoString);
-    if (isNaN(date.getTime())) return 'Unknown Time';
+    if (Number.isNaN(date.getTime())) return 'Unknown Time';
     
     const day = date.getDate();
     const month = date.toLocaleString('en-US', { month: 'short' });
@@ -134,7 +134,7 @@ export class NotificationPanelComponent {
       const type = typeStr as 'traffic' | 'air-quality' | 'street-light';
       const severity: string = apiAlert.alertType === 'ABOVE' ? 'warning' : 'info';
       
-      const metricName = (apiAlert.metric || 'Sensor').replace(/_/g, ' ');
+      const metricName = (apiAlert.metric || 'Sensor').replaceAll(/_/g, ' ');
       const isBelow = apiAlert.alertType === 'BELOW';
       const directionStr = isBelow ? 'BELOW' : 'ABOVE';
       const title = `${metricName} Alert`;
@@ -155,7 +155,7 @@ export class NotificationPanelComponent {
         id: apiAlert.id || crypto.randomUUID(),
         type: type,
         typeIcon: typeIcon,
-        typeLabel: type.replace(/-/g, ' ').toUpperCase(),
+        typeLabel: type.replaceAll(/-/g, ' ').toUpperCase(),
         severity: severity,
         severityIcon: severityIcon,
         direction: directionStr as 'ABOVE' | 'BELOW',

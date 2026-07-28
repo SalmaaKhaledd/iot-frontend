@@ -67,7 +67,7 @@ export class SettingsConfigurationPanelComponent {
       this.sensorConfig()[key] = null as any;
     } else {
       const num = Number(value);
-      this.sensorConfig()[key] = isNaN(num) ? null as any : num;
+      this.sensorConfig()[key] = Number.isNaN(num) ? null as any : num;
     }
     this.changed.emit();
   }

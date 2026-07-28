@@ -134,8 +134,8 @@ export class DateTimePicker implements OnChanges {
     }
     if (changes['timeValue'] && this.timeValue) {
       const parts = this.timeValue.split(':');
-      const h24 = parseInt(parts[0]) || 0;
-      const m = parseInt(parts[1]) || 0;
+      const h24 = Number.parseInt(parts[0]) || 0;
+      const m = Number.parseInt(parts[1]) || 0;
       const pm = h24 >= 12;
       const h12 = h24 % 12 || 12;
       this.timeHour.set(h12);
