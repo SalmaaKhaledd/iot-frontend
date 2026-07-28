@@ -22,7 +22,7 @@
         <div class="metrics-grid">
           @for (metric of category.metrics; track metric.id) {
             <div class="metric-card">
-              <label class="metric-label">{{ metric.label }}</label>
+              <span class="metric-label">{{ metric.label }}</span>
 
               <div class="thresholds-list">
                 @for (threshold of metric.thresholds; track threshold.id) {
@@ -54,7 +54,10 @@
                         (focus)="onThresholdFocus(threshold.id)"
                         (blur)="onThresholdBlur()"
                         (wheel)="thresholdInput.blur()"
-                        [placeholder]="placeholderFor(metric)" />
+                        [placeholder]="placeholderFor(metric)" 
+                        [attr.aria-label]="metric.label + ' threshold value'"
+                        />
+                        
 
                       @if (getThresholdError(metric, threshold); as errorMsg) {
                         <div class="error-tooltip">

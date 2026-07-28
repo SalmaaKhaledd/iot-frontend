@@ -31,7 +31,7 @@
       </header>
 
       <section class="settings-shell">
-        <aside class="tab-rail" role="tablist" aria-label="Settings sections">
+        <div class="tab-rail" role="tablist" aria-label="Settings sections">
           @for (tab of tabs; track tab.id) {
             <button
               type="button"
@@ -47,7 +47,7 @@
               </span>
             </button>
           }
-        </aside>
+        </div>
 
         <section class="tab-panel" aria-live="polite">
           @switch (activeTab()) {
