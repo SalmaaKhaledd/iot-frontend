@@ -101,6 +101,12 @@ describe('StreetLightAlertsComponent', () => {
     expect(chips[2].textContent?.trim()).toBe('OFF');
   });
 
+  it('renders the shared pagination bar', () => {
+    const el = fixture.nativeElement as HTMLElement;
+
+    expect(el.querySelector('app-pagination-bar .pagination-bar')).toBeTruthy();
+  });
+
   it('maps status to colors', () => {
     expect(component.getStatusColor('on')).toBe('success');
     expect(component.getStatusColor('off')).toBe('inactive');

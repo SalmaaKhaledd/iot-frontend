@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { PaginationBarComponent } from './pagination-bar';
 
 async function createComponent(totalElements: number, currentPage: number, pageSize: number) {
@@ -49,5 +50,26 @@ describe('PaginationBarComponent', () => {
     const buttons = fixture.nativeElement.querySelectorAll('button');
     expect(buttons[1].disabled).toBe(true);
   });
- 
+
+  it('emits prev when previous arrow is clicked', async () => {
+    const { fixture, component } = await createComponent(25, 2, 10);
+    const prevSpy = vi.fn();
+    component.prev.subscribe(prevSpy);
+
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    buttons[0].click();
+
+    expect(prevSpy).toHaveBeenCalledOnce();
+  });
+
+  it('emits next when next arrow is clicked', async () => {
+    const { fixture, component } = await createComponent(25, 1, 10);
+    const nextSpy = vi.fn();
+    component.next.subscribe(nextSpy);
+
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    buttons[1].click();
+
+    expect(nextSpy).toHaveBeenCalledOnce();
+  });
 });

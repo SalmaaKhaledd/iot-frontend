@@ -17,8 +17,12 @@ import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertToastComponent, type AlertToastData } from '../alert-toast/alert-toast.component';
 import { Router } from '@angular/router';
+import type {
+  AlertNavigationTarget,
+  AlertNavigationType,
+} from '../../models/alert-navigation.model';
 
-const SENSOR_TYPE_TO_NOTIFICATION_TYPE: Record<string, AlertToastData['type']> = {
+const SENSOR_TYPE_TO_NOTIFICATION_TYPE: Record<string, AlertNavigationType> = {
   TRAFFIC: 'traffic',
   AIR_POLLUTION: 'air-quality',
   STREET_LIGHT: 'street-light',
@@ -32,7 +36,7 @@ const ALERT_SEVERITY_ICONS: Record<AlertToastData['severity'], string> = {
 
 export interface NotificationAlert {
   id: string;
-  type: AlertToastData['type'];
+  type: AlertNavigationType;
   typeIcon: string;
   typeLabel: string;
   severity: AlertToastData['severity'];
@@ -67,7 +71,7 @@ export class NotificationPanelComponent {
   readonly rawAlerts = signal<any>(null);
   readonly unreadCount = computed(() => this.alerts().filter((a: NotificationAlert) => !a.isRead).length);
 
-  @Output() readonly jumpToAlert = new EventEmitter<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}>();
+  @Output() readonly jumpToAlert = new EventEmitter<AlertNavigationTarget>();
 
   constructor(private readonly elRef: ElementRef) {
     this.alertsService.alerts$

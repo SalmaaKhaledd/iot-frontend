@@ -10,6 +10,7 @@ import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
 import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
+import { PaginationBarComponent } from '../../../../shared/components/pagination-bar/pagination-bar';
 
 interface StreetLightAlert {
   id: string;
@@ -28,7 +29,7 @@ interface StreetLightAlert {
 @Component({
   selector: 'app-street-light-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule, ChipFilterComponent],
+  imports: [CommonModule, MatIconModule, ChipFilterComponent, PaginationBarComponent],
   templateUrl: './street-light-alerts.component.html',
   styleUrl: './street-light-alerts.component.scss',
 })

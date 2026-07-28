@@ -29,7 +29,7 @@ interface TrafficAlert {
 @Component({
   selector: 'app-traffic-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule,ChipFilterComponent,PaginationBarComponent],
+  imports: [CommonModule, MatIconModule, ChipFilterComponent, PaginationBarComponent],
   templateUrl: './traffic-alerts.component.html',
   styleUrl: './traffic-alerts.component.scss',
 })

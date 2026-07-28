@@ -3,14 +3,19 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { forkJoin, of, Observable } from 'rxjs';
-import { defaultIfEmpty } from 'rxjs/operators';
+import { defer, forkJoin, of, Observable } from 'rxjs';
+import { defaultIfEmpty, switchMap } from 'rxjs/operators';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
-import { SettingsService, SaveThresholdSetting } from '../../core/services/settings.service';
+import {
+  SettingsService,
+  type SaveThresholdSetting,
+  type ThresholdSetting,
+} from '../../core/services/settings.service';
 
 import { TopbarComponent } from '../../shared/components/topbar/topbar.component';
+import type { AlertNavigationTarget } from '../../shared/models/alert-navigation.model';
 import { SettingsConfigurationPanelComponent } from './components/settings-configuration-panel.component';
 import { SettingsThresholdsPanelComponent } from './components/settings-thresholds-panel.component';
 import {
@@ -23,6 +28,42 @@ import {
   type SettingsTab,
   type Threshold,
 } from './settings.types';
+
+interface ThresholdSavePlan {
+  hasErrors: boolean;
+  retainedApiIds: Set<string>;
+  toSave: SaveThresholdSetting[];
+}
+
+const CATEGORY_ID_BY_SENSOR_TYPE: Record<string, string> = {
+  TRAFFIC: 'traffic',
+  AIR_POLLUTION: 'air',
+  STREET_LIGHT: 'street',
+};
+
+const SENSOR_TYPE_BY_CATEGORY_ID: Record<string, string> = {
+  traffic: 'TRAFFIC',
+  air: 'AIR_POLLUTION',
+  street: 'STREET_LIGHT',
+};
+
+const METRIC_ID_BY_API_NAME: Record<string, string> = {
+  TRAFFIC_DENSITY: 'density',
+  AVG_SPEED: 'speed',
+  CO: 'co',
+  OZONE: 'ozone',
+  BRIGHTNESS_LEVEL: 'brightness',
+  POWER_CONSUMPTION: 'power',
+};
+
+const API_NAME_BY_METRIC_ID: Record<string, string> = {
+  density: 'TRAFFIC_DENSITY',
+  speed: 'AVG_SPEED',
+  co: 'CO',
+  ozone: 'OZONE',
+  brightness: 'BRIGHTNESS_LEVEL',
+  power: 'POWER_CONSUMPTION',
+};
 
 @Component({
   selector: 'app-settings',
@@ -51,8 +92,7 @@ export class Settings {
   readonly categories = signal<SensorCategory[]>(createDefaultSensorCategories());
   readonly sensorConfig = signal<SensorConfiguration>(createDefaultSensorConfiguration());
   private readonly originalSensorConfig = signal<SensorConfiguration>(createDefaultSensorConfiguration());
-  private readonly originalSettings = signal<import('../../core/services/settings.service').ThresholdSetting[]>([]);
-  private readonly deletedThresholdIds = new Set<string>();
+  private readonly originalSettings = signal<ThresholdSetting[]>([]);
   readonly showSuccessMessage = signal(false);
 
   constructor() {
@@ -73,20 +113,9 @@ export class Settings {
         const defaultCats = createDefaultSensorCategories();
         
         settings.forEach((setting) => {
-          let catId: string;
-          if (setting.type === 'TRAFFIC') catId = 'traffic';
-          else if (setting.type === 'AIR_POLLUTION') catId = 'air';
-          else if (setting.type === 'STREET_LIGHT') catId = 'street';
-          else return;
-
-          let metId: string;
-          if (setting.metric === 'TRAFFIC_DENSITY') metId = 'density';
-          else if (setting.metric === 'AVG_SPEED') metId = 'speed';
-          else if (setting.metric === 'CO') metId = 'co';
-          else if (setting.metric === 'OZONE') metId = 'ozone';
-          else if (setting.metric === 'BRIGHTNESS_LEVEL') metId = 'brightness';
-          else if (setting.metric === 'POWER_CONSUMPTION') metId = 'power';
-          else return;
+          const catId = CATEGORY_ID_BY_SENSOR_TYPE[setting.type];
+          const metId = METRIC_ID_BY_API_NAME[setting.metric];
+          if (!catId || !metId) return;
 
           const category = defaultCats.find(c => c.id === catId);
           if (!category) return;
@@ -94,7 +123,7 @@ export class Settings {
           const metric = category.metrics.find(m => m.id === metId);
           if (!metric) return;
 
-          const condition = setting.alertType.toLowerCase() as 'above' | 'below';
+          const condition = setting.alertType.toLowerCase() as Threshold['condition'];
           
           // If the default single threshold has no value, update it
           // Otherwise, find matching condition or add a new one
@@ -161,108 +190,15 @@ export class Settings {
   }
 
   checkForChanges(): void {
-    let isChanged = false;
-    const currentApiIds = new Set<string>();
+    const { retainedApiIds, toSave } = this.buildThresholdSavePlan();
+    const deletedThresholdExists = this.originalSettings()
+      .some(setting => !retainedApiIds.has(setting.id));
 
-    for (const cat of this.categories()) {
-      for (const met of cat.metrics) {
-        for (const t of met.thresholds) {
-          if (t.apiId) {
-            currentApiIds.add(t.apiId);
-            const originalSetting = this.originalSettings().find(s => s.id === t.apiId);
-            if (originalSetting) {
-              if (originalSetting.thresholdValue !== t.value || originalSetting.alertType.toLowerCase() !== t.condition) {
-                isChanged = true;
-              }
-            } else {
-              isChanged = true;
-            }
-          } else if (t.value !== null) {
-            isChanged = true;
-          }
-        }
-      }
-    }
-
-    if (!isChanged) {
-      if (currentApiIds.size !== this.originalSettings().length) {
-        isChanged = true;
-      }
-    }
-
-    if (!isChanged) {
-      const currentConfig = this.sensorConfig();
-      const originalConfig = this.originalSensorConfig();
-      if (
-        currentConfig.trafficReadingInterval !== originalConfig.trafficReadingInterval ||
-        currentConfig.airQualityReadingInterval !== originalConfig.airQualityReadingInterval ||
-        currentConfig.streetLightReadingInterval !== originalConfig.streetLightReadingInterval
-      ) {
-        isChanged = true;
-      }
-    }
-
-    this.isDirty.set(isChanged);
+    this.isDirty.set(toSave.length > 0 || deletedThresholdExists || this.hasSensorConfigChanges());
   }
 
   saveChanges(): void {
-    let hasErrors = false;
-    const toSave: SaveThresholdSetting[] = [];
-    const currentApiIds = new Set<string>();
-
-    for (const cat of this.categories()) {
-      let type: string;
-      if (cat.id === 'traffic') type = 'TRAFFIC';
-      else if (cat.id === 'air') type = 'AIR_POLLUTION';
-      else if (cat.id === 'street') type = 'STREET_LIGHT';
-      else continue;
-
-      for (const met of cat.metrics) {
-        let metricName: string;
-        if (met.id === 'density') metricName = 'TRAFFIC_DENSITY';
-        else if (met.id === 'speed') metricName = 'AVG_SPEED';
-        else if (met.id === 'co') metricName = 'CO';
-        else if (met.id === 'ozone') metricName = 'OZONE';
-        else if (met.id === 'brightness') metricName = 'BRIGHTNESS_LEVEL';
-        else if (met.id === 'power') metricName = 'POWER_CONSUMPTION';
-        else continue;
-
-        const above = met.thresholds.find(t => t.condition === 'above');
-        const below = met.thresholds.find(t => t.condition === 'below');
-        if (above && below && above.value !== null && below.value !== null) {
-          if (above.value <= below.value) {
-            hasErrors = true;
-          }
-        }
-
-        for (const t of met.thresholds) {
-          if (t.apiId) {
-            currentApiIds.add(t.apiId);
-          }
-
-          if (t.value !== null) {
-            if (t.value < met.min || t.value > met.max) {
-              hasErrors = true;
-            }
-
-            const originalSetting = this.originalSettings().find(s => s.id === t.apiId);
-            const valueChanged = originalSetting 
-              ? originalSetting.thresholdValue !== t.value || originalSetting.alertType.toLowerCase() !== t.condition
-              : true;
-
-            if (valueChanged) {
-              toSave.push({
-                id: t.apiId,
-                type,
-                metric: metricName,
-                thresholdValue: t.value,
-                alertType: t.condition.toUpperCase()
-              });
-            }
-          }
-        }
-      }
-    }
+    const { hasErrors, retainedApiIds, toSave } = this.buildThresholdSavePlan();
 
     if (hasErrors) {
       alert('Please fix the threshold validation errors before saving.');
@@ -271,14 +207,18 @@ export class Settings {
 
     const deletedIds = this.originalSettings()
       .map(s => s.id)
-      .filter(id => !currentApiIds.has(id));
+      .filter(id => !retainedApiIds.has(id));
 
-    const deleteRequests = deletedIds.map(id => this.settingsService.deleteSetting(id).pipe(defaultIfEmpty(null)));
-    const saveRequest = toSave.length > 0 ? this.settingsService.saveSettings(toSave).pipe(defaultIfEmpty(null)) : of(null);
-    
-    const configRequest = this.settingsService.saveSensorConfig(this.sensorConfig()).pipe(defaultIfEmpty(null));
+    const saveRequest = defer(() =>
+      toSave.length > 0 ? this.settingsService.saveSettings(toSave).pipe(defaultIfEmpty(null)) : of(null),
+    );
+    const configRequest = defer(() =>
+      this.settingsService.saveSensorConfig(this.sensorConfig()).pipe(defaultIfEmpty(null)),
+    );
 
-    forkJoin([saveRequest, configRequest, ...deleteRequests]).subscribe({
+    this.deleteSettings(deletedIds).pipe(
+      switchMap(() => forkJoin([saveRequest, configRequest])),
+    ).subscribe({
       next: () => {
         this.originalSensorConfig.set({ ...this.sensorConfig() });
         this.isDirty.set(false);
@@ -324,7 +264,81 @@ export class Settings {
     this.checkForChanges();
   }
 
-  onJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
+  private buildThresholdSavePlan(): ThresholdSavePlan {
+    let hasErrors = false;
+    const retainedApiIds = new Set<string>();
+    const toSave: SaveThresholdSetting[] = [];
+
+    for (const cat of this.categories()) {
+      const type = SENSOR_TYPE_BY_CATEGORY_ID[cat.id];
+      if (!type) continue;
+
+      for (const met of cat.metrics) {
+        const metricName = API_NAME_BY_METRIC_ID[met.id];
+        if (!metricName) continue;
+
+        if (this.hasContradictoryThresholds(met)) {
+          hasErrors = true;
+        }
+
+        for (const threshold of met.thresholds) {
+          const originalSetting = this.originalSettings().find(s => s.id === threshold.apiId);
+          const conditionChanged = !!originalSetting && originalSetting.alertType.toLowerCase() !== threshold.condition;
+
+          if (threshold.value === null) {
+            continue;
+          }
+
+          if (threshold.value < met.min || threshold.value > met.max) {
+            hasErrors = true;
+          }
+
+          if (threshold.apiId && !conditionChanged) {
+            retainedApiIds.add(threshold.apiId);
+          }
+
+          const valueChanged = originalSetting
+            ? originalSetting.thresholdValue !== threshold.value || conditionChanged
+            : true;
+
+          if (valueChanged) {
+            toSave.push({
+              type,
+              metric: metricName,
+              thresholdValue: threshold.value,
+              alertType: threshold.condition.toUpperCase()
+            });
+          }
+        }
+      }
+    }
+
+    return { hasErrors, retainedApiIds, toSave };
+  }
+
+  private hasContradictoryThresholds(metric: SensorMetric): boolean {
+    const above = metric.thresholds.find(t => t.condition === 'above');
+    const below = metric.thresholds.find(t => t.condition === 'below');
+    return !!above && !!below && above.value !== null && below.value !== null && above.value <= below.value;
+  }
+
+  private hasSensorConfigChanges(): boolean {
+    const currentConfig = this.sensorConfig();
+    const originalConfig = this.originalSensorConfig();
+    return currentConfig.trafficReadingInterval !== originalConfig.trafficReadingInterval ||
+      currentConfig.airQualityReadingInterval !== originalConfig.airQualityReadingInterval ||
+      currentConfig.streetLightReadingInterval !== originalConfig.streetLightReadingInterval;
+  }
+
+  private deleteSettings(ids: string[]): Observable<unknown> {
+    if (ids.length === 0) {
+      return of(null);
+    }
+
+    return forkJoin(ids.map(id => this.settingsService.deleteSetting(id).pipe(defaultIfEmpty(null))));
+  }
+
+  onJumpToAlert(event: AlertNavigationTarget): void {
     this.router.navigate(['/home'], {
       queryParams: { openAlert: event.type, alertId: event.alertId }
     });
