@@ -26,7 +26,7 @@ export function buildAlertSummary(alert: ApiAlert): AlertSummary {
 export function formatAlertDate(isoString: string): string {
   if (!isoString) return 'Unknown Time';
   const date = new Date(isoString);
-  if (Number.Number.isNaN(date.getTime())) return 'Unknown Time';
+  if (Number.isNaN(date.getTime())) return 'Unknown Time';
 
   const day = date.getDate();
   const month = date.toLocaleString('en-US', { month: 'short' });

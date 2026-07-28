@@ -819,7 +819,7 @@ export class SensorDashboard implements OnInit, OnDestroy {
   toNum(value: unknown): number | null {
     if (value === '' || value === null || value === undefined) return null;
     const num = Number(value);
-    return Number.Number.isNaN(num) ? null : num;
+    return Number.isNaN(num) ? null : num;
   }
 
   // ── Pagination ───────────────────────────────────────────────────────────────

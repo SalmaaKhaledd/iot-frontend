@@ -1,7 +1,7 @@
 /** Parse API timestamps (ISO or `yyyy-MM-ddTHH:mm:ss`). */
 export function parseReadingTimestamp(timestamp: string): Date | null {
   const parsed = new Date(timestamp);
-  return Number.Number.isNaN(parsed.getTime()) ? null : parsed;
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
 /** e.g. `11:25 AM` in the user's local timezone. */
