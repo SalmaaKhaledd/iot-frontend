@@ -9,6 +9,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
+import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
 
 interface TrafficAlert {
   id: string;
@@ -27,7 +28,7 @@ interface TrafficAlert {
 @Component({
   selector: 'app-traffic-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule,ChipFilterComponent],
   templateUrl: './traffic-alerts.component.html',
   styleUrl: './traffic-alerts.component.scss',
 })
@@ -41,6 +42,14 @@ export class TrafficAlertsComponent {
   // Filter state
   readonly isFiltersOpen = signal(false);
   readonly congestionFilter = signal('all');
+
+  readonly congestionOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Low', value: 'low', cssClass: 'chip-success' },
+    { label: 'Moderate', value: 'moderate', cssClass: 'chip-warning' },
+    { label: 'High', value: 'high', cssClass: 'chip-error' },
+    { label: 'Severe', value: 'severe', cssClass: 'chip-critical' },
+  ];
 
   // Server-side Pagination state
   readonly currentPage = signal(1);

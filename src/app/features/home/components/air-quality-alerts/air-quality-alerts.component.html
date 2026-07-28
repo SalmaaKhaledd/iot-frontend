@@ -5,7 +5,7 @@
         <div class="icon-wrap">
           <mat-icon>air</mat-icon>
         </div>
-        <div>
+        <div> 
           <h2>Air Quality Alerts</h2>
           <p>Historical air quality events and updates</p>
         </div>
@@ -22,17 +22,11 @@
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
       </div>
-      <div class="filter-group">
-        <span class="filter-label">Pollution Level</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="pollutionFilter() === 'all'" (click)="setPollution('all')">All</div>
-          <div class="chip chip-success" [class.active]="pollutionFilter() === 'good'" (click)="setPollution('good')">Good</div>
-          <div class="chip chip-warning" [class.active]="pollutionFilter() === 'moderate'" (click)="setPollution('moderate')">Moderate</div>
-          <div class="chip chip-error" [class.active]="pollutionFilter() === 'unhealthy'" (click)="setPollution('unhealthy')">Unhealthy</div>
-          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'very-unhealthy'" (click)="setPollution('very-unhealthy')">Very Unhealthy</div>
-          <div class="chip chip-critical" [class.active]="pollutionFilter() === 'hazardous'" (click)="setPollution('hazardous')">Hazardous</div>
-        </div>
-      </div>
+      <app-chip-filter label="Pollution Level"
+        [options]="pollutionOptions"
+        [activeValue]="pollutionFilter()"
+        (valueChange)="setPollution($event)">
+      </app-chip-filter>
     </div>
   </div>
 

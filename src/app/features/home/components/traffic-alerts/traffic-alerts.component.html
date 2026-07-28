@@ -6,7 +6,7 @@
           <mat-icon>directions_car</mat-icon>
         </div>
         <div>
-          <h2>Traffic Alerts</h2>
+          <h2>Traffic Alerts</h2> 
           <p>Real-time traffic incidents and updates</p>
         </div>
       </div>
@@ -22,16 +22,12 @@
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
       </div>
-      <div class="filter-group">
-        <span class="filter-label">Congestion Level</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="congestionFilter() === 'all'" (click)="setCongestion('all')">All</div>
-          <div class="chip chip-success" [class.active]="congestionFilter() === 'low'" (click)="setCongestion('low')">Low</div>
-          <div class="chip chip-warning" [class.active]="congestionFilter() === 'moderate'" (click)="setCongestion('moderate')">Moderate</div>
-          <div class="chip chip-error" [class.active]="congestionFilter() === 'high'" (click)="setCongestion('high')">High</div>
-          <div class="chip chip-critical" [class.active]="congestionFilter() === 'severe'" (click)="setCongestion('severe')">Severe</div>
-        </div>
-      </div>
+      <app-chip-filter
+        label="Congestion Level"
+        [options]="congestionOptions"
+        [activeValue]="congestionFilter()"
+        (valueChange)="setCongestion($event)">
+      </app-chip-filter>
     </div>
   </div>
 

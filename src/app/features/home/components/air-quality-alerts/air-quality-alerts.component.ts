@@ -9,6 +9,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
+import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
 
 interface AirQualityAlert {
   id: string;
@@ -31,7 +32,7 @@ interface AirQualityAlert {
 @Component({
   selector: 'app-air-quality-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule,ChipFilterComponent],
   templateUrl: './air-quality-alerts.component.html',
   styleUrl: './air-quality-alerts.component.scss',
 })
@@ -42,6 +43,14 @@ export class AirQualityAlertsComponent {
 
   readonly airQualityAlerts = signal<AirQualityAlert[]>([]);
 
+  readonly pollutionOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Good', value: 'good', cssClass: 'chip-success' },
+    { label: 'Moderate', value: 'moderate', cssClass: 'chip-warning' },
+    { label: 'Unhealthy', value: 'unhealthy', cssClass: 'chip-error' },
+    { label: 'Very Unhealthy', value: 'very-unhealthy', cssClass: 'chip-critical' },
+    { label: 'Hazardous', value: 'hazardous', cssClass: 'chip-critical' },
+  ]; 
   // Filter state
   readonly isFiltersOpen = signal(false);
   readonly pollutionFilter = signal('all');
