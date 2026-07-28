@@ -16,6 +16,7 @@ import {
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { TrafficAlertsComponent } from '../traffic-alerts/traffic-alerts.component';
+import { AlertModalShellComponent } from '../alert-modal-shell/alert-modal-shell.component';
 
 type TrendPoint = {
   readonly time: string;
@@ -36,7 +37,7 @@ type TrafficSensorItem = {
 @Component({
   selector: 'app-traffic-sensor-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTooltipModule, TrafficAlertsComponent],
+  imports: [CommonModule, MatIconModule, MatTooltipModule, AlertModalShellComponent, TrafficAlertsComponent],
   templateUrl: './traffic-sensor-card.component.html',
   styleUrl: './traffic-sensor-card.component.scss',
 })

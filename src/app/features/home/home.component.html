@@ -4,6 +4,19 @@
 
   <main class="hero">
     <div class="max-w">
+      @if (showThresholdSetupBanner()) {
+        <div class="threshold-banner" role="status" data-testid="threshold-setup-banner">
+          <div class="threshold-banner-content">
+            <mat-icon>warning_amber</mat-icon>
+            <span>No thresholds configured. Set thresholds in Settings to start getting alerts.</span>
+          </div>
+          <button type="button" class="threshold-banner-action" (click)="goToSettings()">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+        </div>
+      }
+
       <div class="hero-intro mb-6">
         <h1 class="greeting">Good morning, {{ displayName() }}</h1>
         <p class="muted">Here's what's happening in your area today</p>

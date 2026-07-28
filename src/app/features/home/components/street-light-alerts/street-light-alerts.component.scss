@@ -69,16 +69,6 @@
   mat-icon { font-size: 17px; width: 17px; height: 17px; color: var(--t-text-secondary); }
 }
 
-.filter-group { display: flex; flex-direction: column; gap: 6px; }
-
-.filter-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--t-text-secondary);
-}
-
-.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-
 .header-content { display: flex; align-items: center; gap: 12px; }
 
 .icon-wrap {
@@ -102,25 +92,6 @@ p  { margin: 4px 0 0; color: var(--t-text-secondary); font-size: 13px; }
   &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb { background: var(--t-scrollbar); border-radius: 3px; }
 }
-
-.chip {
-  white-space: nowrap;
-  background: var(--t-chip-bg);
-  color: var(--t-chip-text);
-  padding: 6px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid var(--t-chip-border);
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-  line-height: 1.4;
-
-  &:hover { background: var(--t-chip-hover); }
-  &.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
-}
-
-.chip-severity { display: none; }
 
 .alert-card {
   display: flex; gap: 12px; padding: 16px;

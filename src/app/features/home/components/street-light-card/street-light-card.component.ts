@@ -14,6 +14,7 @@ import {
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { StreetLightAlertsComponent } from '../street-light-alerts/street-light-alerts.component';
+import { AlertModalShellComponent } from '../alert-modal-shell/alert-modal-shell.component';
 
 type StreetLightItem = {
   readonly id: string;
@@ -27,7 +28,7 @@ type StreetLightItem = {
 @Component({
   selector: 'app-street-light-card',
   standalone: true,
-  imports: [MatIconModule, MatTooltipModule, StreetLightAlertsComponent],
+  imports: [MatIconModule, MatTooltipModule, AlertModalShellComponent, StreetLightAlertsComponent],
   templateUrl: './street-light-card.component.html',
   styleUrl: './street-light-card.component.scss',
 })

@@ -32,7 +32,7 @@ interface AirQualityAlert {
 @Component({
   selector: 'app-air-quality-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule,ChipFilterComponent],
+  imports: [CommonModule, MatIconModule, ChipFilterComponent],
   templateUrl: './air-quality-alerts.component.html',
   styleUrl: './air-quality-alerts.component.scss',
 })

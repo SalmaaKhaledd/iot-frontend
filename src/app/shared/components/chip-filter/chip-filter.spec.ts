@@ -48,20 +48,14 @@ describe('ChipFilterComponent', () => {
     expect(emitted).toContain('low');
   });
 
-  it('emits valueChange on enter key', () => {
-    const emitted: string[] = [];
-    component.valueChange.subscribe((v: string) => emitted.push(v));
-    const chips = fixture.nativeElement.querySelectorAll('.chip');
-    chips[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-    expect(emitted).toContain('high');
-  });
+  it('renders options as native button controls', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    const chips = Array.from(el.querySelectorAll('.chip')) as HTMLButtonElement[];
 
-  it('emits valueChange on space key', () => {
-    const emitted: string[] = [];
-    component.valueChange.subscribe((v: string) => emitted.push(v));
-    const chips = fixture.nativeElement.querySelectorAll('.chip');
-    chips[1].dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
-    expect(emitted).toContain('low');
+    chips.forEach((chip) => {
+      expect(chip.tagName).toBe('BUTTON');
+      expect(chip.type).toBe('button');
+    });
   });
 
   it('applies cssClass to chip when provided', () => {

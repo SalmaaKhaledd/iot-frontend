@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { TrafficSensorCardComponent } from './traffic-sensor-card.component';
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
+import { AlertsService } from '../../../../core/services/alerts.service';
 import { TrafficSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('TrafficSensorCardComponent', () => {
@@ -11,6 +12,7 @@ describe('TrafficSensorCardComponent', () => {
   let fixture: ComponentFixture<TrafficSensorCardComponent>;
   let mockSensorService: any;
   let mockSettingsService: any;
+  let mockAlertsService: any;
 
   beforeEach(async () => {
     mockSensorService = {
@@ -20,6 +22,10 @@ describe('TrafficSensorCardComponent', () => {
       getSettings: vi.fn(),
       getSensorConfig: vi.fn(),
       loadSensorConfig: vi.fn()
+    };
+    mockAlertsService = {
+      getAlertsBySensor: vi.fn(),
+      deleteAlert: vi.fn()
     };
 
     const mockReadings: TrafficSensorReading[] = [
@@ -43,12 +49,21 @@ describe('TrafficSensorCardComponent', () => {
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ trafficReadingInterval: 60 } as any));
     mockSettingsService.loadSensorConfig.mockReturnValue(of({ trafficReadingInterval: 60 } as any));
+    mockAlertsService.getAlertsBySensor.mockReturnValue(of({
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      number: 0,
+      size: 10
+    }));
+    mockAlertsService.deleteAlert.mockReturnValue(of(void 0));
 
     await TestBed.configureTestingModule({
       imports: [TrafficSensorCardComponent],
       providers: [
         { provide: SensorReadingsService, useValue: mockSensorService },
-        { provide: SettingsService, useValue: mockSettingsService }
+        { provide: SettingsService, useValue: mockSettingsService },
+        { provide: AlertsService, useValue: mockAlertsService }
       ]
     }).compileComponents();
 
@@ -104,5 +119,20 @@ describe('TrafficSensorCardComponent', () => {
 
     document.body.removeChild(mockEl);
     vi.useRealTimers();
+  });
+
+  it('renders alerts in the shared responsive modal shell', () => {
+    component.showAlerts.set(true);
+    fixture.detectChanges();
+
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const shell = nativeElement.querySelector('.alert-modal-shell');
+
+    expect(nativeElement.querySelector('.alert-modal-backdrop')).toBeTruthy();
+    expect(shell).toBeTruthy();
+    expect(shell?.getAttribute('role')).toBe('dialog');
+    expect(shell?.getAttribute('aria-modal')).toBe('true');
+    expect(shell?.getAttribute('aria-label')).toBe('Traffic alerts');
+    expect(nativeElement.querySelector('.alert-modal-body app-traffic-alerts')).toBeTruthy();
   });
 });

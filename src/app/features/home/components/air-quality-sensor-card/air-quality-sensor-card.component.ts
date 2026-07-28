@@ -15,6 +15,7 @@ import {
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
 import { AirQualityAlertsComponent } from '../air-quality-alerts/air-quality-alerts.component';
+import { AlertModalShellComponent } from '../alert-modal-shell/alert-modal-shell.component';
 
 type PollutionLevel = 'Good' | 'Moderate' | 'Unhealthy' | 'Very Unhealthy';
 
@@ -34,7 +35,7 @@ type AirSensorItem = {
 @Component({
   selector: 'app-air-quality-sensor-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTooltipModule, AirQualityAlertsComponent],
+  imports: [CommonModule, MatIconModule, MatTooltipModule, AlertModalShellComponent, AirQualityAlertsComponent],
   templateUrl: './air-quality-sensor-card.component.html',
   styleUrl: './air-quality-sensor-card.component.scss',
 })

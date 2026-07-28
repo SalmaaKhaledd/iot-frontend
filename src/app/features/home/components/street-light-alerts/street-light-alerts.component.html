@@ -22,14 +22,12 @@
         <mat-icon>filter_alt</mat-icon>
         <span>Filters</span>
       </div>
-      <div class="filter-group">
-        <span class="filter-label">Status</span>
-        <div class="chip-row">
-          <div class="chip" [class.active]="statusFilter() === 'all'" (click)="setStatus('all')">All</div>
-          <div class="chip chip-success" [class.active]="statusFilter() === 'on'" (click)="setStatus('on')">ON</div>
-          <div class="chip chip-inactive" [class.active]="statusFilter() === 'off'" (click)="setStatus('off')">OFF</div>
-        </div>
-      </div>
+      <app-chip-filter
+        label="Status"
+        [options]="statusOptions"
+        [activeValue]="statusFilter()"
+        (valueChange)="setStatus($event)">
+      </app-chip-filter>
     </div>
   </div>
 

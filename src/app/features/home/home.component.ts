@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../../core/services/auth.service';
+import { SettingsService, type ThresholdSetting } from '../../core/services/settings.service';
 import { User } from '../../core/models/user.model';
 import { toUserFromProfileResponse } from '../../core/utils/auth-user.mapper';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,6 +30,7 @@ import { StreetLightCardComponent } from './components/street-light-card/street-
 })
 export class HomeComponent {
   private readonly authService = inject(AuthService);
+  private readonly settingsService = inject(SettingsService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -37,6 +39,7 @@ export class HomeComponent {
 
   readonly displayName = computed(() => this.currentUser()?.firstName ?? 'User');
   readonly refreshNotice = signal('');
+  readonly showThresholdSetupBanner = signal(false);
 
   constructor() {
     this.authService
@@ -78,6 +81,18 @@ export class HomeComponent {
         }, 100);
       }
     });
+
+    this.settingsService
+      .getSettings()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (settings) => {
+          this.showThresholdSetupBanner.set(!this.hasConfiguredThresholds(settings));
+        },
+        error: () => {
+          this.showThresholdSetupBanner.set(false);
+        },
+      });
   }
 
   scrollToSensor(sensorId: string): void {
@@ -90,6 +105,10 @@ export class HomeComponent {
   // Navigation from card in home to dashboard
   goToDashboard(type: 'traffic' | 'air-quality' | 'street-light'): void {
     this.router.navigate([`/${type}-dashboard`]);
+  }
+
+  goToSettings(): void {
+    this.router.navigate(['/settings']);
   }
 
   handleJumpToAlert(event: {type: 'traffic' | 'air-quality' | 'street-light', alertId: string}): void {
@@ -116,6 +135,13 @@ export class HomeComponent {
   private applyUser(user: User): void {
     this.currentUser.set(user);
     this.authService.saveUser(user);
+  }
+
+  private hasConfiguredThresholds(settings: ThresholdSetting[]): boolean {
+    return settings.some((setting) => {
+      const value = setting.thresholdValue;
+      return value !== null && value !== undefined && Number.isFinite(Number(value));
+    });
   }
 }
 

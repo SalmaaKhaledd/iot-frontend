@@ -144,14 +144,8 @@
   }
 
   @if (showAlerts()) {
-    <div class="modal-backdrop" (click)="showAlerts.set(false)"></div>
-    <div class="modal-content">
-      <div class="modal-topbar">
-        <button class="modal-close" (click)="showAlerts.set(false)" aria-label="Close alerts">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
+    <app-alert-modal-shell [ariaLabel]="'Air quality alerts'" (close)="showAlerts.set(false)">
       <app-air-quality-alerts></app-air-quality-alerts>
-    </div>
+    </app-alert-modal-shell>
   }
 </section>

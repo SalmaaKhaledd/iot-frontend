@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { StreetLightCardComponent } from './street-light-card.component';
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
+import { AlertsService } from '../../../../core/services/alerts.service';
 import { StreetLightSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('StreetLightCardComponent', () => {
@@ -11,6 +12,7 @@ describe('StreetLightCardComponent', () => {
   let fixture: ComponentFixture<StreetLightCardComponent>;
   let mockSensorService: any;
   let mockSettingsService: any;
+  let mockAlertsService: any;
 
   beforeEach(async () => {
     mockSensorService = {
@@ -19,6 +21,10 @@ describe('StreetLightCardComponent', () => {
     mockSettingsService = {
       getSettings: vi.fn(),
       getSensorConfig: vi.fn()
+    };
+    mockAlertsService = {
+      getAlertsBySensor: vi.fn(),
+      deleteAlert: vi.fn()
     };
 
     const mockReadings: StreetLightSensorReading[] = [
@@ -41,12 +47,21 @@ describe('StreetLightCardComponent', () => {
     }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ streetLightReadingInterval: 60 } as any));
+    mockAlertsService.getAlertsBySensor.mockReturnValue(of({
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      number: 0,
+      size: 10
+    }));
+    mockAlertsService.deleteAlert.mockReturnValue(of(void 0));
 
     await TestBed.configureTestingModule({
       imports: [StreetLightCardComponent],
       providers: [
         { provide: SensorReadingsService, useValue: mockSensorService },
-        { provide: SettingsService, useValue: mockSettingsService }
+        { provide: SettingsService, useValue: mockSettingsService },
+        { provide: AlertsService, useValue: mockAlertsService }
       ]
     }).compileComponents();
 
@@ -101,5 +116,20 @@ describe('StreetLightCardComponent', () => {
 
     document.body.removeChild(mockEl);
     vi.useRealTimers();
+  });
+
+  it('renders alerts in the shared responsive modal shell', () => {
+    component.showAlerts.set(true);
+    fixture.detectChanges();
+
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const shell = nativeElement.querySelector('.alert-modal-shell');
+
+    expect(nativeElement.querySelector('.alert-modal-backdrop')).toBeTruthy();
+    expect(shell).toBeTruthy();
+    expect(shell?.getAttribute('role')).toBe('dialog');
+    expect(shell?.getAttribute('aria-modal')).toBe('true');
+    expect(shell?.getAttribute('aria-label')).toBe('Street light alerts');
+    expect(nativeElement.querySelector('.alert-modal-body app-street-light-alerts')).toBeTruthy();
   });
 });

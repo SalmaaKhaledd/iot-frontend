@@ -5,6 +5,8 @@ import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
 import { AuthService } from '../../core/services/auth.service';
+import { SettingsService, type ThresholdSetting } from '../../core/services/settings.service';
+import { SensorReadingsService } from '../../core/services/sensor-readings.service';
 import type { User, UserProfileResponse } from '../../core/models/user.model';
 import { HomeComponent } from './home.component';
 
@@ -30,6 +32,15 @@ describe('HomeComponent', () => {
     getMe: ReturnType<typeof vi.fn>;
     saveUser: ReturnType<typeof vi.fn>;
   };
+  let settingsServiceSpy: {
+    getSettings: ReturnType<typeof vi.fn>;
+    getSensorConfig: ReturnType<typeof vi.fn>;
+  };
+  let sensorReadingsServiceSpy: {
+    getTrafficReadings: ReturnType<typeof vi.fn>;
+    getAirPollutionReadings: ReturnType<typeof vi.fn>;
+    getStreetLightReadings: ReturnType<typeof vi.fn>;
+  };
 
   function createComponent(): HomeComponent {
     const fixture = TestBed.createComponent(HomeComponent);
@@ -42,14 +53,49 @@ describe('HomeComponent', () => {
       getMe: vi.fn(),
       saveUser: vi.fn(),
     };
+    settingsServiceSpy = {
+      getSettings: vi.fn(),
+      getSensorConfig: vi.fn(),
+    };
+    sensorReadingsServiceSpy = {
+      getTrafficReadings: vi.fn(),
+      getAirPollutionReadings: vi.fn(),
+      getStreetLightReadings: vi.fn(),
+    };
+
+    settingsServiceSpy.getSensorConfig.mockReturnValue(
+      of({
+        trafficReadingInterval: 5,
+        airQualityReadingInterval: 10,
+        streetLightReadingInterval: 15,
+      }),
+    );
+    settingsServiceSpy.getSettings.mockReturnValue(
+      of([
+        {
+          id: 'threshold-1',
+          type: 'TRAFFIC',
+          metric: 'TRAFFIC_DENSITY',
+          thresholdValue: 70,
+          alertType: 'ABOVE',
+          createdAt: '2026-07-28T00:00:00Z',
+        },
+      ] satisfies ThresholdSetting[]),
+    );
 
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
       providers: [
         provideRouter([]),
         { provide: AuthService, useValue: authServiceSpy as unknown as AuthService },
+        { provide: SettingsService, useValue: settingsServiceSpy as unknown as SettingsService },
+        { provide: SensorReadingsService, useValue: sensorReadingsServiceSpy as unknown as SensorReadingsService },
       ],
     }).compileComponents();
+
+    sensorReadingsServiceSpy.getTrafficReadings.mockReturnValue(of({ content: [] }));
+    sensorReadingsServiceSpy.getAirPollutionReadings.mockReturnValue(of({ content: [] }));
+    sensorReadingsServiceSpy.getStreetLightReadings.mockReturnValue(of({ content: [] }));
   });
 
   it('refreshes user from getMe() and saves mapped user', () => {
@@ -133,5 +179,24 @@ describe('HomeComponent', () => {
     expect(dispatchedEvent.detail).toEqual({ sensorType: 'traffic', alertId: 'alert-123' });
 
     window.HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
+  });
+
+  it('shows threshold setup banner when no thresholds are configured', () => {
+    authServiceSpy.getUser.mockReturnValue(cachedUser);
+    authServiceSpy.getMe.mockReturnValue(of(profileResponse));
+    settingsServiceSpy.getSettings.mockReturnValue(of([]));
+
+    const component = createComponent();
+
+    expect(component.showThresholdSetupBanner()).toBe(true);
+  });
+
+  it('hides threshold setup banner when thresholds are configured', () => {
+    authServiceSpy.getUser.mockReturnValue(cachedUser);
+    authServiceSpy.getMe.mockReturnValue(of(profileResponse));
+
+    const component = createComponent();
+
+    expect(component.showThresholdSetupBanner()).toBe(false);
   });
 });

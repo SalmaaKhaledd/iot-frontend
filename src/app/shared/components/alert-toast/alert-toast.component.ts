@@ -24,7 +24,12 @@ export class AlertToastComponent {
     public snackBarRef: MatSnackBarRef<AlertToastComponent>
   ) {}
 
-  dismiss() {
+  openAlert(): void {
+    this.snackBarRef.dismissWithAction();
+  }
+
+  dismiss(event?: Event): void {
+    event?.stopPropagation();
     this.snackBarRef.dismiss();
   }
 }

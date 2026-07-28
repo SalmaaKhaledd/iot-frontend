@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import { AirQualitySensorCardComponent } from './air-quality-sensor-card.component';
 import { SensorReadingsService } from '../../../../core/services/sensor-readings.service';
 import { SettingsService } from '../../../../core/services/settings.service';
+import { AlertsService } from '../../../../core/services/alerts.service';
 import { AirPollutionSensorReading } from '../../../../core/models/sensor-reading.models';
 
 describe('AirQualitySensorCardComponent', () => {
@@ -11,6 +12,7 @@ describe('AirQualitySensorCardComponent', () => {
   let fixture: ComponentFixture<AirQualitySensorCardComponent>;
   let mockSensorService: any;
   let mockSettingsService: any;
+  let mockAlertsService: any;
 
   beforeEach(async () => {
     mockSensorService = {
@@ -19,6 +21,10 @@ describe('AirQualitySensorCardComponent', () => {
     mockSettingsService = {
       getSettings: vi.fn(),
       getSensorConfig: vi.fn()
+    };
+    mockAlertsService = {
+      getAlertsBySensor: vi.fn(),
+      deleteAlert: vi.fn()
     };
 
     const mockReadings: AirPollutionSensorReading[] = [
@@ -45,12 +51,21 @@ describe('AirQualitySensorCardComponent', () => {
     }));
     mockSettingsService.getSettings.mockReturnValue(of([]));
     mockSettingsService.getSensorConfig.mockReturnValue(of({ airQualityReadingInterval: 60 } as any));
+    mockAlertsService.getAlertsBySensor.mockReturnValue(of({
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      number: 0,
+      size: 10
+    }));
+    mockAlertsService.deleteAlert.mockReturnValue(of(void 0));
 
     await TestBed.configureTestingModule({
       imports: [AirQualitySensorCardComponent],
       providers: [
         { provide: SensorReadingsService, useValue: mockSensorService },
-        { provide: SettingsService, useValue: mockSettingsService }
+        { provide: SettingsService, useValue: mockSettingsService },
+        { provide: AlertsService, useValue: mockAlertsService }
       ]
     }).compileComponents();
 
@@ -139,5 +154,20 @@ describe('AirQualitySensorCardComponent', () => {
 
     document.body.removeChild(mockEl);
     vi.useRealTimers();
+  });
+
+  it('renders alerts in the shared responsive modal shell', () => {
+    component.showAlerts.set(true);
+    fixture.detectChanges();
+
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const shell = nativeElement.querySelector('.alert-modal-shell');
+
+    expect(nativeElement.querySelector('.alert-modal-backdrop')).toBeTruthy();
+    expect(shell).toBeTruthy();
+    expect(shell?.getAttribute('role')).toBe('dialog');
+    expect(shell?.getAttribute('aria-modal')).toBe('true');
+    expect(shell?.getAttribute('aria-label')).toBe('Air quality alerts');
+    expect(nativeElement.querySelector('.alert-modal-body app-air-quality-alerts')).toBeTruthy();
   });
 });

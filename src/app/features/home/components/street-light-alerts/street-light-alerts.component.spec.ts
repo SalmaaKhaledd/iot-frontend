@@ -90,6 +90,17 @@ describe('StreetLightAlertsComponent', () => {
     );
   });
 
+  it('renders shared status filter chips', () => {
+    component.isFiltersOpen.set(true);
+    fixture.detectChanges();
+
+    const chips = fixture.nativeElement.querySelectorAll('app-chip-filter .chip');
+
+    expect(chips.length).toBe(3);
+    expect(chips[1].textContent?.trim()).toBe('ON');
+    expect(chips[2].textContent?.trim()).toBe('OFF');
+  });
+
   it('maps status to colors', () => {
     expect(component.getStatusColor('on')).toBe('success');
     expect(component.getStatusColor('off')).toBe('inactive');

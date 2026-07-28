@@ -9,6 +9,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { ApiAlert } from '../../../../core/services/alerts.service';
 import type { PaginatedResponse } from '../../../../core/models/sensor-reading.models';
 import { alertRangeText, buildAlertSummary, enumFilter } from '../alert-modal-utils';
+import { ChipFilterComponent } from '../../../../shared/components/chip-filter/chip-filter';
 
 interface StreetLightAlert {
   id: string;
@@ -27,7 +28,7 @@ interface StreetLightAlert {
 @Component({
   selector: 'app-street-light-alerts',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, ChipFilterComponent],
   templateUrl: './street-light-alerts.component.html',
   styleUrl: './street-light-alerts.component.scss',
 })
@@ -41,6 +42,11 @@ export class StreetLightAlertsComponent {
   // Filter state
   readonly isFiltersOpen = signal(false);
   readonly statusFilter = signal('all');
+  readonly statusOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'ON', value: 'on', cssClass: 'chip-success' },
+    { label: 'OFF', value: 'off', cssClass: 'chip-inactive' },
+  ];
 
   // Server-side Pagination state
   readonly currentPage = signal(1);

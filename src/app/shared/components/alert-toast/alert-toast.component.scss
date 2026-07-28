@@ -11,6 +11,14 @@
   backdrop-filter: blur(12px);
   min-width: 300px;
   max-width: 400px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover,
+  &:focus-within {
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+    transform: translateY(-1px);
+  }
 
   /* Use light mode variables if applicable */
   :host-context(body[data-theme="light"]) & {
@@ -33,6 +41,20 @@
     border-left-color: #3b82f6;
     .icon-container { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
   }
+}
+
+.toast-open {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .icon-container {

@@ -15,15 +15,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AlertToastComponent } from '../alert-toast/alert-toast.component';
+import { AlertToastComponent, type AlertToastData } from '../alert-toast/alert-toast.component';
 import { Router } from '@angular/router';
+
+const SENSOR_TYPE_TO_NOTIFICATION_TYPE: Record<string, AlertToastData['type']> = {
+  TRAFFIC: 'traffic',
+  AIR_POLLUTION: 'air-quality',
+  STREET_LIGHT: 'street-light',
+};
+
+const ALERT_SEVERITY_ICONS: Record<AlertToastData['severity'], string> = {
+  info: 'info',
+  warning: 'warning',
+  critical: 'error',
+};
 
 export interface NotificationAlert {
   id: string;
-  type: 'traffic' | 'air-quality' | 'street-light';
+  type: AlertToastData['type'];
   typeIcon: string;
   typeLabel: string;
-  severity: string;
+  severity: AlertToastData['severity'];
   severityIcon: string;
   direction: 'ABOVE' | 'BELOW';
   title: string;
@@ -73,22 +85,10 @@ export class NotificationPanelComponent {
             const newAlerts = mappedAlerts.filter(a => !currentIds.has(a.id));
             
             const onHomePage = this.router.url === '/home';
-            if(onHomePage){
+            if (onHomePage) {
               newAlerts.forEach(alert => {
-              this.snackBar.openFromComponent(AlertToastComponent, {
-                data: {
-                  title: alert.title,
-                  message: alert.message,
-                  type: alert.type,
-                  severity: alert.severity,
-                  icon: alert.typeIcon
-                },
-                duration: 5000,
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                panelClass: ['transparent-snackbar']
+                this.showAlertToast(alert);
               });
-            });
             }
           } else {
             this.isInitialized = true;
@@ -124,15 +124,8 @@ export class NotificationPanelComponent {
 
   private mapToNotificationAlert(apiAlert: ApiAlert): NotificationAlert {
     try {
-      const typeMap: Record<string, string> = {
-        'TRAFFIC': 'traffic',
-        'AIR_POLLUTION': 'air-quality',
-        'STREET_LIGHT': 'street-light'
-      };
-      
-      const typeStr = typeMap[apiAlert.sensorType] || 'traffic';
-      const type = typeStr as 'traffic' | 'air-quality' | 'street-light';
-      const severity: string = apiAlert.alertType === 'ABOVE' ? 'warning' : 'info';
+      const type = SENSOR_TYPE_TO_NOTIFICATION_TYPE[apiAlert.sensorType] ?? 'traffic';
+      const severity: AlertToastData['severity'] = apiAlert.alertType === 'ABOVE' ? 'warning' : 'info';
       
       const metricName = (apiAlert.metric || 'Sensor').replaceAll('_',  ' ');
       const isBelow = apiAlert.alertType === 'BELOW';
@@ -147,9 +140,7 @@ export class NotificationPanelComponent {
       else if (type === 'air-quality') typeIcon = 'air';
       else if (type === 'street-light') typeIcon = 'lightbulb';
 
-      let severityIcon = 'info';
-      if (severity === 'warning') severityIcon = 'warning';
-      else if (severity === 'critical') severityIcon = 'error';
+      const severityIcon = ALERT_SEVERITY_ICONS[severity];
 
       return {
         id: apiAlert.id || crypto.randomUUID(),
@@ -182,6 +173,27 @@ export class NotificationPanelComponent {
         isRead: false
       };
     }
+  }
+
+  private showAlertToast(alert: NotificationAlert): void {
+    const snackBarRef = this.snackBar.openFromComponent(AlertToastComponent, {
+      data: {
+        title: alert.title,
+        message: alert.message,
+        type: alert.type,
+        severity: alert.severity,
+        icon: alert.typeIcon
+      },
+      duration: 5000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: ['transparent-snackbar']
+    });
+
+    snackBarRef
+      .onAction()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.navigateToAlert(alert));
   }
 
   /** Close panel when clicking outside */

@@ -1,16 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject, of } from 'rxjs';
 import { vi } from 'vitest';
-import { NotificationPanelComponent } from './notification-panel.component';
+import { NotificationPanelComponent, type NotificationAlert } from './notification-panel.component';
 import { AlertsService, ApiAlert } from '../../../core/services/alerts.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertToastComponent } from '../alert-toast/alert-toast.component';
 
 describe('NotificationPanelComponent', () => {
   let component: NotificationPanelComponent;
   let fixture: ComponentFixture<NotificationPanelComponent>;
   let mockAlertsService: any;
+  let mockRouter: { url: string };
+  let mockSnackBar: { openFromComponent: ReturnType<typeof vi.fn> };
   let alertDeletedSubject: Subject<string>;
   let alertsSubject: Subject<ApiAlert[]>;
+  let snackBarActionSubject: Subject<void>;
 
   const mockApiAlerts: ApiAlert[] = [
     {
@@ -40,6 +45,13 @@ describe('NotificationPanelComponent', () => {
   beforeEach(async () => {
     alertDeletedSubject = new Subject<string>();
     alertsSubject = new Subject<ApiAlert[]>();
+    snackBarActionSubject = new Subject<void>();
+    mockRouter = { url: '/home' };
+    mockSnackBar = {
+      openFromComponent: vi.fn(() => ({
+        onAction: () => snackBarActionSubject.asObservable(),
+      })),
+    };
 
     mockAlertsService = {
       getAlerts: vi.fn().mockReturnValue(of(mockApiAlerts)),
@@ -48,13 +60,15 @@ describe('NotificationPanelComponent', () => {
       alertDeleted$: alertDeletedSubject.asObservable()
     };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [NotificationPanelComponent],
       providers: [
         { provide: AlertsService, useValue: mockAlertsService },
-        { provide: Router, useValue: { url: '/home' } }
+        { provide: Router, useValue: mockRouter },
       ]
-    }).compileComponents();
+    });
+    TestBed.overrideProvider(MatSnackBar, { useValue: mockSnackBar });
+    await TestBed.compileComponents();
 
     fixture = TestBed.createComponent(NotificationPanelComponent);
     component = fixture.componentInstance;
@@ -112,6 +126,47 @@ describe('NotificationPanelComponent', () => {
     expect(mockAlertsService.markAsRead).toHaveBeenCalledWith('alert-1');
     expect(emitted).toEqual([{ type: 'traffic', alertId: 'alert-1' }]);
     expect(component.isOpen()).toBe(false);
+  });
+
+  it('routes toast actions through the same alert jump event', () => {
+    const emitted: Array<{type: 'traffic' | 'air-quality' | 'street-light', alertId: string}> = [];
+    const toastAlert: NotificationAlert = {
+      id: 'alert-3',
+      type: 'street-light',
+      typeIcon: 'lightbulb',
+      typeLabel: 'STREET-LIGHT',
+      severity: 'info',
+      severityIcon: 'info',
+      direction: 'BELOW',
+      title: 'BRIGHTNESS Alert',
+      message: 'BRIGHTNESS in Side St dropped below threshold.',
+      report: 'BRIGHTNESS reached 20 (Threshold: 30).',
+      time: '28 Jul, 9:00 PM',
+      isRead: false,
+    };
+    component.jumpToAlert.subscribe(event => emitted.push(event));
+    mockAlertsService.markAsRead.mockClear();
+    mockSnackBar.openFromComponent.mockClear();
+
+    (component as unknown as { showAlertToast(alert: NotificationAlert): void }).showAlertToast(toastAlert);
+
+    expect(mockSnackBar.openFromComponent).toHaveBeenCalledWith(
+      AlertToastComponent,
+      expect.objectContaining({
+        data: expect.objectContaining({
+          title: 'BRIGHTNESS Alert',
+          message: 'BRIGHTNESS in Side St dropped below threshold.',
+          type: 'street-light',
+          severity: 'info',
+          icon: 'lightbulb',
+        }),
+      }),
+    );
+
+    snackBarActionSubject.next();
+
+    expect(mockAlertsService.markAsRead).toHaveBeenCalledWith('alert-3');
+    expect(emitted).toEqual([{ type: 'street-light', alertId: 'alert-3' }]);
   });
 
   it('updates unread count from service read state', () => {

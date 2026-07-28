@@ -1,12 +1,24 @@
-<div class="alert-toast" [ngClass]="['severity-' + data.severity, 'type-' + data.type]">
-  <div class="icon-container">
-    <mat-icon>{{ data.icon }}</mat-icon>
-  </div>
-  <div class="content">
-    <h4 class="title">{{ data.title }}</h4>
-    <p class="message">{{ data.message }}</p>
-  </div>
-  <button class="close-btn" (click)="dismiss()">
+<div
+  class="alert-toast"
+  [ngClass]="['severity-' + data.severity, 'type-' + data.type]">
+  <button
+    class="toast-open"
+    type="button"
+    [attr.aria-label]="'Open ' + data.title"
+    (click)="openAlert()">
+    <div class="icon-container">
+      <mat-icon>{{ data.icon }}</mat-icon>
+    </div>
+    <div class="content">
+      <h4 class="title">{{ data.title }}</h4>
+      <p class="message">{{ data.message }}</p>
+    </div>
+  </button>
+  <button
+    class="close-btn"
+    type="button"
+    aria-label="Dismiss notification"
+    (click)="dismiss($event)">
     <mat-icon>close</mat-icon>
   </button>
 </div>
