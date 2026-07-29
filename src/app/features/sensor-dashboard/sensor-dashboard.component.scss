@@ -707,7 +707,7 @@ body[data-theme='light'] .congestion-badge {
 
 .analytics-cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
   gap: 0.75rem;
 }
 
@@ -718,6 +718,7 @@ body[data-theme='light'] .congestion-badge {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  min-width: 0;
 }
 
 .analytics-card-label {
@@ -726,6 +727,7 @@ body[data-theme='light'] .congestion-badge {
   color: var(--t-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
 }
 
 .analytics-card-value {
@@ -733,6 +735,7 @@ body[data-theme='light'] .congestion-badge {
   font-weight: 600;
   color: var(--t-text-primary);
   line-height: 1.2;
+  overflow-wrap: anywhere;
 
   &.low      { color: #4ade80; }
   &.moderate { color: #facc15; }
@@ -751,6 +754,7 @@ body[data-theme='light'] .analytics-card-value {
   font-size: 0.75rem;
   font-weight: 400;
   color: var(--t-text-muted);
+  white-space: nowrap;
 }
 
 .analytics-chart-panel {
@@ -911,6 +915,15 @@ body[data-theme='light'] .analytics-card-value {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .analytics-header,
+  .analytics-body {
+    padding-inline: 1rem;
+  }
+
+  .analytics-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .filter-row-2 {
     flex-direction: column;
     align-items: flex-start;
@@ -929,6 +942,35 @@ body[data-theme='light'] .analytics-card-value {
 
   .filter-row-1 {
     grid-template-columns: 1fr;
+  }
+
+  .analytics-header {
+    gap: 0.75rem;
+  }
+
+  .analytics-header-left,
+  .analytics-header-right {
+    min-width: 0;
+  }
+
+  .analytics-toggle-hint {
+    display: none;
+  }
+
+  .analytics-body {
+    padding: 1rem;
+  }
+
+  .analytics-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-card {
+    padding: 0.85rem;
+  }
+
+  .analytics-card-value {
+    font-size: 1.25rem;
   }
 
   .pagination-row {
